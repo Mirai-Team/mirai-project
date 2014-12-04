@@ -41,7 +41,7 @@
 			</Target>
 		</Build>
 		<Unit filename="main.cpp" />
-		<Unit filename="main.h" />
+		<Unit filename="mirai_project.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
