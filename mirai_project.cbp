@@ -40,8 +40,8 @@
 				</Linker>
 			</Target>
 		</Build>
-		<Unit filename="main.cpp" />
-		<Unit filename="mirai_project.h" />
+		<Unit filename="src/mirai_project.cpp" />
+		<Unit filename="include/mirai_project.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
