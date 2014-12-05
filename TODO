@@ -1,0 +1,19 @@
+TODO LIST :
+
+high:
+
+-add SFML, Box2D, SPARK
+
+normal:
+
+low:
+
+unclassified:
+
+-Parsing system for configuration files (Maybe add an optional encryption system ?)
+-Save system with encryption
+-Broadcasting system
+-Collision system
+-Light system
+-Animated Sprites with sheets system
+-Method OnStart
