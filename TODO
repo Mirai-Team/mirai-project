@@ -1,19 +1,26 @@
 TODO LIST :
-
+===========
+_____
 high:
 
--add SFML, Box2D, SPARK
+- Add "SFML" with "Box2D"
 
+_______
 normal:
 
+- Add "SPARK" and "Let There Be Light".
+- Animated Sprites with sheets system
+
+____
 low:
 
+- ...
+
+_____________
 unclassified:
 
--Parsing system for configuration files (Maybe add an optional encryption system ?)
--Save system with encryption
--Broadcasting system
--Collision system
--Light system
--Animated Sprites with sheets system
--Method OnStart
+- Parsing system for configuration files (Maybe add an optional encryption system ?)
+- Save system with encryption
+- Broadcasting system
+- Collision system -> Box 2D ?
+- Method OnStart
