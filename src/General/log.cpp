@@ -18,7 +18,7 @@ string mp::level_warning{ "WARNING" };
 string mp::level_info{ "INFO" };
 string mp::level_config{ "CONFIG" };
 
-void mp::log(const string &level_name, const string &msg, ...)
+void mp::log(const string &filename, const string &level_name, const string &msg, ...)
 {
     if (debug_mode)
     {
@@ -39,6 +39,8 @@ void mp::log(const string &level_name, const string &msg, ...)
         text << minute << ":";
         if (second < 10)
             text << "0";
+
+        //Maybe add a separator between second and level_name ?
         text << second << " " << upper(level_name) << "] ";
 
         for (unsigned int i{ 0 } ; i < msg.length() ; i++)
@@ -68,7 +70,7 @@ void mp::log(const string &level_name, const string &msg, ...)
 
         cout << text.str() << endl;
 
-        log_file.open("hybrids.log", ios::app);
+        log_file.open(filename, ios::app);
         log_file << text.str() << endl;
         log_file.close();
     }

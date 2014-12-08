@@ -32,7 +32,7 @@ namespace mp
      * %%f : display a decimal value.\n
      * Theses values are passed as optional parameters.
      */
-    void log(const string &level_name, const string &msg, ...);
+    void log(const string &filename, const string &level_name, const string &msg, ...);
 };
 
 #endif // LOG_HPP_INCLUDED
