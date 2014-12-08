@@ -23,6 +23,7 @@ namespace mp
 
     /** Function for logging.
      *
+     * \param filename name of the file and eventually the path.
      * \param level_name level name to use.
      * \param msg Text to log.
      * \param ... optionals parameters to use with format codes.

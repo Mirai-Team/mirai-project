@@ -22,6 +22,7 @@ namespace mp
 
     /** Split the given string using the given separator (a single letter).
      * The limit specifies the number of separator until the function stop splitting.
+     * If limit = 0, there is no limit
      * All part of the given string are returned in a vector<string>.
      */
     vector<string> split(const string &text, const char &separator, unsigned int limit=0);
