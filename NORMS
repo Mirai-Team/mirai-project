@@ -1,0 +1,8 @@
+Norms to fulfill.
+-----------------
+
+________
+Naming :
+
+- File containing only functions : lowercases + underscore between words.
+- File containing a class : upper case for the first letter of each word without any underscore between them.
