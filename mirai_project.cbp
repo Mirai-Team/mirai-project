@@ -44,13 +44,20 @@
 			<Add option="-std=c++11" />
 			<Add directory="include" />
 		</Compiler>
-		<Unit filename="NORMES" />
+		<Unit filename=".gitignore">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="NORMS">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="TODO">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="include/General/log.hpp" />
 		<Unit filename="include/General/string_functions.hpp" />
-		<Unit filename="include/General/string_functions.tpp" />
+		<Unit filename="include/General/string_functions.tpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/broadcasting.hpp" />
 		<Unit filename="include/mirai_project.hpp" />
 		<Unit filename="src/General/log.cpp" />
