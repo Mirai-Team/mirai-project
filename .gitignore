@@ -1,0 +1,6 @@
+#Ignore bin and obj folders
+bin/*
+obj/*
+#Ignore Code::blocks files
+mirai_project.layout
+mirai_project.depend
