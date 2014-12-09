@@ -15,11 +15,15 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-Wall" />
-					<Add option="-DBUILD_DLL" />
 					<Add option="-g" />
+					<Add option="-DBUILD_DLL" />
 				</Compiler>
 				<Linker>
-					<Add library="user32" />
+					<Add library="sfml-audio-d" />
+					<Add library="sfml-graphics-d" />
+					<Add library="sfml-network-d" />
+					<Add library="sfml-window-d" />
+					<Add library="sfml-system-d" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -30,21 +34,29 @@
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
+					<Add option="-O2" />
 					<Add option="-Wall" />
 					<Add option="-DBUILD_DLL" />
-					<Add option="-O2" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="user32" />
+					<Add library="sfml-audio" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-network" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-std=c++11" />
 			<Add directory="include" />
+			<Add directory="extlibs/headers" />
 		</Compiler>
 		<Unit filename=".gitignore">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="CHANGELOG">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="NORMS">
