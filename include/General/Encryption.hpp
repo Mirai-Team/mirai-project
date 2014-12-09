@@ -12,7 +12,7 @@ using namespace std;
 
 namespace mp
 {
-
+    // Probably going to use RSA encryption.
 }
 
 #endif // ENCRYPTION_HPP_INCLUDED

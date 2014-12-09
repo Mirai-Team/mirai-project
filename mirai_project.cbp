@@ -71,9 +71,7 @@
 		<Unit filename="include/General/Encryption.hpp" />
 		<Unit filename="include/General/log.hpp" />
 		<Unit filename="include/General/string_functions.hpp" />
-		<Unit filename="include/General/string_functions.tpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="include/General/string_functions.tpp" />
 		<Unit filename="include/mirai_project.hpp" />
 		<Unit filename="src/General/Encryption.cpp" />
 		<Unit filename="src/General/log.cpp" />
