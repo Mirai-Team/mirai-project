@@ -27,9 +27,10 @@ void mp::log(const string &filename, const string &level_name, const string &msg
         struct tm *timeinfo(localtime(&now));
         int hour{ timeinfo->tm_hour }, minute{ timeinfo->tm_min }, second{ timeinfo->tm_sec };
         ostringstream text;
-        va_list ap; // Extra parameters.
+        va_list ap; // Argument pointer
         va_start(ap, msg);
 
+        //Added the current time and level_name
         text << "[";
         if (hour < 10)
             text << "0";
@@ -39,10 +40,9 @@ void mp::log(const string &filename, const string &level_name, const string &msg
         text << minute << ":";
         if (second < 10)
             text << "0";
+        text << second << "] (" << upper(level_name) << ") > ";
 
-        //Maybe add a separator between second and level_name ?
-        text << second << " " << upper(level_name) << "] ";
-
+        //Parsing message
         for (unsigned int i{ 0 } ; i < msg.length() ; i++)
         {
             if (msg[i] == '%')
@@ -70,6 +70,7 @@ void mp::log(const string &filename, const string &level_name, const string &msg
 
         cout << text.str() << endl;
 
+        //write news entries in log file (append mode)
         log_file.open(filename, ios::app);
         log_file << text.str() << endl;
         log_file.close();
