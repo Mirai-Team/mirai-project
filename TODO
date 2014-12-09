@@ -3,7 +3,7 @@ TODO LIST :
 _____
 high:
 
-- Add "SFML" with "Box2D"
+- Add "Box2D"
 
 _______
 normal:
@@ -22,5 +22,4 @@ unclassified:
 - Parsing system for configuration files (Maybe add an optional encryption system ?)
 - Save system with encryption
 - Broadcasting system
-- Collision system -> Box 2D ?
 - Method OnStart
