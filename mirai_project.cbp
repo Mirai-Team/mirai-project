@@ -53,6 +53,9 @@
 			<Add directory="include" />
 			<Add directory="extlibs/headers" />
 		</Compiler>
+		<Linker>
+			<Add directory="extlibs/libs-mingw-tdm/x86" />
+		</Linker>
 		<Unit filename=".gitignore">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
@@ -65,16 +68,16 @@
 		<Unit filename="TODO">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="include/General/Encryption.hpp" />
 		<Unit filename="include/General/log.hpp" />
 		<Unit filename="include/General/string_functions.hpp" />
 		<Unit filename="include/General/string_functions.tpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="include/broadcasting.hpp" />
 		<Unit filename="include/mirai_project.hpp" />
+		<Unit filename="src/General/Encryption.cpp" />
 		<Unit filename="src/General/log.cpp" />
 		<Unit filename="src/General/string_functions.cpp" />
-		<Unit filename="src/broadcasting.cpp" />
 		<Unit filename="src/mirai_project.cpp" />
 		<Extensions>
 			<code_completion />
