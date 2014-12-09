@@ -11,3 +11,4 @@ _______
 Other :
 
 - No C in C++. Only C++.
+- If possible, one line per comment commit (not too much features in one time).
