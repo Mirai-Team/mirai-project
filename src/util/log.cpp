@@ -4,8 +4,8 @@
 #include <ctime>
 #include <cstdarg>
 
-#include "General/log.hpp"
-#include "General/string_functions.hpp"
+#include "util/log.hpp"
+#include "util/string_functions.hpp"
 
 using namespace std;
 
