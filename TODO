@@ -4,12 +4,13 @@ _____
 high:
 
 - Add "Box2D"
-
+- Finish Encryption system (R.S.A)
 _______
 normal:
 
 - Add "SPARK" and "Let There Be Light".
 - Animated Sprites with sheets system
+- Add an Encrypted Save System with auto-saves.
 
 ____
 low:
