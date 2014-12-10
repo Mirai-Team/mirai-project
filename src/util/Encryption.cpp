@@ -2,6 +2,6 @@
 #include <cstdlib>
 #include <windows.h>
 
-#include <General/Encryption.hpp>
+#include <util/Encryption.hpp>
 
 using namespace std;

@@ -68,29 +68,19 @@
 		<Unit filename="TODO">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="include/General/Encryption.hpp" />
-		<Unit filename="include/General/log.hpp" />
-		<Unit filename="include/General/string_functions.hpp" />
-		<Unit filename="include/General/string_functions.tpp" />
 		<Unit filename="include/mirai_project.hpp" />
-		<Unit filename="src/General/Encryption.cpp" />
-		<Unit filename="src/General/log.cpp" />
-		<Unit filename="src/General/string_functions.cpp" />
+		<Unit filename="include/util/Encryption.hpp" />
+		<Unit filename="include/util/log.hpp" />
+		<Unit filename="include/util/string_functions.hpp" />
+		<Unit filename="include/util/string_functions.tpp" />
 		<Unit filename="src/mirai_project.cpp" />
+		<Unit filename="src/util/Encryption.cpp" />
+		<Unit filename="src/util/log.cpp" />
+		<Unit filename="src/util/string_functions.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
 			<debugger />
-			<lib_finder disable_auto="1" />
-			<DoxyBlocks>
-				<comment_style block="2" line="2" />
-				<doxyfile_project />
-				<doxyfile_build />
-				<doxyfile_warnings />
-				<doxyfile_output />
-				<doxyfile_dot />
-				<general />
-			</DoxyBlocks>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

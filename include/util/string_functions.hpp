@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "General/string_functions.tpp"
+#include "util/string_functions.tpp"
 
 /** @file string_functions.hpp
  * This file defines various functions to manipulate std::string.
