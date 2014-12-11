@@ -1,10 +1,12 @@
 TODO LIST :
-===========
+===========
+
 _____
 high:
 
 - Add "Box2D"
-- Finish Encryption system (R.S.A)
+- Add "Boost" in order to keep a cross-platform project
+- Finish Encryption system
 _______
 normal:
 
