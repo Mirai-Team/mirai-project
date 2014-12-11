@@ -8,19 +8,17 @@
  * This file defines various functions and variables for logging.
  */
 
-using namespace std;
-
 namespace mp
 {
     extern bool debug_mode;
 
-    extern ofstream log_file;
+    extern std::ofstream log_file;
 
-    extern string level_severe;
-    extern string level_error;
-    extern string level_warning;
-    extern string level_info;
-    extern string level_config;
+    extern std::string level_severe;
+    extern std::string level_error;
+    extern std::string level_warning;
+    extern std::string level_info;
+    extern std::string level_config;
 
     /** Function for logging.
      *
@@ -34,7 +32,7 @@ namespace mp
      * %%f : display a decimal value.\n
      * Theses values are passed as optional parameters.
      */
-    void log(const string &filename, const string &level_name, const string &msg, ...);
+    void log(const std::string &filename, const std::string &level_name, const std::string &msg, ...);
 };
 
 #endif // LOG_HPP_INCLUDED

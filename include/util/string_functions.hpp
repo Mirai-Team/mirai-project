@@ -10,28 +10,26 @@
  * This file defines various functions to manipulate std::string.
  */
 
-using namespace std;
-
 namespace mp
 {
     /** Remove the given letter from the given string. */
-    void strip_letter(string &str, const char &letter);
+    void strip_letter(std::string &str, const char &letter);
 
     /** Return the given string all switched to capslock. */
-    string upper(string text);
+    std::string upper(std::string text);
 
     /** Split the given string using the given separator (a single letter).
      * The limit specifies the number of separator until the function stop splitting.
      * If limit = 0, there is no limit
      * All part of the given string are returned in a vector<string>.
      */
-    vector<string> split(const string &text, const char &separator, unsigned int limit=0);
+    std::vector<std::string> split(const std::string &text, const char &separator, unsigned int limit=0);
 
     /** Replace occurrences by a given string in the given text. */
-    string replace(string &text, string to_replace, string replace_with);
+    std::string replace(std::string &text, std::string to_replace, std::string replace_with);
 
     /** Return the given value converted into string. */
-    template<typename T> string to_string(const T &value);
+    template<typename T> std::string to_string(const T &value);
 }
 
 #endif // STRING_FUNCTIONS_HPP_INCLUDED

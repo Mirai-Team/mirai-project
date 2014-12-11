@@ -8,12 +8,10 @@
  * This file defines various functions and variables for encrypting.
  */
 
-using namespace std;
-
 namespace mp
 {
-    void ScrambleKey(string &input);
-    void CryptBuffer(string &key, string &buffer);
+    void ScrambleKey(std::string &input);
+    void CryptBuffer(std::string &key, std::string &buffer);
 }
 
 #endif // ENCRYPTION_HPP_INCLUDED
