@@ -17,6 +17,7 @@ namespace mp
     extern ofstream log_file;
 
     extern string level_severe;
+    extern string level_error;
     extern string level_warning;
     extern string level_info;
     extern string level_config;

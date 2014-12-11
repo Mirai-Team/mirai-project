@@ -12,7 +12,8 @@ using namespace std;
 
 namespace mp
 {
-    // Probably going to use RSA encryption.
+    void ScrambleKey(string &input);
+    void CryptBuffer(string &key, string &buffer);
 }
 
 #endif // ENCRYPTION_HPP_INCLUDED

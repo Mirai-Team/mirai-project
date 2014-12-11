@@ -14,6 +14,7 @@ bool mp::debug_mode{ false };
 ofstream mp::log_file;
 
 string mp::level_severe{ "SEVERE" };
+string mp::level_error{ "ERROR" };
 string mp::level_warning{ "WARNING" };
 string mp::level_info{ "INFO" };
 string mp::level_config{ "CONFIG" };
