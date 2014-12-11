@@ -13,3 +13,5 @@ Other :
 - No C in C++. Only C++.
 - If possible, one line per comment commit (not too much features in one time).
 - Last update at the top of CHANGELOG file.
+- No "using namespace" in header files.
+
