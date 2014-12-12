@@ -33,6 +33,6 @@ namespace mp
      * Theses values are passed as optional parameters.
      */
     void log(const std::string &filename, const std::string &level_name, const std::string &msg, ...);
-};
+}
 
 #endif // LOG_HPP_INCLUDED

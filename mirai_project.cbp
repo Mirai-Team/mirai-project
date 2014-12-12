@@ -49,7 +49,12 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-pedantic-errors" />
+			<Add option="-pedantic" />
 			<Add option="-std=c++11" />
+			<Add option="-Wfatal-errors" />
+			<Add option="-Wextra" />
+			<Add option="-Wall" />
 			<Add directory="include" />
 			<Add directory="extlibs/headers" />
 		</Compiler>
