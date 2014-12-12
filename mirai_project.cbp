@@ -71,14 +71,14 @@
 		<Unit filename="TODO">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="include/encryption/crypt_function.hpp" />
 		<Unit filename="include/mirai_project.hpp" />
-		<Unit filename="include/util/Encryption.hpp" />
 		<Unit filename="include/util/ResourcesManager.hpp" />
 		<Unit filename="include/util/log.hpp" />
 		<Unit filename="include/util/string_functions.hpp" />
 		<Unit filename="include/util/string_functions.tpp" />
+		<Unit filename="src/encryption/crypt_functions.cpp" />
 		<Unit filename="src/mirai_project.cpp" />
-		<Unit filename="src/util/Encryption.cpp" />
 		<Unit filename="src/util/ResourcesManager.cpp" />
 		<Unit filename="src/util/log.cpp" />
 		<Unit filename="src/util/string_functions.cpp" />
