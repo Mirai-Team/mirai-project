@@ -3,6 +3,7 @@
 	<FileVersion major="1" minor="6" />
 	<Project>
 		<Option title="Mirai Project" />
+		<Option makefile="makefile" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -73,13 +74,13 @@
 		</Unit>
 		<Unit filename="include/mirai_project.hpp" />
 		<Unit filename="include/util/Encryption.hpp" />
-		<Unit filename="include/util/ResourcesManager.hpp" />
+		<Unit filename="include/util/ResourcesManagers/BaseResManager.hpp" />
 		<Unit filename="include/util/log.hpp" />
 		<Unit filename="include/util/string_functions.hpp" />
 		<Unit filename="include/util/string_functions.tpp" />
 		<Unit filename="src/mirai_project.cpp" />
 		<Unit filename="src/util/Encryption.cpp" />
-		<Unit filename="src/util/ResourcesManager.cpp" />
+		<Unit filename="src/util/ResourcesManagers/BaseResManager.cpp" />
 		<Unit filename="src/util/log.cpp" />
 		<Unit filename="src/util/string_functions.cpp" />
 		<Extensions>
