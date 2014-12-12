@@ -14,7 +14,6 @@
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
-					<Add option="-Wall" />
 					<Add option="-g" />
 					<Add option="-DBUILD_DLL" />
 				</Compiler>
@@ -35,7 +34,6 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-O2" />
-					<Add option="-Wall" />
 					<Add option="-DBUILD_DLL" />
 				</Compiler>
 				<Linker>
@@ -49,12 +47,9 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-pedantic-errors" />
-			<Add option="-pedantic" />
-			<Add option="-std=c++11" />
-			<Add option="-Wfatal-errors" />
-			<Add option="-Wextra" />
-			<Add option="-Wall" />
+			<Add option="-pedantic -pedantic-errors -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -Wfloat-equal -Wwrite-strings" />
+			<Add option="-Wpointer-arith -Wcast-qual -Wcast-align -Wconversion -Wshadow -Wredundant-decls -Wdouble-promotion -Winit-self -Wswitch-default" />
+			<Add option="-Wswitch-enum -Wundef -Wlogical-op -Winline -Werror -std=c++11" />
 			<Add directory="include" />
 			<Add directory="extlibs/headers" />
 		</Compiler>
@@ -68,6 +63,9 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="NORMS">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="README">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="TODO">

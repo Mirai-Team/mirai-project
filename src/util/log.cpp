@@ -61,6 +61,8 @@ void mp::log(const string &filename, const string &level_name, const string &msg
                     case '%': // %% = % in output.
                         text << '%';
                         break;
+                    default:
+                        break;
                 }
             }
             else

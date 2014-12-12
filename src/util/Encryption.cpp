@@ -8,6 +8,7 @@
 
 using namespace std;
 
+/*
 void ScrambleKey(string &input)
 {
     for(unsigned int i=0 ; i<input.length() ; i++)
@@ -19,3 +20,4 @@ void CryptBuffer(string &key, string &buffer)
     for(unsigned int i=0 ; i<buffer.length() ; i++)
         buffer[i] ^= key[i%key.length()];
 }
+*/
