@@ -1,6 +1,5 @@
 # Ignore folders
-bin/*
-obj/*
+lib/*
 CMakeFiles/*
 
 # Ignore files.
