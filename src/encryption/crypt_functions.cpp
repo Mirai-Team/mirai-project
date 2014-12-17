@@ -5,7 +5,7 @@
 
 using namespace std;
 
-string mp::CryptKey(string key)
+string mp::crypt_key(string key)
 {
     //Apply a NOT on each bit from each character of key string.
     for(unsigned int i=0; i<key.length(); i++)
@@ -14,7 +14,7 @@ string mp::CryptKey(string key)
     return key;
 }
 
-string mp::CryptData(string key, string data)
+string mp::crypt_data(string key, string data)
 {
     //Apply a XOR between the key MOD length() and data.
     for(unsigned int i=0; i<data.length(); i++)
