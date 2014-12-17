@@ -7,7 +7,8 @@
 #include <sstream>
 
 /** @file crypt_function.hpp
- * This file define the basic crypt functions.
+ * This file define the basic crypt functions
+ *
  */
 
 namespace mp
@@ -16,6 +17,7 @@ namespace mp
     std::string crypt_data(std::string key, std::string data);
 
     void write_header(std::string output_file, std::vector<std::string> filename, std::string key);
+    void write_data(std::string filename, std::vector<std::string> filenames, std::vector<long int>offset, std::string key);
 }
 
 #endif // CRYPT_FUNCTION_INCLUDED

@@ -81,6 +81,32 @@ void mp::write_header(string output_file, vector<string> filenames, string key)
         fileoffset += filesize[i];
     }
     output.close();
+    write_data(output_file, filenames,boffset, key);
 
+}
 
+void mp::write_data(string output_file, vector<string> filenames, vector<long int>offset, string key)
+{
+    fstream output(output_file, ios::in | ios::out | ios::binary);
+
+    for(unsigned int i =0; i<filenames.size(); i++)
+    {
+        ifstream input(filenames[i], ios::binary);
+        stringstream buffer;
+        string write_buffer;
+
+        //we read the whole file.
+        buffer << input.rdbuf();
+        write_buffer = static_cast<string>(buffer.str());
+
+        //Move the cursor to the offset.
+        output.seekg(offset[i],ios::beg);
+
+        //Encrypt the file and write it.
+        write_buffer = crypt_data(key,write_buffer);
+        output << write_buffer;
+
+        input.close();
+    }
+    output.close();
 }
