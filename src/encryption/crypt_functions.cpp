@@ -110,3 +110,59 @@ void mp::write_data(string output_file, vector<string> filenames, vector<long in
     }
     output.close();
 }
+void mp::parse_header(string inputfile, string targetFile,string key)
+{
+    bool found = false;
+
+    int headerlen, filecount, filenamelen, filesize, fileoffset, i=0, offset=8;
+
+    ifstream input(inputfile, ios::in | ios::binary);
+
+    string filename, file;
+
+    key = crypt_key(key);
+
+    input.seekg(0,ios::beg);
+    input.read(reinterpret_cast<char*>(&headerlen), 4);
+    input.read(reinterpret_cast<char*>(&filecount), 4);
+
+    while(i<filecount and found==false)
+    {
+        //read the filenamelen.
+        input.seekg(offset,ios::beg);
+        input.read(reinterpret_cast<char*>(&filenamelen), 4);
+
+        //Possible memory leak.
+        char * buffer = new char[filenamelen];
+
+        input.read(buffer, filenamelen);
+        filename = buffer;
+
+        //increment the offset with filenamelen.
+        offset+=filenamelen+4+4+4;
+
+        if(filename == targetFile)
+        {
+            //read the filesize into the input file.
+            input.read(reinterpret_cast<char*>(&filesize), 4);
+            //read the fileoffset into the input file.
+            input.read(reinterpret_cast<char*>(&fileoffset), 4);
+
+            char * buffer2 = new char[filesize];
+
+            //Move the cursor on the first bit of the file and read it with filesize.
+            input.seekg(fileoffset, ios::beg);
+            input.read(buffer2, filesize);
+
+            //convert in order to use crypt_data function.
+            file = buffer2;
+            file = crypt_data(key,file);
+
+            //The file have been found, no need to keep running the loop.
+            found = true;
+        }
+    }
+
+    input.close();
+
+}
