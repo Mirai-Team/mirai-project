@@ -14,10 +14,10 @@ mp::BaseResManager::BaseResManager() : textures_cache{ },
 }
 
 // ______________________________ Textures ______________________________
-shared_ptr<sf::Texture> mp::BaseResManager::get_texture(const string &filename)
+shared_ptr<sf::Texture> mp::BaseResManager::get_texture(const string &filename, const bool &safe_mode)
 {
     // Check if the texture already exists...
-    if (texture_is_available(filename))
+    if (safe_mode == false or texture_is_available(filename))
         return textures_cache[filename];
     else
     {
@@ -27,15 +27,23 @@ shared_ptr<sf::Texture> mp::BaseResManager::get_texture(const string &filename)
     }
 }
 
-void mp::BaseResManager::load_texture_from_file(const string &filename)
+bool mp::BaseResManager::load_texture_from_file(const string &filename)
 {
+	bool success{ true };
+	
     shared_ptr<sf::Texture> ptr_texture{ new sf::Texture };
     ptr_texture->setSmooth(false);
 
-    if (!ptr_texture->loadFromFile(filename)) // File not found...
+    if (!ptr_texture->loadFromFile(filename))
+	{
+		// File not found...
         mp::log("mirai_project.log", mp::level_warning, "File " + filename + " was not found... (for texture)");
+		success = false;
+	}
 
     textures_cache[filename] = ptr_texture;
+	
+	return success;
 }
 
 bool mp::BaseResManager::texture_is_available(const string &filename)
@@ -48,10 +56,10 @@ bool mp::BaseResManager::texture_is_available(const string &filename)
 }
 
 // ______________________________ Sound Buffers ______________________________
-shared_ptr<sf::SoundBuffer> mp::BaseResManager::get_sound_buffer(const string &filename)
+shared_ptr<sf::SoundBuffer> mp::BaseResManager::get_sound_buffer(const string &filename, const bool &safe_mode)
 {
     // Check if the sound buffer already exists...
-    if (sound_buffer_is_available(filename))
+    if (safe_mode == false or sound_buffer_is_available(filename))
         return sound_buffer_cache[filename];
     else
     {
@@ -62,14 +70,22 @@ shared_ptr<sf::SoundBuffer> mp::BaseResManager::get_sound_buffer(const string &f
 
 }
 
-void mp::BaseResManager::load_sound_buffer_from_file(const string &filename)
+bool mp::BaseResManager::load_sound_buffer_from_file(const string &filename)
 {
+	bool success{ true };
+	
     shared_ptr<sf::SoundBuffer> ptr_sound_buffer{ new sf::SoundBuffer };
 
-    if (!ptr_sound_buffer->loadFromFile(filename)) // Sound not found...
+    if (!ptr_sound_buffer->loadFromFile(filename))
+	{
+		// Sound not found...
         mp::log("mirai_project.log", mp::level_error, "File " + filename + " was not found... (for sound)");
+		success = false;
+	}
 
     sound_buffer_cache[filename] = ptr_sound_buffer;
+	
+	return success;
 }
 
 bool mp::BaseResManager::sound_buffer_is_available(const string &filename)
