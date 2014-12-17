@@ -1,6 +1,8 @@
-#Ignore bin and obj folders
-bin/*
-obj/*
-#Ignore Code::blocks files
-mirai_project.layout
-mirai_project.depend
+# Ignore folders
+lib/*
+CMakeFiles/*
+
+# Ignore files.
+CMakeCache.txt
+Makefile
+cmake_install.cmake
