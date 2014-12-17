@@ -6,13 +6,13 @@ high:
 
 - Add "Box2D"
 - Add "Boost" in order to keep a cross-platform project
-- Finish Encryption system
+
 _______
 normal:
 
 - Add "SPARK" and "Let There Be Light".
-- Animated Sprites with sheets system
-- Add an Encrypted Save System with auto-saves.
+- Animated Sprites system with sprite sheets system
+- Add an Encrypted Save System.
 
 ____
 low:
