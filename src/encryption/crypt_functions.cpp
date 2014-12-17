@@ -2,7 +2,7 @@
 #include <fstream>
 
 #include "encryption/crypt_function.hpp"
-#include "util/file_functions.hpp"
+#include "util/files_functions.hpp"
 
 using namespace std;
 
