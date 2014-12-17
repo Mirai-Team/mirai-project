@@ -1,18 +1,14 @@
 #include <memory>
 #include <map>
 
-#include <SFML/Graphics.hpp>
-
-#include "util/ResourcesManager.hpp"
+#include "util/ResourcesManagers/ResManager.hpp"
 #include "util/log.hpp"
 
 using namespace std;
 
-map<string, weak_ptr<sf::Texture>> mp::ResourcesManager::textures_cache{ };
-map<string, weak_ptr<sf::SoundBuffer>> mp::ResourcesManager::sound_buffer_cache{ };
-
+/*
 // ______________________________ Textures ______________________________
-shared_ptr<sf::Texture> mp::ResourcesManager::get_texture(const string &filename)
+shared_ptr<sf::Texture> mp::AbstractResManager::get_texture(const string &filename)
 {
     // Check if the texture already exists...
     if (textures_cache.find(filename) != textures_cache.end())
@@ -40,7 +36,7 @@ shared_ptr<sf::Texture> mp::ResourcesManager::get_texture(const string &filename
 }
 
 // ______________________________ Sound Buffers ______________________________
-shared_ptr<sf::SoundBuffer> mp::ResourcesManager::get_sound_buffer(const string &filename)
+shared_ptr<sf::SoundBuffer> mp::AbstractResManager::get_sound_buffer(const string &filename)
 {
     // Check if the sound buffer already exists...
     if (sound_buffer_cache.find(filename) != sound_buffer_cache.end())
@@ -61,38 +57,4 @@ shared_ptr<sf::SoundBuffer> mp::ResourcesManager::get_sound_buffer(const string 
 
     return move(ptr_sound_buffer);
 }
-
-void mp::ResourcesManager::clean()
-{
-    // ___________________ Clean textures cache... ___________________
-    mp::log("mirai_project.log", mp::level_info, "Cleaning textures cache.");
-
-    vector<string> keys_to_erase;
-
-    for (map<string, weak_ptr<sf::Texture>>::const_iterator it = textures_cache.begin() ;
-         it != textures_cache.end() ;
-         it++)
-    {
-        if (it->second.use_count() == 0)
-            keys_to_erase.push_back(it->first);
-    }
-
-    for (const string &key : keys_to_erase)
-        textures_cache.erase(key);
-
-    // ___________________ Clean sound buffers cache... ___________________
-    mp::log("mirai_project.log", mp::level_info, "Cleaning sound buffers cache.");
-
-    keys_to_erase.clear(); // Clear keys_to_erase vector.
-
-    for (map<string, weak_ptr<sf::SoundBuffer>>::const_iterator it = sound_buffer_cache.begin() ;
-         it != sound_buffer_cache.end() ;
-         it++)
-    {
-        if (it->second.use_count() == 0)
-            keys_to_erase.push_back(it->first);
-    }
-
-    for (const string &key : keys_to_erase)
-        sound_buffer_cache.erase(key);
-}
+*/
