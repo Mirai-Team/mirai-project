@@ -1,7 +1,7 @@
 #include <memory>
 #include <map>
 
-#include "util/ResourcesManagers/AutoResManager.hpp"
+#include "resourcesManagers/AutoResManager.hpp"
 #include "util/log.hpp"
 
 using namespace std;

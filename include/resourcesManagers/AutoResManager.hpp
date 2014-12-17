@@ -7,7 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include "util/ResourcesManagers/BaseResManager.hpp"
+#include "resourcesManagers/BaseResManager.hpp"
 
 namespace mp
 {
