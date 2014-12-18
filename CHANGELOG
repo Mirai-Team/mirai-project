@@ -1,6 +1,7 @@
 Mirai Project v0.1.2
 ------------------
 
+- Added WindowManager system.
 - Added Encryption system
 - Added Resources Manager system.
 - Added SFML support.
