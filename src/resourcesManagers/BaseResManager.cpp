@@ -30,19 +30,19 @@ shared_ptr<sf::Texture> mp::BaseResManager::get_texture(const string &filename, 
 bool mp::BaseResManager::load_texture_from_file(const string &filename)
 {
 	bool success{ true };
-	
+
     shared_ptr<sf::Texture> ptr_texture{ new sf::Texture };
     ptr_texture->setSmooth(false);
 
     if (!ptr_texture->loadFromFile(filename))
 	{
 		// File not found...
-        mp::log("mirai_project.log", mp::level_warning, "File " + filename + " was not found... (for texture)");
+        mp::log("mirai_project.log", mp::level_error, "File " + filename + " was not found... (for texture)");
 		success = false;
 	}
 
     textures_cache[filename] = ptr_texture;
-	
+
 	return success;
 }
 
@@ -73,7 +73,7 @@ shared_ptr<sf::SoundBuffer> mp::BaseResManager::get_sound_buffer(const string &f
 bool mp::BaseResManager::load_sound_buffer_from_file(const string &filename)
 {
 	bool success{ true };
-	
+
     shared_ptr<sf::SoundBuffer> ptr_sound_buffer{ new sf::SoundBuffer };
 
     if (!ptr_sound_buffer->loadFromFile(filename))
@@ -84,7 +84,7 @@ bool mp::BaseResManager::load_sound_buffer_from_file(const string &filename)
 	}
 
     sound_buffer_cache[filename] = ptr_sound_buffer;
-	
+
 	return success;
 }
 
