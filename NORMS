@@ -11,6 +11,7 @@ _______
 Other :
 
 - No C in C++. Only C++.
+- Use ISO/IEC 14882:2011 c++ norm (http://en.wikipedia.org/wiki/C%2B%2B11)
 - If possible, one line per comment commit (not too much features in one time).
 - Last update at the top of CHANGELOG file.
 - No "using namespace" in header files.
