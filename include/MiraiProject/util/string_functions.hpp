@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "util/string_functions.tpp"
+#include "MiraiProject/util/string_functions.tpp"
 
 /** @file string_functions.hpp
  * This file defines various functions to manipulate std::string.

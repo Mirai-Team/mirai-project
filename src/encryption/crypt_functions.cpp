@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "encryption/crypt_function.hpp"
+#include "MiraiProject/encryption/crypt_function.hpp"
 
 using namespace std;
 

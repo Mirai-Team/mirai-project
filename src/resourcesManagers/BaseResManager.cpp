@@ -3,8 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "resourcesManagers/BaseResManager.hpp"
-#include "util/log.hpp"
+#include "MiraiProject/resourcesManagers/BaseResManager.hpp"
+#include "MiraiProject/util/log.hpp"
 
 using namespace std;
 

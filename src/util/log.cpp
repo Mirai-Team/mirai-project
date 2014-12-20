@@ -4,8 +4,8 @@
 #include <ctime>
 #include <cstdarg>
 
-#include "util/log.hpp"
-#include "util/string_functions.hpp"
+#include "MiraiProject/util/log.hpp"
+#include "MiraiProject/util/string_functions.hpp"
 
 using namespace std;
 

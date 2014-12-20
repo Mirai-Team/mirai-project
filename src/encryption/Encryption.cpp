@@ -3,9 +3,9 @@
 #include <vector>
 #include <sstream>
 
-#include "util/files_functions.hpp"
-#include "encryption/crypt_function.hpp"
-#include "encryption/Encryption.hpp"
+#include "MiraiProject/util/files_functions.hpp"
+#include "MiraiProject/encryption/crypt_function.hpp"
+#include "MiraiProject/encryption/Encryption.hpp"
 
 using namespace std;
 using namespace mp;
