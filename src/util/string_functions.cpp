@@ -2,7 +2,7 @@
 #include <algorithm> // remove(), erase()
 #include <sstream> // for locale
 
-#include "util/string_functions.hpp"
+#include "MiraiProject/util/string_functions.hpp"
 
 using namespace std;
 

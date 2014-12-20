@@ -37,7 +37,7 @@ add_library(
 # Detect and add SFML
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 # Find any version 2.X of SFML
-find_package(SFML 2 COMPONENTS system window graphics audio network REQUIRED)
+find_package(SFML COMPONENTS system window graphics audio network REQUIRED)
 if(SFML_FOUND)
 	include_directories(${SFML_INCLUDE_DIR})
 	

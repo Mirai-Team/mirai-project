@@ -7,7 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include "resourcesManagers/BaseResManager.hpp"
+#include "MiraiProject/resourcesManagers/BaseResManager.hpp"
 
 namespace mp
 {
