@@ -4,6 +4,7 @@
 #include <sstream>
 
 #include "util/files_functions.hpp"
+#include "util/log.hpp"
 #include "encryption/crypt_function.hpp"
 #include "encryption/Encryption.hpp"
 
@@ -42,7 +43,9 @@ void mp::Encryption::write_header()
     vector<long int> filesize, filenamelen, boffset;
 
     fstream output(_outputFile, ios::in | ios::out | ios::binary | ios::trunc);
-
+	if(!output)
+		mp::log("mirai_project.log", mp::level_error, "Unable to write header... (encryption class)");
+		
     for(unsigned int i = 0; i<_filenames.size(); i++)
     {
         //Calculate the filename length and push it in filename.
@@ -94,7 +97,8 @@ void mp::Encryption::write_header()
 void mp::Encryption::write_data()
 {
     fstream output(_outputFile, ios::in | ios::out | ios::binary);
-
+	if(!output)
+		mp::log("mirai_project.log", mp::level_error, "Unable to write data... (encryption class)");
     for(unsigned int i =0; i<_filenames.size(); i++)
     {
         //Move the cursor to the offset.
@@ -113,6 +117,9 @@ string mp::Encryption::crypt_file(string file)
     stringstream buffer;
     string cryptedFile;
 
+	if(!input)
+		mp::log("mirai_project.log", mp::level_error, "Unable to crypt the file (encryption class)");
+		
     //we read the whole file.
     buffer << input.rdbuf();
     input.close();
@@ -137,6 +144,9 @@ string mp::Encryption::parse_header(string inputFile, string targetFile)
 
     string filename, file;
 
+	if(!input)
+		mp::log("mirai_project.log", mp::level_error, "Unable to crypt the file (encryption class)");
+		
     //Read headerlen & filecount
     input.read(reinterpret_cast<char*>(&headerlen), 4);
     input.read(reinterpret_cast<char*>(&filecount), 4);
