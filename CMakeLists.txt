@@ -37,7 +37,7 @@ add_library(
 # Detect and add SFML
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 # Find any version 2.X of SFML
-find_package(SFML COMPONENTS system window graphics audio network REQUIRED)
+find_package(SFML 2.0 COMPONENTS system window graphics audio network REQUIRED)
 if(SFML_FOUND)
 	include_directories(${SFML_INCLUDE_DIR})
 	
@@ -46,4 +46,15 @@ if(SFML_FOUND)
 		${APP_NAME}
 		${SFML_LIBRARIES}
 	)
+endif()
+# Detec and add Boost
+find_package(Boost 1.54.0 COMPONENTS filesystem system)
+if(BOOST_FOUND)
+	include_directories(${Boost_INCLUDE_DIRS})
+	
+	# Setting up link edition.
+    target_link_libraries( 
+        ${APP_NAME}
+        ${Boost_LIBRARIES}
+    )
 endif()
