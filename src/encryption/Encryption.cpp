@@ -14,18 +14,17 @@ using namespace std;
 using namespace mp;
 using namespace boost::filesystem;
 
-mp::Encryption::Encryption(string key)
+mp::Encryption::Encryption(string key) : _key{ encrypt_key(key) },
+										 _outputFile{ },
+										 _offset{ },
+										 _filenames{ }
 {
-    _key= key;
-
-    //Encrypt the key.
-    _key = encrypt_key(_key);
-
+	// constructor
 }
 
 mp::Encryption::~Encryption()
 {
-    //dtor
+    // destructor
 }
 
 bool mp::Encryption::create_file(string outputFile, path directory)

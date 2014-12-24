@@ -11,6 +11,12 @@ using namespace std;
 mp::BaseResManager::BaseResManager() : textures_cache{ },
                                        sound_buffer_cache{ }
 {
+	// constructor
+}
+
+mp::BaseResManager::~BaseResManager()
+{
+	// destructor
 }
 
 // ______________________________ Textures ______________________________

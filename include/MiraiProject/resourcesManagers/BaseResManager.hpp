@@ -21,6 +21,8 @@ namespace mp
             /** Class constructor **/
             BaseResManager();
 
+			virtual ~BaseResManager();
+			
             /** Return the texture related to the given filename.
 			 * Set safe_mode parameter to false if you want avoid checking the texture existence.
 			 * Do it only if you know what you're doing, it could make your program crash if you try to get
