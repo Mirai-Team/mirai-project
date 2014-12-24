@@ -34,12 +34,14 @@ add_library(
         ${source_files}
 )
 
-# Detect and add SFML
+# Set the path where cmake should look for modules.
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
+
+# Detect and add SFML
 # Find any version 2.X of SFML
-find_package(SFML 2.0 COMPONENTS system window graphics audio network REQUIRED)
+find_package(SFML 2.0 REQUIRED system window graphics audio network)
 if(SFML_FOUND)
-	include_directories(${SFML_INCLUDE_DIR})
+	include_directories(SYSTEM ${SFML_INCLUDE_DIR})
 	
 	# Setting up link edition.
 	target_link_libraries(
@@ -47,10 +49,14 @@ if(SFML_FOUND)
 		${SFML_LIBRARIES}
 	)
 endif()
-# Detec and add Boost
-find_package(Boost 1.54.0 COMPONENTS filesystem system)
-if(BOOST_FOUND)
-	include_directories(${Boost_INCLUDE_DIRS})
+
+# Detect and add Boost
+find_package(Boost 1.54.0 REQUIRED filesystem system)
+if(Boost_FOUND)
+	# The parameter SYSTEM is to treat headers found there as system headers, and 
+	# suppress warnings originating from there by using the -isystem flag instead 
+	# of the -I flag while building with gcc/g++.
+	include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 	
 	# Setting up link edition.
     target_link_libraries( 
