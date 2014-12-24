@@ -14,7 +14,7 @@
 namespace mp
 {
     /** \brief Encrypt the key with a NOT door
-    * \param key The key unencrypted.
+    * \param key : The key unencrypted.
     * \return The key encrypted
     */
     std::string encrypt_key(std::string key);

@@ -6,23 +6,34 @@
 #include <boost/filesystem.hpp>
 #include <vector>
 
+/**
+ * \file Encryption.hpp
+ * \brief A file who contains the Encryption definition.
+ *
+ */
+ 
 namespace mp {
 
+	/** \class Encryption
+	* \brief Encryption system
+	*
+	* 	Contains some methods to encrypt and read files.
+	*/
     class Encryption
     {
         public:
             /** \brief Class Constructor. Set and encrypt the key
              *
-             * \param key A string who contains the key
+             * \param key : A string who contains the key
              *
              */
-
             Encryption(std::string key);
+            
             virtual ~Encryption();
 
             /** \brief Encrypt the file
              *
-             * \param file Path to file.
+             * \param file : Path to file.
              * \return Return the whole file encrypted
              *
              */
@@ -30,8 +41,8 @@ namespace mp {
 
             /** \brief Load a file in a encrypted pack.
              *
-             * \param inputFile File to parse
-             * \param targetFile The Target File
+             * \param inputFile : File to parse
+             * \param targetFile : The Target File
              * \return The file decrypted
              *
              */
@@ -39,8 +50,8 @@ namespace mp {
 
             /** \brief A function to create a file encrypted
              *
-             * \param outputFile Path of the output file.
-             * \param directory Directory to encrypt.
+             * \param outputFile : Path of the output file.
+             * \param directory : Directory to encrypt.
              *
              */
             bool create_file(std::string outputFile, boost::filesystem::path directory);
