@@ -5,14 +5,14 @@ _____
 high:
 
 - Add "Box2D"
-- Add "Boost" in order to keep a cross-platform project
+- Add an Encrypted Save System using Encryption class.
 
 _______
 normal:
 
 - Add "SPARK" and "Let There Be Light".
 - Animated Sprites system with sprite sheets system
-- Add an Encrypted Save System.
+
 
 ____
 low:
@@ -23,6 +23,7 @@ _____________
 unclassified:
 
 - Parsing system for configuration files (Maybe add an optional encryption system ?)
-- Save system with encryption
+    => Use Encryption class with crypt_file function, if there is one file.
 - Broadcasting system
+    => Maybe useless
 - Method OnStart
