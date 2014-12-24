@@ -1,11 +1,11 @@
 #include <iostream>
 #include <fstream>
 
-#include "MiraiProject/encryption/crypt_function.hpp"
+#include "MiraiProject/encryption/encrypt_functions.hpp"
 
 using namespace std;
 
-string mp::crypt_key(string key)
+string mp::encrypt_key(string key)
 {
     //Apply a NOT on each bit from each character of key string.
     for(unsigned int i=0; i<key.length(); i++)
@@ -14,7 +14,7 @@ string mp::crypt_key(string key)
     return key;
 }
 
-string mp::crypt_data(string key, string data)
+string mp::encrypt_data(string key, string data)
 {
     //Apply a XOR between the key MOD length() and data.
     for(unsigned int i=0; i<data.length(); i++)

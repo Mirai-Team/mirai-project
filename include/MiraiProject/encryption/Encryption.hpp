@@ -1,48 +1,67 @@
 #ifndef ENCRYPTION_HPP_INCLUDED
 #define ENCRYPTION_HPP_INCLUDED
 
+#include <iostream>
+#include <string>
+#include <boost/filesystem.hpp>
+#include <vector>
+
 namespace mp {
 
     class Encryption
     {
         public:
-            Encryption(std::string key, std::string data);
-            virtual ~Encryption();
-
-            /** \brief Crypt the file
+            /** \brief Class Constructor. Set and encrypt the key
              *
-             * \param path to file.
-             * \return return the whole file encrypted
+             * \param key A string who contains the key
              *
              */
-            std::string crypt_file(std::string file);
 
-            /** \brief parse the header in order to find the target file.
+            Encryption(std::string key);
+            virtual ~Encryption();
+
+            /** \brief Encrypt the file
              *
-             * \param File to parse
-             * \param The Target File
+             * \param file Path to file.
+             * \return Return the whole file encrypted
+             *
+             */
+            std::string encrypt_file(std::string file);
+
+            /** \brief Load a file in a encrypted pack.
+             *
+             * \param inputFile File to parse
+             * \param targetFile The Target File
              * \return The file decrypted
              *
              */
-            std::string parse_header(std::string inputFile, std::string targetFile);
+            std::string load_file(std::string inputFile, std::string targetFile);
 
             /** \brief A function to create a file encrypted
              *
-             * \param Path of the output file.
-             * \param A vector which contains the files' paths
+             * \param outputFile Path of the output file.
+             * \param directory Directory to encrypt.
              *
              */
-            void create_file(std::string outputFile, std::vector<std::string> filenames);
-            void write_header();
-            void write_data();
+            bool create_file(std::string outputFile, boost::filesystem::path directory);
+
 
         private:
 
+            /** \brief Write the header (used in create_file)
+            *  \return True if success else false.
+            *
+            */
+            bool write_header();
+
+            /** \brief Write the data (used in create_file)
+            *  \return True if success else false.
+            *
+            */
+            bool write_data();
+
             std::string _key;
-            std::string _data;
-            std::string _targetFile;
             std::string _outputFile;
-            std::string _inputFile;
             std::vector<long int>_offset;
             std::vector<std::string>_filenames;
 
