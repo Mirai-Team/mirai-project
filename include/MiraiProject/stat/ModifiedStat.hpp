@@ -18,14 +18,14 @@ namespace mp
 			ModifiedStat();
 			virtual ~ModifiedStat();
 			
-			void AddModifier(ModifyingStat mod);
-			void CalcultateModValue();
-			int AdjustedBaseValue() const;
+			void addModifier(ModifyingStat modifyingStat);
+			void calcultateModValue();
+			int adjustedBaseValue() const;
 		protected:
 		
 		private:
-			std::vector<ModifyingStat> _mods;
-			int _modValue;
+			std::vector<ModifyingStat> mods_;
+			int modValue_;
 			
 	};
 }

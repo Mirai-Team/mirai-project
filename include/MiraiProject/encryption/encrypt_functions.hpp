@@ -17,10 +17,10 @@ namespace mp
     * \param key : The key unencrypted.
     * \return The key encrypted
     */
-    std::string encrypt_key(std::string key);
+    std::string encryptKey(std::string key);
 
     /** \brief Encrypt the data with a XOR etween the key MOD length() and data.*/
-    std::string encrypt_data(std::string key, std::string data);
+    std::string encryptData(std::string key, std::string data);
 }
 
 #endif // ENCRYPT_FUNCTION_INCLUDED

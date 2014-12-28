@@ -18,7 +18,7 @@ namespace mp
      * \return A vector who contains the list of directory's files.
      *
      */
-    std::vector<std::string> list_file(boost::filesystem::path directory);
+    std::vector<std::string> listFile(boost::filesystem::path directory);
 }
 
 #endif // FILE_FUNCTIONS_HPP_INCLUDED

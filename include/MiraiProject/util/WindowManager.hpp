@@ -13,20 +13,20 @@ namespace mp
     class WindowManager
     {
         protected:
-            static sf::RenderWindow window;
-            static sf::View default_view;
+            static sf::RenderWindow window_;
+            static sf::View defaultView_;
 			
-			static bool fullscreen;
-			static bool vertical_sync;
-			static bool cursor_visible;
+			static bool fullscreen_;
+			static bool verticalSync_;
+			static bool cursorVisible_;
 
-			static int optimal_win_width;
-			static int optimal_win_height;
+			static int optimalWinWidth_;
+			static int optimalWinHeight_;
 
-			static int videomode_width;
-			static int videomode_height;
+			static int videomodeWidth_;
+			static int videomodeHeight_;
 			
-			static std::string window_name;
+			static std::string windowName_;
 			
 
         public:
@@ -39,62 +39,62 @@ namespace mp
             static void setup();
 
             /** Return a reference to the main window. */
-            static sf::RenderWindow& get_window();
+            static sf::RenderWindow& getWindow();
 
             /** Return a const reference to the default view. */
-            static const sf::View& get_default_view();
+            static const sf::View& getDefaultView();
 			
 			
 			/** Return whether the main window is configured to be fullscreen or not. */
-			static const bool& is_fullscreen();
+			static const bool& isFullscreen();
 			
 			/** Configure the main window be fullscreen or not. */
-			static void set_fullscreen(const bool& value);
+			static void setFullscreen(const bool& value);
 			
 			/** Return whether the main window is configured to be vertical synchronized or not. */
-			static const bool& is_vertical_sync();
+			static const bool& isVerticalSync();
 			
 			/** Configure the main window to be vertical synchronized or not. */
-			static void set_vertical_sync(const bool& value);
+			static void setVerticalSync(const bool& value);
 			
 			/** Return whether the main window is configured to hide mouse cursor or not. */
-			static const bool& is_cursor_visible();
+			static const bool& isCursorVisible();
 			
 			/** Configure the main window to hide mouse cursor or not. */
-			static void set_cursor_visible(const bool& value);
+			static void setCursorVisible(const bool& value);
 			
 			
 			/** Return the main window optimal width. */
-			static const int& get_optimal_win_width();
+			static const int& getOptimalWinWidth();
 			
 			/** Configure the main window optimal width. */
-			static void set_optimal_win_width(const int& value);
+			static void setOptimalWinWidth(const int& value);
 			
 			/** Return the main window optimal height. */
-			static const int& get_optimal_win_height();
+			static const int& getOptimalWinHeight();
 			
 			/** Configure the main window optimal height. */
-			static void set_optimal_win_height(const int& value);
+			static void setOptimalWinHeight(const int& value);
 			
 			
 			/** Return the main window videomode width. */
-			static const int& get_videomode_width();
+			static const int& getVideomodeWidth();
 			
 			/** Configure the main window videomode width. */
-			static void set_videomode_width(const int& value);
+			static void setVideomodeWidth(const int& value);
 			
 			/** Return the main window videomode height. */
-			static const int& get_videomode_height();
+			static const int& getVideomodeHeight();
 			
 			/** Configure the main window videomode height. */
-			static void set_videomode_height(const int& value);
+			static void setVideomodeHeight(const int& value);
 			
 			
 			/** Return the main window name. */
-			static const std::string& get_window_name();
+			static const std::string& getWindowName();
 			
 			/** Configure the main window name. */
-			static void set_videomode_height(const std::string& value);
+			static void setVideomodeHeight(const std::string& value);
     };
 }
 

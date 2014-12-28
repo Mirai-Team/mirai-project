@@ -8,8 +8,8 @@
 
 using namespace std;
 
-mp::BaseResManager::BaseResManager() : textures_cache{ },
-                                       sound_buffer_cache{ }
+mp::BaseResManager::BaseResManager() : texturesCache{ },
+                                       soundBufferCache{ }
 {
 	// constructor
 }
@@ -20,11 +20,11 @@ mp::BaseResManager::~BaseResManager()
 }
 
 // ______________________________ Textures ______________________________
-shared_ptr<sf::Texture> mp::BaseResManager::get_texture(const string &filename, const bool &safe_mode)
+shared_ptr<sf::Texture> mp::BaseResManager::getTexture(const string &fileName, const bool &safeMode)
 {
     // Check if the texture already exists...
-    if (safe_mode == false or texture_is_available(filename))
-        return textures_cache[filename];
+    if (safeMode == false or textureIsAvailable(fileName))
+        return texturesCache[fileName];
     else
     {
         // The texture doesen't exist. Return a empty texture.
@@ -33,40 +33,40 @@ shared_ptr<sf::Texture> mp::BaseResManager::get_texture(const string &filename, 
     }
 }
 
-bool mp::BaseResManager::load_texture_from_file(const string &filename)
+bool mp::BaseResManager::loadTextureFromFile(const string &fileName)
 {
 	bool success{ true };
 
     shared_ptr<sf::Texture> ptr_texture{ new sf::Texture };
     ptr_texture->setSmooth(false);
 
-    if (!ptr_texture->loadFromFile(filename))
+    if (!ptr_texture->loadFromFile(fileName))
 	{
 		// File not found...
-        mp::log("mirai_project.log", mp::level_error, "File " + filename + " was not found... (for texture)");
+        mp::log("mirai_project.log", mp::level_error, "File " + fileName + " was not found... (for texture)");
 		success = false;
 	}
 
-    textures_cache[filename] = ptr_texture;
+    texturesCache[fileName] = ptr_texture;
 
 	return success;
 }
 
-bool mp::BaseResManager::texture_is_available(const string &filename)
+bool mp::BaseResManager::textureIsAvailable(const string &fileName)
 {
     // Check if the texture is available in the resource manager.
-    if (textures_cache.find(filename) != textures_cache.end())
+    if (texturesCache.find(fileName) != texturesCache.end())
         return true;
     else
         return false;
 }
 
 // ______________________________ Sound Buffers ______________________________
-shared_ptr<sf::SoundBuffer> mp::BaseResManager::get_sound_buffer(const string &filename, const bool &safe_mode)
+shared_ptr<sf::SoundBuffer> mp::BaseResManager::getSoundBuffer(const string &fileName, const bool &safeMode)
 {
     // Check if the sound buffer already exists...
-    if (safe_mode == false or sound_buffer_is_available(filename))
-        return sound_buffer_cache[filename];
+    if (safeMode == false or soundBufferIsAvailable(fileName))
+        return soundBufferCache[fileName];
     else
     {
         // The sound buffer doesen't exist. Return an empty sound buffer.
@@ -76,28 +76,28 @@ shared_ptr<sf::SoundBuffer> mp::BaseResManager::get_sound_buffer(const string &f
 
 }
 
-bool mp::BaseResManager::load_sound_buffer_from_file(const string &filename)
+bool mp::BaseResManager::loadSoundBufferFromFile(const string &fileName)
 {
 	bool success{ true };
 
     shared_ptr<sf::SoundBuffer> ptr_sound_buffer{ new sf::SoundBuffer };
 
-    if (!ptr_sound_buffer->loadFromFile(filename))
+    if (!ptr_sound_buffer->loadFromFile(fileName))
 	{
 		// Sound not found...
-        mp::log("mirai_project.log", mp::level_error, "File " + filename + " was not found... (for sound)");
+        mp::log("mirai_project.log", mp::level_error, "File " + fileName + " was not found... (for sound)");
 		success = false;
 	}
 
-    sound_buffer_cache[filename] = ptr_sound_buffer;
+    soundBufferCache[fileName] = ptr_sound_buffer;
 
 	return success;
 }
 
-bool mp::BaseResManager::sound_buffer_is_available(const string &filename)
+bool mp::BaseResManager::soundBufferIsAvailable(const string &fileName)
 {
     // Check if the sound buffer already exists...
-    if (sound_buffer_cache.find(filename) != sound_buffer_cache.end())
+    if (soundBufferCache.find(fileName) != soundBufferCache.end())
         return true;
     else
         return false;
@@ -108,32 +108,32 @@ void mp::BaseResManager::clean()
     // ___________________ Clean textures cache... ___________________
     mp::log("mirai_project.log", mp::level_info, "Cleaning textures cache.");
 
-    vector<string> keys_to_erase;
+    vector<string> keysToErase;
 
-    for (map<string, shared_ptr<sf::Texture>>::const_iterator it = textures_cache.begin() ;
-         it != textures_cache.end() ;
+    for (map<string, shared_ptr<sf::Texture>>::const_iterator it = texturesCache.begin() ;
+         it != texturesCache.end() ;
          it++)
     {
         if (it->second.unique()) // If the last reference is keep by the resource manager.
-            keys_to_erase.push_back(it->first);
+            keysToErase.push_back(it->first);
     }
 
-    for (const string &key : keys_to_erase)
-        textures_cache.erase(key);
+    for (const string &key : keysToErase)
+        texturesCache.erase(key);
 
     // ___________________ Clean sound buffers cache... ___________________
     mp::log("mirai_project.log", mp::level_info, "Cleaning sound buffers cache.");
 
-    keys_to_erase.clear(); // Clear keys_to_erase vector.
+    keysToErase.clear(); // Clear keys_to_erase vector.
 
-    for (map<string, shared_ptr<sf::SoundBuffer>>::const_iterator it = sound_buffer_cache.begin() ;
-         it != sound_buffer_cache.end() ;
+    for (map<string, shared_ptr<sf::SoundBuffer>>::const_iterator it = soundBufferCache.begin() ;
+         it != soundBufferCache.end() ;
          it++)
     {
         if (it->second.unique()) // If the last reference is keep by the resource manager.
-            keys_to_erase.push_back(it->first);
+            keysToErase.push_back(it->first);
     }
 
-    for (const string &key : keys_to_erase)
-        sound_buffer_cache.erase(key);
+    for (const string &key : keysToErase)
+        soundBufferCache.erase(key);
 }

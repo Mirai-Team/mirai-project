@@ -26,7 +26,7 @@ namespace mp
     std::vector<std::string> split(const std::string &text, const char &separator, unsigned int limit=0);
 
     /** Replace occurrences by a given string in the given text. */
-    std::string replace(std::string &text, std::string to_replace, std::string replace_with);
+    std::string replace(std::string &text, std::string toReplace, std::string replaceWith);
 
     /** Return the given value converted into string. */
     template<typename T> std::string to_string(const T &value);

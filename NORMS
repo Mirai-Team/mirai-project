@@ -6,6 +6,12 @@ Naming :
 
 - File containing only functions : lowercases + underscore between words.
 - File containing a class : upper case for the first letter of each word without any underscore between them.
+- Variable names must be in mixed case starting with lower case. Ex: saveData
+- Names representing types must be in mixed case starting with upper case. Ex : ModifyingStat
+- Names representing methods or functions must be verbs and written in mixed case starting with lower case. Ex : getBuffValue()
+
+- Names representing namespaces should be all lowercase. Ex: mp
+- Private class variables should have underscore suffix. Ex: int modValue_
 
 ________
 Documentation:
@@ -14,6 +20,7 @@ Documentation:
 ________
 Other :
 
+- Do not use #define
 - No C in C++. Only C++.
 - Use ISO/IEC 14882:2011 c++ norm (http://en.wikipedia.org/wiki/C%2B%2B11)
 - If possible, one line per comment commit (not too much features in one time).

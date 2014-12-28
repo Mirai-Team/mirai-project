@@ -6,24 +6,31 @@
 using namespace std;
 
 mp::ModifiedStat::ModifiedStat() : 	BaseStat(),
-									_mods { },
-									_modValue { }
+									mods_ { },
+									modValue_ { }
 									
 {
+	// constructor
 }	
-void mp::ModifiedStat::AddModifier(mp::ModifyingStat mod)
+
+mp::ModifiedStat::~ModifiedStat()
 {
-	_mods.push_back(mod);
+    // destructor
 }
 
-void mp::ModifiedStat::CalcultateModValue() {
-	_modValue = 0; 
+void mp::ModifiedStat::addModifier(mp::ModifyingStat modifyingStat)
+{
+	mods_.push_back(modifyingStat);
+}
+
+void mp::ModifiedStat::calcultateModValue() {
+	modValue_ = 0; 
 	
-	for(unsigned int i = 0; i<_mods.size();i++)
-		_modValue += static_cast<int>(static_cast<float>(_mods[i].stat.GetBaseValue()) * (1+_mods[i].ratio));
+	for(unsigned int i = 0; i<mods_.size(); i++)
+		modValue_ += static_cast<int>(static_cast<float>( mods_[i].stat.getBaseValue() ) * ( 1 + mods_[i].ratio ));
 			
 }
 
-int mp::ModifiedStat::AdjustedBaseValue() const {
-	return (_baseValue+ _buffValue + _modValue);
+int mp::ModifiedStat::adjustedBaseValue() const {
+	return ( getBaseValue() + getBuffValue() + modValue_ );
 }

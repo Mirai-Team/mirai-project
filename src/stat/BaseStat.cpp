@@ -2,27 +2,38 @@
 
 using namespace std;
 
-int mp::BaseStat::GetBaseValue() const
+mp::BaseStat::BaseStat() : baseValue_{ },
+						   buffValue_{ }
 {
-	return _baseValue;
+	// constructor
 }
 
-void mp::BaseStat::SetBaseValue(int value)
+mp::BaseStat::~BaseStat()
 {
-	_baseValue = value;
+    // destructor
 }
 
-int mp::BaseStat::GetBuffValue() const
+int mp::BaseStat::getBaseValue() const
 {
-	return _buffValue;
+	return baseValue_;
 }
 
-void mp::BaseStat::AddBuffValue(int value)
+void mp::BaseStat::setBaseValue(int baseValue)
 {
-	_buffValue += value;
+	baseValue_ = baseValue;
 }
 
-int mp::BaseStat::AdjustedBaseValue() const
+int mp::BaseStat::getBuffValue() const
 {
-	return _buffValue + _baseValue;
+	return buffValue_;
+}
+
+void mp::BaseStat::addBuffValue(int buffValue)
+{
+	buffValue_ += buffValue;
+}
+
+int mp::BaseStat::adjustedBaseValue() const
+{
+	return buffValue_ + baseValue_;
 }

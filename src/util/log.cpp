@@ -9,9 +9,9 @@
 
 using namespace std;
 
-bool mp::debug_mode{ false };
+bool mp::debugMode{ false };
 
-ofstream mp::log_file;
+ofstream mp::logFile;
 
 string mp::level_severe{ "SEVERE" };
 string mp::level_error{ "ERROR" };
@@ -19,9 +19,9 @@ string mp::level_warning{ "WARNING" };
 string mp::level_info{ "INFO" };
 string mp::level_config{ "CONFIG" };
 
-void mp::log(const string &filename, const string &level_name, const string &msg, ...)
+void mp::log(const string &fileName, const string &levelName, const string &msg, ...)
 {
-    if (debug_mode)
+    if (debugMode)
     {
         // current date/time based on current system
         time_t now(time(0));
@@ -41,7 +41,7 @@ void mp::log(const string &filename, const string &level_name, const string &msg
         text << minute << ":";
         if (second < 10)
             text << "0";
-        text << second << "] (" << upper(level_name) << ") > ";
+        text << second << "] (" << upper(levelName) << ") > ";
 
         //Parsing message
         for (unsigned int i{ 0 } ; i < msg.length() ; i++)
@@ -74,8 +74,8 @@ void mp::log(const string &filename, const string &level_name, const string &msg
         cout << text.str() << endl;
 
         //write news entries in log file (append mode)
-        log_file.open(filename, ios::app);
-        log_file << text.str() << endl;
-        log_file.close();
+        logFile.open(fileName, ios::app);
+        logFile << text.str() << endl;
+        logFile.close();
     }
 }

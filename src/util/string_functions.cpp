@@ -39,7 +39,7 @@ vector<string> mp::split(const string &text, const char &separator, unsigned int
     return words;
 }
 
-string mp::replace(string &text, string to_replace, string replace_with)
+string mp::replace(string &text, string toReplace, string replaceWith)
 {
-    return(text.replace(text.find(to_replace), to_replace.length(), replace_with));
+    return(text.replace(text.find(toReplace), toReplace.length(), replaceWith));
 }

@@ -7,21 +7,21 @@
 using namespace std;
 
 // ______________________________ Textures ______________________________
-shared_ptr<sf::Texture> mp::AutoResManager::get_texture(const string &filename)
+shared_ptr<sf::Texture> mp::AutoResManager::getTexture(const string &fileName)
 {
     // Automatically load the texture if needed.
-	if (texture_is_available(filename) == false)
-		load_texture_from_file(filename);
+	if (textureIsAvailable(fileName) == false)
+		loadTextureFromFile(fileName);
     
-	return mp::BaseResManager::get_texture(filename, false);
+	return mp::BaseResManager::getTexture(fileName, false);
 }
 
 // ______________________________ Sound Buffers ______________________________
-shared_ptr<sf::SoundBuffer> mp::AutoResManager::get_sound_buffer(const string &filename)
+shared_ptr<sf::SoundBuffer> mp::AutoResManager::getSoundBuffer(const string &fileName)
 {
     // Automatically load the sound buffer if needed.
-	if (sound_buffer_is_available(filename) == false)
-		load_sound_buffer_from_file(filename);
+	if (soundBufferIsAvailable(fileName) == false)
+		loadSoundBufferFromFile(fileName);
     
-	return mp::BaseResManager::get_sound_buffer(filename, false);
+	return mp::BaseResManager::getSoundBuffer(fileName, false);
 }

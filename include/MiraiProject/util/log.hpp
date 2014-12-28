@@ -10,9 +10,9 @@
 
 namespace mp
 {
-    extern bool debug_mode;
+    extern bool debugMode;
 
-    extern std::ofstream log_file;
+    extern std::ofstream logFile;
 
     extern std::string level_severe;
     extern std::string level_error;
@@ -32,7 +32,7 @@ namespace mp
      * %%f : display a decimal value.\n
      * Theses values are passed as optional parameters.
      */
-    void log(const std::string &filename, const std::string &level_name, const std::string &msg, ...);
+    void log(const std::string &fileName, const std::string &levelName, const std::string &msg, ...);
 }
 
 #endif // LOG_HPP_INCLUDED

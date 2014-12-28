@@ -37,7 +37,7 @@ namespace mp {
              * \return Return the whole file encrypted
              *
              */
-            std::string encrypt_file(std::string file);
+            std::string encryptFile(std::string file);
 
             /** \brief Load a file in a encrypted pack.
              *
@@ -46,7 +46,7 @@ namespace mp {
              * \return The file decrypted
              *
              */
-            std::string load_file(std::string inputFile, std::string targetFile);
+            std::string loadFile(std::string inputFile, std::string targetFile);
 
             /** \brief A function to create a file encrypted
              *
@@ -54,7 +54,7 @@ namespace mp {
              * \param directory : Directory to encrypt.
              *
              */
-            bool create_file(std::string outputFile, boost::filesystem::path directory);
+            bool createFile(std::string outputFile, boost::filesystem::path directory);
 
 
         private:
@@ -63,18 +63,18 @@ namespace mp {
             *  \return True if success else false.
             *
             */
-            bool write_header();
+            bool writeHeader();
 
             /** \brief Write the data (used in create_file)
             *  \return True if success else false.
             *
             */
-            bool write_data();
+            bool writeData();
 
-            std::string _key;
-            std::string _outputFile;
-            std::vector<long int>_offset;
-            std::vector<std::string>_filenames;
+            std::string key_;
+            std::string outputFile_;
+            std::vector<long int>offset_;
+            std::vector<std::string>fileNames_;
 
 
     };

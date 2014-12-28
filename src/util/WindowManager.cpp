@@ -6,167 +6,167 @@
 
 using namespace mp;
 
-sf::RenderWindow WindowManager::window{ };
-sf::View WindowManager::default_view{ };
+sf::RenderWindow WindowManager::window_{ };
+sf::View WindowManager::defaultView_{ };
 
-bool WindowManager::fullscreen{ false };
-bool WindowManager::vertical_sync{ false };
-bool WindowManager::cursor_visible{ false };
+bool WindowManager::fullscreen_{ false };
+bool WindowManager::verticalSync_{ false };
+bool WindowManager::cursorVisible_{ false };
 
-int WindowManager::optimal_win_width{ 1024 };
-int WindowManager::optimal_win_height{ 768 };
+int WindowManager::optimalWinWidth_{ 1024 };
+int WindowManager::optimalWinHeight_{ 768 };
 
-int WindowManager::videomode_width{ 1024 };
-int WindowManager::videomode_height{ 768 };
+int WindowManager::videomodeWidth_{ 1024 };
+int WindowManager::videomodeHeight_{ 768 };
 
-std::string WindowManager::window_name{ "SFML Window" };
+std::string WindowManager::windowName_{ "SFML Window" };
 
 
 void WindowManager::create()
 {
     // Creating the main window.
-    if (fullscreen)
-        window.create(sf::VideoMode(videomode_width, videomode_height, 32),
-                      window_name,
+    if (fullscreen_)
+        window_.create(sf::VideoMode(videomodeWidth_, videomodeHeight_, 32),
+                      windowName_,
                       sf::Style::Fullscreen);
     else
-        window.create(sf::VideoMode(videomode_width, videomode_height, 32),
-                      window_name,
+        window_.create(sf::VideoMode(videomodeWidth_, videomodeHeight_, 32),
+                      windowName_,
                       sf::Style::Close | sf::Style::Titlebar);
 
-    window.setMouseCursorVisible(cursor_visible); // Hide the cursor.
-    window.setVerticalSyncEnabled(vertical_sync);
+    window_.setMouseCursorVisible(cursorVisible_); // Hide the cursor.
+    window_.setVerticalSyncEnabled(verticalSync_);
 
     // Setting up the class.
     setup();
 
-    window.setView(default_view);
+    window_.setView(defaultView_);
 }
 
 void WindowManager::setup()
 {
     // _________ Setup default view _____________
-    sf::Vector2u window_size{ window.getSize() };
+    sf::Vector2u window_size{ window_.getSize() };
 
     float win_ratio = static_cast<float>(window_size.x) / static_cast<float>(window_size.y);
 
     float left{ 0 };
     float top{ 0 };
-    float width{ static_cast<float>(optimal_win_width) };
-    float height{ static_cast<float>(optimal_win_height) };
+    float width{ static_cast<float>(optimalWinWidth_) };
+    float height{ static_cast<float>(optimalWinHeight_) };
 
-    float idiff_width { static_cast<float>(window_size.x - optimal_win_width)
-                        * (static_cast<float>(optimal_win_height) / static_cast<float>(optimal_win_width)) };
-    float idiff_height { static_cast<float>(window_size.y - optimal_win_height)
-                        * (static_cast<float>(optimal_win_width) / static_cast<float>(optimal_win_height)) };
+    float idiff_width { static_cast<float>(window_size.x - optimalWinWidth_)
+                        * (static_cast<float>(optimalWinHeight_) / static_cast<float>(optimalWinWidth_)) };
+    float idiff_height { static_cast<float>(window_size.y - optimalWinHeight_)
+                        * (static_cast<float>(optimalWinWidth_) / static_cast<float>(optimalWinHeight_)) };
 
     if (idiff_width > idiff_height)
     {
         // Width bigger... (by ratio)
-        width = static_cast<float>(optimal_win_height) * win_ratio;
-        left = (static_cast<float>(optimal_win_width) - static_cast<float>(width)) / 2;
+        width = static_cast<float>(optimalWinHeight_) * win_ratio;
+        left = (static_cast<float>(optimalWinWidth_) - static_cast<float>(width)) / 2;
     }
     else
     {
         // Height bigger... (by ratio)
-        height = static_cast<float>(optimal_win_width) / win_ratio;
-        top = (static_cast<float>(optimal_win_height) - static_cast<float>(height)) / 2;
+        height = static_cast<float>(optimalWinWidth_) / win_ratio;
+        top = (static_cast<float>(optimalWinHeight_) - static_cast<float>(height)) / 2;
     }
 
     sf::FloatRect rect{ left, top, width, height };
-    default_view.reset(rect);
+    defaultView_.reset(rect);
 }
 
-sf::RenderWindow& WindowManager::get_window()
+sf::RenderWindow& WindowManager::getWindow()
 {
-    return window;
+    return window_;
 }
 
-const sf::View& WindowManager::get_default_view()
+const sf::View& WindowManager::getDefaultView()
 {
-    return default_view;
-}
-
-
-const bool& WindowManager::is_fullscreen()
-{
-	return fullscreen;
-}
-
-void WindowManager::set_fullscreen(const bool& value)
-{
-	fullscreen = value;
-}
-
-const bool& WindowManager::is_vertical_sync()
-{
-	return vertical_sync;
-}
-
-void WindowManager::set_vertical_sync(const bool& value)
-{
-	vertical_sync = value;
-}
-
-const bool& WindowManager::is_cursor_visible()
-{
-	return cursor_visible;
-}
-
-void WindowManager::set_cursor_visible(const bool& value)
-{
-	cursor_visible = value;
+    return defaultView_;
 }
 
 
-const int& WindowManager::get_optimal_win_width()
+const bool& WindowManager::isFullscreen()
 {
-	return optimal_win_width;
+	return fullscreen_;
 }
 
-void WindowManager::set_optimal_win_width(const int& value)
+void WindowManager::setFullscreen(const bool& fullscreen)
 {
-	optimal_win_width = value;
+	fullscreen_ = fullscreen;
 }
 
-const int& WindowManager::get_optimal_win_height()
+const bool& WindowManager::isVerticalSync()
 {
-	return optimal_win_height;
+	return verticalSync_;
 }
 
-void WindowManager::set_optimal_win_height(const int& value)
+void WindowManager::setVerticalSync(const bool& verticalSync)
 {
-	optimal_win_height = value;
+	verticalSync_ = verticalSync;
 }
 
-
-const int& WindowManager::get_videomode_width()
+const bool& WindowManager::isCursorVisible()
 {
-	return videomode_width;
+	return cursorVisible_;
 }
 
-void WindowManager::set_videomode_width(const int& value)
+void WindowManager::setCursorVisible(const bool& cursorVisible)
 {
-	videomode_width = value;
-}
-
-const int& WindowManager::get_videomode_height()
-{
-	return videomode_height;
-}
-
-void WindowManager::set_videomode_height(const int& value)
-{
-	videomode_height = value;
+	cursorVisible_ = cursorVisible;
 }
 
 
-const std::string& WindowManager::get_window_name()
+const int& WindowManager::getOptimalWinWidth()
 {
-	return window_name;
+	return optimalWinWidth_;
 }
 
-void WindowManager::set_videomode_height(const std::string& value)
+void WindowManager::setOptimalWinWidth(const int& value)
 {
-	window_name = value;
+	optimalWinWidth_ = value;
+}
+
+const int& WindowManager::getOptimalWinHeight()
+{
+	return optimalWinHeight_;
+}
+
+void WindowManager::setOptimalWinHeight(const int& value)
+{
+	optimalWinHeight_ = value;
+}
+
+
+const int& WindowManager::getVideomodeWidth()
+{
+	return videomodeWidth_;
+}
+
+void WindowManager::setVideomodeWidth(const int& videomodeWidth)
+{
+	videomodeWidth_ = videomodeWidth;
+}
+
+const int& WindowManager::getVideomodeHeight()
+{
+	return videomodeHeight_;
+}
+
+void WindowManager::setVideomodeHeight(const int& videomodeHeight)
+{
+	videomodeHeight_ = videomodeHeight;
+}
+
+
+const std::string& WindowManager::getWindowName()
+{
+	return windowName_;
+}
+
+void WindowManager::setVideomodeHeight(const std::string& windowName)
+{
+	windowName_ = windowName;
 }

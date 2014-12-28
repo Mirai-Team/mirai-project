@@ -8,16 +8,16 @@ namespace mp
 			BaseStat();
             virtual ~BaseStat();
             
-            int GetBaseValue() const;
-			void SetBaseValue(int value);
+            int getBaseValue() const;
+			void setBaseValue(int baseValue);
 			
-			int GetBuffValue() const;
-			void AddBuffValue(int value);
+			int getBuffValue() const;
+			void addBuffValue(int buffValue);
 			
-			int AdjustedBaseValue() const;
+			int adjustedBaseValue() const;
 		protected:    
-			int _baseValue;
-			int _buffValue;
+			int baseValue_;
+			int buffValue_;
 		private:
 			
 			

@@ -11,13 +11,12 @@
 #include <boost/filesystem.hpp>
 
 using namespace std;
-using namespace mp;
 using namespace boost::filesystem;
 
-mp::Encryption::Encryption(string key) : _key{ encrypt_key(key) },
-										 _outputFile{ },
-										 _offset{ },
-										 _filenames{ }
+mp::Encryption::Encryption(string key) : key_{ encryptKey(key) },
+										 outputFile_{ },
+										 offset_{ },
+										 fileNames_{ }
 {
 	// constructor
 }
@@ -27,9 +26,9 @@ mp::Encryption::~Encryption()
     // destructor
 }
 
-bool mp::Encryption::create_file(string outputFile, path directory)
+bool mp::Encryption::createFile(string outputFile, path directory)
 {
-    _outputFile = outputFile;
+    outputFile_ = outputFile;
     if(!exists(directory) || !is_directory(directory))
     {
         mp::log("mirai_project.log", mp::level_error, "Path " + directory.string() + " doesn't exist or isn't a directory. (encryption)");
@@ -37,104 +36,104 @@ bool mp::Encryption::create_file(string outputFile, path directory)
     }
 
 
-    _filenames = list_file(directory);
+    fileNames_ = listFile(directory);
 
-    if(write_header() && write_data())
+    if(writeHeader() && writeData())
         return true;
     else
         return false;
 
 }
-bool mp::Encryption::write_header()
+bool mp::Encryption::writeHeader()
 {
-    bool success = false;
-    //Set base offset to 8 bytes (headerlen + filecount).
-    long unsigned int offset=8, filecount, fileoffset;
-    long unsigned int headerlen;
+    bool hasSuccess = false;
+    //Set base offset to 8 bytes (headerLen + fileCount).
+    long unsigned int offset=8, fileCount, fileOffset;
+    long unsigned int headerLen;
 
-    vector<long unsigned int> filesize, filenamelen, boffset;
+    vector<long unsigned int> fileSize, fileNameLen;
 
-    fstream output(_outputFile, ios::in | ios::out | ios::binary | ios::trunc);
+    fstream output(outputFile_, ios::in | ios::out | ios::binary | ios::trunc);
     if(output)
     {
-        for(unsigned int i = 0; i<_filenames.size(); i++)
+        for(unsigned int i = 0; i<fileNames_.size(); i++)
         {
             //Calculate the filename length and push it in filename.
-            filenamelen.push_back(_filenames[i].size());
-            filesize.push_back(file_size(_filenames[i]));
+            fileNameLen.push_back(fileNames_[i].size());
+            fileSize.push_back(file_size(fileNames_[i]));
 
             // Write the length of the filename on 4 bytes.
             output.seekg(offset,ios::beg);
-            output.write(reinterpret_cast<char*>(&filenamelen[i]),4);
+            output.write(reinterpret_cast<char*>(&fileNameLen[i]),4);
 
             // Write the length of the filename on 4 bytes.
-            output << _filenames[i];
-            output.write(reinterpret_cast<char*>(&filesize[i]),4);
+            output << fileNames_[i];
+            output.write(reinterpret_cast<char*>(&fileSize[i]),4);
 
             // Increment offset (filename length + 4 bytes for write filenamelen
-            // 4 bytes for the size and 4 bytes for the offset).
-            offset+=filenamelen[i]+4+4+4;
+            // 4 bytes for the size and 4 bytes for the fileoffset).
+            offset+=fileNameLen[i]+4+4+4;
         }
 
         output.seekg(0,ios::beg);
-        encrypt_file(_outputFile);
+        encryptFile(outputFile_);
 
         //Add the last offset in headerlen and write it.
-        headerlen = file_size(_outputFile)+4;
-        output.write(reinterpret_cast<char*>(&headerlen),4);
+        headerLen = file_size(outputFile_)+4;
+        output.write(reinterpret_cast<char*>(&headerLen),4);
 
         //Write the number of files which are encrypted.
-        filecount = _filenames.size();
-        output.write(reinterpret_cast<char*>(&filecount),4);
+        fileCount = fileNames_.size();
+        output.write(reinterpret_cast<char*>(&fileCount),4);
 
         //Set base offset to 4, and base fileoffset to headerlen.
         offset=4;
-        fileoffset = headerlen;
+        fileOffset = headerLen;
 
-        for(unsigned int i = 0; i<_filenames.size(); i++)
+        for(unsigned int i = 0; i<fileNames_.size(); i++)
         {
-            offset+=_filenames[i].size()+4+4+4;
-            _offset.push_back(fileoffset);
+            offset+=fileNames_[i].size()+4+4+4;
+            offset_.push_back(fileOffset);
 
             output.seekg(offset,ios::beg);
-            output.write(reinterpret_cast<const char*>(&fileoffset),4);
+            output.write(reinterpret_cast<const char*>(&fileOffset),4);
 
-            fileoffset += filesize[i];
+            fileOffset += fileSize[i];
         }
         output.close();
-        success = true;
+        hasSuccess = true;
     }
     else
-        mp::log("mirai_project.log", mp::level_error, "Unable to open " + _outputFile + " to write the header. (encryption)");
+        mp::log("mirai_project.log", mp::level_error, "Unable to open " + outputFile_ + " to write the header. (encryption)");
 
-    return success;
+    return hasSuccess;
 }
 
-bool mp::Encryption::write_data()
+bool mp::Encryption::writeData()
 {
-    bool success = false;
-    fstream output(_outputFile, ios::in | ios::out | ios::binary);
+    bool hasSuccess = false;
+    fstream output(outputFile_, ios::in | ios::out | ios::binary);
     if(output)
     {
-        for(unsigned int i =0; i<_filenames.size(); i++)
+        for(unsigned int i =0; i<fileNames_.size(); i++)
         {
             //Move the cursor to the offset.
-            output.seekg(_offset[i],ios::beg);
+            output.seekg(offset_[i],ios::beg);
 
             //Encrypt the file and write it.
-            output << encrypt_file(_filenames[i]);
+            output << encryptFile(fileNames_[i]);
 
         }
         output.close();
-        success = true;
+        hasSuccess = true;
     }
     else
-        mp::log("mirai_project.log", mp::level_error, "Unable to open " + _outputFile + " to write the data. (encryption)");
+        mp::log("mirai_project.log", mp::level_error, "Unable to open " + outputFile_ + " to write the data. (encryption)");
 
-    return success;
+    return hasSuccess;
 }
 
-string mp::Encryption::encrypt_file(string file)
+string mp::Encryption::encryptFile(string file)
 {
     ifstream input(file, ios::binary);
     if(!input)
@@ -150,15 +149,15 @@ string mp::Encryption::encrypt_file(string file)
     encryptedFile = static_cast<string>(buffer.str());
 
     //Encrypt the file
-    encryptedFile = encrypt_data(_key, encryptedFile);
+    encryptedFile = encryptData(key_, encryptedFile);
 
     return encryptedFile;
 }
 
-string mp::Encryption::load_file(string inputFile, string targetFile)
+string mp::Encryption::loadFile(string inputFile, string targetFile)
 {
 
-    int headerlen, filecount, filenamelen, filesize, fileoffset, i=0, offset=8;
+    int headerLen, fileCount, fileNameLen, fileSize, fileOffset, i=0, offset=8;
 
     ifstream input(inputFile, ios::in | ios::binary);
     if(!input)
@@ -167,39 +166,39 @@ string mp::Encryption::load_file(string inputFile, string targetFile)
     string filename;
 
     //Read headerlen & filecount
-    input.read(reinterpret_cast<char*>(&headerlen), 4);
-    input.read(reinterpret_cast<char*>(&filecount), 4);
+    input.read(reinterpret_cast<char*>(&headerLen), 4);
+    input.read(reinterpret_cast<char*>(&fileCount), 4);
 
-    while(i<filecount)
+    while(i<fileCount)
     {
         //read the filenamelen.
         input.seekg(offset,ios::beg);
-        input.read(reinterpret_cast<char*>(&filenamelen), 4);
+        input.read(reinterpret_cast<char*>(&fileNameLen), 4);
 
         //Possible memory leak.
-        char * buffer = new char[filenamelen];
+        char * buffer = new char[fileNameLen];
 
         //read filenamelen
-        input.read(buffer, filenamelen);
+        input.read(buffer, fileNameLen);
         filename = buffer;
 
         //increment the offset with filenamelen.
-        offset+=filenamelen+4+4+4;
+        offset+=fileNameLen+4+4+4;
 
         if(filename == targetFile)
         {
             //read the filesize into the input file.
-            input.read(reinterpret_cast<char*>(&filesize), 4);
+            input.read(reinterpret_cast<char*>(&fileSize), 4);
             //read the fileoffset into the input file.
-            input.read(reinterpret_cast<char*>(&fileoffset), 4);
+            input.read(reinterpret_cast<char*>(&fileOffset), 4);
 
             //Move the cursor on the first bit of the file and read it with filesize.
-            std::string file(filesize, ' ');
-            input.seekg(fileoffset, ios::beg);
-            input.read(&file[0], filesize);
+            std::string file(fileSize, ' ');
+            input.seekg(fileOffset, ios::beg);
+            input.read(&file[0], fileSize);
 
             //convert in order to use crypt_data function.
-            file = encrypt_data(_key, file);
+            file = encryptData(key_, file);
 
             //The file have been found, no need to keep running the loop.
             return file;
