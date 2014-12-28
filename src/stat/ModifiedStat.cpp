@@ -23,7 +23,7 @@ void mp::ModifiedStat::addModifier(mp::ModifyingStat modifyingStat)
 	mods_.push_back(modifyingStat);
 }
 
-void mp::ModifiedStat::calcultateModValue() {
+void mp::ModifiedStat::calculateModValue() {
 	modValue_ = 0; 
 	
 	for(unsigned int i = 0; i<mods_.size(); i++)

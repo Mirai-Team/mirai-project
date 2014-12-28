@@ -19,7 +19,7 @@ namespace mp
 			virtual ~ModifiedStat();
 			
 			void addModifier(ModifyingStat modifyingStat);
-			void calcultateModValue();
+			void calculateModValue();
 			int adjustedBaseValue() const;
 		protected:
 		
