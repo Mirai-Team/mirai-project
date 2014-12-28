@@ -27,10 +27,14 @@ void mp::ModifiedStat::calculateModValue() {
 	modValue_ = 0; 
 	
 	for(unsigned int i = 0; i<mods_.size(); i++)
-		modValue_ += static_cast<int>(static_cast<float>( mods_[i].stat.getBaseValue() ) * ( 1 + mods_[i].ratio ));
+		modValue_ += static_cast<int>(static_cast<float>( mods_[i].stat.getBaseValue() ) * mods_[i].ratio );
 			
 }
 
 int mp::ModifiedStat::adjustedBaseValue() const {
 	return ( getBaseValue() + getBuffValue() + modValue_ );
+}
+
+mp::BaseStat mp::ModifiedStat::GetBaseStat() const {
+	return BaseStat();
 }
