@@ -12,7 +12,7 @@ namespace mp
 			void SetBaseValue(int value);
 			
 			int GetBuffValue() const;
-			void SetBuffValue(int value);
+			void AddBuffValue(int value);
 			
 			int AdjustedBaseValue() const;
 		protected:    

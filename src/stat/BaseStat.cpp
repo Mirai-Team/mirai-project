@@ -17,7 +17,7 @@ int mp::BaseStat::GetBuffValue() const
 	return _buffValue;
 }
 
-void mp::BaseStat::SetBuffValue(int value)
+void mp::BaseStat::AddBuffValue(int value)
 {
 	_buffValue += value;
 }
