@@ -8,7 +8,7 @@
 
 /**
  * \file Encryption.hpp
- * \brief A file who contains the Encryption definition.
+ * \brief A file which contains the class Encryption definition.
  *
  */
  
@@ -43,7 +43,7 @@ namespace mp {
              *
              * \param inputFile : File to parse
              * \param targetFile : The Target File
-             * \return The file decrypted
+             * \return The decrypted file
              *
              */
             std::string loadFile(std::string inputFile, std::string targetFile);
