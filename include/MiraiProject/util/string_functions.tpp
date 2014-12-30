@@ -11,7 +11,7 @@ namespace mp
     string to_string(const T &object)
     {
         ostringstream oss;
-        oss << value;
+        oss << object;
         return oss.str();
     }
 }
