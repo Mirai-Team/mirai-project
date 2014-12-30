@@ -1,8 +1,0 @@
-# Ignore folders
-lib/*
-CMakeFiles/*
-
-# Ignore files.
-CMakeCache.txt
-Makefile
-cmake_install.cmake
