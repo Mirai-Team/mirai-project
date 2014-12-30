@@ -5,25 +5,34 @@ _____
 high:
 
 - Add "Box2D"
-- Add an Encrypted Save System using Encryption class.
+- Animated Sprites system with sprite sheets system
+- Parsing system for configuration files (Maybe add an optional encryption system ?)
+    => Use Encryption class with encrypt_file function, if there is one file.
+- Add Random functions (template<class T> T getRng(T min, T max), template<class T> T vGetRng(vector<T> list))
+- Add Updatable class for void update function.
 
 _______
 normal:
 
 - Add "SPARK" and "Let There Be Light".
-- Animated Sprites system with sprite sheets system
-- Add basic item system
+- Add an Encrypted Save System using Encryption class.
+	=> Encryption optional
+- Update log function (Add level enum) + Add possibility to ignore some levels in logging.
 
 ____
 low:
 
-- ...
+- Add cinematic system (a "video player") with pass parameter (hold E to pass, Esc to pass, etc...)
+- Add basic item system
+- Add basic character
+- Add basic artificial intelligence
+
+____
+very low:
+
+- Create a logo for Mirai Project
 
 _____________
 unclassified:
 
-- Parsing system for configuration files (Maybe add an optional encryption system ?)
-    => Use Encryption class with crypt_file function, if there is one file.
-- Broadcasting system
-    => Maybe useless
-- Method OnStart
+...
