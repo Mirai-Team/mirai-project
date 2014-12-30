@@ -136,9 +136,9 @@ const int& WindowManager::getOptimalWinWidth() const
 	return optimalWinWidth_;
 }
 
-void WindowManager::setOptimalWinWidth(const int& value)
+void WindowManager::setOptimalWinWidth(const int& optimalWinWidth)
 {
-	optimalWinWidth_ = value;
+	optimalWinWidth_ = optimalWinWidth;
 }
 
 const int& WindowManager::getOptimalWinHeight() const
@@ -146,9 +146,9 @@ const int& WindowManager::getOptimalWinHeight() const
 	return optimalWinHeight_;
 }
 
-void WindowManager::setOptimalWinHeight(const int& value)
+void WindowManager::setOptimalWinHeight(const int& optimalWinHeight)
 {
-	optimalWinHeight_ = value;
+	optimalWinHeight_ = optimalWinHeight;
 }
 
 

@@ -3,12 +3,19 @@
 
 #include <SFML/Graphics.hpp>
 
+/**
+ * \file WindowManager.hpp
+ *
+ * \brief A file which contains the WindowManager class definition.
+ */
+
 namespace mp
 {
-    /**
-     * Class to handle a window.
-     * Call create() to start using the window.
-     */
+	/** \class WindowManager
+	 * \brief Class to handle a window.
+	 *
+	 * 	Call create() method to start using a new window.
+	 */
 
     class WindowManager
     {
@@ -30,7 +37,17 @@ namespace mp
 			
 
         public:
-			/** Class Constructor. */
+            /** \brief Class constructor.
+             *
+             * \param fullscreen : set fullscreen mode or not.
+             * \param verticalSync : set verticalSync mode or not.
+			 * \param cursorVisible : set cursor visible or not.
+			 * \param optimalWinWidth : set optimal window width value.
+			 * \param optimalWinHeight : set optimal window height value.
+			 * \param videoModeWidth : set video mode width value.
+			 * \param videoModeHeight : set video mode height value.
+			 * \param windowName : set window name.
+             */
 			WindowManager(const bool& fullscreen=false, const bool& verticalSync=false, const bool& cursorVisible=false,
 						  const int& optimalWinWidth=1024, const int& optimalWinHeight=768, 
 						  const int& videoModeWidth=1024, const int& videoModeHeight=768,
@@ -39,71 +56,93 @@ namespace mp
 			virtual ~WindowManager();
 			
 		
-            /** Create or re-create the window by using general configuration. */
+            /** \brief Create or re-create the window by using general configuration. */
             void create();
 
-            /** Setup black_borders sprite by loading black border texture (only once),
-              * and setup the default_view based on window (new) dimensions.
-              */
+            /** \brief Prepare the window to be used. */
             void setup();
 
-            /** Return a reference to the window. */
+            /** \return a reference to the window. */
             sf::RenderWindow& getWindow();
 
-            /** Return a const reference to the default view. */
+            /** \return a const reference to the default view. */
             const sf::View& getDefaultView() const;
 			
 			
-			/** Return whether the window is configured to be fullscreen or not. */
+			/** \return whether the window is configured to be fullscreen or not. */
 			const bool& isFullscreen() const;
 			
-			/** Configure the window be fullscreen or not. */
-			void setFullscreen(const bool& value);
+			/** \brief Configure the window be fullscreen or not. 
+			 *
+			 * \param fullscreen : value to set for fullscreen.
+			 */
+			void setFullscreen(const bool& fullscreen);
 			
-			/** Return whether the window is configured to be vertical synchronized or not. */
+			/** \return whether the window is configured to be vertical synchronized or not. */
 			const bool& isVerticalSync() const;
 			
-			/** Configure the window to be vertical synchronized or not. */
-			void setVerticalSync(const bool& value);
+			/** \brief Configure the window to be vertical synchronized or not. 
+			 *
+			 * \param verticalSync : value to set for verticalSync.
+			 */
+			void setVerticalSync(const bool& verticalSync);
 			
-			/** Return whether the window is configured to hide mouse cursor or not. */
+			/** \return whether the window is configured to hide mouse cursor or not. */
 			const bool& isCursorVisible() const;
 			
-			/** Configure the window to hide mouse cursor or not. */
-			void setCursorVisible(const bool& value);
+			/** \brief Configure the window to hide mouse cursor or not. 
+			 *
+			 * \param cursorVisible : value to set for cursor visibility.
+			 */
+			void setCursorVisible(const bool& cursorVisible);
 			
 			
-			/** Return the window optimal width. */
+			/** \return the window optimal width. */
 			const int& getOptimalWinWidth() const;
 			
-			/** Configure the window optimal width. */
-			void setOptimalWinWidth(const int& value);
+			/** \brief Configure the window optimal width. 
+			 *
+			 * \param optimalWinWidth : value to set for optimal window width.
+			 */
+			void setOptimalWinWidth(const int& optimalWinWidth);
 			
-			/** Return the window optimal height. */
+			/** \return the window optimal height. */
 			const int& getOptimalWinHeight() const;
 			
-			/** Configure the window optimal height. */
-			void setOptimalWinHeight(const int& value);
+			/** \brief Configure the window optimal height. 
+			 *
+			 * \param optimalWinHeight : value to set for optimal window height.
+			 */
+			void setOptimalWinHeight(const int& optimalWinHeight);
 			
 			
-			/** Return the window videomode width. */
+			/** \return the window videomode width. */
 			const int& getVideomodeWidth() const;
 			
-			/** Configure the window videomode width. */
-			void setVideomodeWidth(const int& value) ;
+			/** \brief Configure the window videomode width. 
+			 *
+			 * \param videoModeWidth : value to set for video mode width.
+			 */
+			void setVideomodeWidth(const int& videoModeWidth) ;
 			
-			/** Return the main window videomode height. */
+			/** \return the main window videomode height. */
 			const int& getVideomodeHeight() const;
 			
-			/** Configure the main window videomode height. */
-			void setVideomodeHeight(const int& value);
+			/** \brief Configure the main window videomode height. 
+			 *
+			 * \param videoModeHeight : value to set for video mode height.
+			 */
+			void setVideomodeHeight(const int& videoModeHeight);
 			
 			
-			/** Return the main window name. */
+			/** \return the main window name. */
 			const std::string& getWindowName() const;
 			
-			/** Configure the main window name. */
-			void setVideomodeHeight(const std::string& value);
+			/** \brief Configure the main window name. 
+			 *
+			 * \param windowName : the new window's name.
+			 */
+			void setVideomodeHeight(const std::string& windowName);
     };
 }
 
