@@ -53,6 +53,7 @@ namespace mp
 						  const int& videoModeWidth=1024, const int& videoModeHeight=768,
 						  const std::string& windowName="SFML Window");
 			
+			/** \brief Class destructor **/
 			virtual ~WindowManager();
 			
 		

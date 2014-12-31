@@ -8,7 +8,7 @@ using namespace std;
 namespace mp
 {
     template<typename T>
-    string to_string(const T &object)
+    string toString(const T &object)
     {
         ostringstream oss;
         oss << object;

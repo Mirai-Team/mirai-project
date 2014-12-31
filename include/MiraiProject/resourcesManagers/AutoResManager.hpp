@@ -9,20 +9,35 @@
 
 #include "MiraiProject/resourcesManagers/BaseResManager.hpp"
 
+/**
+ * \file AutoResManager.hpp
+ *
+ * \brief A file which contains the AutoResManager class definition.
+ */
+
 namespace mp
 {
-    /** A class to automatically handle resources through the program. */
+	/** \class AutoResManager
+	 * \brief Class to automatically handle resources (images and sounds).
+	 * Though, you still have to clean resources using clean method.
+	 */
 
     class AutoResManager : public BaseResManager
     {
 		public:
-			/** Return the texture related to the given filename.
-			 * If no texture found, it automatically load it.
+            /** \brief Automatically load the texture if necessary and return it.
+			 *
+			 * \param fileName : the file name related to the wanted texture.
+			 *
+			 * \return the texture related to the given file name.
 			 */
 			std::shared_ptr<sf::Texture> getTexture(const std::string &fileName);
 			
-			/** Return the sound buffer related to the given filename. 
-			 * If no sound buffer found, it automatically load it.
+            /** \brief Automatically load the sound buffer if necessary and return it.
+			 *
+			 * \param fileName : the file name related to the wanted sound buffer.
+			 *
+			 * \return the sound buffer related to the given file name.
 			 */
 			std::shared_ptr<sf::SoundBuffer> getSoundBuffer(const std::string &fileName);
     };

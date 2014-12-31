@@ -7,10 +7,18 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+/**
+ * \file BaseResManager.hpp
+ *
+ * \brief A file which contains the BaseResManager class definition.
+ */
+
 namespace mp
 {
-    /** A class to handle resources through the program. */
-
+	/** \class BaseResManager
+	 * \brief Class to handle resources (images and sounds).
+	 */
+	
     class BaseResManager
     {
         private:
@@ -18,38 +26,70 @@ namespace mp
             std::map<std::string, std::shared_ptr<sf::SoundBuffer>> soundBufferCache;
 
         public:
-            /** Class constructor **/
+            /** \brief Class constructor **/
             BaseResManager();
 
+			/** \brief Class destructor **/
 			virtual ~BaseResManager();
 			
-            /** Return the texture related to the given filename.
-			 * Set safe_mode parameter to false if you want avoid checking the texture existence.
-			 * Do it only if you know what you're doing, it could make your program crash if you try to get
-			 * a non loaded texture.
+			
+            /** \brief Get back a loaded texture.
+			 *
+			 * \param fileName : the file name related to the wanted texture.
+			 * \param safeMode : set to false if you want to disable the texture existence check (faster).
+			 * 		Do it only if you know what you're doing, your program may crash if you try to get
+			 * 		a non loaded texture.
+			 *
+			 * \return the texture related to the given file name.
 			 */
             std::shared_ptr<sf::Texture> getTexture(const std::string &fileName, const bool &safeMode);
 
-            /** Load texture from file by the filename. */
+            /** \brief Load texture into cache from file by the file name. 
+			 *
+			 * \param fileName : the file name related to the wanted file.
+			 *
+			 * \return a boolean about operation success.
+			 */
             bool loadTextureFromFile(const std::string &fileName);
 
-            /** Return whether the given texture related to the given filename exists. */
+            /** \brief Return whether the given texture related to the given file name exists. 
+			 *
+			 * \param fileName : the file name related to the wanted texture.
+			 *
+			 * \return a boolean about texture existence.
+			 */
             bool textureIsAvailable(const std::string &fileName);
-
-            /** Return the sound buffer related to the given filename.
-			 * Set safe_mode parameter to false if you want avoid checking the sound buffer existence.
-			 * Do it only if you know what you're doing, it could make your program crash if you try to get
-			 * a non loaded sound buffer.
+			
+			
+            /** \brief Get back a loaded sound buffer.
+			 *
+			 * \param fileName : the file name related to the wanted sound buffer.
+			 * \param safeMode : set to false if you want to disable the sound buffer existence check (faster).
+			 * 		Do it only if you know what you're doing, your program may crash if you try to get
+			 * 		a non loaded sound buffer.
+			 *
+			 * \return the sound buffer related to the given file name.
 			 */
             std::shared_ptr<sf::SoundBuffer> getSoundBuffer(const std::string &fileName, const bool &safeMode);
 
-            /** Load sound buffer from file by the filename. */
+            /** \brief Load sound buffer into cache from file by the file name. 
+			 *
+			 * \param fileName : the file name related to the wanted file.
+			 *
+			 * \return a boolean about operation success.
+			 */
             bool loadSoundBufferFromFile(const std::string &fileName);
 
-            /** Return whether the given sound buffer related to the given filename exists. */
+            /** \brief Return whether the given sound buffer related to the given file name exists. 
+			 *
+			 * \param fileName : the file name related to the wanted sound buffer.
+			 *
+			 * \return a boolean about sound buffer existence.
+			 */
             bool soundBufferIsAvailable(const std::string &fileName);
 			
-			/** Clean textures and sound buffer cache. */
+			
+			/** \brief Automatically clean unused textures and sound buffers cache. */
 			void clean();
     };
 }

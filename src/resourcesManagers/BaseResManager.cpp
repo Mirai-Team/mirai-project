@@ -43,7 +43,7 @@ bool mp::BaseResManager::loadTextureFromFile(const string &fileName)
     if (!ptr_texture->loadFromFile(fileName))
 	{
 		// File not found...
-        mp::log("mirai_project.log", mp::level_error, "File " + fileName + " was not found... (for texture)");
+        mp::log("mirai_project.log", mp::levelError, "File " + fileName + " was not found... (for texture)");
 		success = false;
 	}
 
@@ -85,7 +85,7 @@ bool mp::BaseResManager::loadSoundBufferFromFile(const string &fileName)
     if (!ptr_sound_buffer->loadFromFile(fileName))
 	{
 		// Sound not found...
-        mp::log("mirai_project.log", mp::level_error, "File " + fileName + " was not found... (for sound)");
+        mp::log("mirai_project.log", mp::levelError, "File " + fileName + " was not found... (for sound)");
 		success = false;
 	}
 
@@ -106,7 +106,7 @@ bool mp::BaseResManager::soundBufferIsAvailable(const string &fileName)
 void mp::BaseResManager::clean()
 {
     // ___________________ Clean textures cache... ___________________
-    mp::log("mirai_project.log", mp::level_info, "Cleaning textures cache.");
+    mp::log("mirai_project.log", mp::levelInfo, "Cleaning textures cache.");
 
     vector<string> keysToErase;
 
@@ -122,7 +122,7 @@ void mp::BaseResManager::clean()
         texturesCache.erase(key);
 
     // ___________________ Clean sound buffers cache... ___________________
-    mp::log("mirai_project.log", mp::level_info, "Cleaning sound buffers cache.");
+    mp::log("mirai_project.log", mp::levelInfo, "Cleaning sound buffers cache.");
 
     keysToErase.clear(); // Clear keys_to_erase vector.
 
