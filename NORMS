@@ -1,22 +1,26 @@
-Norms to fulfill.
------------------
+Norms to fulfil.
+----------------
 
 ________
 Naming :
 
-- File containing only functions : lowercases + underscore between words.
-- File containing a class : upper case for the first letter of each word without any underscore between them.
-- Variable names must be in mixed case starting with lower case. Ex: saveData
-- Names representing types must be in mixed case starting with upper case. Ex : ModifyingStat
-- Names representing methods or functions must be verbs and written in mixed case starting with lower case. Ex : getBuffValue()
+- File containing only functions : all lower cases with underscore between words. Ex : my_functions.hpp
+- File containing a class : mixed case starting with upper case. Ex : MyClass.hpp
 
-- Names representing namespaces should be all lowercase. Ex: mp
-- Private class variables should have underscore suffix. Ex: int modValue_
+- Variables names must be mixed case starting with lower case. Ex : myVar
+
+- Classes names must be mixed case starting with upper case. Ex : MyClass
+- Classes' private attributes should have underscore suffix. Ex : myPrivateAttribute_
+
+- Methods or functions names must be verbs and written in mixed case starting with lower case. Ex : getBuffValue()
+
+- Namespaces names should be all lowercase. Ex: mynamespace
 
 ________
 Documentation:
 
-- Use doxygen in order to describe functions.
+- Use doxygen comment style in order to describe files, functions, classes, methods.
+
 ________
 Other :
 
