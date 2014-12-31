@@ -13,11 +13,11 @@ bool mp::debugMode{ false };
 
 ofstream mp::logFile;
 
-string mp::level_severe{ "SEVERE" };
-string mp::level_error{ "ERROR" };
-string mp::level_warning{ "WARNING" };
-string mp::level_info{ "INFO" };
-string mp::level_config{ "CONFIG" };
+string mp::levelSevere{ "SEVERE" };
+string mp::levelError{ "ERROR" };
+string mp::levelWarning{ "WARNING" };
+string mp::levelInfo{ "INFO" };
+string mp::levelConfig{ "CONFIG" };
 
 void mp::log(const string &fileName, const string &levelName, const string &msg, ...)
 {

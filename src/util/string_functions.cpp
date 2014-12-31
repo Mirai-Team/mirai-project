@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void mp::strip_letter(string &str, const char &letter)
+void mp::stripLetter(string &str, const char &letter)
 {
     str.erase(remove(str.begin(), str.end(), letter), str.end());
 }

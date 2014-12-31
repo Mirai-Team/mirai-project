@@ -14,11 +14,11 @@ namespace mp
 
     extern std::ofstream logFile;
 
-    extern std::string level_severe;
-    extern std::string level_error;
-    extern std::string level_warning;
-    extern std::string level_info;
-    extern std::string level_config;
+    extern std::string levelSevere;
+    extern std::string levelError;
+    extern std::string levelWarning;
+    extern std::string levelInfo;
+    extern std::string levelConfig;
 
     /** Function for logging.
      *

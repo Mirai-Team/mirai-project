@@ -17,7 +17,7 @@ namespace mp
 	 * \param str : the string to modify by reference.
 	 * \param letter : the letter to remove.
 	 */
-    void strip_letter(std::string &str, const char &letter);
+    void stripLetter(std::string &str, const char &letter);
 
     /** \brief Get a uppercase version from a string. 
 	 * 
@@ -51,7 +51,7 @@ namespace mp
 	 * \param object : the object to convert.
 	 * \return the given object converted into string.
 	 */
-    template<typename T> std::string to_string(const T &object);
+    template<typename T> std::string toString(const T &object);
 }
 
 #endif // STRING_FUNCTIONS_HPP_INCLUDED
