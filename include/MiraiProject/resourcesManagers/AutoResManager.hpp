@@ -17,7 +17,7 @@
 
 namespace mp
 {
-	/** \class BaseResManager
+	/** \class AutoResManager
 	 * \brief Class to automatically handle resources (images and sounds).
 	 * Though, you still have to clean resources using clean method.
 	 */
