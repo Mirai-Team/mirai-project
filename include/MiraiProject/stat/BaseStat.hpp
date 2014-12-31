@@ -8,9 +8,9 @@
 namespace mp
 {
 	struct Buff {
-		int value;
+		int value = 0;
 		bool isDebuff = false;
-		std::string name;
+		std::string name = "unknown";
 		
 	};
 	class BaseStat {
