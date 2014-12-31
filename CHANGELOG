@@ -1,6 +1,8 @@
-Mirai Project v0.1.2
+Mirai Project v0.15.0
 ------------------
 
+- Added Random templates (integer rand, decimal rand and pick a random element into a vector)
+- Added Basic Stat System
 - Added Boost
 - Added WindowManager system.
 - Added Encryption system

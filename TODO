@@ -8,7 +8,6 @@ high:
 - Animated Sprites system with sprite sheets system
 - Parsing system for configuration files (Maybe add an optional encryption system ?)
     => Use Encryption class with encrypt_file function, if there is one file.
-- Add Random functions (template<class T> T getRng(T min, T max), template<class T> T vGetRng(vector<T> list))
 - Add Updatable class for void update function.
 
 _______
