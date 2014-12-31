@@ -5,7 +5,7 @@
 #include <fstream>
 
 /** @file log.hpp
- * This file defines various functions and variables for logging.
+ * \brief This file defines various functions and variables for logging.
  */
 
 namespace mp
@@ -25,12 +25,13 @@ namespace mp
      * \param filename name of the file and eventually the path.
      * \param level_name level name to use.
      * \param msg Text to log.
-     * \param ... optionals parameters to use with format codes.
+     * \param ... optional parameters to use along with format codes.
      *
      * You can format the text to log with :\n
      * %%i : display an integer.\n
      * %%f : display a decimal value.\n
-     * Theses values are passed as optional parameters.
+	 * %% : display a % character\n
+     * Integer and decimal values are passed as optional parameters.
      */
     void log(const std::string &fileName, const std::string &levelName, const std::string &msg, ...);
 }
