@@ -2,7 +2,7 @@
 #include <iomanip>
 #include <sstream>
 #include <string>
-#include <ctime>
+#include <chrono>
 #include <cstdarg>
 
 #include "MiraiProject/util/log.hpp"
@@ -25,18 +25,19 @@ void mp::log(const string &fileName, const string &levelName, const string &msg,
     if (debugMode)
     {
         // current date/time based on current system
-        time_t now(time(0));
-        struct tm *timeinfo(localtime(&now));
-        int hour{ timeinfo->tm_hour }, minute{ timeinfo->tm_min }, second{ timeinfo->tm_sec };
+        time_t tt = chrono::system_clock::to_time_t(chrono::system_clock::now());
+		//This following line causes an error.
+		tm tm = {0};
+		gmtime_r(&tt, &tm);
         ostringstream text;
         va_list ap; // Argument pointer
         va_start(ap, msg);
 
         //Added the current time and level_name
         text << "[";
-        text << setfill('0') << setw(2) << hour << ":";
-        text << setfill('0') << setw(2) << minute << ":";
-        text << setfill('0') << setw(2) << second << "] (" << upper(levelName) << ") >";
+        text << setfill('0') << setw(2) << tm.tm_hour << ":";
+        text << setfill('0') << setw(2) << tm.tm_min << ":";
+        text << setfill('0') << setw(2) << tm.tm_sec << "] (" << upper(levelName) << ") >";
 
         //Parsing message
         for (unsigned int i{ 0 } ; i < msg.length() ; i++)
