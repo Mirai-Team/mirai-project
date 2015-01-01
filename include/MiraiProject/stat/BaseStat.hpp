@@ -5,65 +5,76 @@
 #include <string>
 #include <algorithm>
 
+/** \file BaseStat.hpp
+ * \brief This file contains BaseStat class and Buff structure definition.
+ */
+
 namespace mp
 {
-	struct Buff {
+	struct Buff 
+	{
 		int value = 0;
 		bool isDebuff = false;
 		std::string name = "unknown";
 		
 	};
-	class BaseStat {
+	
+	/** \class BaseStat
+	 *
+	 */
+	
+	class BaseStat 
+	{
 		public:
 			BaseStat();
             virtual ~BaseStat();
             
-            /** \brief Get base value of the stat.
-			 * \return A int who contains the value.
+            /** \brief Get the stat base value.
 			 *
+			 * \return an int which contains the value.
 			 */
             int getBaseValue() const;
             
-            /** \brief Set the base value of the stat.
+            /** \brief Set the stat base value.
+			 * 
 			 * \param baseValue : the value taken
-			 *
 			 */
 			void setBaseValue(int baseValue);
 			
 			
 			
-			/** \brief Get buff value of the stat.
-			 * \return A int who contains the value.
-			 *
+			/** \brief Get the stat buff value.
+			 * 
+			 * \return an int which contains the value.
 			 */
 			int getBuffValue() const;
 			
-			/** \brief Add a Buff to the buff list
-			 * \param buff : the buff
-			 *
+			/** \brief Add a Buff to the buff list.
+			 * 
+			 * \param buff : the buff.
 			 */
 			void addBuff(Buff buff);
 			
-			/** \brief Delete a Buff to the buff list
-			 * \param buff : the buff
-			 *
+			/** \brief Delete a buff from buff list.
+			 * 
+			 * \param buff : the buff.
 			 */
 			void deleteBuff(Buff buff);
 			
-			/** \brief Calculate the sum of each buff value
+			/** \brief Calculate the sum of each buff value.
+			 *
 			 * If it's a buff, the value is add. 
 			 * If it's a debuff, the value is substrate. 
-			 *
 			 */
 			void calculateBuffValue();
 			
 			
 			
 			/** \brief Calculate max stat.
-			 *  \return The buff value + the base value
+			 *
+			 * \return the buff value plus the base value.
 			 */
-			int adjustedBaseValue() const;
-		protected:    
+			int adjustedBaseValue() const; 
 			
 		private:
 			int baseValue_;

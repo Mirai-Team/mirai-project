@@ -3,23 +3,22 @@
 
 #include <SFML/Graphics.hpp>
 
-/**
- * \file WindowManager.hpp
- *
- * \brief A file which contains the WindowManager class definition.
+/** \file WindowManager.hpp
+ * \brief This file contains the WindowManager class definition.
  */
 
 namespace mp
 {
 	/** \class WindowManager
-	 * \brief Class to handle a window.
+	 * \brief A class to handle a window.
 	 *
-	 * 	Call create() method to start using a new window.
+	 * Call create() method to start using a new window.
+	 * This class handle window ratio problems automatically.
 	 */
 
     class WindowManager
     {
-        protected:
+        private:
             sf::RenderWindow window_;
             sf::View defaultView_;
 			

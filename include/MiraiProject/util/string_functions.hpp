@@ -7,7 +7,7 @@
 #include "MiraiProject/util/string_functions.tpp"
 
 /** @file string_functions.hpp
- * \brief This file defines various functions to manipulate std::string.
+ * \brief This file define various functions to manipulate std::string.
  */
 
 namespace mp

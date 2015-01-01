@@ -9,30 +9,35 @@
 #include "MiraiProject/util/random.tpp"
 
 /** @file random.hpp
- * This file define the random templates.
- *
+ * \brief This file define some templates about randomness.
  */
  
 namespace mp
 {
-	/** \brief Use this template for integer number like int or long int.
-    * \param minN : the minimum number.
-    * \param maxN : the maximum number.
-    * \return A number beetween [minN;maxN[
-    */
+	/** \brief Use this template for integer values (int or long int).
+	 *
+     * \param minN : the minimum value.
+     * \param maxN : the maximum value.
+	 *
+     * \return a value between [minN;maxN[
+     */
 	template<typename T> T irand(T minN, T maxN);
 	
-	/** \brief Use this template for decimal number like float or double.
-    * \param minN : the minimum number.
-    * \param maxN : the maximum number.
-    * \return A decimal number beetween [minN;maxN[
-    */
+	/** \brief Use this template for decimal values (float or double).
+	 *
+     * \param minN : the minimum value.
+     * \param maxN : the maximum value.
+	 *
+     * \return a decimal value between [minN;maxN[
+     */
 	template<typename T> T drand(T minN, T maxN);
 	
-	/** \brief Use this template for pick a random element in a vector.
-    * \param vec : A vector 
-    * \return A random element of the vector.
-    */
+	/** \brief Use this template to pick a random element from a vector.
+	 *
+     * \param vec : a vector 
+	 *
+     * \return a random element from the given vector.
+     */
 	template<typename T> T vrand(std::vector<T> vec);
 }
 

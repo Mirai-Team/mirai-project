@@ -7,19 +7,29 @@
 #include <sstream>
 
 /** @file encrypt_functions.hpp
- * This file define the basic crypt functions
- *
+ * \brief This file define basic encryption functions
  */
 
 namespace mp
 {
-    /** \brief Encrypt the key with a NOT door
-    * \param key : The key unencrypted.
-    * \return The key encrypted
-    */
+    /** \brief Encrypt the key with a NOT logic gates.
+	 *
+     * \param key : the non-encrypted key.
+	 *
+     * \return the encrypted key.
+     */
     std::string encryptKey(std::string key);
 
-    /** \brief Encrypt the data with a XOR etween the key MOD length() and data.*/
+    /** \brief Encrypt the given data with the given key.
+	 *
+     * The nth character from the data is modified by a  logic XOR 
+	 * with the (n MOD key_length)th character from the key.
+	 *
+	 * \param key : the key.
+	 * \param data : the data.
+	 *
+	 * \return the encrypted data.
+	 */
     std::string encryptData(std::string key, std::string data);
 }
 

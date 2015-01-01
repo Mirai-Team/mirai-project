@@ -7,16 +7,14 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-/**
- * \file BaseResManager.hpp
- *
- * \brief A file which contains the BaseResManager class definition.
+/** \file BaseResManager.hpp
+ * \brief This file contains BaseResManager class definition.
  */
 
 namespace mp
 {
 	/** \class BaseResManager
-	 * \brief Class to handle resources (images and sounds).
+	 * \brief A class to handle resources (images and sounds).
 	 */
 	
     class BaseResManager

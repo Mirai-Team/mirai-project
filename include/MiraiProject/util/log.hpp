@@ -5,7 +5,7 @@
 #include <fstream>
 
 /** @file log.hpp
- * \brief This file defines various functions and variables for logging.
+ * \brief This file define various functions and variables for logging.
  */
 
 namespace mp
