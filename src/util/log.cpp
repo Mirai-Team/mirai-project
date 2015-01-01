@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 #include <string>
 #include <ctime>
@@ -33,15 +34,9 @@ void mp::log(const string &fileName, const string &levelName, const string &msg,
 
         //Added the current time and level_name
         text << "[";
-        if (hour < 10)
-            text << "0";
-        text << hour << ":";
-        if (minute < 10)
-            text << "0";
-        text << minute << ":";
-        if (second < 10)
-            text << "0";
-        text << second << "] (" << upper(levelName) << ") > ";
+        text << setfill('0') << setw(2) << hour << ":";
+        text << setfill('0') << setw(2) << minute << ":";
+        text << setfill('0') << setw(2) << second << "] (" << upper(levelName) << ") >";
 
         //Parsing message
         for (unsigned int i{ 0 } ; i < msg.length() ; i++)
