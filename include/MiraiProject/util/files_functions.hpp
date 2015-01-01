@@ -6,19 +6,20 @@
 #include <boost/filesystem.hpp>
 
 /** @file files_functions.hpp
- * This file defines various functions to manipulate files in order to keep a
- * cross-platform library.
+ * \brief This file define various functions to manipulate files in order to keep a
+ *        cross-platform library.
  */
 
 namespace mp
 {
-    /** \brief Make a list of the files in a directory.
-     *
-     * \param directory Path of the directory
-     * \return A vector who contains the list of directory's files.
-     *
+    /** \brief List files in a directory.
+     * 
+     * \param directory : path of the directory
+	 * \param recursive : true to search in all subdirectories. 
+     * 
+     * \return A std::vector<std::string> who contains files paths.
      */
-    std::vector<std::string> listFile(boost::filesystem::path directory);
+    std::vector<std::string> listFiles(boost::filesystem::path directory, bool recursive=false);
 }
 
 #endif // FILE_FUNCTIONS_HPP_INCLUDED

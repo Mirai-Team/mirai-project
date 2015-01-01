@@ -11,26 +11,28 @@
 using namespace std;
 using namespace boost::filesystem;
 
-vector<string> mp::listFile(path directory)
+vector<string> mp::listFiles(path directory, bool recursive)
 {
-    vector<string> filePath;
-    vector<string> temp;
+    vector<string> filesPaths;
+    vector<string> tempFilesPaths;
     directory_iterator end_itr;
 
-    // cycle through the directory
+    // Cycle through the directory
     for (directory_iterator itr(directory); itr != end_itr; ++itr)
     {
-        // If it's not a directory, add it in filepath.
-        if (is_regular_file(itr->path())) {
-            filePath.push_back(itr->path().string());
+        // If it's not a directory, add it in filesPaths.
+        if (is_regular_file(itr->path()))
+		{
+            filesPaths.push_back(itr->path().string());
         }
-        else if(is_directory(itr->path()))
+        else if(recursive && is_directory(itr->path()))
         {
-            //Else we start a cycle through this directory.
-            temp = listFile(itr->path());
-            filePath.insert(filePath.end(), temp.begin(), temp.end() );
+            // Else we start another cycle through this directory if we want all files recursively.
+            tempFilesPaths = listFiles(itr->path(), true);
+            filesPaths.insert(filesPaths.end(), tempFilesPaths.begin(), tempFilesPaths.end());
         }
 
     }
-    return filePath;
+	
+    return filesPaths;
 }

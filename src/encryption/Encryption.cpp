@@ -36,7 +36,7 @@ bool mp::Encryption::createFile(string outputFile, path directory)
     }
 
 
-    fileNames_ = listFile(directory);
+    fileNames_ = listFiles(directory, true);
 
     if(writeHeader() && writeData())
         return true;
