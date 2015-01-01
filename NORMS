@@ -4,7 +4,7 @@ Norms to fulfil.
 ________
 Naming :
 
-- File containing only functions : all lower cases with underscore between words. Ex : my_functions.hpp
+- File containing only functions : all lower cases with underscore between words. Ex : my_function.hpp
 - File containing a class : mixed case starting with upper case. Ex : MyClass.hpp
 
 - Variables names must be mixed case starting with lower case. Ex : myVar
