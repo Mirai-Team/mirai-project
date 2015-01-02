@@ -30,7 +30,6 @@
 #include <boost/filesystem.hpp>
 
 #include "MiraiProject/util/files_functions.hpp"
-#include "MiraiProject/util/log.hpp"
 
 using namespace std;
 using namespace boost::filesystem;
