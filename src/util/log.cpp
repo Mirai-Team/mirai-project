@@ -50,8 +50,8 @@ void mp::log(const string &fileName, const string &levelName, const string &msg,
     {
         // current date/time based on current system
         time_t tt = chrono::system_clock::to_time_t(chrono::system_clock::now());
-		tm tm;
-		gmtime_r(&tt, &tm);
+		tm *tm;
+		tm = gmtime(&tt);
 		
         ostringstream text;
         
@@ -60,9 +60,9 @@ void mp::log(const string &fileName, const string &levelName, const string &msg,
 
         //Added the current time and level_name
         text << "[";
-        text << setfill('0') << setw(2) << tm.tm_hour << ":";
-        text << setfill('0') << setw(2) << tm.tm_min << ":";
-        text << setfill('0') << setw(2) << tm.tm_sec << "] (" << upper(levelName) << ") >";
+        text << setfill('0') << setw(2) << tm->tm_hour << ":";
+        text << setfill('0') << setw(2) << tm->tm_min << ":";
+        text << setfill('0') << setw(2) << tm->tm_sec << "] (" << upper(levelName) << ") >";
 
         //Parsing message
         for (unsigned int i{ 0 } ; i < msg.length() ; i++)
