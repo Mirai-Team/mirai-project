@@ -50,10 +50,11 @@ void mp::log(const string &fileName, const string &levelName, const string &msg,
     {
         // current date/time based on current system
         time_t tt = chrono::system_clock::to_time_t(chrono::system_clock::now());
-		//This following line causes an error.
-		tm tm = {0};
+		tm tm;
 		gmtime_r(&tt, &tm);
+		
         ostringstream text;
+        
         va_list ap; // Argument pointer
         va_start(ap, msg);
 
