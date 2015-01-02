@@ -1,8 +1,28 @@
-Welcome to Mirai Project Library repository !
+Mirai Project
+=============
 
-Please, read "NORMS" file carefully and respect each of them if you want to contribute.
+Mirai Project is a library for games making purposes mainly by using SFML.
+
+
+Authors
+-------
+
+Benoît CORTIER - main developer (benoit.cortier@gmail.com)
+Jérôme BOULMIER - main developer (jerome.boulmier@outlook.com)
+
+
+Download
+--------
+
+You can get the current development version from the git repository (https://github.com/Mirai-Team/mirai-project).
+
+
+Compiling
+---------
 
 In order to compile Mirai Project, using c++11 is a compulsory.  Make sure to add it in your compiler parameters.
+
+You can use cmake, there is a CMakeLists.txt file.
 
 If you're using g++, we highly recommend you to set following flags for g++ in your CMakeCache.txt file :
 
@@ -15,3 +35,9 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=-s -O2
 CMAKE_CXX_FLAGS_MINSIZEREL:STRING=-s -Os
 
 Theses flags optimize the library regarding the build purpose (Debug or Release) and configure compiler to be more strict while checking the code.
+
+
+Contribute
+----------
+
+Read "NORMS" file carefully and respect each of them if you want to contribute.
