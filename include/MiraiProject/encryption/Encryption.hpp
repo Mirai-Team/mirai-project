@@ -1,3 +1,27 @@
+////////////////////////////////////////////////////////////
+//
+// MiraiProject
+// Copyright (C) 2014-2015 CORTIER Benoît (benoit.cortier@gmail.com), BOULMIER Jérôme (jerome.boulmier@outlook.com)
+//
+// This software is provided 'as-is', without any express or implied warranty.
+// In no event will the authors be held liable for any damages arising from the use of this software.
+//
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it freely,
+// subject to the following restrictions:
+//
+// 1. The origin of this software must not be misrepresented;
+// you must not claim that you wrote the original software.
+// If you use this software in a product, an acknowledgment
+// in the product documentation would be appreciated but is not required.
+//
+// 2. Altered source versions must be plainly marked as such,
+// and must not be misrepresented as being the original software.
+//
+// 3. This notice may not be removed or altered from any source distribution.
+//
+////////////////////////////////////////////////////////////
+
 #ifndef ENCRYPTION_HPP_INCLUDED
 #define ENCRYPTION_HPP_INCLUDED
 
@@ -6,69 +30,67 @@
 #include <boost/filesystem.hpp>
 #include <vector>
 
-/**
- * \file Encryption.hpp
- * \brief A file which contains the class Encryption definition.
- *
+/** \file Encryption.hpp
+ * \brief This file contains Encryption class definition.
  */
  
 namespace mp {
 
 	/** \class Encryption
-	* \brief Encryption system
+	* \brief A class to encrypt files.
 	*
-	* 	Contains some methods to encrypt and read files.
+	* Contains some methods to encrypt and read files.
 	*/
     class Encryption
     {
         public:
-            /** \brief Class Constructor. Set and encrypt the key
-             *
-             * \param key : A string who contains the key
-             *
+            /** \brief Class Constructor. Set and encrypt the key.
+			 * 
+             * \param key : a string who contains the key.
              */
             Encryption(std::string key);
             
             virtual ~Encryption();
 
-            /** \brief Encrypt the file
+            /** \brief Encrypt the file.
              *
-             * \param file : Path to file.
-             * \return Return the whole file encrypted
-             *
+             * \param file : path to file.
+             * 
+             * \return the whole file content encrypted.
              */
             std::string encryptFile(std::string file);
 
-            /** \brief Load a file in a encrypted pack.
+            /** \brief Load a file from an encrypted pack.
              *
-             * \param inputFile : File to parse
-             * \param targetFile : The Target File
-             * \return The decrypted file
-             *
+             * \param inputFile : file to parse.
+             * \param targetFile : the target file.
+             * 
+             * \return the file content decrypted.
              */
             std::string loadFile(std::string inputFile, std::string targetFile);
 
-            /** \brief A function to create a file encrypted
+            /** \brief A method to create an encrypted file.
              *
-             * \param outputFile : Path of the output file.
-             * \param directory : Directory to encrypt.
-             *
+             * \param outputFile : path for the output file.
+             * \param directory : directory to encrypt.
+			 *
+			 * \return true if the operation is a success.
              */
             bool createFile(std::string outputFile, boost::filesystem::path directory);
 
 
         private:
 
-            /** \brief Write the header (used in create_file)
-            *  \return True if success else false.
-            *
-            */
+            /** \brief Write the header.
+             * 
+             * \return true if the operation is a success.
+             */
             bool writeHeader();
 
-            /** \brief Write the data (used in create_file)
-            *  \return True if success else false.
-            *
-            */
+            /** \brief Write the data.
+             * 
+             * \return true if the operation is a success.
+             */
             bool writeData();
 
             std::string key_;
