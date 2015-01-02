@@ -31,6 +31,8 @@
 
 /** \file VitalStat.hpp
  * \brief This file contains VitalStat class definition.
+ *  VitalStat is for Stats like Mana, Energy, Life...
+ *  In General, for stats which need a current value.
  */
 
 namespace mp

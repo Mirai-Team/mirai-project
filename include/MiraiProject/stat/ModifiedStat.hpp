@@ -31,6 +31,8 @@
 
 /** \file ModifiedStat.hpp
  * \brief This file contains ModifiedStat class and ModifyingStat structure definition.
+ * ModifiedStat is for Attributs like Strength, Spirit, etc...
+ * In general for stats which don't need current value.
  */
 
 namespace mp 
