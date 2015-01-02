@@ -28,12 +28,13 @@
 #include <SFML/Graphics.hpp>
 
 #include "MiraiProject/resourcesManagers/BaseResManager.hpp"
-#include "MiraiProject/util/log.hpp"
+#include "MiraiProject/util/Logger.hpp"
 
 using namespace std;
 
 mp::BaseResManager::BaseResManager() : texturesCache{ },
-                                       soundBufferCache{ }
+                                       soundBufferCache{ },
+                                       log_ { "mirai_project.log" }
 {
 	// constructor
 }
@@ -67,7 +68,7 @@ bool mp::BaseResManager::loadTextureFromFile(const string &fileName)
     if (!ptr_texture->loadFromFile(fileName))
 	{
 		// File not found...
-        mp::log("mirai_project.log", mp::levelError, "File " + fileName + " was not found... (for texture)");
+        log_(mp::levelError) << "File " << fileName << " was not found... (for texture)";
 		success = false;
 	}
 
@@ -109,7 +110,7 @@ bool mp::BaseResManager::loadSoundBufferFromFile(const string &fileName)
     if (!ptr_sound_buffer->loadFromFile(fileName))
 	{
 		// Sound not found...
-        mp::log("mirai_project.log", mp::levelError, "File " + fileName + " was not found... (for sound)");
+        log_(mp::levelError) << "File " << fileName << " was not found... (for sound)";
 		success = false;
 	}
 
@@ -130,7 +131,7 @@ bool mp::BaseResManager::soundBufferIsAvailable(const string &fileName)
 void mp::BaseResManager::clean()
 {
     // ___________________ Clean textures cache... ___________________
-    mp::log("mirai_project.log", mp::levelInfo, "Cleaning textures cache.");
+    log_(mp::levelInfo) << "Cleaning textures cache.";
 
     vector<string> keysToErase;
 
@@ -146,7 +147,7 @@ void mp::BaseResManager::clean()
         texturesCache.erase(key);
 
     // ___________________ Clean sound buffers cache... ___________________
-    mp::log("mirai_project.log", mp::levelInfo, "Cleaning sound buffers cache.");
+    log_(mp::levelInfo) << "Cleaning sound buffers cache.";
 
     keysToErase.clear(); // Clear keys_to_erase vector.
 
