@@ -68,7 +68,7 @@ bool mp::BaseResManager::loadTextureFromFile(const string &fileName)
     if (!ptr_texture->loadFromFile(fileName))
 	{
 		// File not found...
-        log_(mp::levelError) << "File " << fileName << " was not found... (for texture)";
+        log_(mp::priorityError) << "File " << fileName << " was not found... (for texture)";
 		success = false;
 	}
 
@@ -110,7 +110,7 @@ bool mp::BaseResManager::loadSoundBufferFromFile(const string &fileName)
     if (!ptr_sound_buffer->loadFromFile(fileName))
 	{
 		// Sound not found...
-        log_(mp::levelError) << "File " << fileName << " was not found... (for sound)";
+        log_(mp::priorityError) << "File " << fileName << " was not found... (for sound)";
 		success = false;
 	}
 
@@ -131,7 +131,7 @@ bool mp::BaseResManager::soundBufferIsAvailable(const string &fileName)
 void mp::BaseResManager::clean()
 {
     // ___________________ Clean textures cache... ___________________
-    log_(mp::levelInfo) << "Cleaning textures cache.";
+    log_(mp::priorityInfo) << "Cleaning textures cache.";
 
     vector<string> keysToErase;
 
@@ -147,7 +147,7 @@ void mp::BaseResManager::clean()
         texturesCache.erase(key);
 
     // ___________________ Clean sound buffers cache... ___________________
-    log_(mp::levelInfo) << "Cleaning sound buffers cache.";
+    log_(mp::priorityInfo) << "Cleaning sound buffers cache.";
 
     keysToErase.clear(); // Clear keys_to_erase vector.
 

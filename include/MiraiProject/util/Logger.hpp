@@ -39,15 +39,13 @@
 
 namespace mp
 {
-	extern bool debugMode;
+	extern bool debugMode = false;
 	
-	extern std::string levelSevere;
-    extern std::string levelError;
-    extern std::string levelWarning;
-    extern std::string levelInfo;
-    extern std::string levelConfig;
-    
-	extern std::string outFile;
+	extern std::string prioritySevere = "SEVERE";
+    extern std::string priorityError = "ERROR";
+    extern std::string priorityWarning = "WARNING";
+    extern std::string priorityInfo = "INFO";
+    extern std::string priorityConfig = "CONFIG";
 	
 	class Logstream;
 	

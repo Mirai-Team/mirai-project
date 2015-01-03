@@ -34,7 +34,7 @@ using namespace std;
 
 ostream& operator<< (ostream& stream, const tm* time)
 {
-    //We write values on two digits.
+    // We write values on two digits.
 	return stream << 1900 + time->tm_year << '-' 
 		<< setfill('0') << setw(2) << time->tm_mon + 1 << '-'
 		<< setfill('0') << setw(2) << time->tm_mday << ' '
@@ -53,8 +53,10 @@ mp::Logger::Logger(string filename) : mutex_ { }, file_ { }, time_ { 0,0,0,0,0,0
 mp::Logger::~Logger()
 {
 	if(mp::debugMode)
+	{
 		file_.flush();
 		file_.close();
+	}
 }
 
 mp::Logstream mp::Logger::operator()()
