@@ -26,7 +26,6 @@
 #include <map>
 
 #include "MiraiProject/resourcesManagers/AutoResManager.hpp"
-#include "MiraiProject/util/log.hpp"
 
 using namespace std;
 

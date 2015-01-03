@@ -16,7 +16,6 @@ normal:
 - Add "SPARK" and "Let There Be Light".
 - Add an Encrypted Save System using Encryption class.
 	=> Encryption optional
-- Update log function (Add level enum) + Add possibility to ignore some levels in logging.
 
 ____
 low:

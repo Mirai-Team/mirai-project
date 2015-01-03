@@ -30,6 +30,8 @@
 #include <boost/filesystem.hpp>
 #include <vector>
 
+#include "MiraiProject/util/Logger.hpp"
+
 /** \file Encryption.hpp
  * \brief This file contains Encryption class definition.
  */
@@ -97,6 +99,8 @@ namespace mp {
             std::string outputFile_;
             std::vector<long int>offset_;
             std::vector<std::string>fileNames_;
+            
+            Logger log_;
 
 
     };

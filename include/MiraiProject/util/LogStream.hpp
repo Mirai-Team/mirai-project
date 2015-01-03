@@ -22,42 +22,54 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef LOG_HPP_INCLUDED
-#define LOG_HPP_INCLUDED
+#ifndef LOGSTREAM_HPP_INCLUDED
+#define LOGSTREAM_HPP_INCLUDED
 
-#include <string>
 #include <fstream>
+#include <memory>
+#include <mutex>
+#include <sstream>
+#include <string>
 
-/** @file log.hpp
- * \brief This file define various functions and variables for logging.
+#include "MiraiProject/util/Logger.hpp"
+
+/** @file LogStream.hpp
+ * \brief This file define LogStream class.
  */
 
 namespace mp
 {
-    extern bool debugMode;
+	class Logger;
+	
+	class Logstream : public std::ostringstream
+	{
+		public:
 
-    extern std::ofstream logFile;
+			/** \brief Constructor
+			 *
+			 * \param logger : A Logger object.
+			 * \param priority : A string which contains Priority name.
+			 *
+			 */
+			Logstream(Logger& logger, std::string priority);
 
-    extern std::string levelSevere;
-    extern std::string levelError;
-    extern std::string levelWarning;
-    extern std::string levelInfo;
-    extern std::string levelConfig;
+			/** \brief Constructor
+			 *
+			 * \param ls : A Logstream object.
+			 *
+			 */
 
-    /** Function for logging.
-     *
-     * \param filename name of the file and eventually the path.
-     * \param level_name level name to use.
-     * \param msg Text to log.
-     * \param ... optional parameters to use along with format codes.
-     *
-     * You can format the text to log with :\n
-     * %%i : display an integer.\n
-     * %%f : display a decimal value.\n
-	 * %% : display a % character\n
-     * Integer and decimal values are passed as optional parameters.
-     */
-    void log(const std::string &fileName, const std::string &levelName, const std::string &msg, ...);
+			Logstream(const Logstream& ls);
+
+			/** \brief Deconstructor
+			 *
+			 *
+			 */
+			~Logstream();
+
+		private:
+			Logger&     	logger_;
+			std::string 	priority_;
+	};
 }
-
-#endif // LOG_HPP_INCLUDED
+#endif // LOGSTREAM_HPP_INCLUDED
