@@ -32,6 +32,14 @@
 
 using namespace std;
 
+bool mp::debugMode = false;
+	
+string mp::prioritySevere = "SEVERE";
+string mp::priorityError = "ERROR";
+string mp::priorityWarning = "WARNING";
+string mp::priorityInfo = "INFO";
+string mp::priorityConfig = "CONFIG";
+    
 ostream& operator<< (ostream& stream, const tm* time)
 {
     // We write values on two digits.
