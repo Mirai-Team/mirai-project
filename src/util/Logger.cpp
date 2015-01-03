@@ -46,13 +46,15 @@ ostream& operator<< (ostream& stream, const tm* time)
 // 0 in time_ are for -Wmissing-field-initializers
 mp::Logger::Logger(string filename) : mutex_ { }, file_ { }, time_ { 0,0,0,0,0,0,0,0,0,0,0 }
 {
-	file_.open(filename, fstream::app);
+	if(mp::debugMode)
+		file_.open(filename, fstream::app);
 }
 
 mp::Logger::~Logger()
 {
-	file_.flush();
-	file_.close();
+	if(mp::debugMode)
+		file_.flush();
+		file_.close();
 }
 
 mp::Logstream mp::Logger::operator()()
@@ -75,9 +77,12 @@ const tm* mp::Logger::getLocalTime()
 
 void mp::Logger::log(string priority, string msg)
 {
-    mutex_.lock();
-	file_ << '[' << getLocalTime() << ']'
-		<< '[' << mp::upper(priority) << "]\t"
-		<< msg << endl;
-	mutex_.unlock();
+	if(mp::debugMode)
+	{
+		mutex_.lock();
+		file_ << '[' << getLocalTime() << ']'
+			<< '[' << mp::upper(priority) << "]\t"
+			<< msg << endl;
+		mutex_.unlock();
+	}
 }
