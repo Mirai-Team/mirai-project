@@ -28,6 +28,7 @@
 
 #include "MiraiProject/util/Logger.hpp"
 #include "MiraiProject/util/LogStream.hpp"
+#include "MiraiProject/util/string_functions.hpp"
 
 using namespace std;
 
@@ -45,7 +46,7 @@ ostream& operator<< (ostream& stream, const tm* time)
 // 0 in time_ are for -Wmissing-field-initializers
 mp::Logger::Logger(string filename) : mutex_ { }, file_ { }, time_ { 0,0,0,0,0,0,0,0,0,0,0 }
 {
-	file_.open(filename, fstream::out | fstream::app | fstream::ate);
+	file_.open(filename, fstream::app);
 }
 
 mp::Logger::~Logger()
@@ -56,7 +57,7 @@ mp::Logger::~Logger()
 
 mp::Logstream mp::Logger::operator()()
 {
-	return mp::Logstream(*this, "Info");
+	return mp::Logstream(*this, "INFO");
 }
 
 mp::Logstream mp::Logger::operator()(string priority)
@@ -76,7 +77,7 @@ void mp::Logger::log(string priority, string msg)
 {
     mutex_.lock();
 	file_ << '[' << getLocalTime() << ']'
-		<< '[' << priority << "]\t"
+		<< '[' << mp::upper(priority) << "]\t"
 		<< msg << endl;
 	mutex_.unlock();
 }
