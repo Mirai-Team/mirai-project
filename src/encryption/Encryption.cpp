@@ -187,7 +187,7 @@ string mp::Encryption::loadFile(string inputFile, string targetFile)
     if(!input)
 		mp::log("mirai_project.log", mp::levelError, "Unable to open " + inputFile + " to parse the header. (encryption)");
 
-    string filename;
+    
 
     //Read headerlen & filecount
     input.read(reinterpret_cast<char*>(&headerLen), 4);
@@ -199,12 +199,9 @@ string mp::Encryption::loadFile(string inputFile, string targetFile)
         input.seekg(offset,ios::beg);
         input.read(reinterpret_cast<char*>(&fileNameLen), 4);
 
-        //Possible memory leak.
-        char * buffer = new char[fileNameLen];
-
-        //read filenamelen
-        input.read(buffer, fileNameLen);
-        filename = buffer;
+		//read filename
+        string filename(fileNameLen, ' ');
+        input.read(&filename[0], fileNameLen);
 
         //increment the offset with filenamelen.
         offset+=fileNameLen+4+4+4;
