@@ -10,7 +10,7 @@ Mirai Project is a library for games making purposes mainly by using SFML.
 
 Benoît CORTIER - main developer (benoit.cortier@gmail.com)
 
-Jérôme BOULMIER - main developer (jerome.boulmier@outlook.com)
+Jérôme BOULMIER - main developer (jerome.boulmier@outlook.fr)
 
 
 ## Download
