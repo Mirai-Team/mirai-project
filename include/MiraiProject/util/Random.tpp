@@ -30,11 +30,13 @@
 #include <random>
 #include <vector>
 
+#include "MiraiProject/util/random.tpp"
+
 using namespace std;
 
 namespace mp
 {
-	template<typename T> T vrand(vector<T> vec)
+	template<typename T> T Random::vrand(vector<T> vec)
 	{
 		long unsigned int maxN = vec.size();
 		unsigned seed = static_cast<unsigned>(chrono::system_clock::now().time_since_epoch().count());
@@ -43,7 +45,7 @@ namespace mp
 		return vec[ static_cast<long unsigned int>( generator()%maxN ) ];
 	}
 	
-	template<typename T> T irand(T minN, T maxN)
+	template<typename T> T Random::irand(T minN, T maxN)
 	{
 		unsigned seed = static_cast<unsigned>(chrono::system_clock::now().time_since_epoch().count());
 		mt19937 generator (seed);
@@ -51,7 +53,7 @@ namespace mp
 		return static_cast<T>(generator()%(maxN - minN) + minN);
 	}
 	
-	template<typename T> T drand(T minN, T maxN)
+	template<typename T> T Random::drand(T minN, T maxN)
 	{
 		unsigned seed = static_cast<unsigned>(chrono::system_clock::now().time_since_epoch().count());
 		mt19937 generator (seed);
