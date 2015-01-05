@@ -27,9 +27,10 @@
 
 #include <fstream>
 #include <memory>
-#include <mutex>
 #include <sstream>
 #include <string>
+
+#include <boost/thread/mutex.hpp>
 
 #include "MiraiProject/util/LogStream.hpp"
 
@@ -89,7 +90,7 @@ namespace mp
 			const tm* getLocalTime();
 
 		private:
-			std::mutex		mutex_;
+			boost::mutex	mutex_;
 			std::ofstream	file_;
 			tm				time_;
 	};

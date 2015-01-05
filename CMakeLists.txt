@@ -51,7 +51,7 @@ if(SFML_FOUND)
 endif()
 
 # Detect and add Boost
-find_package(Boost 1.54.0 REQUIRED filesystem system)
+find_package(Boost 1.54.0 REQUIRED filesystem system thread)
 if(Boost_FOUND)
 	# The parameter SYSTEM is to treat headers found there as system headers, and 
 	# suppress warnings originating from there by using the -isystem flag instead 
