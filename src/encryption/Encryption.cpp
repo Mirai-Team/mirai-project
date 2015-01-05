@@ -27,7 +27,7 @@
 #include <vector>
 #include <sstream>
 
-#include "MiraiProject/util/files_functions.hpp"
+#include "MiraiProject/util/FilesUtilities.hpp"
 #include "MiraiProject/util/Logger.hpp"
 #include "MiraiProject/encryption/Encryption.hpp"
 
@@ -60,7 +60,7 @@ bool mp::Encryption::createFile(string outputFile, path directory)
     }
 
 
-    fileNames_ = listFiles(directory, true);
+    fileNames_ = filesUtilities::listFiles(directory, true);
 
     if(writeHeader() && writeData())
         return true;

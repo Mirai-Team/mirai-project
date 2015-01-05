@@ -29,12 +29,12 @@
 
 #include <boost/filesystem.hpp>
 
-#include "MiraiProject/util/files_functions.hpp"
+#include "MiraiProject/util/FilesUtilities.hpp"
 
 using namespace std;
 using namespace boost::filesystem;
 
-vector<string> mp::listFiles(path directory, bool recursive)
+vector<string> mp::filesUtilities::listFiles(path directory, bool recursive)
 {
     vector<string> filesPaths;
     vector<string> tempFilesPaths;
@@ -51,7 +51,7 @@ vector<string> mp::listFiles(path directory, bool recursive)
         else if(recursive && is_directory(itr->path()))
         {
             // Else we start another cycle through this directory if we want all files recursively.
-            tempFilesPaths = listFiles(itr->path(), true);
+            tempFilesPaths = filesUtilities::listFiles(itr->path(), true);
             filesPaths.insert(filesPaths.end(), tempFilesPaths.begin(), tempFilesPaths.end());
         }
 

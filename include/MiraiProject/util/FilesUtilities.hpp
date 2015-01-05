@@ -36,15 +36,19 @@
  */
 
 namespace mp
-{
-    /** \brief List files in a directory.
-     * 
-     * \param directory : path of the directory
-	 * \param recursive : true to search in all subdirectories. 
-     * 
-     * \return A std::vector<std::string> who contains files paths.
-     */
-    std::vector<std::string> listFiles(boost::filesystem::path directory, bool recursive=false);
+{	
+	class filesUtilities
+	{
+		public:
+			/** \brief List files in a directory.
+			 * 
+			 * \param directory : path of the directory
+			 * \param recursive : true to search in all subdirectories. 
+			 * 
+			 * \return a std::vector<std::string> who contains files paths.
+			 */
+			static std::vector<std::string> listFiles(boost::filesystem::path directory, bool recursive=false);
+	};
 }
 
 #endif // FILE_FUNCTIONS_HPP_INCLUDED
