@@ -42,23 +42,6 @@ namespace mp
 
     class WindowManager
     {
-        private:
-            sf::RenderWindow window_;
-            sf::View defaultView_;
-			
-			bool fullscreen_;
-			bool verticalSync_;
-			bool cursorVisible_;
-
-			int optimalWinWidth_;
-			int optimalWinHeight_;
-
-			int videoModeWidth_;
-			int videoModeHeight_;
-			
-			std::string windowName_;
-			
-
         public:
             /** \brief Class constructor.
              *
@@ -167,6 +150,22 @@ namespace mp
 			 * \param windowName : the new window's name.
 			 */
 			void setVideomodeHeight(const std::string& windowName);
+			
+        private:
+            sf::RenderWindow window_;
+            sf::View defaultView_;
+			
+			bool fullscreen_;
+			bool verticalSync_;
+			bool cursorVisible_;
+
+			int optimalWinWidth_;
+			int optimalWinHeight_;
+
+			int videoModeWidth_;
+			int videoModeHeight_;
+			
+			std::string windowName_;
     };
 }
 

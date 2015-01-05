@@ -89,7 +89,6 @@ namespace mp
 		private:
 			const tm* getLocalTime();
 
-		private:
 			boost::mutex	mutex_;
 			std::ofstream	file_;
 			tm				time_;

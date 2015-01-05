@@ -44,11 +44,6 @@ namespace mp
 	
     class BaseResManager
     {
-        private:
-            std::map<std::string, std::shared_ptr<sf::Texture>> texturesCache;
-            std::map<std::string, std::shared_ptr<sf::SoundBuffer>> soundBufferCache;
-            Logger log_;
-
         public:
             /** \brief Class constructor **/
             BaseResManager();
@@ -115,6 +110,11 @@ namespace mp
 			
 			/** \brief Automatically clean unused textures and sound buffers cache. */
 			void clean();
+			
+        private:
+            std::map<std::string, std::shared_ptr<sf::Texture>> texturesCache;
+            std::map<std::string, std::shared_ptr<sf::SoundBuffer>> soundBufferCache;
+            Logger log_;
     };
 }
 
