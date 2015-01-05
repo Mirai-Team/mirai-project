@@ -22,48 +22,46 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <string>
-#include <algorithm> // remove(), erase()
-#include <sstream> // for locale
+#ifndef RANDOM_TPP_INCLUDED
+#define RANDOM_TPP_INCLUDED
 
-#include "MiraiProject/util/string_functions.hpp"
+#include <iostream>
+#include <chrono>
+#include <random>
+#include <vector>
+
+#include "MiraiProject/util/random.tpp"
 
 using namespace std;
 
-void mp::stripLetter(string &str, const char &letter)
+namespace mp
 {
-    str.erase(remove(str.begin(), str.end(), letter), str.end());
+	template<typename T> T Random::vrand(vector<T> vec)
+	{
+		long unsigned int maxN = vec.size();
+		unsigned seed = static_cast<unsigned>(chrono::system_clock::now().time_since_epoch().count());
+		mt19937 generator (seed);
+	
+		return vec[ static_cast<long unsigned int>( generator()%maxN ) ];
+	}
+	
+	template<typename T> T Random::irand(T minN, T maxN)
+	{
+		unsigned seed = static_cast<unsigned>(chrono::system_clock::now().time_since_epoch().count());
+		mt19937 generator (seed);
+
+		return static_cast<T>(generator()%(maxN - minN) + minN);
+	}
+	
+	template<typename T> T Random::drand(T minN, T maxN)
+	{
+		unsigned seed = static_cast<unsigned>(chrono::system_clock::now().time_since_epoch().count());
+		mt19937 generator (seed);
+		
+		T temp = static_cast<T>(generator())/static_cast<T>(generator.max());
+		return (temp * (maxN-minN) + minN);
+	}
+
 }
 
-string mp::upper(string text)
-{
-    locale loc;
-
-    for (unsigned int i{ 0 } ; i < text.length() ; i++)
-    {
-        text[i] = toupper(text[i], loc);
-    }
-
-    return text;
-}
-
-vector<string> mp::split(const string &text, const char &separator, unsigned int limit)
-{
-    istringstream iss{ text };
-    string word;
-    vector<string> words;
-
-    unsigned int i{ 0 };
-    while (getline(iss, word, separator) and limit != 0 and i < limit)
-    {
-        i++;
-        words.push_back(word);
-    }
-
-    return words;
-}
-
-string mp::replace(string &text, string toReplace, string replaceWith)
-{
-    return(text.replace(text.find(toReplace), toReplace.length(), replaceWith));
-}
+#endif // RANDOM_TPP_INCLUDED
