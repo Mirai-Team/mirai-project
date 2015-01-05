@@ -29,7 +29,6 @@
 
 #include "MiraiProject/util/files_functions.hpp"
 #include "MiraiProject/util/Logger.hpp"
-#include "MiraiProject/encryption/encrypt_functions.hpp"
 #include "MiraiProject/encryption/Encryption.hpp"
 
 #include <boost/filesystem.hpp>
@@ -196,7 +195,7 @@ string mp::Encryption::loadFile(string inputFile, string targetFile)
 
     while(i<fileCount)
     {
-        //read the filenamelen.
+		//read the filenamelen.
         input.seekg(offset,ios::beg);
         input.read(reinterpret_cast<char*>(&fileNameLen), 4);
 
