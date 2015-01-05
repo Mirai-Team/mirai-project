@@ -28,7 +28,7 @@
 
 #include "MiraiProject/util/Logger.hpp"
 #include "MiraiProject/util/LogStream.hpp"
-#include "MiraiProject/util/string_functions.hpp"
+#include "MiraiProject/util/StringUtilities.hpp"
 
 using namespace std;
 
@@ -91,7 +91,7 @@ void mp::Logger::log(string priority, string msg)
 	{
 		mutex_.lock();
 		file_ << '[' << getLocalTime() << ']'
-			<< '[' << mp::upper(priority) << "]\t"
+			<< '[' << mp::StringUtilities::upper(priority) << "]\t"
 			<< msg << endl;
 		mutex_.unlock();
 	}

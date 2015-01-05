@@ -22,22 +22,48 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef STRING_FUNCTIONS_TPP_INCLUDED
-#define STRING_FUNCTIONS_TPP_INCLUDED
+#include <string>
+#include <algorithm> // remove(), erase()
+#include <sstream> // for locale
 
-#include <sstream>
+#include "MiraiProject/util/StringUtilities.hpp"
 
 using namespace std;
 
-namespace mp
+void mp::StringUtilities::stripLetter(string &str, const char &letter)
 {
-    template<typename T>
-    string toString(const T &object)
-    {
-        ostringstream oss;
-        oss << object;
-        return oss.str();
-    }
+    str.erase(remove(str.begin(), str.end(), letter), str.end());
 }
 
-#endif // STRING_FUNCTIONS_TPP_INCLUDED
+string mp::StringUtilities::upper(string text)
+{
+    locale loc;
+
+    for (unsigned int i{ 0 } ; i < text.length() ; i++)
+    {
+        text[i] = toupper(text[i], loc);
+    }
+
+    return text;
+}
+
+vector<string> mp::StringUtilities::split(const string &text, const char &separator, unsigned int limit)
+{
+    istringstream iss{ text };
+    string word;
+    vector<string> words;
+
+    unsigned int i{ 0 };
+    while (getline(iss, word, separator) and limit != 0 and i < limit)
+    {
+        i++;
+        words.push_back(word);
+    }
+
+    return words;
+}
+
+string mp::StringUtilities::replace(string &text, string toReplace, string replaceWith)
+{
+    return(text.replace(text.find(toReplace), toReplace.length(), replaceWith));
+}
