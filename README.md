@@ -21,7 +21,7 @@ You can get the current development version from the git repository [on Github](
 ## Requirements
 
 + Platform: Linux, Windows or Mac
-+ Boost ≥ 1.54.0
++ Boost ≥ 1.54.0 (Modules : system, filesystem and thread)
 + CMake ≥ 2.6 / 3.1.0 (Windows / Linux)
 + Compiler which supports c++11
 
