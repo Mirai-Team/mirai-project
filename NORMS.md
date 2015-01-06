@@ -1,8 +1,8 @@
-Norms to fulfil.
+## Norms to fulfil.
 ----------------
 
 ________
-Naming :
+### Naming :
 
 - File containing only functions : all lower cases with underscore between words. Ex : my_function.hpp
 - File containing a class : mixed case starting with upper case. Ex : MyClass.hpp
@@ -17,12 +17,12 @@ Naming :
 - Namespaces names should be all lowercase. Ex: mynamespace
 
 ________
-Documentation:
+### Documentation:
 
 - Use doxygen comment style in order to describe files, functions, classes, methods.
 
 ________
-Other :
+### Other :
 
 - Do not use #define
 - No C in C++. Only C++.
