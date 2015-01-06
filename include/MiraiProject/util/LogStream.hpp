@@ -41,6 +41,9 @@ namespace mp
 {
 	class Logger;
 	
+	/** \class Logstream
+	 * \brief A class to manage input stream of Logger class.
+	 */
 	class Logstream : public std::ostringstream
 	{
 		public:
