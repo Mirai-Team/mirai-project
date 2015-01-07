@@ -90,9 +90,12 @@ void mp::Logger::log(string priority, string msg)
 	if(mp::debugMode)
 	{
 		mutex_.lock();
-		file_ << '[' << getLocalTime() << ']'
-			<< '[' << mp::StringUtilities::upper(priority) << "]\t"
-			<< msg << endl;
+		file_ 	<< '[' << getLocalTime() << ']'
+				<< '[' << mp::StringUtilities::upper(priority) << "]\t"
+				<< msg << endl;
+		cout << '[' << getLocalTime() << ']'
+				<< '[' << mp::StringUtilities::upper(priority) << "]\t"
+				<< msg << endl;
 		mutex_.unlock();
 	}
 }
