@@ -40,12 +40,12 @@ int main(int argc, char **argv)
 		return 0;
 	}
 
-	if(strcmp(argv[1],"-c")==0 and argv = 3)
+	if(strcmp(argv[1],"-c")==0 and argc == 3)
 	{
 		path directory(argv[2]);
 		encryptFiles(argv[3], directory, argv[4]);
 	}
-	else if(strcmp(argv[1],"-d")==0 and argc = 4)
+	else if(strcmp(argv[1],"-d")==0 and argc == 4)
 		decryptFiles(argv[3], argv[2]);
 	else
 	{
