@@ -8,9 +8,8 @@ Mirai Project is a library for games making purposes mainly by using SFML.
 
 ## Authors
 
-Benoît CORTIER - main developer (benoit.cortier@gmail.com)
-
-Jérôme BOULMIER - main developer (jerome.boulmier@outlook.fr)
++ Benoît CORTIER - main developer (benoit.cortier@gmail.com)
++ Jérôme BOULMIER - main developer (jerome.boulmier@outlook.fr)
 
 
 ## Download
@@ -30,7 +29,7 @@ You can get the current development version from the git repository [on Github](
 
 License: zlib/libpng
 
-Read file [license.txt](license.txt)
+Read [license.txt](license.txt) file.
 
 
 ## Compiling
@@ -54,4 +53,4 @@ Theses flags optimize the library regarding the build purpose (Debug or Release)
 
 ## Contribute
 
-Read [NORMS](NORMS) file carefully and respect each of them if you want to contribute.
+Read [NORMS.md](NORMS.md) file carefully and respect each of them if you want to contribute.
