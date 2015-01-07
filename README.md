@@ -40,12 +40,9 @@ You should use cmake 2.6 and higher to get your makefile or favorite IDE project
 
 If you're using g++, we highly recommend you to set following flags for g++ in your CMakeCache.txt file :
 
-+ CMAKE_CXX_FLAGS:STRING=-pedantic -pedantic-errors -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -Wfloat-equal -Wwrite-strings -Wpointer-arith -Wcast-qual -Wcast-align -Wconversion -Wshadow -Wredundant-decls -Wdouble-promotion -Winit-self -Wswitch-default -Wswitch-enum -Wundef -Wlogical-op -Winline -Weffc++ -std=c++11
-
++ CMAKE_CXX_FLAGS:STRING=-pedantic -pedantic-errors -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -Wfloat-equal -Wwrite-strings -Wpointer-arith -Wcast-qual -Wcast-align -Wconversion -Wshadow -Wredundant-decls -Wdouble-promotion -Winit-self -Wswitch-default -Wundef -Wlogical-op -Winline -Weffc++ -std=c++11
 + CMAKE_CXX_FLAGS_DEBUG:STRING=-g
-
 + CMAKE_CXX_FLAGS_RELEASE:STRING=-s -O2
-
 + CMAKE_CXX_FLAGS_MINSIZEREL:STRING=-s -Os
 
 Theses flags optimize the library regarding the build purpose (Debug or Release) and configure compiler to be more strict while checking the code.
