@@ -149,7 +149,7 @@ namespace mp
 			 *
 			 * \param windowName : the new window's name.
 			 */
-			void setVideomodeHeight(const std::string& windowName);
+			void setWindowName(const std::string& windowName);
 			
         private:
             sf::RenderWindow window_;

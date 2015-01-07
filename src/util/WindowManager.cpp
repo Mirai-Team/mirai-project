@@ -202,7 +202,7 @@ const std::string& WindowManager::getWindowName() const
 	return windowName_;
 }
 
-void WindowManager::setVideomodeHeight(const std::string& windowName)
+void WindowManager::setWindowName(const std::string& windowName)
 {
 	windowName_ = windowName;
 }
