@@ -59,3 +59,13 @@ vector<string> mp::filesUtilities::listFiles(path directory, bool recursive)
 	
     return filesPaths;
 }
+
+string mp::filesUtilities::convertFilePath(string &filePath)
+{
+	#ifdef WIN32
+		filePath.replace(filePath.find("/"), 1, "\\");
+	#elif __unix__
+		filePath.replace(filePath.find("\\"), 1, "/");
+	#endif
+	return filePath;
+}
