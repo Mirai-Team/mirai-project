@@ -29,14 +29,14 @@ You can get the current development version from the git repository [on Github](
 
 License: zlib/libpng
 
-Read [license.txt](license.txt) file.
+Read [license](license.txt) file.
 
 
 ## Compiling
 
 In order to compile Mirai Project, using c++11 is a compulsory.  Make sure to add it in your compiler parameters.
 
-You should use cmake 2.6 and higher to get your makefile or favorite IDE project, there is a [CMakeLists.txt](CMakeLists.txt) file.
+You should use cmake 2.6 and higher to get your makefile or favorite IDE project, there is a [CMakeLists](CMakeLists.txt) file.
 
 If you're using g++, we highly recommend you to set following flags for g++ in your CMakeCache.txt file :
 
@@ -50,4 +50,4 @@ Theses flags optimize the library regarding the build purpose (Debug or Release)
 
 ## Contribute
 
-Read [NORMS.md](NORMS.md) file carefully and respect each of them if you want to contribute.
+Read [NORMS](NORMS.md) file carefully and respect each of them if you want to contribute.
