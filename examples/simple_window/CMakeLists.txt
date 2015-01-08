@@ -68,18 +68,3 @@ else() # Link Mirai Project release.
 		MiraiProject
 	)
 endif()
-
-# Detect and add Boost
-find_package(Boost 1.54.0 REQUIRED filesystem system thread)
-if(Boost_FOUND)
-	# The parameter SYSTEM is to treat headers found there as system headers, and 
-	# suppress warnings originating from there by using the -isystem flag instead 
-	# of the -I flag while building with gcc/g++.
-	include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
-	
-	# Setting up link edition.
-    target_link_libraries( 
-        ${APP_NAME}
-        ${Boost_LIBRARIES}
-    )
-endif()
