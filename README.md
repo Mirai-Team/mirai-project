@@ -1,6 +1,8 @@
 # ![logo](https://avatars2.githubusercontent.com/u/10365256?v=3&s=200) Mirai Project
 =============
 
+[![Build Status](https://travis-ci.org/Mirai-Team/mirai-project.svg?branch=master)](https://travis-ci.org/Mirai-Team/mirai-project)
+
 ## Introduction
 
 Mirai Project is a library for games making purposes mainly by using SFML.
