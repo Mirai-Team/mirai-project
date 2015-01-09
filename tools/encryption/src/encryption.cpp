@@ -237,8 +237,8 @@ void encryptFiles(string key, path directory, string outputFile)
     fileNames = listFiles(directory, true);
 	
 	//For Windows, unless this the file isn't the same on Unix and on Windows.
-	for(unsigned int i = 0; i < fileNames_.size(); i++)
-		fileNames_[i].replace(fileNames_[i].find("\\"), 1, "/");
+	for(unsigned int i = 0; i < fileNames.size(); i++)
+		fileNames[i].replace(fileNames[i].find("\\"), 1, "/");
 		
     writeHeader(fileNames);
     writeData(fileNames);
