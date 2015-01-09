@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.6)
 project(MiraiProject)
 
+# set macro-directory
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/macros")
+
 # Enable debug symbols by default
 if(CMAKE_BUILD_TYPE STREQUAL "")
   set(CMAKE_BUILD_TYPE Debug)
