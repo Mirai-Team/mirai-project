@@ -60,6 +60,8 @@ namespace mp
 			
 			bool isRepeating() const;
 			
+			sf::Time getDuration() const;
+			
 			sf::Time getTimePerFrame() const;
 			
 			bool isFinished() const;
@@ -84,6 +86,8 @@ namespace mp
 			
 			void setRepeating(bool newRepeat);
 			
+			void setDuration(sf::Time newDuration);
+			
 			void setTimePerFrame(sf::Time newTimePerFrame);
 
 			void setTexture(const sf::Texture& texture);
@@ -98,6 +102,7 @@ namespace mp
 			
 			bool repeat;
 			
+			sf::Time duration;
 			sf::Time timePerFrame;
 			sf::Time elapsedTime;
 			

@@ -42,6 +42,7 @@ mp::AnimatedSprite::AnimatedSprite() :
 	
 	repeat{ false },
 	
+	duration{ sf::Time::Zero },
 	timePerFrame{ sf::Time::Zero },
 	elapsedTime{ sf::Time::Zero }
 {
@@ -58,6 +59,7 @@ mp::AnimatedSprite::AnimatedSprite(const sf::Texture& texture) :
 	
 	repeat{ false },
 	
+	duration{ sf::Time::Zero },
 	timePerFrame{ sf::Time::Zero },
 	elapsedTime{ sf::Time::Zero }
 {
@@ -119,6 +121,11 @@ bool mp::AnimatedSprite::isRepeating() const
 	return repeat;
 }
 
+sf::Time mp::AnimatedSprite::getDuration() const
+{
+	return duration;
+}
+
 sf::Time mp::AnimatedSprite::getTimePerFrame() const
 {
 	return timePerFrame;
@@ -173,9 +180,16 @@ void mp::AnimatedSprite::setRepeating(bool newRepeat)
 	repeat = newRepeat;
 }
 
+void mp::AnimatedSprite::setDuration(sf::Time newDuration)
+{
+	duration = newDuration;
+	timePerFrame = duration / static_cast<float>(numFrames);
+}
+
 void mp::AnimatedSprite::setTimePerFrame(sf::Time newTimePerFrame)
 {
 	timePerFrame = newTimePerFrame;
+	duration = timePerFrame * static_cast<float>(numFrames);
 }
 
 void mp::AnimatedSprite::setTexture(const sf::Texture& texture)
