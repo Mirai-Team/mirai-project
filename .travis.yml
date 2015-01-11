@@ -20,6 +20,11 @@ before_install:
 
 install:
   - cmake . -DCMAKE_CXX_FLAGS_MINSIZEREL:STRING="-s -Os" -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g" -DCMAKE_CXX_FLAGS:STRING="-pedantic -pedantic-errors -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -Wfloat-equal -Wwrite-strings -Wpointer-arith -Wcast-qual -Wcast-align -Wconversion -Wshadow -Wredundant-decls -Wdouble-promotion -Winit-self -Wswitch-default -Wundef -Wlogical-op -Winline -Weffc++ -std=c++11"
+  - cd tools/encryption
+  - cmake . -DCMAKE_CXX_FLAGS_MINSIZEREL:STRING="-s -Os" -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g" -DCMAKE_CXX_FLAGS:STRING="-pedantic -pedantic-errors -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -Wfloat-equal -Wwrite-strings -Wpointer-arith -Wcast-qual -Wcast-align -Wconversion -Wshadow -Wredundant-decls -Wdouble-promotion -Winit-self -Wswitch-default -Wundef -Wlogical-op -Winline -Weffc++ -std=c++11"
+  - cd ../../
 
 script:
+  - make -j 10
+  - cd tools/encryption
   - make -j 10
