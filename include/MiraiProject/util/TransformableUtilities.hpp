@@ -28,6 +28,8 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
 
+#include "MiraiProject/animations/AnimatedSprite.hpp"
+
 /** @file TransformableUtilities.hpp
  * \brief This file define various static functions to manipulate sf::Transformable into TransformableUtilities class.
  */
@@ -43,6 +45,12 @@ namespace mp
 			 */
 			static void centerOrigin(sf::Sprite& sprite);
 
+			/** \brief Sets the animated sprite's origin to its center. 
+			 *
+			 * \param sprite : the animated sprite.
+			 */
+			static void centerOrigin(mp::AnimatedSprite& animatedSprite);
+			
 			/** \brief Sets the text's origin to its center. 
 			 *
 			 * \param text : the text.

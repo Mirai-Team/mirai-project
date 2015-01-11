@@ -27,6 +27,7 @@
 #include <SFML/Graphics/Text.hpp>
 
 #include "MiraiProject/util/TransformableUtilities.hpp"
+#include "MiraiProject/animations/AnimatedSprite.hpp"
 
 using namespace std;
 
@@ -34,6 +35,12 @@ void mp::TransformableUtilities::centerOrigin(sf::Sprite& sprite)
 {
 	sf::FloatRect bounds = sprite.getLocalBounds();
 	sprite.setOrigin(floor(bounds.left + bounds.width / 2.f), floor(bounds.top + bounds.height / 2.f));
+}
+
+void mp::TransformableUtilities::centerOrigin(mp::AnimatedSprite& animatedSprite)
+{
+	sf::FloatRect bounds = animatedSprite.getLocalBounds();
+	animatedSprite.setOrigin(floor(bounds.left + bounds.width / 2.f), floor(bounds.top + bounds.height / 2.f));
 }
 
 void mp::TransformableUtilities::centerOrigin(sf::Text& text)
