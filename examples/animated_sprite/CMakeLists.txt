@@ -12,7 +12,7 @@ else()
 	set(APP_NAME AnimatedSprite)
 endif()
 
-set(EXECUTABLE_OUTPUT_PATH bin/${CMAKE_BUILD_TYPE})
+set(EXECUTABLE_OUTPUT_PATH .)
 
 # Generate source files list.
 file(

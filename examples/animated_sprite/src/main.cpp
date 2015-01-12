@@ -52,10 +52,10 @@ int main()
 	
 	// Create an animated sprite.
 	sf::Texture spriteSheet;
-	spriteSheet.loadFromFile("character.png");
+	spriteSheet.loadFromFile("resources/character.png");
 	
 	mp::AnimatedSprite mySprite{ spriteSheet };
-	mySprite.setFrameSize(sf::Vector2i(22, 33));
+	mySprite.setFrameSize(sf::Vector2i(32, 36));
 	mySprite.setNumFrames(4);
 	mySprite.setTimePerFrame(sf::seconds(0.2f));
 	mySprite.setRepeating(true);
@@ -79,9 +79,9 @@ int main()
 		
 		// Updating sprite's animation.
 		mySprite.update(sf::seconds(1.f / 60.f));
-		mySprite.move(0, 0.7f);
-		if (mySprite.getPosition().y > 540)
-			mySprite.setPosition(mySprite.getPosition().x, -40);
+		mySprite.move(0, -0.7f);
+		if (mySprite.getPosition().y < -40)
+			mySprite.setPosition(mySprite.getPosition().x, 540);
 		
 		window.clear(sf::Color::Black);
 		window.draw(mySprite); // Drawing the sprite.
