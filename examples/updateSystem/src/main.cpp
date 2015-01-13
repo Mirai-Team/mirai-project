@@ -1,6 +1,6 @@
 #include <iostream>
-#include <MiraiProject/update/Updatable.hpp>
-#include <MiraiProject/update/UpdateModule.hpp>
+#include <MiraiProject/updateSystem/Updatable.hpp>
+#include <MiraiProject/updateSystem/UpdateModule.hpp>
 
 using namespace std;
 class SomeClass : public mp::Updatable

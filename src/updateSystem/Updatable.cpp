@@ -22,30 +22,15 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <algorithm>
+#include "MiraiProject/updateSystem/Updatable.hpp"
+#include "MiraiProject/updateSystem/UpdateModule.hpp"
 
-#include "MiraiProject/update/UpdateModule.hpp"
-#include "MiraiProject/update/Updatable.hpp"
-
-std::list<mp::Updatable*> mp::UpdateModule::updatableList_;
-
-void mp::UpdateModule::Update(float delta_time)
+mp::Updatable::Updatable()
 {
-	if(updatableList_.size() > 0)
-	{
-		for_each(updatableList_.begin(), updatableList_.end(), [&](mp::Updatable* p)
-		{
-			p->Update(delta_time);
-		});
-	}
+	mp::UpdateModule::AddUpdater(this);
 }
 
-void mp::UpdateModule::AddUpdater(mp::Updatable* updatable)
+mp::Updatable::~Updatable()
 {
-	updatableList_.push_back(updatable);
-}
-
-void mp::UpdateModule::RemoveUpdater(Updatable* updatable)
-{
-	updatableList_.remove_if([updatable] (Updatable* p) { return p == updatable; });
+    mp::UpdateModule::RemoveUpdater(this);
 }

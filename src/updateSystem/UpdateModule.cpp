@@ -22,27 +22,30 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef UPDATEMODULE_HPP_INCLUDED
-#define UPDATEMODULE_HPP_INCLUDED
-
-#include <memory>
-#include <list>
 #include <algorithm>
-#include "MiraiProject/update/Updatable.hpp"
 
-namespace mp
+#include "MiraiProject/updateSystem/UpdateModule.hpp"
+#include "MiraiProject/updateSystem/Updatable.hpp"
+
+std::list<mp::Updatable*> mp::UpdateModule::updatableList_;
+
+void mp::UpdateModule::Update(float delta_time)
 {
-	class UpdateModule
+	if(updatableList_.size() > 0)
 	{
-		friend class Updatable;
-		public:
-			static void Update(float delta_time);
-			static void AddUpdater(Updatable* updatable);
-			static void RemoveUpdater(Updatable* updatable);
-			
-			static std::list<Updatable*> updatableList_;
-	};
-
+		for_each(updatableList_.begin(), updatableList_.end(), [&](mp::Updatable* p)
+		{
+			p->Update(delta_time);
+		});
+	}
 }
 
-#endif
+void mp::UpdateModule::AddUpdater(mp::Updatable* updatable)
+{
+	updatableList_.push_back(updatable);
+}
+
+void mp::UpdateModule::RemoveUpdater(Updatable* updatable)
+{
+	updatableList_.remove_if([updatable] (Updatable* p) { return p == updatable; });
+}
