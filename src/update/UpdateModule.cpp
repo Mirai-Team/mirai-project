@@ -22,37 +22,30 @@
 //
 ////////////////////////////////////////////////////////////
 
+#include <algorithm>
+
 #include "MiraiProject/update/UpdateModule.hpp"
 #include "MiraiProject/update/Updatable.hpp"
 
-std::list<std::shared_ptr<mp::Updatable>> mp::UpdateModule::updatableList_;
+std::list<mp::Updatable*> mp::UpdateModule::updatableList_;
 
 void mp::UpdateModule::Update(float delta_time)
 {
-	for_each(updatableList_.begin(), updatableList_.end(), [&](std::shared_ptr<mp::Updatable>& p)
-    {
-		p->Update(delta_time);
-	});
+	if(updatableList_.size() > 0)
+	{
+		for_each(updatableList_.begin(), updatableList_.end(), [&](mp::Updatable* p)
+		{
+			p->Update(delta_time);
+		});
+	}
 }
 
-void mp::UpdateModule::AddUpdater(std::shared_ptr<mp::Updatable> updatable)
+void mp::UpdateModule::AddUpdater(mp::Updatable* updatable)
 {
 	updatableList_.push_back(updatable);
 }
 
-/*void mp::UpdateModule::RemoveUpdater(std::shared_ptr<Updatable> updatable)
+void mp::UpdateModule::RemoveUpdater(Updatable* updatable)
 {
-	Updatable** s_head = GetHead();
-	*s_head = updatable->m_next;
-	if (*s_head != updatable)
-	{
-		updatable->m_prev->m_next = updatable->m_next;
-		updatable->m_next->m_prev = updatable->m_prev;
-	}
-	else
-	{
-		*s_head = NULL;
-	}
-	updatable->m_next = NULL;
-	updatable->m_prev = NULL;
-}*/
+	updatableList_.remove_if([updatable] (Updatable* p) { return p == updatable; });
+}

@@ -27,11 +27,10 @@
 
 mp::Updatable::Updatable()
 {
-	std::shared_ptr<Updatable> ptr(this);
-    mp::UpdateModule::AddUpdater(ptr);
+	mp::UpdateModule::AddUpdater(this);
 }
 
 mp::Updatable::~Updatable()
 {
-    //mp::UpdateModule::RemoveUpdater(shared_from_this());
+    mp::UpdateModule::RemoveUpdater(this);
 }

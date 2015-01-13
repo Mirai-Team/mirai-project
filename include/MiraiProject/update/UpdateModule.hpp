@@ -37,12 +37,10 @@ namespace mp
 		friend class Updatable;
 		public:
 			static void Update(float delta_time);
+			static void AddUpdater(Updatable* updatable);
+			static void RemoveUpdater(Updatable* updatable);
 			
-		private:
-			static void AddUpdater(std::shared_ptr<Updatable> updatable);
-			//static void RemoveUpdater(std::shared_ptr<Updatable> updatable);
-			
-			static std::list<std::shared_ptr<Updatable>> updatableList_;
+			static std::list<Updatable*> updatableList_;
 	};
 
 }
