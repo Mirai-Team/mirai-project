@@ -22,41 +22,22 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <iostream>
-#include <fstream>
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Text.hpp>
 
-#include <boost/filesystem.hpp>
-#include <MiraiProject/encryption/Encryption.hpp>
-#include <MiraiProject/util/Logger.hpp>
+#include "MiraiProject/util/TransformableUtilities.hpp"
 
-int main()
+using namespace std;
+
+void mp::TransformableUtilities::centerOrigin(sf::Sprite& sprite)
 {
-	std::string outputFile { "resources/data.bin" };
-	std::ofstream data;
-	
-	// We create a directory and write data in a file
-	boost::filesystem::create_directory("resources/");
-	boost::filesystem::create_directory("resources/data/");
-	data.open("resources/data/log.txt",std::ios::binary);
-	data << "Mirai Encryption example" << std::endl;
-	data.close();
-	
-	// Constructor with key parameter.
-	mp::Encryption fileEncrypt("mirai");
-	boost::filesystem::path directoryToEncrypt("resources/data/");
-	
-	// Creation of a file with data/ directory.
-	fileEncrypt.createFile(outputFile, directoryToEncrypt);
-	// Now our data are encrypted in data.bin.
-	
-	// We are looking for the picture through the file.
-	std::string output = fileEncrypt.loadFile(outputFile, "resources/data/log.txt");
-	
-	// We open a file and write data in it.
-	std::ofstream file;
-	file.open("output.txt",std::ios::binary);
-	
-	file << output;
-	
-	file.close();
+	sf::FloatRect bounds = sprite.getLocalBounds();
+	sprite.setOrigin(floor(bounds.left + bounds.width / 2.f), floor(bounds.top + bounds.height / 2.f));
+}
+
+void mp::TransformableUtilities::centerOrigin(sf::Text& text)
+{
+	sf::FloatRect bounds = text.getLocalBounds();
+	text.setOrigin(floor(bounds.left + bounds.width / 2.f), floor(bounds.top + bounds.height / 2.f));
 }

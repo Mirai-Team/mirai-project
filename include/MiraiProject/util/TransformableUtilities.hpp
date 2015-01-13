@@ -22,41 +22,33 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <iostream>
-#include <fstream>
+#ifndef TRANSFORMABLE_UTILITIES_HPP_INCLUDED
+#define TRANSFORMABLE_UTILITIES_HPP_INCLUDED
 
-#include <boost/filesystem.hpp>
-#include <MiraiProject/encryption/Encryption.hpp>
-#include <MiraiProject/util/Logger.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Text.hpp>
 
-int main()
+/** @file TransformableUtilities.hpp
+ * \brief This file define various static functions to manipulate sf::Transformable into TransformableUtilities class.
+ */
+
+namespace mp
 {
-	std::string outputFile { "resources/data.bin" };
-	std::ofstream data;
-	
-	// We create a directory and write data in a file
-	boost::filesystem::create_directory("resources/");
-	boost::filesystem::create_directory("resources/data/");
-	data.open("resources/data/log.txt",std::ios::binary);
-	data << "Mirai Encryption example" << std::endl;
-	data.close();
-	
-	// Constructor with key parameter.
-	mp::Encryption fileEncrypt("mirai");
-	boost::filesystem::path directoryToEncrypt("resources/data/");
-	
-	// Creation of a file with data/ directory.
-	fileEncrypt.createFile(outputFile, directoryToEncrypt);
-	// Now our data are encrypted in data.bin.
-	
-	// We are looking for the picture through the file.
-	std::string output = fileEncrypt.loadFile(outputFile, "resources/data/log.txt");
-	
-	// We open a file and write data in it.
-	std::ofstream file;
-	file.open("output.txt",std::ios::binary);
-	
-	file << output;
-	
-	file.close();
+	class TransformableUtilities
+	{
+		public:
+			/** \brief Sets the sprite's origin to its center. 
+			 *
+			 * \param sprite : the sprite.
+			 */
+			static void centerOrigin(sf::Sprite& sprite);
+
+			/** \brief Sets the text's origin to its center. 
+			 *
+			 * \param text : the text.
+			 */
+			static void centerOrigin(sf::Text& text);
+	};
 }
+
+#endif // TRANSFORMABLE_UTILITIES_HPP_INCLUDED

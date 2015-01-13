@@ -3,6 +3,8 @@
 
 [![Build Status](https://travis-ci.org/Mirai-Team/mirai-project.svg?branch=master)](https://travis-ci.org/Mirai-Team/mirai-project)
 
+[![Issue Stats](http://www.issuestats.com/github/Mirai-Team/mirai-project/badge/pr?style=flat)](http://www.issuestats.com/github/Mirai-Team/mirai-project) [![Issue Stats](http://www.issuestats.com/github/Mirai-Team/mirai-project/badge/issue?style=flat)](http://www.issuestats.com/github/Mirai-Team/mirai-project)
+
 ## Introduction
 
 Mirai Project is a library for games making purposes mainly by using SFML.
