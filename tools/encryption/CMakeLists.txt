@@ -7,9 +7,9 @@ if(CMAKE_BUILD_TYPE STREQUAL "")
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-	set(APP_NAME MiraiDemo-d)
+	set(APP_NAME EncryptionExample-d)
 else()
-	set(APP_NAME MiraiDemo)
+	set(APP_NAME EncryptionExample)
 endif()
 
 set(EXECUTABLE_OUTPUT_PATH bin/${CMAKE_BUILD_TYPE})

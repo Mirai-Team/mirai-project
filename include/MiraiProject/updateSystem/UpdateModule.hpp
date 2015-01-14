@@ -22,57 +22,38 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef LOGSTREAM_HPP_INCLUDED
-#define LOGSTREAM_HPP_INCLUDED
+#ifndef UPDATEMODULE_HPP_INCLUDED
+#define UPDATEMODULE_HPP_INCLUDED
 
-#include <fstream>
 #include <memory>
-#include <mutex>
-#include <sstream>
-#include <string>
+#include <list>
+#include <algorithm>
 
-#include "MiraiProject/util/Logger.hpp"
-
-/** @file LogStream.hpp
- * \brief This file define LogStream class.
- */
+#include "MiraiProject/updateSystem/Updatable.hpp"
 
 namespace mp
 {
-	class Logger;
-	
-	/** \class Logstream
-	 * \brief A class to manage input stream of Logger class.
-	 */
-	class Logstream : public std::ostringstream
+	class UpdateModule
 	{
+		friend class Updatable;
+		
 		public:
-
-			/** \brief Constructor
-			 *
-			 * \param logger : A Logger object.
-			 * \param priority : A string which contains Priority name.
-			 *
+			/** \brief Update all Updatable.
+			 * \param delta_time : time elapsed since last update.
 			 */
-			Logstream(Logger& logger, std::string priority);
-
-			/** \brief Constructor
-			 *
-			 * \param ls : A Logstream object.
-			 *
-			 */
-
-			Logstream(const Logstream& ls);
-
-			/** \brief Deconstructor
-			 *
-			 *
-			 */
-			~Logstream();
-
+			static void Update(float delta_time);
+			
 		private:
-			Logger&     	logger_;
-			std::string 	priority_;
+			// Add an Updater in updatableList_
+			static void AddUpdater(Updatable* updatable);
+			
+			// Remove an Updater from updatableList_
+			static void RemoveUpdater(Updatable* updatable);
+			
+			// Objects list to update.
+			static std::list<Updatable*> updatableList_;
 	};
+
 }
-#endif // LOGSTREAM_HPP_INCLUDED
+
+#endif

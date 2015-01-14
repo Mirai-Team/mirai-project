@@ -22,57 +22,41 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef LOGSTREAM_HPP_INCLUDED
-#define LOGSTREAM_HPP_INCLUDED
-
+#include <iostream>
 #include <fstream>
-#include <memory>
-#include <mutex>
-#include <sstream>
-#include <string>
 
-#include "MiraiProject/util/Logger.hpp"
+#include <boost/filesystem.hpp>
+#include <MiraiProject/encryption/Encryption.hpp>
+#include <MiraiProject/util/Logger.hpp>
 
-/** @file LogStream.hpp
- * \brief This file define LogStream class.
- */
-
-namespace mp
+int main()
 {
-	class Logger;
+	std::string outputFile { "resources/data.bin" };
+	std::ofstream data;
 	
-	/** \class Logstream
-	 * \brief A class to manage input stream of Logger class.
-	 */
-	class Logstream : public std::ostringstream
-	{
-		public:
-
-			/** \brief Constructor
-			 *
-			 * \param logger : A Logger object.
-			 * \param priority : A string which contains Priority name.
-			 *
-			 */
-			Logstream(Logger& logger, std::string priority);
-
-			/** \brief Constructor
-			 *
-			 * \param ls : A Logstream object.
-			 *
-			 */
-
-			Logstream(const Logstream& ls);
-
-			/** \brief Deconstructor
-			 *
-			 *
-			 */
-			~Logstream();
-
-		private:
-			Logger&     	logger_;
-			std::string 	priority_;
-	};
+	// We create a directory and write data in a file
+	boost::filesystem::create_directory("resources/");
+	boost::filesystem::create_directory("resources/data/");
+	data.open("resources/data/log.txt",std::ios::binary);
+	data << "Mirai Encryption example" << std::endl;
+	data.close();
+	
+	// Constructor with key parameter.
+	mp::Encryption fileEncrypt("mirai");
+	boost::filesystem::path directoryToEncrypt("resources/data/");
+	
+	// Creation of a file with data/ directory.
+	fileEncrypt.createFile(outputFile, directoryToEncrypt);
+	// Now our data are encrypted in data.bin.
+	
+	// We are looking for the picture through the file.
+	std::string output = fileEncrypt.loadFile(outputFile, "resources/data/log.txt");
+	
+	// We open a file and write data in it.
+	std::ofstream file;
+	file.open("output.txt",std::ios::binary);
+	
+	file << output;
+	
+	file.close();
 }
-#endif // LOGSTREAM_HPP_INCLUDED

@@ -22,57 +22,33 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef LOGSTREAM_HPP_INCLUDED
-#define LOGSTREAM_HPP_INCLUDED
+#ifndef TRANSFORMABLE_UTILITIES_HPP_INCLUDED
+#define TRANSFORMABLE_UTILITIES_HPP_INCLUDED
 
-#include <fstream>
-#include <memory>
-#include <mutex>
-#include <sstream>
-#include <string>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Text.hpp>
 
-#include "MiraiProject/util/Logger.hpp"
-
-/** @file LogStream.hpp
- * \brief This file define LogStream class.
+/** @file TransformableUtilities.hpp
+ * \brief This file define various static functions to manipulate sf::Transformable into TransformableUtilities class.
  */
 
 namespace mp
 {
-	class Logger;
-	
-	/** \class Logstream
-	 * \brief A class to manage input stream of Logger class.
-	 */
-	class Logstream : public std::ostringstream
+	class TransformableUtilities
 	{
 		public:
-
-			/** \brief Constructor
+			/** \brief Sets the sprite's origin to its center. 
 			 *
-			 * \param logger : A Logger object.
-			 * \param priority : A string which contains Priority name.
-			 *
+			 * \param sprite : the sprite.
 			 */
-			Logstream(Logger& logger, std::string priority);
+			static void centerOrigin(sf::Sprite& sprite);
 
-			/** \brief Constructor
+			/** \brief Sets the text's origin to its center. 
 			 *
-			 * \param ls : A Logstream object.
-			 *
+			 * \param text : the text.
 			 */
-
-			Logstream(const Logstream& ls);
-
-			/** \brief Deconstructor
-			 *
-			 *
-			 */
-			~Logstream();
-
-		private:
-			Logger&     	logger_;
-			std::string 	priority_;
+			static void centerOrigin(sf::Text& text);
 	};
 }
-#endif // LOGSTREAM_HPP_INCLUDED
+
+#endif // TRANSFORMABLE_UTILITIES_HPP_INCLUDED

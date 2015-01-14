@@ -1,0 +1,30 @@
+language: cpp
+compiler:
+  - g++
+
+git:
+  depth: 1
+
+before_install:
+  - echo "yes" | sudo add-apt-repository ppa:kalakris/cmake
+  - echo "yes" | sudo add-apt-repository ppa:boost-latest/ppa
+  - echo "yes" | sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+  - sudo apt-get -qq update
+  - sudo apt-get -qq install build-essential libtool gcc-4.9 g++-4.9 make cmake openssl
+  - sudo apt-get -qq install libpthread-stubs0-dev libgl1-mesa-dev libx11-dev libxrandr-dev libfreetype6-dev libglew-dev libjpeg-dev libsndfile1-dev libopenal-dev
+  - sudo apt-get -qq install libboost1.55-dev libboost-thread1.55-dev libboost-filesystem1.55-dev libboost-system1.55-dev libboost-program-options1.55-dev
+  - wget http://www.sfml-dev.org/files/SFML-2.2-linux-gcc-64-bit.tar.gz -O /tmp/sfml.tar.bz2
+  - tar -zxvf /tmp/sfml.tar.bz2
+  - sudo cp -r SFML-2.2/* /usr/
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 50
+
+install:
+  - cmake . -DCMAKE_CXX_FLAGS_MINSIZEREL:STRING="-s -Os" -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g" -DCMAKE_CXX_FLAGS:STRING="-pedantic -pedantic-errors -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -Wfloat-equal -Wwrite-strings -Wpointer-arith -Wcast-qual -Wcast-align -Wconversion -Wshadow -Wredundant-decls -Wdouble-promotion -Winit-self -Wswitch-default -Wundef -Wlogical-op -Winline -Weffc++ -std=c++11"
+  - cd tools/encryption
+  - cmake . -DCMAKE_CXX_FLAGS_MINSIZEREL:STRING="-s -Os" -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g" -DCMAKE_CXX_FLAGS:STRING="-pedantic -pedantic-errors -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -Wfloat-equal -Wwrite-strings -Wpointer-arith -Wcast-qual -Wcast-align -Wconversion -Wshadow -Wredundant-decls -Wdouble-promotion -Winit-self -Wswitch-default -Wundef -Wlogical-op -Winline -Weffc++ -std=c++11"
+  - cd ../../
+
+script:
+  - make -j 10
+  - cd tools/encryption
+  - make -j 10

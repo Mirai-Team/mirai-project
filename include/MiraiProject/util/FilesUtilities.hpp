@@ -48,6 +48,8 @@ namespace mp
 			 * \return a std::vector<std::string> who contains files paths.
 			 */
 			static std::vector<std::string> listFiles(boost::filesystem::path directory, bool recursive=false);
+			
+			static std::string convertFilePath(std::string &filePath);
 	};
 }
 

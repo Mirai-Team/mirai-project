@@ -52,7 +52,10 @@ ostream& operator<< (ostream& stream, const tm* time)
 }
 
 // 0 in time_ are for -Wmissing-field-initializers
-mp::Logger::Logger(string filename) : mutex_ { }, file_ { }, time_ { 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+mp::Logger::Logger(string filename) : 
+	mutex_ { }, 
+	file_ { }, 
+	time_ { 0, 0, 0, 0, 0, 0, 0, 0, 0 } // warning under linux, cause it seems to have one more field.
 {
 	if(mp::debugMode)
 		file_.open(filename, fstream::app);
@@ -90,9 +93,12 @@ void mp::Logger::log(string priority, string msg)
 	if(mp::debugMode)
 	{
 		mutex_.lock();
-		file_ << '[' << getLocalTime() << ']'
-			<< '[' << mp::StringUtilities::upper(priority) << "]\t"
-			<< msg << endl;
+		file_ 	<< '[' << getLocalTime() << ']'
+				<< '[' << mp::StringUtilities::upper(priority) << "]\t"
+				<< msg << endl;
+		cout << '[' << getLocalTime() << ']'
+				<< '[' << mp::StringUtilities::upper(priority) << "]\t"
+				<< msg << endl;
 		mutex_.unlock();
 	}
 }

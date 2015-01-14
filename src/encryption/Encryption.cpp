@@ -61,7 +61,11 @@ bool mp::Encryption::createFile(string outputFile, path directory)
 
 
     fileNames_ = filesUtilities::listFiles(directory, true);
-
+	
+	//For Windows, unless this the file isn't the same on Unix and on Windows.
+	for(unsigned int i = 0; i < fileNames_.size(); i++)
+		fileNames_[i].replace(fileNames_[i].find("\\"), 1, "/");
+		
     if(writeHeader() && writeData())
         return true;
     else

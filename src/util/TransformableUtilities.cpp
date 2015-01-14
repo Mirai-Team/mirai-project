@@ -22,57 +22,22 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef LOGSTREAM_HPP_INCLUDED
-#define LOGSTREAM_HPP_INCLUDED
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Text.hpp>
 
-#include <fstream>
-#include <memory>
-#include <mutex>
-#include <sstream>
-#include <string>
+#include "MiraiProject/util/TransformableUtilities.hpp"
 
-#include "MiraiProject/util/Logger.hpp"
+using namespace std;
 
-/** @file LogStream.hpp
- * \brief This file define LogStream class.
- */
-
-namespace mp
+void mp::TransformableUtilities::centerOrigin(sf::Sprite& sprite)
 {
-	class Logger;
-	
-	/** \class Logstream
-	 * \brief A class to manage input stream of Logger class.
-	 */
-	class Logstream : public std::ostringstream
-	{
-		public:
-
-			/** \brief Constructor
-			 *
-			 * \param logger : A Logger object.
-			 * \param priority : A string which contains Priority name.
-			 *
-			 */
-			Logstream(Logger& logger, std::string priority);
-
-			/** \brief Constructor
-			 *
-			 * \param ls : A Logstream object.
-			 *
-			 */
-
-			Logstream(const Logstream& ls);
-
-			/** \brief Deconstructor
-			 *
-			 *
-			 */
-			~Logstream();
-
-		private:
-			Logger&     	logger_;
-			std::string 	priority_;
-	};
+	sf::FloatRect bounds = sprite.getLocalBounds();
+	sprite.setOrigin(floor(bounds.left + bounds.width / 2.f), floor(bounds.top + bounds.height / 2.f));
 }
-#endif // LOGSTREAM_HPP_INCLUDED
+
+void mp::TransformableUtilities::centerOrigin(sf::Text& text)
+{
+	sf::FloatRect bounds = text.getLocalBounds();
+	text.setOrigin(floor(bounds.left + bounds.width / 2.f), floor(bounds.top + bounds.height / 2.f));
+}
