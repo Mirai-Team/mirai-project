@@ -54,7 +54,7 @@ vector<string> mp::StringUtilities::split(const string &text, const char &separa
     vector<string> words;
 
     unsigned int i{ 0 };
-    while (getline(iss, word, separator) and limit != 0 and i < limit)
+    while (getline(iss, word, separator) and (limit == 0 or i < limit))
     {
         i++;
         words.push_back(word);
