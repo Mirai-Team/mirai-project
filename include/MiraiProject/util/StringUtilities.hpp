@@ -22,8 +22,8 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef STRING_FUNCTIONS_HPP_INCLUDED
-#define STRING_FUNCTIONS_HPP_INCLUDED
+#ifndef STRINGUTILITIES_HPP_INCLUDED
+#define STRINGUTILITIES_HPP_INCLUDED
 
 #include <string>
 #include <vector>
@@ -77,7 +77,13 @@ namespace mp
 			 * \return the given object converted into string.
 			 */
 			template<typename T> static std::string toString(const T &object);
+			
+			/** \brief Convert string to T.
+			 * \param s : A string.
+			 */
+			template <typename T> static T fromString(const std::string& s);
 	};
 }
 
-#endif // STRING_FUNCTIONS_HPP_INCLUDED
+#include "MiraiProject/util/StringUtilities.tpp"
+#endif // STRINGUTILITIES_HPP_INCLUDED
