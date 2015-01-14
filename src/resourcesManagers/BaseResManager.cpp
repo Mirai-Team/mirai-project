@@ -77,6 +77,25 @@ bool mp::BaseResManager::loadTextureFromFile(const string &fileName)
 	return success;
 }
 
+bool mp::BaseResManager::loadTextureFromMemory(const string &fileName, const string fileData)
+{
+	bool success{ true };
+
+    shared_ptr<sf::Texture> ptr_texture{ new sf::Texture };
+    ptr_texture->setSmooth(false);
+
+    if (!ptr_texture->loadFromMemory(&fileData, fileData.size()))
+	{
+		// File not found...
+        log_(mp::priorityError) << "File " << fileName << " was not found... (for texture)";
+		success = false;
+	}
+
+    texturesCache[fileName] = ptr_texture;
+
+	return success;
+}
+
 bool mp::BaseResManager::textureIsAvailable(const string &fileName)
 {
     // Check if the texture is available in the resource manager.

@@ -22,8 +22,8 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef RESOUCESMANAGER_HPP_INCLUDED
-#define RESOUCESMANAGER_HPP_INCLUDED
+#ifndef BASERESMANAGER_HPP_INCLUDED
+#define BASERESMANAGER_HPP_INCLUDED
 
 #include <memory>
 #include <map>
@@ -70,6 +70,15 @@ namespace mp
 			 * \return a boolean about operation success.
 			 */
             bool loadTextureFromFile(const std::string &fileName);
+            
+            /** \brief Load texture into cache from memory. 
+			 *
+			 * \param fileName : the file name related to the wanted file.
+			 * \param fileData : the file in a string.
+			 * 
+			 * \return a boolean about operation success.
+			 */
+            bool loadTextureFromMemory(const std::string &fileName, const std::string fileData);
 
             /** \brief Return whether the given texture related to the given file name exists. 
 			 *
@@ -118,4 +127,4 @@ namespace mp
     };
 }
 
-#endif // RESOUCESMANAGER_HPP_INCLUDED
+#endif // BASERESMANAGER_HPP_INCLUDED
