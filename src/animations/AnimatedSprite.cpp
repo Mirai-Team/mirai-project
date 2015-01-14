@@ -23,6 +23,7 @@
 ////////////////////////////////////////////////////////////
 
 #include <iostream>
+#include <algorithm> // for for_each
 
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -31,37 +32,42 @@
 #include <SFML/System/Time.hpp>
 
 #include "MiraiProject/animations/AnimatedSprite.hpp"
+#include "MiraiProject/animations/Animation.hpp"
 
 mp::AnimatedSprite::AnimatedSprite() :
-	sprite{ },
+	sprite_{ },
 	
-	frameSize{ 64, 64 },
+	frameSize_{ 64, 64 },
 	
-	numFrames{ 0 },
-	currentFrame{ 0 },
+	currentFrame_{ 0 },
 	
-	repeat{ false },
+	numAnimations_{ 0 },
+	currentAnimation_{ 0 },
+	animations_{ },
 	
-	duration{ sf::Time::Zero },
-	timePerFrame{ sf::Time::Zero },
-	elapsedTime{ sf::Time::Zero }
+	repeat_{ false },
+	
+	elapsedTime_{ sf::Time::Zero },
+	defaultTimePerFrame_{ sf::seconds(1) }
 {
 	
 }
 
 mp::AnimatedSprite::AnimatedSprite(const sf::Texture& texture) : 
-	sprite{ texture },
+	sprite_{ texture },
 	
-	frameSize{ 64, 64 },
+	frameSize_{ 64, 64 },
 	
-	numFrames{ 0 },
-	currentFrame{ 0 },
+	currentFrame_{ 0 },
 	
-	repeat{ false },
+	numAnimations_{ 0 },
+	currentAnimation_{ 0 },
+	animations_{ },
 	
-	duration{ sf::Time::Zero },
-	timePerFrame{ sf::Time::Zero },
-	elapsedTime{ sf::Time::Zero }
+	repeat_{ false },
+	
+	elapsedTime_{ sf::Time::Zero },
+	defaultTimePerFrame_{ sf::seconds(1) }
 {
 	
 }
@@ -73,72 +79,57 @@ mp::AnimatedSprite::~AnimatedSprite()
 
 void mp::AnimatedSprite::update(sf::Time dt)
 {
-	sf::Vector2i textureBounds(sprite.getTexture()->getSize());
-	sf::IntRect textureRect{ sprite.getTextureRect() };
+	sf::Vector2i textureBounds(sprite_.getTexture()->getSize());
+	sf::IntRect textureRect{ sprite_.getTextureRect() };
+	mp::Animation currentAnimation{ animations_[currentAnimation_] };
 	
-	elapsedTime += dt;
+	elapsedTime_ += dt;
 	
-	while (elapsedTime >= timePerFrame and (currentFrame + 1 < numFrames or repeat))
+	while (elapsedTime_ >= currentAnimation.timePerFrame_ and (currentFrame_ + 1 < currentAnimation.numFrames_ or repeat_))
 	{
-		elapsedTime -= timePerFrame;
+		elapsedTime_ -= currentAnimation.timePerFrame_;
 		
-		if (repeat)
-			currentFrame = (currentFrame + 1) % numFrames;
+		if (repeat_)
+			currentFrame_ = (currentFrame_ + 1) % currentAnimation.numFrames_;
 		else
-			currentFrame++;
+			currentFrame_++;
 	}
 	
-	textureRect.left = (frameSize.x * currentFrame) % textureBounds.x;
-	textureRect.top = frameSize.y * static_cast<int>((frameSize.x * currentFrame) / textureBounds.x);
+	int realFrame{ currentFrame_ + currentAnimation.numStartingFrame_ }; // The actual frame number on the sprite sheet.
+		
+	textureRect.left = (frameSize_.x * realFrame) % textureBounds.x;
+	textureRect.top = frameSize_.y * static_cast<int>((frameSize_.x * realFrame) / textureBounds.x);
 	
-	if (currentFrame == 0)
-		textureRect = sf::IntRect(0, 0, frameSize.x, frameSize.y);
+	if (currentFrame_ == 0)
+		textureRect = sf::IntRect(textureRect.left, textureRect.top, frameSize_.x, frameSize_.y);
 	
-	sprite.setTextureRect(textureRect);
+	sprite_.setTextureRect(textureRect);
 }
 
-/////////////
-// Getters //
-/////////////
-
-sf::Vector2i mp::AnimatedSprite::getFrameSize() const
+void mp::AnimatedSprite::addAnimation(const int& numStartingFrame, const int& numEndingFrame)
 {
-	return frameSize;
+	mp::Animation animation{ };
+	
+	animation.numStartingFrame_ = numStartingFrame;
+	animation.numEndingFrame_ = numEndingFrame;
+	animation.update();
+	
+	animation.timePerFrame_ = defaultTimePerFrame_;
+	
+	addAnimation(animation);
 }
 
-int mp::AnimatedSprite::getNumFrames() const
+void mp::AnimatedSprite::addAnimation(const std::string& name, const int& numStartingFrame, const int& numEndingFrame)
 {
-	return numFrames;
+	mp::Animation animation{ name, numStartingFrame, numEndingFrame };
+	animation.timePerFrame_ = defaultTimePerFrame_;
+	addAnimation(animation);
 }
 
-int mp::AnimatedSprite::getCurrentFrame() const
+void mp::AnimatedSprite::addAnimation(const mp::Animation& animation)
 {
-	return currentFrame;
-}
-
-bool mp::AnimatedSprite::isRepeating() const
-{
-	return repeat;
-}
-
-sf::Time mp::AnimatedSprite::getDuration() const
-{
-	return duration;
-}
-
-sf::Time mp::AnimatedSprite::getTimePerFrame() const
-{
-	return timePerFrame;
-}
-
-bool mp::AnimatedSprite::isFinished() const
-{
-	return currentFrame >= numFrames;
-}
-
-const sf::Texture* mp::AnimatedSprite::getTexture() const
-{
-	return sprite.getTexture();
+	animations_.push_back(animation);
+	numAnimations_++;
 }
 
 sf::FloatRect mp::AnimatedSprite::getLocalBounds() const
@@ -152,49 +143,223 @@ sf::FloatRect mp::AnimatedSprite::getGlobalBounds() const
 }
 
 /////////////
+// Getters //
+/////////////
+
+sf::Vector2i mp::AnimatedSprite::getFrameSize() const
+{
+	return frameSize_;
+}
+
+int mp::AnimatedSprite::getNumFrames() const
+{
+	mp::Animation currentAnimation{ animations_[currentAnimation_] };
+	return currentAnimation.numFrames_;
+}
+
+int mp::AnimatedSprite::getNumFrames(const int& numAnimation) const
+{
+	mp::Animation currentAnimation{ animations_[numAnimation] };
+	return currentAnimation.numFrames_;
+}
+
+int mp::AnimatedSprite::getNumFrames(const std::string& nameAnimation) const
+{
+	int numFrames{ 0 };
+	
+	for_each(animations_.begin(), animations_.end(), [&](mp::Animation animation)
+	{
+		if (animation.name_ == nameAnimation)
+			numFrames = animation.numFrames_;
+	});
+	
+	return numFrames;
+}
+
+int mp::AnimatedSprite::getCurrentFrame() const
+{
+	return currentFrame_;
+}
+
+bool mp::AnimatedSprite::isFinished() const
+{
+	mp::Animation currentAnimation{ animations_[currentAnimation_] };
+	return currentFrame_ >= currentAnimation.numFrames_ - 1 and elapsedTime_ >= currentAnimation.timePerFrame_;
+}
+
+int mp::AnimatedSprite::getNumAnimations() const
+{
+	return numAnimations_;
+}
+
+int mp::AnimatedSprite::getCurrentAnimation() const
+{
+	return currentAnimation_;
+}
+
+bool mp::AnimatedSprite::isRepeating() const
+{
+	return repeat_;
+}
+
+sf::Time mp::AnimatedSprite::getDuration() const
+{
+	mp::Animation currentAnimation{ animations_[currentAnimation_] };
+	return currentAnimation.duration_;
+}
+
+sf::Time mp::AnimatedSprite::getDuration(const int& numAnimation) const
+{
+	mp::Animation currentAnimation{ animations_[numAnimation] };
+	return currentAnimation.duration_;
+}
+
+sf::Time mp::AnimatedSprite::getDuration(const std::string& nameAnimation) const
+{
+	sf::Time duration{ sf::Time::Zero };
+	
+	for_each(animations_.begin(), animations_.end(), [&](mp::Animation animation)
+	{
+		if (animation.name_ == nameAnimation)
+			duration = animation.duration_;
+	});
+	
+	return duration;
+}
+
+sf::Time mp::AnimatedSprite::getTimePerFrame() const
+{
+	mp::Animation currentAnimation{ animations_[currentAnimation_] };
+	return currentAnimation.timePerFrame_;
+}
+
+sf::Time mp::AnimatedSprite::getTimePerFrame(const int& numAnimation) const
+{
+	mp::Animation currentAnimation{ animations_[numAnimation] };
+	return currentAnimation.timePerFrame_;
+}
+
+sf::Time mp::AnimatedSprite::getTimePerFrame(const std::string& nameAnimation) const
+{
+	sf::Time timePerFrame{ sf::Time::Zero };
+	
+	for_each(animations_.begin(), animations_.end(), [&](mp::Animation animation)
+	{
+		if (animation.name_ == nameAnimation)
+			timePerFrame = animation.timePerFrame_;
+	});
+	
+	return timePerFrame;
+}
+
+sf::Time mp::AnimatedSprite::getDefaultTimePerFrame() const
+{
+	return defaultTimePerFrame_;
+}
+
+const sf::Texture* mp::AnimatedSprite::getTexture() const
+{
+	return sprite_.getTexture();
+}
+
+/////////////
 // Setters //
 /////////////
 
-void mp::AnimatedSprite::setFrameSize(sf::Vector2i newFrameSize)
+void mp::AnimatedSprite::setFrameSize(const sf::Vector2i& newFrameSize)
 {
-	frameSize = newFrameSize;
+	frameSize_ = newFrameSize;
 }
 
-void mp::AnimatedSprite::setNumFrames(int newNumFrames)
+void mp::AnimatedSprite::setCurrentFrame(const int& newCurrentFrame)
 {
-	numFrames = newNumFrames;
-}
-
-void mp::AnimatedSprite::setCurrentFrame(int newCurrentFrame)
-{
-	currentFrame = newCurrentFrame;
+	currentFrame_ = newCurrentFrame;
 }
 
 void mp::AnimatedSprite::restart()
 {
-	currentFrame = 0;
+	currentFrame_ = 0;
 }
 
-void mp::AnimatedSprite::setRepeating(bool newRepeat)
+void mp::AnimatedSprite::setCurrentAnimation(const int& newCurrentAnimation)
 {
-	repeat = newRepeat;
+	currentAnimation_ = newCurrentAnimation;
+	restart();
 }
 
-void mp::AnimatedSprite::setDuration(sf::Time newDuration)
+void mp::AnimatedSprite::setCurrentAnimation(const std::string& nameAnimation)
 {
-	duration = newDuration;
-	timePerFrame = duration / static_cast<float>(numFrames);
+	int i{ 0 };
+	
+	for_each(animations_.begin(), animations_.end(), [&](mp::Animation animation)
+	{		
+		if (animation.name_ == nameAnimation)
+			currentAnimation_ = i;
+		
+		i++;
+	});
+	
+	restart();
 }
 
-void mp::AnimatedSprite::setTimePerFrame(sf::Time newTimePerFrame)
+void mp::AnimatedSprite::setRepeating(const bool& newRepeat)
 {
-	timePerFrame = newTimePerFrame;
-	duration = timePerFrame * static_cast<float>(numFrames);
+	repeat_ = newRepeat;
+}
+
+void mp::AnimatedSprite::setDuration(const sf::Time& newDuration)
+{
+	mp::Animation currentAnimation{ animations_[currentAnimation_] };
+	currentAnimation.setDuration(newDuration);
+}
+
+void mp::AnimatedSprite::setDuration(const sf::Time& newDuration, const int& numAnimation)
+{
+	mp::Animation currentAnimation{ animations_[numAnimation] };
+	currentAnimation.setDuration(newDuration);
+}
+
+void mp::AnimatedSprite::setDuration(const sf::Time& newDuration, const std::string& nameAnimation)
+{
+	for_each(animations_.begin(), animations_.end(), [newDuration, nameAnimation](mp::Animation animation)
+	{
+		if (animation.name_ == nameAnimation)
+			animation.setDuration(newDuration);;
+	});
+}
+
+#include <iostream>
+
+void mp::AnimatedSprite::setTimePerFrame(const sf::Time& newTimePerFrame)
+{
+	std::cout << currentAnimation_ << std::endl;
+	mp::Animation currentAnimation{ animations_[currentAnimation_] };
+	currentAnimation.setTimePerFrame(newTimePerFrame);
+}
+
+void mp::AnimatedSprite::setTimePerFrame(const sf::Time& newTimePerFrame, const int& numAnimation)
+{
+	mp::Animation currentAnimation{ animations_[numAnimation] };
+	currentAnimation.setTimePerFrame(newTimePerFrame);
+}
+
+void mp::AnimatedSprite::setTimePerFrame(const sf::Time& newTimePerFrame, const std::string& nameAnimation)
+{
+	for_each(animations_.begin(), animations_.end(), [newTimePerFrame, nameAnimation](mp::Animation animation)
+	{
+		if (animation.name_ == nameAnimation)
+			animation.setTimePerFrame(newTimePerFrame);;
+	});
+}
+
+void mp::AnimatedSprite::setDefaultTimePerFrame(const sf::Time& newDefaultTimePerFrame)
+{
+	defaultTimePerFrame_ = newDefaultTimePerFrame;
 }
 
 void mp::AnimatedSprite::setTexture(const sf::Texture& texture)
 {
-	sprite.setTexture(texture);
+	sprite_.setTexture(texture);
 }
 
 /////////////
@@ -204,5 +369,5 @@ void mp::AnimatedSprite::setTexture(const sf::Texture& texture)
 void mp::AnimatedSprite::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= getTransform();
-	target.draw(sprite, states);
+	target.draw(sprite_, states);
 }

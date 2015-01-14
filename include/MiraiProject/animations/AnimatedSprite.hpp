@@ -25,9 +25,13 @@
 #ifndef ANIMATEDSPRITE_HPP_INCLUDED
 #define ANIMATEDSPRITE_HPP_INCLUDED
 
+#include <string>
+
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/System/Time.hpp>
+
+#include "MiraiProject/animations/Animation.hpp"
 
 /** @file AnimatedSprite.hpp
  * \brief This file define AnimatedSprite class.
@@ -37,6 +41,8 @@ namespace mp
 {
 	class AnimatedSprite : public sf::Drawable, public sf::Transformable
 	{
+		friend class Animation;
+		
 		public:
 			/** \brief Constructor */
 			AnimatedSprite();
@@ -48,6 +54,16 @@ namespace mp
 			
 			void update(sf::Time dt);
 			
+			void addAnimation(const int& numStartingFrame, const int& numEndingFrame);
+			
+			void addAnimation(const std::string& name, const int& numStartingFrame, const int& numEndingFrame);
+			
+			void addAnimation(const mp::Animation& animation);
+			
+			sf::FloatRect getLocalBounds() const;
+
+			sf::FloatRect getGlobalBounds() const;
+			
 			/////////////
 			// Getters //
 			/////////////
@@ -56,57 +72,85 @@ namespace mp
 			
 			int getNumFrames() const;
 			
+			int getNumFrames(const int& numAnimation) const;
+			
+			int getNumFrames(const std::string& nameAnimation) const;
+			
 			int getCurrentFrame() const;
+			
+			bool isFinished() const;
+			
+			int getNumAnimations() const;
+			
+			int getCurrentAnimation() const;
 			
 			bool isRepeating() const;
 			
 			sf::Time getDuration() const;
 			
+			sf::Time getDuration(const int& numAnimation) const;
+			
+			sf::Time getDuration(const std::string& nameAnimation) const;
+			
 			sf::Time getTimePerFrame() const;
 			
-			bool isFinished() const;
+			sf::Time getTimePerFrame(const int& numAnimation) const;
+			
+			sf::Time getTimePerFrame(const std::string& nameAnimation) const;
 
+			sf::Time getDefaultTimePerFrame() const;
+			
 			const sf::Texture* getTexture() const;
-
-			sf::FloatRect getLocalBounds() const;
-
-			sf::FloatRect getGlobalBounds() const;
 			
 			/////////////
 			// Setters //
 			/////////////
 			
-			void setFrameSize(sf::Vector2i newFrameSize);
+			void setFrameSize(const sf::Vector2i& newFrameSize);
 			
-			void setNumFrames(int newNumFrames);
-			
-			void setCurrentFrame(int newCurrentFrame);
+			void setCurrentFrame(const int& newCurrentFrame);
 			
 			void restart();
 			
-			void setRepeating(bool newRepeat);
+			void setCurrentAnimation(const int& newCurrentAnimation);
 			
-			void setDuration(sf::Time newDuration);
+			void setCurrentAnimation(const std::string& nameAnimation);
 			
-			void setTimePerFrame(sf::Time newTimePerFrame);
+			void setRepeating(const bool& newRepeat);
+			
+			void setDuration(const sf::Time& newDuration);
+			
+			void setDuration(const sf::Time& newDuration, const int& numAnimation);
+			
+			void setDuration(const sf::Time& newDuration, const std::string& nameAnimation);
+			
+			void setTimePerFrame(const sf::Time& newTimePerFrame);
+			
+			void setTimePerFrame(const sf::Time& newTimePerFrame, const int& numAnimation);
+			
+			void setTimePerFrame(const sf::Time& newTimePerFrame, const std::string& nameAnimation);
 
+			void setDefaultTimePerFrame(const sf::Time& newDefaultTimePerFrame);
+			
 			void setTexture(const sf::Texture& texture);
 			
 		private:
-			sf::Sprite sprite;
-			
-			sf::Vector2i frameSize;
-			
-			int numFrames;
-			int currentFrame;
-			
-			bool repeat;
-			
-			sf::Time duration;
-			sf::Time timePerFrame;
-			sf::Time elapsedTime;
-			
 			virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+			
+			sf::Sprite sprite_;
+			
+			sf::Vector2i frameSize_;
+			
+			int currentFrame_;
+			
+			int numAnimations_;
+			int currentAnimation_;
+			std::vector<Animation> animations_;
+			
+			bool repeat_;
+			
+			sf::Time elapsedTime_;
+			sf::Time defaultTimePerFrame_;
 	};
 }
 
