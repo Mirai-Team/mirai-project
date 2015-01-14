@@ -41,11 +41,11 @@ namespace mp
 			 * \param variableName : Name of the variable in file.
 			 *  \param separator : Characher which separe the variableName and the value.
 			 */ 
-			template<typename T> static T fileParser(std::string inputFile, std::string variableName, char separator);
+			template<typename T> static T fileParser(std::string inputFile, std::string variableName, char separator, bool isEncrypted = false, std::string key = "");
 			
-			static std::string fileParser(std::string inputFile, std::string variableName, char separator);
+			static std::string fileParser(std::string inputFile, std::string variableName, char separator, bool isEncrypted = false, std::string key = "");
 			
-			template<typename T> static std::vector<T> vFileParser(std::string inputFile, std::string variableName, char separator, char separatorValues);
+			template<typename T> static std::vector<T> vFileParser(std::string inputFile, std::string variableName, char separator, char separatorValues, bool isEncrypted = false, std::string key = "");
 			/** \brief STD put_time which isn't in GCC.
 			 * 
 			 */
