@@ -78,7 +78,7 @@ namespace mp
 			 * 
 			 * \return a boolean about operation success.
 			 */
-            bool loadTextureFromMemory(const std::string &fileName, const std::string fileData);
+            bool loadTextureFromMemory(const std::string &fileName, const void *fileData, std::size_t fileSize);
 
             /** \brief Return whether the given texture related to the given file name exists. 
 			 *
@@ -107,6 +107,14 @@ namespace mp
 			 * \return a boolean about operation success.
 			 */
             bool loadSoundBufferFromFile(const std::string &fileName);
+            
+            /** \brief Load sound buffer into cache from memory. 
+			 *
+			 * \param fileName : the file name related to the wanted file.
+			 *
+			 * \return a boolean about operation success.
+			 */
+            bool loadSoundBufferFromMemory(const std::string &fileName, const void *fileData, std::size_t fileSize);
 
             /** \brief Return whether the given sound buffer related to the given file name exists. 
 			 *
