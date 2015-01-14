@@ -87,6 +87,18 @@ namespace mp
 			 */
 			void addAnimation(const mp::Animation& animation);
 			
+			/** \brief Remove an animation from the animated sprite.
+			 *
+			 * \param numAnimation : the animation's number.
+			 */
+			void removeAnimation(const unsigned int& numAnimation);
+			
+			/** \brief Remove an animation from the animated sprite.
+			 *
+			 * \param nameAnimation : the animation's name.
+			 */
+			void removeAnimation(const std::string& nameAnimation);
+			
 			/** \brief Get the local bounding rectangle of the entity. 
 			 *
 			 * The returned rectangle is in local coordinates, which means that it ignores the 
@@ -261,6 +273,9 @@ namespace mp
 			void restart();
 			
 			/** \brief Set the current animation by the animation's number.
+			 *
+			 * If newCurrentAnimation is superior to the number of animations, it simply 
+			 * take the last animation's number.
 			 *
 			 * \param newCurrentAnimation : the new animation's number to set.
 			 */

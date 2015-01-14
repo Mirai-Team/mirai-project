@@ -132,6 +132,35 @@ void mp::AnimatedSprite::addAnimation(const mp::Animation& animation)
 	numAnimations_++;
 }
 
+void mp::AnimatedSprite::removeAnimation(const unsigned int& numAnimation)
+{
+	if (numAnimation < animations_.size())
+	{
+		animations_.erase(animations_.begin() + numAnimation);
+		
+		if (currentAnimation_ >= animations_.size())
+			currentAnimation_ = animations_.size() - 1;
+	}
+}
+
+void mp::AnimatedSprite::removeAnimation(const std::string& nameAnimation)
+{
+	int i{ 0 };
+	
+	for_each(animations_.begin(), animations_.end(), [&](mp::Animation animation)
+	{		
+		if (animation.name_ == nameAnimation)
+		{
+			animations_.erase(animations_.begin() + i);
+			
+			if (currentAnimation_ >= animations_.size())
+				currentAnimation_ = animations_.size() - 1;
+		}
+		
+		i++;
+	});
+}
+
 sf::FloatRect mp::AnimatedSprite::getLocalBounds() const
 {
 	return sf::FloatRect(getOrigin(), static_cast<sf::Vector2f>(getFrameSize()));
@@ -301,7 +330,11 @@ void mp::AnimatedSprite::restart()
 
 void mp::AnimatedSprite::setCurrentAnimation(const int& newCurrentAnimation)
 {
-	currentAnimation_ = newCurrentAnimation;
+	if (newCurrentAnimation >= animations_.size())
+		currentAnimation_ = animations_.size() - 1;
+	else
+		currentAnimation_ = newCurrentAnimation;
+	
 	restart();
 }
 
