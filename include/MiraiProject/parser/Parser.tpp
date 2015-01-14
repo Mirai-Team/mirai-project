@@ -34,12 +34,12 @@ using namespace std;
 
 namespace mp
 {
-	template<typename T> T mp::Parser::FileParser(std::string inputFile, std::string variableName, char separator)
+	template<typename T> T mp::Parser::fileParser(std::string inputFile, std::string variableName, char separator)
 	{
 		ifstream file;
 		string line;
 		vector<string> words;
-		T temp;
+		T value;
 		mp::Logger log("mirai_project.log");
 		
 		file.open(inputFile, ios::in);
@@ -50,7 +50,7 @@ namespace mp
 			{
 				words = mp::StringUtilities::split(line, separator);
 				if(words[0] == variableName)
-					temp = mp::StringUtilities::fromString<T>(words[1]);
+					value = mp::StringUtilities::fromString<T>(words[1]);
 			}
 		}
 		else
@@ -58,7 +58,71 @@ namespace mp
 			log(priorityWarning) << "The file doesn't exist";
 		}
 		
-		return temp;
+		return value;
+		
+	}
+	
+	string mp::Parser::fileParser(std::string inputFile, std::string variableName, char separator)
+	{
+		ifstream file;
+		string line;
+		vector<string> words;
+		string value;
+		mp::Logger log("mirai_project.log");
+		
+		file.open(inputFile, ios::in);
+		
+		if(file)
+		{
+			while(getline(file,line))
+			{
+				words = mp::StringUtilities::split(line, separator);
+				if(words[0] == variableName)
+				{
+					value = words[1].c_str();
+				}
+			}
+		}
+		else
+		{
+			log(priorityWarning) << "The file doesn't exist";
+		}
+		
+		return value;
+		
+	}
+	
+	template<typename T> vector<T> mp::Parser::vFileParser(std::string inputFile, std::string variableName, char separator, char separatorValues)
+	{
+		ifstream file;
+		string line;
+		vector<string> words;
+		vector<T> values;
+		mp::Logger log("mirai_project.log");
+		
+		file.open(inputFile, ios::in);
+		
+		if(file)
+		{
+			while(getline(file,line))
+			{
+				words = mp::StringUtilities::split(line, separator);
+				if(words[0] == variableName)
+				{
+					vector<string> temp = mp::StringUtilities::split(words[1], separatorValues);
+					for(unsigned int i = 0; i < temp.size(); i++)
+					{
+						values.push_back(mp::StringUtilities::fromString<T>(temp[i]));
+					}
+				}
+			}
+		}
+		else
+		{
+			log(priorityWarning) << "The file doesn't exist";
+		}
+		
+		return values;
 		
 	}
 
