@@ -22,48 +22,37 @@
 //
 ////////////////////////////////////////////////////////////
 
+#include <iostream>
 #include <string>
-#include <algorithm> // remove(), erase()
-#include <sstream> // for locale
-
-#include "MiraiProject/util/StringUtilities.hpp"
+#include <sstream>
+#include <vector>
+#include "MiraiProject/parser/Parser.hpp"
+#include "MiraiProject/encryption/Encryption.hpp"
 
 using namespace std;
 
-void mp::StringUtilities::stripLetter(string &str, const char &letter)
+int main()
 {
-    str.erase(remove(str.begin(), str.end(), letter), str.end());
-}
+	mp::Encryption EncryptMotor("lol");
+	string fileName { "ressources/config.txt" };
+	string variableName { "fullscreen" };
+	string EncryptedData;
+	vector<string> value;
+	ofstream file;
+	
+	EncryptedData = EncryptMotor.encryptFile(fileName);
+	file.open(fileName, ios::trunc);
+	file << EncryptedData;
+	file.close();
+	
+	value = mp::Parser::vFileParser<string>(fileName, "fullscreen", '=', ';', true, "lol");
 
-string mp::StringUtilities::upper(string text)
-{
-    locale loc;
-
-    for (unsigned int i{ 0 } ; i < text.length() ; i++)
-    {
-        text[i] = toupper(text[i], loc);
-    }
-
-    return text;
-}
-
-vector<string> mp::StringUtilities::split(const string &text, const char &separator, unsigned int limit)
-{
-    istringstream iss{ text };
-    string word;
-    vector<string> words;
-
-    unsigned int i{ 0 };
-    while (getline(iss, word, separator) and (limit == 0 or i < limit))
-    {
-        i++;
-        words.push_back(word);
-    }
-
-    return words;
-}
-
-string mp::StringUtilities::replace(string &text, string toReplace, string replaceWith)
-{
-    return(text.replace(text.find(toReplace), toReplace.length(), replaceWith));
+	cout << value[0] << endl;
+	
+	EncryptedData = EncryptMotor.encryptFile(fileName);
+	file.open(fileName, ios::trunc);
+	file << EncryptedData;
+	file.close();
+	
+	return 0;
 }

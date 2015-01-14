@@ -22,48 +22,37 @@
 //
 ////////////////////////////////////////////////////////////
 
+#ifndef PARSER_HPP_INCLUDED
+#define PARSER_HPP_INCLUDED
+
 #include <string>
-#include <algorithm> // remove(), erase()
-#include <sstream> // for locale
+#include <chrono>
+#include <iomanip>
+#include <sstream>
+#include <vector>
 
-#include "MiraiProject/util/StringUtilities.hpp"
-
-using namespace std;
-
-void mp::StringUtilities::stripLetter(string &str, const char &letter)
+namespace mp
 {
-    str.erase(remove(str.begin(), str.end(), letter), str.end());
+	class Parser
+	{
+		public:
+			/** \brief For File parsing.
+			 * \param inputFile : File to parse.
+			 * \param variableName : Name of the variable in file.
+			 *  \param separator : Characher which separe the variableName and the value.
+			 */ 
+			template<typename T> static T fileParser(std::string inputFile, std::string variableName, char separator, bool isEncrypted = false, std::string key = "");
+			
+			static std::string fileParser(std::string inputFile, std::string variableName, char separator, bool isEncrypted = false, std::string key = "");
+			
+			template<typename T> static std::vector<T> vFileParser(std::string inputFile, std::string variableName, char separator, char separatorValues, bool isEncrypted = false, std::string key = "");
+			/** \brief STD put_time which isn't in GCC.
+			 * 
+			 */
+			static std::string put_time(const struct tm* tmb, const std::string &format);
+	};
 }
 
-string mp::StringUtilities::upper(string text)
-{
-    locale loc;
+#include "MiraiProject/parser/Parser.tpp"
 
-    for (unsigned int i{ 0 } ; i < text.length() ; i++)
-    {
-        text[i] = toupper(text[i], loc);
-    }
-
-    return text;
-}
-
-vector<string> mp::StringUtilities::split(const string &text, const char &separator, unsigned int limit)
-{
-    istringstream iss{ text };
-    string word;
-    vector<string> words;
-
-    unsigned int i{ 0 };
-    while (getline(iss, word, separator) and (limit == 0 or i < limit))
-    {
-        i++;
-        words.push_back(word);
-    }
-
-    return words;
-}
-
-string mp::StringUtilities::replace(string &text, string toReplace, string replaceWith)
-{
-    return(text.replace(text.find(toReplace), toReplace.length(), replaceWith));
-}
+#endif

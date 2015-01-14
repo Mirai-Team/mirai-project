@@ -27,7 +27,7 @@
 
 #include <sstream>
 
-#include "MiraiProject/util/string_functions.hpp"
+#include "MiraiProject/util/StringUtilities.hpp"
 
 using namespace std;
 
@@ -40,6 +40,15 @@ namespace mp
         oss << object;
         return oss.str();
     }
+
+    template <typename T>
+    T StringUtilities::fromString(const string& s){
+	    stringstream ss(s);
+	    T t;
+	    ss >> t;
+	    return t;
+    }
+
 }
 
 #endif // STRING_FUNCTIONS_TPP_INCLUDED
