@@ -22,57 +22,32 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef LOGSTREAM_HPP_INCLUDED
-#define LOGSTREAM_HPP_INCLUDED
+#include <algorithm>
 
-#include <fstream>
-#include <memory>
-#include <mutex>
-#include <sstream>
-#include <string>
+#include "MiraiProject/updateSystem/UpdateModule.hpp"
+#include "MiraiProject/updateSystem/Updatable.hpp"
 
-#include "MiraiProject/util/Logger.hpp"
+std::list<mp::Updatable*> mp::UpdateModule::updatableList_;
 
-/** @file LogStream.hpp
- * \brief This file define LogStream class.
- */
-
-namespace mp
+void mp::UpdateModule::Update(float delta_time)
 {
-	class Logger;
-	
-	/** \class Logstream
-	 * \brief A class to manage input stream of Logger class.
-	 */
-	class Logstream : public std::ostringstream
+	if(updatableList_.size() > 0)
 	{
-		public:
-
-			/** \brief Constructor
-			 *
-			 * \param logger : A Logger object.
-			 * \param priority : A string which contains Priority name.
-			 *
-			 */
-			Logstream(Logger& logger, std::string priority);
-
-			/** \brief Constructor
-			 *
-			 * \param ls : A Logstream object.
-			 *
-			 */
-
-			Logstream(const Logstream& ls);
-
-			/** \brief Deconstructor
-			 *
-			 *
-			 */
-			~Logstream();
-
-		private:
-			Logger&     	logger_;
-			std::string 	priority_;
-	};
+		for_each(updatableList_.begin(), updatableList_.end(), [&](mp::Updatable* p)
+		{
+			p->Update(delta_time);
+		});
+	}
 }
-#endif // LOGSTREAM_HPP_INCLUDED
+
+void mp::UpdateModule::AddUpdater(mp::Updatable* updatable)
+{
+	updatableList_.push_back(updatable);
+}
+
+void mp::UpdateModule::RemoveUpdater(Updatable* updatable)
+{
+	updatableList_.remove_if([updatable] (Updatable* p) { 
+		return p == updatable;
+	});
+}

@@ -22,57 +22,35 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef LOGSTREAM_HPP_INCLUDED
-#define LOGSTREAM_HPP_INCLUDED
+#ifndef UPDATABLE_HPP_INCLUDED
+#define UPDATABLE_HPP_INCLUDED
 
-#include <fstream>
+#include <iostream>
 #include <memory>
-#include <mutex>
-#include <sstream>
-#include <string>
-
-#include "MiraiProject/util/Logger.hpp"
-
-/** @file LogStream.hpp
- * \brief This file define LogStream class.
- */
 
 namespace mp
 {
-	class Logger;
-	
-	/** \class Logstream
-	 * \brief A class to manage input stream of Logger class.
+	/** \class Updatable
+	 * \brief A class to add a inherited class to updateList_.
 	 */
-	class Logstream : public std::ostringstream
+	class Updatable
 	{
+		friend class UpdateModule;
+		
 		public:
-
+		
+			virtual void Update(float delta_time) = 0;
+			
+		protected:
+		
 			/** \brief Constructor
-			 *
-			 * \param logger : A Logger object.
-			 * \param priority : A string which contains Priority name.
-			 *
+			 * 
 			 */
-			Logstream(Logger& logger, std::string priority);
-
-			/** \brief Constructor
-			 *
-			 * \param ls : A Logstream object.
-			 *
-			 */
-
-			Logstream(const Logstream& ls);
-
-			/** \brief Deconstructor
-			 *
-			 *
-			 */
-			~Logstream();
-
-		private:
-			Logger&     	logger_;
-			std::string 	priority_;
+			Updatable();
+			
+			/** \brief Destructor */
+			virtual ~Updatable();
 	};
 }
-#endif // LOGSTREAM_HPP_INCLUDED
+
+#endif // UPDATABLE_HPP_INCLUDED
