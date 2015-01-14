@@ -26,19 +26,26 @@
 #define PARSER_HPP_INCLUDED
 
 #include <string>
+#include <chrono>
+#include <iomanip>
+#include <sstream>
 
 namespace mp
 {
 	class Parser
 	{
 		public:
-			Parser();
-			virtual ~Parser();
-			
+			/** \brief For File parsing.
+			 * \param inputFile : File to parse.
+			 * \param variableName : Name of the variable in file.
+			 *  \param separator : Characher which separe the variableName and the value.
+			 */ 
 			template<typename T> static T FileParser(std::string inputFile, std::string variableName, char separator);
 			
-		//private:
-			//std::string separator_;
+			/** \brief STD put_time which isn't in GCC.
+			 * 
+			 */
+			static std::string put_time(const struct tm* tmb, const std::string &format);
 	};
 }
 
