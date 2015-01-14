@@ -34,6 +34,7 @@ namespace mp
 		friend class UpdateModule;
 		public:
 			virtual void Update(float delta_time) = 0;
+		protected:
 			Updatable();
 			virtual ~Updatable();
 	};
