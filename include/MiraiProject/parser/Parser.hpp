@@ -39,7 +39,7 @@ namespace mp
 			/** \brief For File parsing.
 			 * \param inputFile : File to parse.
 			 * \param variableName : Name of the variable in file.
-			 * \param separator : Characher which separe the variableName and the value.
+			 * \param separator : Character which separe the variableName and the value.
 			 * \param isEncrypted : If inputFile is encrypted.
 			 * \param key : Key of file.
 			 * 
@@ -50,7 +50,7 @@ namespace mp
 			/** \brief Special case for string.
 			 * \param inputFile : File to parse.
 			 * \param variableName : Name of the variable in file.
-			 * \param separator : Characher which separe the variableName and the value.
+			 * \param separator : Character which separe the variableName and the value.
 			 * \param isEncrypted : If inputFile is encrypted.
 			 * \param key : Key of file.
 			 * 
@@ -61,7 +61,7 @@ namespace mp
 			/** \brief For File parsing.
 			 * \param inputFile : File to parse.
 			 * \param variableName : Name of the variable in file.
-			 * \param separator : Characher which separe the variableName and the value.
+			 * \param separator : Character which separe the variableName and the value.
 			 * \param isEncrypted : If inputFile is encrypted.
 			 * \param key : Key of file.
 			 * 
@@ -72,7 +72,7 @@ namespace mp
 			/** \brief For File parsing.
 			 * \param inputFile : File to parse.
 			 * \param variableName : Name of the variable in file.
-			 * \param separator : Characher which separe the variableName and the value.
+			 * \param separator : Character which separe the variableName and the value.
 			 * \param isEncrypted : If inputFile is encrypted.
 			 * \param key : Key of file.
 			 * 
