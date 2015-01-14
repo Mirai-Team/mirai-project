@@ -184,19 +184,21 @@ namespace mp
 		
 	}
 	
-	/*template<typename T> vector<T> mp::Parser::vFileParser(std::string inputFile, std::string variableName, char separator, char separatorValues, bool isEncrypted)
+	vector<string> mp::Parser::vFileParser(std::string inputFile, std::string variableName, char separator, char separatorValues, bool isEncrypted, std::string key)
 	{
-		ifstream file;
 		string line;
 		vector<string> words;
-		vector<T> values;
+		vector<string> values;
+		ifstream file;
+		
 		mp::Logger log("mirai_project.log");
 		
-		file.open(inputFile, ios::in);
-		
-		if(file)
+		if(isEncrypted && key != "")
 		{
-			while(getline(file,line))
+			mp::Encryption EncryptMotor(key);
+			stringstream filedata(EncryptMotor.encryptFile(inputFile));
+			
+			while(getline(filedata,line))
 			{
 				words = mp::StringUtilities::split(line, separator);
 				if(words[0] == variableName)
@@ -204,19 +206,39 @@ namespace mp
 					vector<string> temp = mp::StringUtilities::split(words[1], separatorValues);
 					for(unsigned int i = 0; i < temp.size(); i++)
 					{
-						values.push_back(mp::StringUtilities::fromString<T>(temp[i]));
+						values.push_back(temp[i]);
 					}
 				}
 			}
+			
+		}
+		else if(!isEncrypted)
+		{
+			file.open(inputFile, ios::in);
+			if(file)
+			{
+				while(getline(file,line))
+				{
+					words = mp::StringUtilities::split(line, separator);
+					if(words[0] == variableName)
+					{
+						vector<string> temp = mp::StringUtilities::split(words[1], separatorValues);
+						for(unsigned int i = 0; i < temp.size(); i++)
+						{
+							values.push_back(temp[i]);
+						}
+					}
+				}
+			}
+			else
+			{
+				log(priorityWarning) << "The file doesn't exist";
+			}
 		}
 		else
-		{
-			log(priorityWarning) << "The file doesn't exist";
-		}
+			log(priorityError) << "The file is encrypte, key isn't define";
 		
 		return values;
 		
-	}*/
-
-
+	}
 }

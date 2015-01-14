@@ -37,18 +37,20 @@ int main()
 	string fileName { "ressources/config.txt" };
 	string variableName { "fullscreen" };
 	string EncryptedData;
-	vector<string> value;
+	vector<string> values;
 	ofstream file;
 	
+	// Encrypt file for the example.
 	EncryptedData = EncryptMotor.encryptFile(fileName);
 	file.open(fileName, ios::trunc);
 	file << EncryptedData;
 	file.close();
 	
-	value = mp::Parser::vFileParser<string>(fileName, "fullscreen", '=', ';', true, "lol");
-
+	// Read fullscreen values
+	values = mp::Parser::vFileParser<string>(fileName, "fullscreen", '=', ';', true, "lol");
 	cout << value[0] << endl;
 	
+	// Decrypt file for the example
 	EncryptedData = EncryptMotor.encryptFile(fileName);
 	file.open(fileName, ios::trunc);
 	file << EncryptedData;
