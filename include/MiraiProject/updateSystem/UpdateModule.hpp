@@ -28,6 +28,7 @@
 #include <memory>
 #include <list>
 #include <algorithm>
+
 #include "MiraiProject/updateSystem/Updatable.hpp"
 
 namespace mp
@@ -35,11 +36,21 @@ namespace mp
 	class UpdateModule
 	{
 		friend class Updatable;
+		
 		public:
+			/** \brief Update all Updatable.
+			 * \param delta_time : time elapsed since last update.
+			 */
 			static void Update(float delta_time);
+			
+		private:
+			// Add an Updater in updatableList_
 			static void AddUpdater(Updatable* updatable);
+			
+			// Remove an Updater from updatableList_
 			static void RemoveUpdater(Updatable* updatable);
-		private:	
+			
+			// Objects list to update.
 			static std::list<Updatable*> updatableList_;
 	};
 

@@ -47,5 +47,7 @@ void mp::UpdateModule::AddUpdater(mp::Updatable* updatable)
 
 void mp::UpdateModule::RemoveUpdater(Updatable* updatable)
 {
-	updatableList_.remove_if([updatable] (Updatable* p) { return p == updatable; });
+	updatableList_.remove_if([updatable] (Updatable* p) { 
+		return p == updatable;
+	});
 }

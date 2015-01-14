@@ -27,15 +27,28 @@
 
 #include <iostream>
 #include <memory>
+
 namespace mp
 {
+	/** \class Updatable
+	 * \brief A class to add a inherited class to updateList_.
+	 */
 	class Updatable
 	{
 		friend class UpdateModule;
+		
 		public:
+		
 			virtual void Update(float delta_time) = 0;
+			
 		protected:
+		
+			/** \brief Constructor
+			 * 
+			 */
 			Updatable();
+			
+			/** \brief Destructor */
 			virtual ~Updatable();
 	};
 }
