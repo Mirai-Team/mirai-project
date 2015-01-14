@@ -127,11 +127,14 @@ namespace mp
 			
 			/** \brief Get the animation's frames number.
 			 *
+			 * If numAnimation is superior to the number of animations, it simply 
+			 * take in account the last animation's data.
+			 *
 			 * \param numAnimation : the number of the wanted animation.
 			 *
 			 * \return the animation's frames number.
 			 */
-			int getNumFrames(const int& numAnimation) const;
+			int getNumFrames(const unsigned int& numAnimation) const;
 			
 			/** \brief Get the animation's frames number.
 			 *
@@ -181,11 +184,14 @@ namespace mp
 			
 			/** \brief Return the animation's duration.
 			 *
+			 * If numAnimation is superior to the number of animations, it simply 
+			 * take in account the last animation's data.
+			 *
 			 * \param numAnimation : the animation number.
 			 *
 			 * \return the duration of the animation matching the given number.
 			 */
-			sf::Time getDuration(const int& numAnimation) const;
+			sf::Time getDuration(const unsigned int& numAnimation) const;
 			
 			/** \brief Return the animation's duration.
 			 *
@@ -203,11 +209,14 @@ namespace mp
 			
 			/** \brief Return the animation's time per frame.
 			 *
+			 * If numAnimation is superior to the number of animations, it simply 
+			 * take in account the last animation's data.
+			 *
 			 * \param numAnimation : the animation number.
 			 *
 			 * \return the time per frame of the animation matching the given number.
 			 */
-			sf::Time getTimePerFrame(const int& numAnimation) const;
+			sf::Time getTimePerFrame(const unsigned int& numAnimation) const;
 			
 			/** \brief Return the animation's time per frame.
 			 *
@@ -277,15 +286,18 @@ namespace mp
 			
 			/** \brief Set the new duration of the animation.
 			 *
+			 * If numAnimation is superior to the number of animations, it simply 
+			 * take in account the last animation's data.
+			 *
 			 * \param newDuration : the new duration.
 			 * \param numAnimation : the number of the animation to modify.
 			 */
-			void setDuration(const sf::Time& newDuration, const int& numAnimation);
+			void setDuration(const sf::Time& newDuration, const unsigned int& numAnimation);
 			
 			/** \brief Set the new duration of the animation.
 			 *
 			 * \param newDuration : the new duration.
-			 * \param numAnimation : the name of the animation to modify.
+			 * \param nameAnimation : the name of the animation to modify.
 			 */
 			void setDuration(const sf::Time& newDuration, const std::string& nameAnimation);
 			
@@ -297,15 +309,18 @@ namespace mp
 			
 			/** \brief Set the new time per frame of the animation.
 			 *
+			 * If numAnimation is superior to the number of animations, it simply 
+			 * take in account the last animation's data.
+			 *
 			 * \param newDuration : the new time per frame.
 			 * \param numAnimation : the number of the animation to modify.
 			 */
-			void setTimePerFrame(const sf::Time& newTimePerFrame, const int& numAnimation);
+			void setTimePerFrame(const sf::Time& newTimePerFrame, const unsigned int& numAnimation);
 			
 			/** \brief Set the new time per frame of the animation.
 			 *
 			 * \param newDuration : the new time per frame.
-			 * \param numAnimation : the name of the animation to modify.
+			 * \param nameAnimation : the name of the animation to modify.
 			 */
 			void setTimePerFrame(const sf::Time& newTimePerFrame, const std::string& nameAnimation);
 			

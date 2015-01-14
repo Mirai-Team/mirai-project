@@ -157,9 +157,15 @@ int mp::AnimatedSprite::getNumFrames() const
 	return currentAnimation.numFrames_;
 }
 
-int mp::AnimatedSprite::getNumFrames(const int& numAnimation) const
+int mp::AnimatedSprite::getNumFrames(const unsigned int& numAnimation) const
 {
-	mp::Animation currentAnimation{ animations_[numAnimation] };
+	mp::Animation currentAnimation{ };
+	
+	if (numAnimation >= animations_.size())
+		currentAnimation = animations_[animations_.size() - 1];
+	else
+		currentAnimation = animations_[numAnimation];
+	
 	return currentAnimation.numFrames_;
 }
 
@@ -208,9 +214,15 @@ sf::Time mp::AnimatedSprite::getDuration() const
 	return currentAnimation.duration_;
 }
 
-sf::Time mp::AnimatedSprite::getDuration(const int& numAnimation) const
+sf::Time mp::AnimatedSprite::getDuration(const unsigned int& numAnimation) const
 {
-	mp::Animation currentAnimation{ animations_[numAnimation] };
+	mp::Animation currentAnimation{ };
+	
+	if (numAnimation >= animations_.size())
+		currentAnimation = animations_[animations_.size() - 1];
+	else
+		currentAnimation = animations_[numAnimation];
+	
 	return currentAnimation.duration_;
 }
 
@@ -233,9 +245,15 @@ sf::Time mp::AnimatedSprite::getTimePerFrame() const
 	return currentAnimation.timePerFrame_;
 }
 
-sf::Time mp::AnimatedSprite::getTimePerFrame(const int& numAnimation) const
+sf::Time mp::AnimatedSprite::getTimePerFrame(const unsigned int& numAnimation) const
 {
-	mp::Animation currentAnimation{ animations_[numAnimation] };
+	mp::Animation currentAnimation{ };
+	
+	if (numAnimation >= animations_.size())
+		currentAnimation = animations_[animations_.size() - 1];
+	else
+		currentAnimation = animations_[numAnimation];
+	
 	return currentAnimation.timePerFrame_;
 }
 
@@ -313,9 +331,15 @@ void mp::AnimatedSprite::setDuration(const sf::Time& newDuration)
 	currentAnimation.setDuration(newDuration);
 }
 
-void mp::AnimatedSprite::setDuration(const sf::Time& newDuration, const int& numAnimation)
+void mp::AnimatedSprite::setDuration(const sf::Time& newDuration, const unsigned int& numAnimation)
 {
-	mp::Animation currentAnimation{ animations_[numAnimation] };
+	mp::Animation currentAnimation{ };
+	
+	if (numAnimation >= animations_.size())
+		currentAnimation = animations_[animations_.size() - 1];
+	else
+		currentAnimation = animations_[numAnimation];
+	
 	currentAnimation.setDuration(newDuration);
 }
 
@@ -337,9 +361,15 @@ void mp::AnimatedSprite::setTimePerFrame(const sf::Time& newTimePerFrame)
 	currentAnimation.setTimePerFrame(newTimePerFrame);
 }
 
-void mp::AnimatedSprite::setTimePerFrame(const sf::Time& newTimePerFrame, const int& numAnimation)
+void mp::AnimatedSprite::setTimePerFrame(const sf::Time& newTimePerFrame, const unsigned int& numAnimation)
 {
-	mp::Animation currentAnimation{ animations_[numAnimation] };
+	mp::Animation currentAnimation{ };
+	
+	if (numAnimation >= animations_.size())
+		currentAnimation = animations_[animations_.size() - 1];
+	else
+		currentAnimation = animations_[numAnimation];
+	
 	currentAnimation.setTimePerFrame(newTimePerFrame);
 }
 
