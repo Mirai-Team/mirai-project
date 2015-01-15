@@ -23,39 +23,33 @@
 ////////////////////////////////////////////////////////////
 
 #include <functional>
-#include <string>
 #include <map>
+#include <string>
 
 #include <SFML/Window/Event.hpp>
-#include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Mouse.hpp>
 
+#include "MiraiProject/inputManager/Binding.hpp"
+
 namespace mp
-{
-	class Binding
+{	
+	class MouseManager
 	{
+		
 		public:
+		
+			MouseManager();
+			virtual ~MouseManager();
 			
-			bool callFunction();
+			void addBinding(std::string& index, sf::Mouse::Button button, std::function<void()> funct = [](){return true;}, bool onPress = false);
+			void removeBinding(std::string index);
+			
+			void clearKey(sf::Mouse::Button key);
 			
 			bool operator()(sf::Event& event);
-		
-			explicit Binding(sf::Keyboard::Key k, bool onPress, std::function<void()> funct);
-			
-			explicit Binding(sf::Mouse::Button button, bool onPress, std::function<void()> funct);
-			
-			virtual ~Binding();
-			
-			sf::Keyboard::Key getKey();
-			
-			sf::Mouse::Button getButton();
 			
 		private:
 		
-			sf::Keyboard::Key key_;
-			sf::Mouse::Button button_;
-			
-			bool onPress_;
-			std::function<void()> funct_;
+			std::map<std::string, Binding> bindings_;
 	};
 }

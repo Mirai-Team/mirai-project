@@ -24,13 +24,21 @@
 
 #include "MiraiProject/inputManager/Binding.hpp"
 
-mp::Binding::Binding(sf::Keyboard::Key key, bool onPress, std::function<void()> funct) : key_ { key },
+mp::Binding::Binding(sf::Keyboard::Key key, bool onPress, std::function<void()> funct) : 	key_ { key },
+																							button_ { },
 																							onPress_ { onPress },
 																							funct_ { funct }
 {
 	
 }
 
+mp::Binding::Binding(sf::Mouse::Button button, bool onPress, std::function<void()> funct) : 	key_ { },
+																								button_ { button },
+																								onPress_ { onPress },
+																								funct_ { funct }
+{
+	
+}
 bool  mp::Binding::callFunction()
 {
 	if(funct_)
@@ -54,4 +62,9 @@ bool mp::Binding::operator ()(sf::Event& event)
 sf::Keyboard::Key mp::Binding::getKey()
 {
 		return key_;
+}
+
+sf::Mouse::Button mp::Binding::getButton()
+{
+		return button_;
 }

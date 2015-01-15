@@ -22,40 +22,43 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <functional>
-#include <string>
-#include <map>
+#include "MiraiProject/inputManager/MouseManager.hpp"
 
-#include <SFML/Window/Event.hpp>
-#include <SFML/Window/Keyboard.hpp>
-#include <SFML/Window/Mouse.hpp>
-
-namespace mp
+mp::MouseManager::MouseManager() : bindings_ { }
 {
-	class Binding
+	
+}
+
+mp::MouseManager::~MouseManager()
+{
+	
+}
+bool mp::MouseManager::operator()(sf::Event& event)
+{
+	for(auto &binding : bindings_)
 	{
-		public:
-			
-			bool callFunction();
-			
-			bool operator()(sf::Event& event);
-		
-			explicit Binding(sf::Keyboard::Key k, bool onPress, std::function<void()> funct);
-			
-			explicit Binding(sf::Mouse::Button button, bool onPress, std::function<void()> funct);
-			
-			virtual ~Binding();
-			
-			sf::Keyboard::Key getKey();
-			
-			sf::Mouse::Button getButton();
-			
-		private:
-		
-			sf::Keyboard::Key key_;
-			sf::Mouse::Button button_;
-			
-			bool onPress_;
-			std::function<void()> funct_;
-	};
+		if(binding.second(event))
+			return binding.second.callFunction();
+	}
+				
+	return false;
+}
+
+void mp::MouseManager::addBinding(std::string& index, sf::Mouse::Button button, std::function<void()> funct, bool onPress)
+{
+	bindings_.emplace(std::make_pair(index, mp::Binding(button, onPress, funct)));
+}
+
+void mp::MouseManager::removeBinding(std::string index)
+{
+	bindings_.erase(index);
+}
+
+void mp::MouseManager::clearKey(sf::Mouse::Button button)
+{
+	for(auto &binding : bindings_)
+	{
+		if(binding.second.getButton() == button)
+			bindings_.erase(binding.first);
+	}
 }
