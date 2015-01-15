@@ -27,6 +27,7 @@
 
 #include <iostream>
 #include <memory>
+#include <string>
 
 /** @file Updatable.hpp
  * 	\brief This file define Updatable class.
@@ -53,7 +54,7 @@ namespace mp
 			
 		protected:	
 			/** \brief Constructor */
-			Updatable();
+			Updatable(std::string key = "default");
 			
 			/** \brief Destructor */
 			virtual ~Updatable();
