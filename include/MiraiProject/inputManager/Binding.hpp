@@ -34,24 +34,22 @@ namespace mp
 {
 	class Binding
 	{
-		public:
-			
-			bool callFunction();
-			
-			bool operator()(sf::Event& event);
-		
+		public:		
 			explicit Binding(sf::Keyboard::Key k, bool onPress, std::function<void()> funct);
 			
 			explicit Binding(sf::Mouse::Button button, bool onPress, std::function<void()> funct);
 			
-			virtual ~Binding();
+			~Binding();
+			
+			bool callFunction();
+			
+			bool operator()(sf::Event& event);
 			
 			sf::Keyboard::Key getKey();
 			
 			sf::Mouse::Button getButton();
 			
 		private:
-		
 			sf::Keyboard::Key key_;
 			sf::Mouse::Button button_;
 			

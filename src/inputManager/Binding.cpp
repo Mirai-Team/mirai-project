@@ -39,6 +39,12 @@ mp::Binding::Binding(sf::Mouse::Button button, bool onPress, std::function<void(
 {
 	
 }
+
+mp::Binding::~Binding()
+{
+	
+}
+
 bool  mp::Binding::callFunction()
 {
 	if(funct_)

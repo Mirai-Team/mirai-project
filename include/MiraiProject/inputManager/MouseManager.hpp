@@ -39,7 +39,7 @@ namespace mp
 		public:
 		
 			MouseManager();
-			virtual ~MouseManager();
+			~MouseManager();
 			
 			void addBinding(std::string& index, sf::Mouse::Button button, std::function<void()> funct = [](){return true;}, bool onPress = false);
 			void removeBinding(std::string index);

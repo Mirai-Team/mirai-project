@@ -33,6 +33,7 @@ mp::KeyboardManager::~KeyboardManager()
 {
 	
 }
+
 bool mp::KeyboardManager::operator()(sf::Event& event)
 {
 	for(auto &binding : bindings_)

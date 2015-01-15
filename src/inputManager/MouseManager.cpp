@@ -33,6 +33,7 @@ mp::MouseManager::~MouseManager()
 {
 	
 }
+
 bool mp::MouseManager::operator()(sf::Event& event)
 {
 	for(auto &binding : bindings_)
