@@ -77,6 +77,24 @@ bool mp::BaseResManager::loadTextureFromFile(const string &fileName)
 	return success;
 }
 
+bool mp::BaseResManager::loadTextureFromMemory(const string &fileName, const void *fileData, size_t fileSize)
+{
+	bool success{ true };
+
+    shared_ptr<sf::Texture> ptr_texture{ new sf::Texture };
+    ptr_texture->setSmooth(false);
+    if (!ptr_texture->loadFromMemory(fileData, fileSize))
+	{
+		// File not found...
+        log_(mp::priorityError) << "File " << fileName << " was not found... (for texture)";
+		success = false;
+	}
+
+    texturesCache[fileName] = ptr_texture;
+
+	return success;
+}
+
 bool mp::BaseResManager::textureIsAvailable(const string &fileName)
 {
     // Check if the texture is available in the resource manager.
@@ -108,6 +126,24 @@ bool mp::BaseResManager::loadSoundBufferFromFile(const string &fileName)
     shared_ptr<sf::SoundBuffer> ptr_sound_buffer{ new sf::SoundBuffer };
 
     if (!ptr_sound_buffer->loadFromFile(fileName))
+	{
+		// Sound not found...
+        log_(mp::priorityError) << "File " << fileName << " was not found... (for sound)";
+		success = false;
+	}
+
+    soundBufferCache[fileName] = ptr_sound_buffer;
+
+	return success;
+}
+
+bool mp::BaseResManager::loadSoundBufferFromMemory(const string &fileName, const void *fileData, size_t fileSize)
+{
+	bool success{ true };
+
+    shared_ptr<sf::SoundBuffer> ptr_sound_buffer{ new sf::SoundBuffer };
+
+    if (!ptr_sound_buffer->loadFromMemory(fileData, fileSize))
 	{
 		// Sound not found...
         log_(mp::priorityError) << "File " << fileName << " was not found... (for sound)";

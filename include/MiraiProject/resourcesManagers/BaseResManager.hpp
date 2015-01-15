@@ -22,8 +22,8 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef RESOUCESMANAGER_HPP_INCLUDED
-#define RESOUCESMANAGER_HPP_INCLUDED
+#ifndef BASERESMANAGER_HPP_INCLUDED
+#define BASERESMANAGER_HPP_INCLUDED
 
 #include <memory>
 #include <map>
@@ -70,6 +70,16 @@ namespace mp
 			 * \return a boolean about operation success.
 			 */
             bool loadTextureFromFile(const std::string &fileName);
+            
+            /** \brief Load texture into cache from memory. 
+			 *
+			 * \param fileName : the file name related to the wanted file.
+			 * \param fileData : fileData ptr.
+			 * \param fileSize : Size of file.
+			 * 
+			 * \return a boolean about operation success.
+			 */
+            bool loadTextureFromMemory(const std::string &fileName, const void *fileData, std::size_t fileSize);
 
             /** \brief Return whether the given texture related to the given file name exists. 
 			 *
@@ -98,6 +108,15 @@ namespace mp
 			 * \return a boolean about operation success.
 			 */
             bool loadSoundBufferFromFile(const std::string &fileName);
+            
+            /** \brief Load sound buffer into cache from memory. 
+			 *
+			 * \param fileName : the file name related to the wanted file.
+			 * \param fileData : fileData ptr.
+			 * \param fileSize : Size of file.
+			 * \return a boolean about operation success.
+			 */
+            bool loadSoundBufferFromMemory(const std::string &fileName, const void *fileData, std::size_t fileSize);
 
             /** \brief Return whether the given sound buffer related to the given file name exists. 
 			 *
@@ -118,4 +137,4 @@ namespace mp
     };
 }
 
-#endif // RESOUCESMANAGER_HPP_INCLUDED
+#endif // BASERESMANAGER_HPP_INCLUDED
