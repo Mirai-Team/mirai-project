@@ -30,17 +30,16 @@
 
 /** @file Updatable.hpp
  * 	\brief This file define Updatable class.
- * 
  */
  
 namespace mp
 {
 	/** \class Updatable
-	 * \brief A class to add a inherited class to updateList_.
+	 * \brief Virtual class to create entities to update with an UpdateModule.
 	 */
 	class Updatable
 	{
-		//In order to prohibit use of UpdateModule::AddUpdater
+		// In order to prevent the user to call UpdateModule::AddUpdater.
 		friend class UpdateModule;
 		
 		public:
@@ -52,11 +51,8 @@ namespace mp
 			 */
 			virtual void Update(float deltaTime) = 0;
 			
-		protected:
-		
-			/** \brief Constructor
-			 * 
-			 */
+		protected:	
+			/** \brief Constructor */
 			Updatable();
 			
 			/** \brief Destructor */
