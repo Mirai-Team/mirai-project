@@ -31,15 +31,23 @@
 
 /** \file VitalStat.hpp
  * \brief This file contains VitalStat class definition.
- *  VitalStat is for Stats like Mana, Energy, Life...
- *  In General, for stats which need a current value.
+ *  	VitalStat is for Stats like Mana, Energy, Life...
+ *  	In General, for stats which need a variable value.
  */
 
 namespace mp
 {
-	class VitalStat : public ModifiedStat {
+	/** \class VitalStat
+	 * \brief Stat with variable value.
+	 */
+	
+	class VitalStat : public ModifiedStat 
+	{
 		public:
+			/** \brief Constructor */
 			VitalStat();
+			
+			/** \brief Destructor */
 			virtual ~VitalStat();
 			
 			/** \brief Get current stat value.
@@ -53,6 +61,7 @@ namespace mp
 			 * \param curValue : the new value, max is adjustedBaseValue()
 			 */
 			void setCurValue(int curValue);
+			
 		private:
 			int curValue_;
 	};
