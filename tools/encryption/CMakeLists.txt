@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-project(MiraiEncryption)
+project(EncryptionTool)
 
 # Enable debug symbols by default
 if(CMAKE_BUILD_TYPE STREQUAL "")
@@ -7,15 +7,12 @@ if(CMAKE_BUILD_TYPE STREQUAL "")
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-	set(APP_NAME EncryptionExample-d)
+	set(APP_NAME EncryptionTool-d)
 else()
-	set(APP_NAME EncryptionExample)
+	set(APP_NAME EncryptionTool)
 endif()
 
 set(EXECUTABLE_OUTPUT_PATH bin/${CMAKE_BUILD_TYPE})
-
-# include public headers.
-include_directories(include)
 
 # Generate source files list.
 file(
@@ -24,7 +21,6 @@ file(
         source_files
         
         src/*
-        include/*
 )
 
 # Setting up executable.
@@ -33,10 +29,13 @@ add_executable(
         ${source_files}
 )
 
-# Detec and add Boost
-find_package(Boost 1.54.0 COMPONENTS filesystem system)
+# Detect and add Boost
+find_package(Boost 1.54.0 REQUIRED filesystem system thread)
 if(Boost_FOUND)
-	include_directories(${Boost_INCLUDE_DIRS})
+	# The parameter SYSTEM is to treat headers found there as system headers, and 
+	# suppress warnings originating from there by using the -isystem flag instead 
+	# of the -I flag while building with gcc/g++.
+	include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 	
 	# Setting up link edition.
     target_link_libraries( 
