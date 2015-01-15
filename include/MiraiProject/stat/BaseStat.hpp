@@ -36,25 +36,27 @@
 namespace mp
 {
 	/** \struct Buff
-	 * \brief Base Buff, a value, a name and a bool isDebuff.
-	 * 
+	 * \brief Base Buff which define a value, a name and a boolean about whether the buff is negative.
 	 */
+	 
 	struct Buff 
 	{
 		int value = 0;
 		bool isDebuff = false;
 		std::string name = "unknown";
-		
 	};
 	
 	/** \class BaseStat
-	 * \brief A base stat with Buff gestion.
+	 * \brief Base stat supporting Buff modifications.
 	 */
 	
 	class BaseStat 
 	{
 		public:
+			/** \brief Constructor */
 			BaseStat();
+			
+			/** \brief Destructor */
             virtual ~BaseStat();
             
             /** \brief Get the stat base value.
@@ -91,7 +93,7 @@ namespace mp
 			
 			/** \brief Calculate the sum of each buff value.
 			 *
-			 * If it's a buff, the value is add. 
+			 * If it's a buff, the value is added. 
 			 * If it's a debuff, the value is substrate. 
 			 */
 			void calculateBuffValue();
@@ -108,7 +110,6 @@ namespace mp
 			int baseValue_;
 			int buffValue_;
 			std::vector<Buff> buffs_;
-			
 	};
 }
 
