@@ -250,6 +250,9 @@ namespace mp
 			 */
 			const sf::Texture* getTexture() const;
 			
+			/** \brief Return whether the sprite reverse frame order. */
+			bool getReversed() const;
+			
 			/////////////
 			// Setters //
 			/////////////
@@ -353,6 +356,12 @@ namespace mp
 			 */
 			void setTexture(const sf::Texture& texture);
 			
+			/** \brief Set reverse animation boolean.
+			 * 
+			 * \param reversed : whether the sprite should reverse frame order.
+			 */
+			 void setReversed(bool reversed);
+			 
 		private:
 			virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 			
@@ -367,6 +376,7 @@ namespace mp
 			std::vector<Animation> animations_;
 			
 			bool repeat_;
+			bool reversed_ = false;
 			
 			sf::Time elapsedTime_;
 			sf::Time defaultTimePerFrame_;
