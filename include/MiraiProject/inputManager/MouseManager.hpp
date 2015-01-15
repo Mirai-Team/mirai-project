@@ -22,6 +22,9 @@
 //
 ////////////////////////////////////////////////////////////
 
+#ifndef MOUSEMANAGER_HPP_INCLUDED
+#define MOUSEMANAGER_HPP_INCLUDED
+
 #include <functional>
 #include <map>
 #include <string>
@@ -53,3 +56,5 @@ namespace mp
 			std::map<std::string, Binding> bindings_;
 	};
 }
+
+#endif // MOUSEMANAGER_HPP_INCLUDED

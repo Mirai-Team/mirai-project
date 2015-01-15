@@ -22,6 +22,9 @@
 //
 ////////////////////////////////////////////////////////////
 
+#ifndef KEYBOARDMANAGER_HPP_INCLUDED
+#define KEYBOARDMANAGER_HPP_INCLUDED
+
 #include <functional>
 #include <map>
 #include <string>
@@ -53,3 +56,5 @@ namespace mp
 			std::map<std::string, Binding> bindings_;
 	};
 }
+
+#endif // KEYBOARDMANAGER_HPP_INCLUDED

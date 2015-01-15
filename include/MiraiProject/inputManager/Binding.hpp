@@ -22,6 +22,9 @@
 //
 ////////////////////////////////////////////////////////////
 
+#ifndef BINDING_HPP_INCLUDED
+#define BINDING_HPP_INCLUDED
+
 #include <functional>
 #include <string>
 #include <map>
@@ -57,3 +60,5 @@ namespace mp
 			std::function<void()> funct_;
 	};
 }
+
+#endif // BINDING_HPP_INCLUDED
