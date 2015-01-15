@@ -29,13 +29,13 @@
 
 std::list<mp::Updatable*> mp::UpdateModule::updatableList_;
 
-void mp::UpdateModule::update(float delta_time)
+void mp::UpdateModule::update(float deltaTime)
 {
 	if(updatableList_.size() > 0)
 	{
 		for_each(updatableList_.begin(), updatableList_.end(), [&](mp::Updatable* p)
 		{
-			p->update(delta_time);
+			p->update(deltaTime);
 		});
 	}
 }
