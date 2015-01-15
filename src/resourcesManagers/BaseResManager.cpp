@@ -83,7 +83,6 @@ bool mp::BaseResManager::loadTextureFromMemory(const string &fileName, const voi
 
     shared_ptr<sf::Texture> ptr_texture{ new sf::Texture };
     ptr_texture->setSmooth(false);
-
     if (!ptr_texture->loadFromMemory(fileData, fileSize))
 	{
 		// File not found...

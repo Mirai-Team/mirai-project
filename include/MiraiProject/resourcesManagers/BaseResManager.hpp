@@ -74,7 +74,8 @@ namespace mp
             /** \brief Load texture into cache from memory. 
 			 *
 			 * \param fileName : the file name related to the wanted file.
-			 * \param fileData : the file in a string.
+			 * \param fileData : fileData ptr.
+			 * \param fileSize : Size of file.
 			 * 
 			 * \return a boolean about operation success.
 			 */
@@ -111,7 +112,8 @@ namespace mp
             /** \brief Load sound buffer into cache from memory. 
 			 *
 			 * \param fileName : the file name related to the wanted file.
-			 *
+			 * \param fileData : fileData ptr.
+			 * \param fileSize : Size of file.
 			 * \return a boolean about operation success.
 			 */
             bool loadSoundBufferFromMemory(const std::string &fileName, const void *fileData, std::size_t fileSize);

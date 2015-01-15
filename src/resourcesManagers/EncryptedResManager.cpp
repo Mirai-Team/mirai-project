@@ -39,7 +39,7 @@ shared_ptr<sf::Texture> mp::EncryptedResManager::getTexture(const string &fileNa
 	size_t fileSize = fileData.size();
     // Automatically load the texture if needed.
 	if (textureIsAvailable(fileName) == false)
-		loadTextureFromMemory(fileName, &fileData, fileSize);
+		loadTextureFromMemory(fileName, &fileData[0], fileSize);
     
 	return mp::BaseResManager::getTexture(fileName, false);
 }

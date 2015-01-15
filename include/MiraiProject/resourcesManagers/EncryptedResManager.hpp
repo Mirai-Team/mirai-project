@@ -33,13 +33,13 @@
 
 #include "MiraiProject/resourcesManagers/BaseResManager.hpp"
 
-/** \file AutoResManager.hpp
+/** \file EncryptedResManager.hpp
  * \brief This file contains AutoResManager class definition.
  */
 
 namespace mp
 {
-	/** \class AutoResManager
+	/** \class EncryptedResManager
 	 * \brief A class to automatically handle resources (images and sounds).
 	 * Though, you still have to clean resources using clean method.
 	 */
