@@ -31,17 +31,23 @@
 
 #include "MiraiProject/updateSystem/Updatable.hpp"
 
+/** @file UpdateModule.hpp
+ * 	\brief This file define UpdateModule class.
+ * 
+ */
+ 
 namespace mp
 {
 	class UpdateModule
 	{
+		//In order to prohibit use of UpdateModule::AddUpdater
 		friend class Updatable;
 		
 		public:
-			/** \brief Update all Updatable.
-			 * \param delta_time : time elapsed since last update.
+			/** \brief Function which launch a update of all Updatable::Update
+			 * \param deltaTime : time elapsed since last update.
 			 */
-			static void Update(float delta_time);
+			static void Update(float deltaTime);
 			
 		private:
 			// Add an Updater in updatableList_

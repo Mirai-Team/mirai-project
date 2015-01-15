@@ -28,6 +28,11 @@
 #include <iostream>
 #include <memory>
 
+/** @file Updatable.hpp
+ * 	\brief This file define Updatable class.
+ * 
+ */
+ 
 namespace mp
 {
 	/** \class Updatable
@@ -35,11 +40,17 @@ namespace mp
 	 */
 	class Updatable
 	{
+		//In order to prohibit use of UpdateModule::AddUpdater
 		friend class UpdateModule;
 		
 		public:
-		
-			virtual void Update(float delta_time) = 0;
+			/** \brief Function called by UpdateModule
+			 * 
+			 * This is a pure virtual function that has to be implemented by derived class to update their content.
+			 * 
+			 * \param deltaTime : time elapsed since last update.
+			 */
+			virtual void Update(float deltaTime) = 0;
 			
 		protected:
 		
