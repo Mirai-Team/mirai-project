@@ -63,11 +63,19 @@ bool mp::Encryption::createFile(string outputFile, path directory)
 
     fileNames_ = filesUtilities::listFiles(directory, true);
 	
-	//In order to keep cross-plateform
-	string windowsSeparator { "\\" };
-	string unixSeparator { "/" };
+	//In order to keep cross-plateform, we replace windowsSeparator by unixSeparator
+	char windowsSeparator = '\\' ;
+	char unixSeparator = '/' ;
 
-	std::replace(fileNames_.begin(), fileNames_.end(), windowsSeparator, unixSeparator);
+	for(unsigned int i = 0; i < fileNames_.size(); i++)
+	{
+		for(unsigned int j = 0; j <fileNames_[i].size(); j++)
+		{
+			if(fileNames_[i][j] == windowsSeparator)
+				fileNames_[i][j] = unixSeparator;
+		}
+	}
+	//std::replace(fileNames_.begin(), fileNames_.end(), windowsSeparator, unixSeparator);
 	
     if(writeHeader() && writeData())
         return true;

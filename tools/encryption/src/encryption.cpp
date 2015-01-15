@@ -236,11 +236,18 @@ void encryptFiles(string key, path directory, string outputFile)
 
     fileNames = listFiles(directory, true);
 	
-	//In order to keep cross-plateform
-	string windowsSeparator { "\\" };
-	string unixSeparator { "/" };
+	//In order to keep cross-plateform, we replace windowsSeparator by unixSeparator
+	char windowsSeparator = '\\' ;
+	char unixSeparator = '/' ;
 
-	std::replace(fileNames.begin(), fileNames.end(), windowsSeparator, unixSeparator);
+	for(unsigned int i = 0; i < fileNames.size(); i++)
+	{
+		for(unsigned int j = 0; j <fileNames[i].size(); j++)
+		{
+			if(fileNames[i][j] == windowsSeparator)
+				fileNames[i][j] = unixSeparator;
+		}
+	}
 		
     writeHeader(fileNames);
     writeData(fileNames);
