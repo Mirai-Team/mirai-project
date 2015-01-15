@@ -40,15 +40,36 @@ namespace mp
 	{
 		
 		public:
-		
+			
+			/** \brief Constructor
+			 */
 			KeyboardManager();
+			
+			/** \brief Destructor
+			 * 
+			 */
 			~KeyboardManager();
 			
+			/** \brief Add an action for a key.
+			 * \param index : index of key in map.
+			 * \param funct : function to launch when key is pressed or released.
+			 * \param onPress : launch function when key is pressed or released.
+			 */
 			void addBinding(std::string index, sf::Keyboard::Key key, std::function<void()> funct = [](){return true;}, bool onPress = false);
+			
+			/** \brief Remove action.
+			 * \param index : index of key in map.
+			 */ 
 			void removeBinding(std::string index);
 			
+			/** \brief Clear all actions associate to a key. 
+			 * \param key : key to clean.
+			 */
 			void clearKey(sf::Keyboard::Key key);
 			
+			/** \brief Execute action relative to key.
+			 * 
+			 */
 			bool operator()(sf::Event& event);
 			
 		private:

@@ -37,19 +37,44 @@ namespace mp
 {
 	class Binding
 	{
-		public:		
-			explicit Binding(sf::Keyboard::Key k, bool onPress, std::function<void()> funct);
+		public:
+			/** \brief Constructor for KeyboardManager
+			 * \param key : a key
+			 * \param onPress : execute action when key is pressed.
+			 * \param funct : a function to launch when key is pressed or released.
+			 */
+			explicit Binding(sf::Keyboard::Key key, bool onPress, std::function<void()> funct);
 			
+			/** \brief Constructor for MouseManager
+			 * \param button : a key
+			 * \param onPress : execute action when key is pressed.
+			 * \param funct : a function to launch when key is pressed or released.
+			 */
 			explicit Binding(sf::Mouse::Button button, bool onPress, std::function<void()> funct);
 			
+			/** \brief Destructor
+			 * 
+			 */
 			~Binding();
 			
+			/** \brief Call function in funct_
+			 * 
+			 */
 			bool callFunction();
 			
+			/** \brief Test if key is pressed or released.
+			 * 
+			 */
 			bool operator()(sf::Event& event);
 			
+			/** \brief Key getter
+			 * \return a sfml key.
+			 */
 			sf::Keyboard::Key getKey();
 			
+			/** \brief Button getter
+			 * \return a sfml button.
+			 */
 			sf::Mouse::Button getButton();
 			
 		private:
