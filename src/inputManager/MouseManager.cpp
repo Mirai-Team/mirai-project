@@ -45,7 +45,7 @@ bool mp::MouseManager::operator()(sf::Event& event)
 	return false;
 }
 
-void mp::MouseManager::addBinding(std::string& index, sf::Mouse::Button button, std::function<void()> funct, bool onPress)
+void mp::MouseManager::addBinding(std::string index, sf::Mouse::Button button, std::function<void()> funct, bool onPress)
 {
 	bindings_.emplace(std::make_pair(index, mp::Binding(button, onPress, funct)));
 }

@@ -45,7 +45,7 @@ bool mp::KeyboardManager::operator()(sf::Event& event)
 	return false;
 }
 
-void mp::KeyboardManager::addBinding(std::string& index, sf::Keyboard::Key key, std::function<void()> funct, bool onPress)
+void mp::KeyboardManager::addBinding(std::string index, sf::Keyboard::Key key, std::function<void()> funct, bool onPress)
 {
 	bindings_.emplace(std::make_pair(index, mp::Binding(key, onPress, funct)));
 }

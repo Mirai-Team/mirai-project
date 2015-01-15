@@ -44,7 +44,7 @@ namespace mp
 			KeyboardManager();
 			~KeyboardManager();
 			
-			void addBinding(std::string& index, sf::Keyboard::Key key, std::function<void()> funct = [](){return true;}, bool onPress = false);
+			void addBinding(std::string index, sf::Keyboard::Key key, std::function<void()> funct = [](){return true;}, bool onPress = false);
 			void removeBinding(std::string index);
 			
 			void clearKey(sf::Keyboard::Key key);
