@@ -41,14 +41,14 @@ namespace mp
 			/** \brief Update all Updatable.
 			 * \param delta_time : time elapsed since last update.
 			 */
-			static void Update(float delta_time);
+			static void update(float delta_time);
 			
 		private:
 			// Add an Updater in updatableList_
-			static void AddUpdater(Updatable* updatable);
+			static void addUpdater(Updatable* updatable);
 			
 			// Remove an Updater from updatableList_
-			static void RemoveUpdater(Updatable* updatable);
+			static void removeUpdater(Updatable* updatable);
 			
 			// Objects list to update.
 			static std::list<Updatable*> updatableList_;

@@ -39,7 +39,7 @@ namespace mp
 		
 		public:
 		
-			virtual void Update(float delta_time) = 0;
+			virtual void update(float delta_time) = 0;
 			
 		protected:
 		

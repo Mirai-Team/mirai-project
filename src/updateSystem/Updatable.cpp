@@ -27,10 +27,10 @@
 
 mp::Updatable::Updatable()
 {
-	mp::UpdateModule::AddUpdater(this);
+	mp::UpdateModule::addUpdater(this);
 }
 
 mp::Updatable::~Updatable()
 {
-    mp::UpdateModule::RemoveUpdater(this);
+    mp::UpdateModule::removeUpdater(this);
 }
