@@ -48,15 +48,10 @@ mp::Binding::~Binding()
 	
 }
 
-bool mp::Binding::callFunction()
+void mp::Binding::callFunction()
 {
 	if(funct_)
-	{
 		funct_();
-		return true;
-	}
-	else
-		return false;
 }
 
 #include <iostream>

@@ -35,18 +35,16 @@ mp::KeyboardManager::~KeyboardManager()
 	
 }
 
-bool mp::KeyboardManager::operator()()
+void mp::KeyboardManager::operator()()
 {
 	if (enabled_)
 	{
 		for(auto &binding : bindings_)
 		{
 			if(binding.second())
-				return binding.second.callFunction();
+				binding.second.callFunction();
 		}
 	}
-	
-	return false;
 }
 
 void mp::KeyboardManager::addBinding(std::string index, sf::Keyboard::Key key, std::function<void()> funct)

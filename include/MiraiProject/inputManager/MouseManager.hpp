@@ -47,7 +47,7 @@ namespace mp
 			
 			void clearKey(sf::Mouse::Button key);
 			
-			bool operator()();
+			void operator()();
 			
 			void disable();
 			

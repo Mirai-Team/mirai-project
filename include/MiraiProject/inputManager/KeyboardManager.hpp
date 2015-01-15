@@ -71,7 +71,7 @@ namespace mp
 			 * 
 			 * \param event : the event to check.
 			 */
-			bool operator()();
+			void operator()();
 			
 			void disable();
 			

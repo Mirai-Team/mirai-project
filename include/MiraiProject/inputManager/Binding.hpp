@@ -54,7 +54,7 @@ namespace mp
 			~Binding();
 			
 			/** \brief Call function in funct_ */
-			bool callFunction();
+			void callFunction();
 			
 			/** \brief Test if key is pressed or released. */
 			bool operator()();

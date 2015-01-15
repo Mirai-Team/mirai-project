@@ -35,15 +35,13 @@ mp::MouseManager::~MouseManager()
 	
 }
 
-bool mp::MouseManager::operator()()
+void mp::MouseManager::operator()()
 {
 	for(auto &binding : bindings_)
 	{
 		if(binding.second())
-			return binding.second.callFunction();
+			binding.second.callFunction();
 	}
-	
-	return false;
 }
 
 void mp::MouseManager::addBinding(std::string index, sf::Mouse::Button button, std::function<void()> funct)
