@@ -29,23 +29,23 @@
 
 std::list<mp::Updatable*> mp::UpdateModule::updatableList_;
 
-void mp::UpdateModule::Update(float delta_time)
+void mp::UpdateModule::update(float delta_time)
 {
 	if(updatableList_.size() > 0)
 	{
 		for_each(updatableList_.begin(), updatableList_.end(), [&](mp::Updatable* p)
 		{
-			p->Update(delta_time);
+			p->update(delta_time);
 		});
 	}
 }
 
-void mp::UpdateModule::AddUpdater(mp::Updatable* updatable)
+void mp::UpdateModule::addUpdater(mp::Updatable* updatable)
 {
 	updatableList_.push_back(updatable);
 }
 
-void mp::UpdateModule::RemoveUpdater(Updatable* updatable)
+void mp::UpdateModule::removeUpdater(Updatable* updatable)
 {
 	updatableList_.remove_if([updatable] (Updatable* p) { 
 		return p == updatable;
