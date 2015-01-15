@@ -37,23 +37,26 @@
 
 namespace mp 
 {
+	/** \struct ModifyingStat
+	 * \param stat : The stat of which depends the modified stat.
+	 */
 	struct ModifyingStat 
 	{
-		/** \brief The stat of which depends the modified stat. */
+		
 		BaseStat stat; 
 		
-		/** \brief An augmentation or a diminution.
-		 *
-		 * For instance : 0.1 is an augmentation of 10%
-		 * -0.1 is a diminution of 10%
-		 */
+		/** \brief ratio : An augmentation or a diminution, beetween -1 and 1 */
 		float ratio;
 	};
 	
 	class ModifiedStat : public BaseStat 
 	{
 		public:
+			/** \brief Constructor 
+			 */
 			ModifiedStat();
+			/** \brief Destructor 
+			 */
 			virtual ~ModifiedStat();
 			
 			/** \brief Add a Modifier to the buff list.

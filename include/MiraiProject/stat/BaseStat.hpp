@@ -35,6 +35,10 @@
 
 namespace mp
 {
+	/** \struct Buff
+	 * \brief Base Buff, a value, a name and a bool isDebuff.
+	 * 
+	 */
 	struct Buff 
 	{
 		int value = 0;
@@ -44,7 +48,7 @@ namespace mp
 	};
 	
 	/** \class BaseStat
-	 *
+	 * \brief A base stat with Buff gestion.
 	 */
 	
 	class BaseStat 
