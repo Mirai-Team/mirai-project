@@ -7,10 +7,14 @@ using namespace std;
 class SomeClass : public mp::Updatable
 {
 	public:
-		//Since void mp::Updatable::Update() is virtual, it's necessary to create this function.
-		void Update(float delta_time)
+		SomeClass(std::string key = "default") : mp::Updatable(key)
 		{
-			std::cout << delta_time << std::endl;
+			
+		};
+		//Since void mp::Updatable::Update() is virtual, it's necessary to create this function.
+		void update(float deltaTime)
+		{
+			std::cout << deltaTime << std::endl;
 		};
 		
 		//A random function.
@@ -22,11 +26,11 @@ class SomeClass : public mp::Updatable
 
 int main()
 {
-	SomeClass * a = new SomeClass();
+	SomeClass * a = new SomeClass("MiraiProject");
 	SomeClass * b = new SomeClass();
 	
 	//Update all function which depend of mp::Updatable.
-	mp::UpdateModule::Update(2.55486f);
+	mp::UpdateModule::update(2.55486f, "default");
 	
 	//We delete b.
 	delete b;
@@ -35,7 +39,7 @@ int main()
 	std::cout << a->addition(15,23) << std::endl;
 	
 	//Another Updatable.
-	mp::UpdateModule::Update(3.5f);
+	mp::UpdateModule::update(3.5f, "MiraiProject");
 	
 	return 0;
 }
