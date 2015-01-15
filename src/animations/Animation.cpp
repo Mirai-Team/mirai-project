@@ -28,7 +28,7 @@
 
 #include "MiraiProject/animations/Animation.hpp"
 
-mp::Animation::Animation(const std::string& name, const int& numStartingFrame,  const int& numEndingFrame) :
+mp::Animation::Animation(const std::string& name, const unsigned int& numStartingFrame,  const unsigned int& numEndingFrame) :
 	name_{ name },
 	
 	numStartingFrame_{ numStartingFrame },
@@ -55,17 +55,17 @@ std::string mp::Animation::getName() const
 	return name_;
 }
 	
-int mp::Animation::getNumStartingFrame() const
+unsigned int mp::Animation::getNumStartingFrame() const
 {
 	return numStartingFrame_;
 }
 
-int mp::Animation::getNumEndingFrame() const
+unsigned int mp::Animation::getNumEndingFrame() const
 {
 	return numEndingFrame_;
 }
 
-int mp::Animation::getNumFrames() const
+unsigned int mp::Animation::getNumFrames() const
 {
 	return numFrames_;
 }
@@ -89,13 +89,13 @@ void mp::Animation::setName(const std::string& newName)
 	name_ = newName;
 }
 
-void mp::Animation::setNumStartingFrame(const int& newNumStartingFrame)
+void mp::Animation::setNumStartingFrame(const unsigned int& newNumStartingFrame)
 {
 	numStartingFrame_ = newNumStartingFrame;
 	update();
 }
 
-void mp::Animation::setNumEndingFrame(const int& newNumEndingFrame)
+void mp::Animation::setNumEndingFrame(const unsigned int& newNumEndingFrame)
 {
 	numEndingFrame_ = newNumEndingFrame;
 	update();

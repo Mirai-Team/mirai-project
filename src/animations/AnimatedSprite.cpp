@@ -95,7 +95,7 @@ void mp::AnimatedSprite::update(sf::Time dt)
 			currentFrame_++;
 	}
 	
-	int realFrame{ currentFrame_ + currentAnimation.numStartingFrame_ }; // The actual frame number on the sprite sheet.
+	unsigned int realFrame{ currentFrame_ + currentAnimation.numStartingFrame_ }; // The actual frame number on the sprite sheet.
 		
 	textureRect.left = (frameSize_.x * realFrame) % textureBounds.x;
 	textureRect.top = frameSize_.y * static_cast<int>((frameSize_.x * realFrame) / textureBounds.x);
@@ -106,7 +106,7 @@ void mp::AnimatedSprite::update(sf::Time dt)
 	sprite_.setTextureRect(textureRect);
 }
 
-void mp::AnimatedSprite::addAnimation(const int& numStartingFrame, const int& numEndingFrame)
+void mp::AnimatedSprite::addAnimation(const unsigned int& numStartingFrame, const unsigned int& numEndingFrame)
 {
 	mp::Animation animation{ };
 	
@@ -119,7 +119,7 @@ void mp::AnimatedSprite::addAnimation(const int& numStartingFrame, const int& nu
 	addAnimation(animation);
 }
 
-void mp::AnimatedSprite::addAnimation(const std::string& name, const int& numStartingFrame, const int& numEndingFrame)
+void mp::AnimatedSprite::addAnimation(const std::string& name, const unsigned int& numStartingFrame, const unsigned int& numEndingFrame)
 {
 	mp::Animation animation{ name, numStartingFrame, numEndingFrame };
 	animation.timePerFrame_ = defaultTimePerFrame_;
@@ -318,7 +318,7 @@ void mp::AnimatedSprite::setFrameSize(const sf::Vector2i& newFrameSize)
 	frameSize_ = newFrameSize;
 }
 
-void mp::AnimatedSprite::setCurrentFrame(const int& newCurrentFrame)
+void mp::AnimatedSprite::setCurrentFrame(const unsigned int& newCurrentFrame)
 {
 	currentFrame_ = newCurrentFrame;
 }
@@ -328,7 +328,7 @@ void mp::AnimatedSprite::restart()
 	currentFrame_ = 0;
 }
 
-void mp::AnimatedSprite::setCurrentAnimation(const int& newCurrentAnimation)
+void mp::AnimatedSprite::setCurrentAnimation(const unsigned int& newCurrentAnimation)
 {
 	if (newCurrentAnimation >= animations_.size())
 		currentAnimation_ = animations_.size() - 1;

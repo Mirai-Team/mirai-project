@@ -71,7 +71,7 @@ namespace mp
 			 * \param numStartingFrame : the starting frame's number.
 			 * \param numEndingFrame : the ending frame's number.
 			 */
-			void addAnimation(const int& numStartingFrame, const int& numEndingFrame);
+			void addAnimation(const unsigned int& numStartingFrame, const unsigned int& numEndingFrame);
 			
 			/** \brief Add an animation by giving the name, the starting frame and the ending frame.
 			 *
@@ -79,7 +79,7 @@ namespace mp
 			 * \param numStartingFrame : the starting frame's number.
 			 * \param numEndingFrame : the ending frame's number.
 			 */
-			void addAnimation(const std::string& name, const int& numStartingFrame, const int& numEndingFrame);
+			void addAnimation(const std::string& name, const unsigned int& numStartingFrame, const unsigned int& numEndingFrame);
 			
 			/** \brief Add an animation directly by giving it.
 			 *
@@ -264,7 +264,7 @@ namespace mp
 			 *
 			 * \param newCurrentFrame : the new current frame.
 			 */
-			void setCurrentFrame(const int& newCurrentFrame);
+			void setCurrentFrame(const unsigned int& newCurrentFrame);
 			
 			/** \brief Restart the animation. 
 			 *
@@ -279,7 +279,7 @@ namespace mp
 			 *
 			 * \param newCurrentAnimation : the new animation's number to set.
 			 */
-			void setCurrentAnimation(const int& newCurrentAnimation);
+			void setCurrentAnimation(const unsigned int& newCurrentAnimation);
 			
 			/** \brief Set the current animation by the animation's name.
 			 *
@@ -360,10 +360,10 @@ namespace mp
 			
 			sf::Vector2i frameSize_;
 			
-			int currentFrame_;
+			unsigned int currentFrame_;
 			
-			int numAnimations_;
-			int currentAnimation_;
+			unsigned int numAnimations_;
+			unsigned int currentAnimation_;
 			std::vector<Animation> animations_;
 			
 			bool repeat_;

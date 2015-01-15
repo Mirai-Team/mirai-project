@@ -50,7 +50,7 @@ namespace mp
 			 * \param numStartingFrame : the number of the first animation's frame (on the sprite sheet).
 			 * \param numEndingFrame : the number of the last animation's frame (on the sprite sheet).
 			 */
-			Animation(const std::string& name="NA", const int& numStartingFrame=0,  const int& numEndingFrame=0);
+			Animation(const std::string& name="NA", const unsigned int& numStartingFrame=0,  const unsigned int& numEndingFrame=0);
 		
 			/** \brief Destructor. */
 			~Animation();
@@ -69,19 +69,19 @@ namespace mp
 			 *
 			 * \return the number starting frame's number for the animation.
 			 */
-			int getNumStartingFrame() const;
+			unsigned int getNumStartingFrame() const;
 			
 			/** \brief Return the ending frame's number for the animation.
 			 *
 			 * \return the number ending frame's number for the animation.
 			 */
-			int getNumEndingFrame() const;
+			unsigned int getNumEndingFrame() const;
 			
 			/** \brief Return the number of frames for the animation.
 			 *
 			 * \return the number of frames for the animation.
 			 */
-			int getNumFrames() const;
+			unsigned int getNumFrames() const;
 			
 			/** \brief Return the duration of the animation.
 			 *
@@ -109,13 +109,13 @@ namespace mp
 			 *
 			 * \param newNumStartingFrame : the new starting frame's number for the animation.
 			 */
-			void setNumStartingFrame(const int& newNumStartingFrame);
+			void setNumStartingFrame(const unsigned int& newNumStartingFrame);
 			
 			/** \brief Set the new ending frame's number for the animation.
 			 *
 			 * \param newNumStartingFrame : the new ending frame's number for the animation.
 			 */
-			void setNumEndingFrame(const int& newNumEndingFrame);
+			void setNumEndingFrame(const unsigned int& newNumEndingFrame);
 			
 			/** \brief Set the new duration for the animation.
 			 *
@@ -134,9 +134,9 @@ namespace mp
 		
 			std::string name_;
 		
-			int numStartingFrame_;
-			int numEndingFrame_;
-			int numFrames_;
+			unsigned int numStartingFrame_;
+			unsigned int numEndingFrame_;
+			unsigned int numFrames_;
 			
 			sf::Time timePerFrame_;
 			sf::Time duration_;
