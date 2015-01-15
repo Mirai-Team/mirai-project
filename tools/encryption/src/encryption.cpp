@@ -240,7 +240,7 @@ void encryptFiles(string key, path directory, string outputFile)
 	string windowsSeparator { "\\" };
 	string unixSeparator { "/" };
 
-	std::replace(fileNames_.begin(), fileNames_.end(), windowsSeparator, unixSeparator);
+	std::replace(fileNames.begin(), fileNames.end(), windowsSeparator, unixSeparator);
 		
     writeHeader(fileNames);
     writeData(fileNames);
