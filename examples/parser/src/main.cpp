@@ -48,7 +48,7 @@ int main()
 	
 	// Read fullscreen values
 	values = mp::Parser::vFileParser<string>(fileName, "fullscreen", '=', ';', true, "lol");
-	cout << value[0] << endl;
+	cout << values[0] << endl;
 	
 	// Decrypt file for the example
 	EncryptedData = EncryptMotor.encryptFile(fileName);

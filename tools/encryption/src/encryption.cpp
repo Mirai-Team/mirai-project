@@ -236,9 +236,11 @@ void encryptFiles(string key, path directory, string outputFile)
 
     fileNames = listFiles(directory, true);
 	
-	//For Windows, unless this the file isn't the same on Unix and on Windows.
-	for(unsigned int i = 0; i < fileNames.size(); i++)
-		fileNames[i].replace(fileNames[i].find("\\"), 1, "/");
+	//In order to keep cross-plateform
+	string windowsSeparator { "\\" };
+	string unixSeparator { "/" };
+
+	std::replace(fileNames_.begin(), fileNames_.end(), windowsSeparator, unixSeparator);
 		
     writeHeader(fileNames);
     writeData(fileNames);
