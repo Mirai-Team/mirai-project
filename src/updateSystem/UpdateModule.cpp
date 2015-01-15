@@ -32,7 +32,7 @@
 
 std::map<std::string, std::list<mp::Updatable*>> mp::UpdateModule::updatableList_;
 
-void mp::UpdateModule::update(float deltaTime, std::string key)
+void mp::UpdateModule::update(sf::Time deltaTime, std::string key)
 {
 	for_each(updatableList_[key].begin(), updatableList_[key].end(), [&](mp::Updatable* p)
 	{

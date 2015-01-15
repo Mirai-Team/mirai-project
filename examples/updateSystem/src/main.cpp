@@ -1,6 +1,9 @@
 #include <iostream>
+
 #include <MiraiProject/updateSystem/Updatable.hpp>
 #include <MiraiProject/updateSystem/UpdateModule.hpp>
+
+#include <SFML/System/Time.hpp>
 
 using namespace std;
 //We create a class which depends of mp::Updatable.
@@ -12,9 +15,9 @@ class SomeClass : public mp::Updatable
 			
 		};
 		//Since void mp::Updatable::Update() is virtual, it's necessary to create this function.
-		void update(float deltaTime)
+		void update(sf::Time deltaTime)
 		{
-			std::cout << deltaTime << std::endl;
+			std::cout << deltaTime.asSeconds() << std::endl;
 		};
 		
 		//A random function.
@@ -30,7 +33,7 @@ int main()
 	SomeClass * b = new SomeClass();
 	
 	//Update all function which depend of mp::Updatable.
-	mp::UpdateModule::update(2.55486f, "default");
+	mp::UpdateModule::update(sf::seconds(2.55486f), "default");
 	
 	//We delete b.
 	delete b;
@@ -39,7 +42,7 @@ int main()
 	std::cout << a->addition(15,23) << std::endl;
 	
 	//Another Updatable.
-	mp::UpdateModule::update(3.5f, "MiraiProject");
+	mp::UpdateModule::update(sf::seconds(3.5f), "MiraiProject");
 	
 	return 0;
 }

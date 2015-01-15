@@ -53,7 +53,7 @@ namespace mp
 			 *
 			 * \param deltaTime : time elapsed since last update.
 			 */
-			static void update(float deltaTime, std::string key);
+			static void update(sf::Time deltaTime, std::string key);
 			
 		private:
 			// Add an Updater in updatableList_
