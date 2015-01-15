@@ -36,6 +36,10 @@
  
 namespace mp
 {
+	/** \class Random
+	 * \brief A static class with various functions and templates about randomness.
+	 */
+	
 	class Random
 	{
 		/** \brief Use this template for integer values (int or long int).
