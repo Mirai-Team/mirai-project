@@ -33,18 +33,22 @@
 
 /** @file UpdateModule.hpp
  * 	\brief This file define UpdateModule class.
- * 
  */
  
 namespace mp
 {
+	/** \class UpdateModule
+	 * \brief Static class to update all Updatable based objects.
+	 */
+	 
 	class UpdateModule
 	{
-		//In order to prohibit use of UpdateModule::AddUpdater
+		// In order to prevent the user to call UpdateModule::AddUpdater, UpdateModule::RemoveUpdater, ...
 		friend class Updatable;
 		
 		public:
-			/** \brief Function which launch a update of all Updatable::Update
+			/** \brief Update all the Updatable stored in the update module by calling their update() method.
+			 *
 			 * \param deltaTime : time elapsed since last update.
 			 */
 			static void Update(float deltaTime);
