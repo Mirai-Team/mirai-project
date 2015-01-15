@@ -24,7 +24,8 @@
 
 #include "MiraiProject/inputManager/KeyboardManager.hpp"
 
-mp::KeyboardManager::KeyboardManager() : bindings_ { }
+mp::KeyboardManager::KeyboardManager() : bindings_{ },
+										 enabled_{ true }
 {
 	
 }
@@ -34,20 +35,23 @@ mp::KeyboardManager::~KeyboardManager()
 	
 }
 
-bool mp::KeyboardManager::operator()(sf::Event& event)
+bool mp::KeyboardManager::operator()()
 {
-	for(auto &binding : bindings_)
+	if (enabled_)
 	{
-		if(binding.second(event))
-			return binding.second.callFunction();
+		for(auto &binding : bindings_)
+		{
+			if(binding.second())
+				return binding.second.callFunction();
+		}
 	}
-				
+	
 	return false;
 }
 
-void mp::KeyboardManager::addBinding(std::string index, sf::Keyboard::Key key, std::function<void()> funct, bool onPress)
+void mp::KeyboardManager::addBinding(std::string index, sf::Keyboard::Key key, std::function<void()> funct)
 {
-	bindings_.emplace(std::make_pair(index, mp::Binding(key, onPress, funct)));
+	bindings_.emplace(std::make_pair(index, mp::Binding(key, funct)));
 }
 
 void mp::KeyboardManager::removeBinding(std::string index)
@@ -62,4 +66,19 @@ void mp::KeyboardManager::clearKey(sf::Keyboard::Key key)
 		if(binding.second.getKey() == key)
 			bindings_.erase(binding.first);
 	}
+}
+
+void mp::KeyboardManager::enable()
+{
+	enabled_ = true;
+}
+
+void mp::KeyboardManager::disable()
+{
+	enabled_ = false;
+}
+
+bool mp::KeyboardManager::isEnabled() const
+{
+	return enabled_;
 }

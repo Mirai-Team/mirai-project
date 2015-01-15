@@ -22,20 +22,23 @@
 //
 ////////////////////////////////////////////////////////////
 
+#include <SFML/Window/Keyboard.hpp>
+#include <SFML/Window/Mouse.hpp>
+
 #include "MiraiProject/inputManager/Binding.hpp"
 
-mp::Binding::Binding(sf::Keyboard::Key key, bool onPress, std::function<void()> funct) : 	key_ { key },
-																							button_ { },
-																							onPress_ { onPress },
-																							funct_ { funct }
+mp::Binding::Binding(sf::Keyboard::Key key, std::function<void()> funct) : isKeyboardBinding{ true },
+																		   key_ { key },
+																		   button_ { },
+																		   funct_ { funct }
 {
 	
 }
 
-mp::Binding::Binding(sf::Mouse::Button button, bool onPress, std::function<void()> funct) : 	key_ { },
-																								button_ { button },
-																								onPress_ { onPress },
-																								funct_ { funct }
+mp::Binding::Binding(sf::Mouse::Button button, std::function<void()> funct) : isKeyboardBinding{ false },
+																			  key_ { },
+																			  button_ { button },
+																			  funct_ { funct }
 {
 	
 }
@@ -45,7 +48,7 @@ mp::Binding::~Binding()
 	
 }
 
-bool  mp::Binding::callFunction()
+bool mp::Binding::callFunction()
 {
 	if(funct_)
 	{
@@ -54,23 +57,24 @@ bool  mp::Binding::callFunction()
 	}
 	else
 		return false;
-	
 }
 
-bool mp::Binding::operator ()(sf::Event& event)
+#include <iostream>
+
+bool mp::Binding::operator()()
 {
-	if(event.key.code == key_)
-		return((onPress_ && event.type == sf::Event::KeyPressed) || ((event.type == sf::Event::KeyReleased && !onPress_)));
+	if((isKeyboardBinding and sf::Keyboard::isKeyPressed(key_)) or (!isKeyboardBinding and sf::Mouse::isButtonPressed(button_)))
+		return true;
 	else
 		return false;
 }
 
 sf::Keyboard::Key mp::Binding::getKey()
 {
-		return key_;
+	return key_;
 }
 
 sf::Mouse::Button mp::Binding::getButton()
 {
-		return button_;
+	return button_;
 }

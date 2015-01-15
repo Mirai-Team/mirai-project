@@ -38,22 +38,27 @@ namespace mp
 {	
 	class MouseManager
 	{
-		
 		public:
-		
 			MouseManager();
 			~MouseManager();
 			
-			void addBinding(std::string index, sf::Mouse::Button button, std::function<void()> funct = [](){return true;}, bool onPress = false);
+			void addBinding(std::string index, sf::Mouse::Button button, std::function<void()> funct = [](){ return true; });
 			void removeBinding(std::string index);
 			
 			void clearKey(sf::Mouse::Button key);
 			
-			bool operator()(sf::Event& event);
+			bool operator()();
+			
+			void disable();
+			
+			void enable();
+			
+			bool isEnabled() const;
 			
 		private:
-		
 			std::map<std::string, Binding> bindings_;
+			
+			bool enabled_;
 	};
 }
 

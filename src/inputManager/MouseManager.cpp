@@ -24,7 +24,8 @@
 
 #include "MiraiProject/inputManager/MouseManager.hpp"
 
-mp::MouseManager::MouseManager() : bindings_ { }
+mp::MouseManager::MouseManager() : bindings_ { },
+								   enabled_{ true }
 {
 	
 }
@@ -34,20 +35,20 @@ mp::MouseManager::~MouseManager()
 	
 }
 
-bool mp::MouseManager::operator()(sf::Event& event)
+bool mp::MouseManager::operator()()
 {
 	for(auto &binding : bindings_)
 	{
-		if(binding.second(event))
+		if(binding.second())
 			return binding.second.callFunction();
 	}
-				
+	
 	return false;
 }
 
-void mp::MouseManager::addBinding(std::string index, sf::Mouse::Button button, std::function<void()> funct, bool onPress)
+void mp::MouseManager::addBinding(std::string index, sf::Mouse::Button button, std::function<void()> funct)
 {
-	bindings_.emplace(std::make_pair(index, mp::Binding(button, onPress, funct)));
+	bindings_.emplace(std::make_pair(index, mp::Binding(button, funct)));
 }
 
 void mp::MouseManager::removeBinding(std::string index)
@@ -62,4 +63,19 @@ void mp::MouseManager::clearKey(sf::Mouse::Button button)
 		if(binding.second.getButton() == button)
 			bindings_.erase(binding.first);
 	}
+}
+
+void mp::MouseManager::enable()
+{
+	enabled_ = true;
+}
+
+void mp::MouseManager::disable()
+{
+	enabled_ = false;
+}
+
+bool mp::MouseManager::isEnabled() const
+{
+	return enabled_;
 }
