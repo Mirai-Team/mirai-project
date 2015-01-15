@@ -48,26 +48,21 @@ namespace mp
 	{
 		public:
 
-			/** \brief Constructor
+			/** \brief Constructor.
 			 *
-			 * \param logger : A Logger object.
-			 * \param priority : A string which contains Priority name.
-			 *
+			 * \param logger : a Logger object.
+			 * \param priority : a string which contains Priority name.
 			 */
 			Logstream(Logger& logger, std::string priority);
 
-			/** \brief Constructor
+			/** \brief Constructor.
 			 *
-			 * \param ls : A Logstream object.
-			 *
+			 * \param ls : a Logstream object.
 			 */
 
 			Logstream(const Logstream& ls);
 
-			/** \brief Deconstructor
-			 *
-			 *
-			 */
+			/** \brief Destructor */
 			~Logstream();
 
 		private:
