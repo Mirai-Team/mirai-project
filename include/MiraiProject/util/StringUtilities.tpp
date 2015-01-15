@@ -42,8 +42,8 @@ namespace mp
     }
 
     template <typename T>
-    T StringUtilities::fromString(const string& s){
-	    stringstream ss(s);
+    T StringUtilities::fromString(const string& str){
+	    stringstream ss(str);
 	    T t;
 	    ss >> t;
 	    return t;
