@@ -36,6 +36,10 @@
 
 namespace mp
 {
+	/** \class TransformableUtilities
+	 * \brief A static class with various functions to manipulate sf::Transformable.
+	 */
+	
 	class TransformableUtilities
 	{
 		public:

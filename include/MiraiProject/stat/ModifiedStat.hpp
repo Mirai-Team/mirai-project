@@ -31,29 +31,36 @@
 
 /** \file ModifiedStat.hpp
  * \brief This file contains ModifiedStat class and ModifyingStat structure definition.
- * ModifiedStat is for Attributs like Strength, Spirit, etc...
- * In general for stats which don't need current value.
+ * 		ModifiedStat is for attributes like Strength, Spirit, etc...
+ * 		In general for stats which don't need to be variables.
  */
 
 namespace mp 
 {
+	/** \struct ModifyingStat
+	 * \brief Like Buff, but using ratio.
+	 */
+	 
 	struct ModifyingStat 
 	{
-		/** \brief The stat of which depends the modified stat. */
+		/** \brief ratio : the stat on which depends the modified stat. */
 		BaseStat stat; 
 		
-		/** \brief An augmentation or a diminution.
-		 *
-		 * For instance : 0.1 is an augmentation of 10%
-		 * -0.1 is a diminution of 10%
-		 */
+		/** \brief ratio : an augmentation or a diminution, between -1 and 1 */
 		float ratio;
 	};
+	
+	/** \class ModifiedStat
+	 * \brief Stat supporting ratio modification.
+	 */
 	
 	class ModifiedStat : public BaseStat 
 	{
 		public:
+			/** \brief Constructor */
 			ModifiedStat();
+			
+			/** \brief Destructor */
 			virtual ~ModifiedStat();
 			
 			/** \brief Add a Modifier to the buff list.

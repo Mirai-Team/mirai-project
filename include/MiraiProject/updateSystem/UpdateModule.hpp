@@ -31,24 +31,34 @@
 
 #include "MiraiProject/updateSystem/Updatable.hpp"
 
+/** @file UpdateModule.hpp
+ * 	\brief This file define UpdateModule class.
+ */
+ 
 namespace mp
 {
+	/** \class UpdateModule
+	 * \brief Static class to update all Updatable based objects.
+	 */
+	 
 	class UpdateModule
 	{
+		// In order to prevent the user to call UpdateModule::AddUpdater, UpdateModule::RemoveUpdater, ...
 		friend class Updatable;
 		
 		public:
-			/** \brief Update all Updatable.
-			 * \param delta_time : time elapsed since last update.
+			/** \brief Update all the Updatable stored in the update module by calling their update() method.
+			 *
+			 * \param deltaTime : time elapsed since last update.
 			 */
-			static void Update(float delta_time);
+			static void update(float deltaTime);
 			
 		private:
 			// Add an Updater in updatableList_
-			static void AddUpdater(Updatable* updatable);
+			static void addUpdater(Updatable* updatable);
 			
 			// Remove an Updater from updatableList_
-			static void RemoveUpdater(Updatable* updatable);
+			static void removeUpdater(Updatable* updatable);
 			
 			// Objects list to update.
 			static std::list<Updatable*> updatableList_;

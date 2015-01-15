@@ -28,24 +28,31 @@
 #include <iostream>
 #include <memory>
 
+/** @file Updatable.hpp
+ * 	\brief This file define Updatable class.
+ */
+ 
 namespace mp
 {
 	/** \class Updatable
-	 * \brief A class to add a inherited class to updateList_.
+	 * \brief Virtual class to create entities to update with an UpdateModule.
 	 */
 	class Updatable
 	{
+		// In order to prevent the user to call UpdateModule::AddUpdater.
 		friend class UpdateModule;
 		
 		public:
-		
-			virtual void Update(float delta_time) = 0;
-			
-		protected:
-		
-			/** \brief Constructor
+			/** \brief Function called by UpdateModule
 			 * 
+			 * This is a pure virtual function that has to be implemented by derived class to update their content.
+			 * 
+			 * \param deltaTime : time elapsed since last update.
 			 */
+			virtual void update(float deltaTime) = 0;
+			
+		protected:	
+			/** \brief Constructor */
 			Updatable();
 			
 			/** \brief Destructor */

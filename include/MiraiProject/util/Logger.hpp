@@ -48,7 +48,11 @@ namespace mp
     extern std::string priorityInfo;
     extern std::string priorityConfig;
 	
-	class Logstream;
+	class Logstream; // Because Logger use Logstream and Logstream use Logger..
+	
+	/** \class Logger
+	 * \brief Class for logging.
+	 */
 	
 	class Logger
 	{
@@ -59,30 +63,27 @@ namespace mp
 			 */
 			Logger(std::string filename);
 
-			/** \brief Deconstructor
-			 */
+			/** \brief Deconstructor */
 			virtual ~Logger();
 
 			/** \brief Write msg in log file.
 			 *
-			 * \param priority : A string which contains Priority name.
-			 * \param msg : Message to write.
-			 *
+			 * \param priority : a string which contains Priority name.
+			 * \param msg : message to write.
 			 */
 			void log(std::string priority, std::string msg);
 
 			/** \brief Operator() with Info Priority.
 			 *
-			 * \return A Logstream with Info Priority.
-			 *
+			 * \return a Logstream using Info priority.
 			 */
 			Logstream operator()();
 
 			/** \brief Operator() with string parameter.
 			 *
-			 * \param priority : string which contains Priority name.
-			 * \return A Logstream with Priority name given in parameter.
-			 *
+			 * \param priority : the priority name.
+			 * 
+			 * \return a Logstream using the given priority name.
 			 */
 			Logstream operator()(std::string priority);
 
