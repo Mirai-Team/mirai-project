@@ -59,7 +59,8 @@ int main()
 	mp::AnimatedSprite mySprite{ spriteSheet };
 	mySprite.setFrameSize(sf::Vector2i(32, 36));
 	mySprite.setDefaultTimePerFrame(sf::seconds(0.2f));
-	mySprite.setRepeating(true);
+	mySprite.setRepeating(false);
+	mySprite.setReversed(true);
 	mySprite.setPosition(200, 200);
 	
 	mySprite.addAnimation("up", 0, 3); // first animation added, indice = 0

@@ -85,14 +85,25 @@ void mp::AnimatedSprite::update(sf::Time dt)
 	
 	elapsedTime_ += dt;
 	
-	while (elapsedTime_ >= currentAnimation.timePerFrame_ and (currentFrame_ + 1 < currentAnimation.numFrames_ or repeat_))
+	while (elapsedTime_ >= currentAnimation.timePerFrame_ and 
+		  (repeat_ or ((!reversed_ and (currentFrame_ + 1 < currentAnimation.numFrames_)) or (reversed_ and (currentFrame_ > 0 )))))
 	{
 		elapsedTime_ -= currentAnimation.timePerFrame_;
 		
 		if (repeat_)
-			currentFrame_ = (currentFrame_ + 1) % currentAnimation.numFrames_;
+		{
+			if(reversed_)
+				currentFrame_ = (currentFrame_ - 1) % currentAnimation.numFrames_;
+			else
+				currentFrame_ = (currentFrame_ + 1) % currentAnimation.numFrames_;
+		}
 		else
-			currentFrame_++;
+		{
+			if(reversed_)
+				currentFrame_--;
+			else
+				currentFrame_++;
+		}
 	}
 	
 	unsigned int realFrame{ currentFrame_ + currentAnimation.numStartingFrame_ }; // The actual frame number on the sprite sheet.
@@ -219,7 +230,11 @@ int mp::AnimatedSprite::getCurrentFrame() const
 bool mp::AnimatedSprite::isFinished() const
 {
 	mp::Animation currentAnimation{ animations_[currentAnimation_] };
-	return currentFrame_ >= currentAnimation.numFrames_ - 1 and elapsedTime_ >= currentAnimation.timePerFrame_;
+	
+	if(reversed_)
+		return currentFrame_ <= 0 and elapsedTime_ >= currentAnimation.timePerFrame_;
+	else
+		return currentFrame_ >= currentAnimation.numFrames_ - 1 and elapsedTime_ >= currentAnimation.timePerFrame_;
 }
 
 int mp::AnimatedSprite::getNumAnimations() const
@@ -309,6 +324,10 @@ const sf::Texture* mp::AnimatedSprite::getTexture() const
 	return sprite_.getTexture();
 }
 
+bool mp::AnimatedSprite::getReversed() const
+{
+	return reversed_;
+}
 /////////////
 // Setters //
 /////////////
@@ -321,11 +340,20 @@ void mp::AnimatedSprite::setFrameSize(const sf::Vector2i& newFrameSize)
 void mp::AnimatedSprite::setCurrentFrame(const unsigned int& newCurrentFrame)
 {
 	currentFrame_ = newCurrentFrame;
+	elapsedTime_ = sf::Time::Zero;
 }
 
 void mp::AnimatedSprite::restart()
 {
-	currentFrame_ = 0;
+	if (reversed_)
+	{
+		mp::Animation currentAnimation{ animations_[currentAnimation_] };
+		currentFrame_ = currentAnimation.numFrames_ - 1;
+	}
+	else
+		currentFrame_ = 0;
+	
+	elapsedTime_ = sf::Time::Zero;
 }
 
 void mp::AnimatedSprite::setCurrentAnimation(const unsigned int& newCurrentAnimation)
@@ -423,6 +451,10 @@ void mp::AnimatedSprite::setTexture(const sf::Texture& texture)
 	sprite_.setTexture(texture);
 }
 
+void mp::AnimatedSprite::setReversed(bool reversed)
+{
+	reversed_ = reversed;
+}
 /////////////
 // Private //
 /////////////

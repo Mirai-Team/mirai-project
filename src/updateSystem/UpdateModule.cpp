@@ -23,31 +23,42 @@
 ////////////////////////////////////////////////////////////
 
 #include <algorithm>
+#include <string>
+#include <map>
+#include <utility>
 
 #include "MiraiProject/updateSystem/UpdateModule.hpp"
 #include "MiraiProject/updateSystem/Updatable.hpp"
 
-std::list<mp::Updatable*> mp::UpdateModule::updatableList_;
+std::map<std::string, std::list<mp::Updatable*>> mp::UpdateModule::updatableList_;
 
-void mp::UpdateModule::update(float deltaTime)
+void mp::UpdateModule::update(sf::Time deltaTime, std::string key)
 {
-	if(updatableList_.size() > 0)
+	for_each(updatableList_[key].begin(), updatableList_[key].end(), [&](mp::Updatable* p)
 	{
-		for_each(updatableList_.begin(), updatableList_.end(), [&](mp::Updatable* p)
-		{
 			p->update(deltaTime);
-		});
-	}
+	});
 }
 
-void mp::UpdateModule::addUpdater(mp::Updatable* updatable)
+void mp::UpdateModule::addUpdater(mp::Updatable* updatable, std::string key)
 {
-	updatableList_.push_back(updatable);
+	if (updatableList_.find(key) != updatableList_.end())
+		updatableList_[key].push_back(updatable);
+	else
+	{
+		std::list<mp::Updatable*> temp;
+		temp.push_back(updatable);
+		updatableList_[key] = temp;
+		
+	}
 }
 
 void mp::UpdateModule::removeUpdater(Updatable* updatable)
 {
-	updatableList_.remove_if([updatable] (Updatable* p) { 
-		return p == updatable;
-	});
+	for(auto &updatableClass : updatableList_)
+	{
+		updatableClass.second.remove_if([updatable] (Updatable* p) { 
+			return p == updatable;
+		});
+	}
 }

@@ -25,9 +25,9 @@
 #include "MiraiProject/updateSystem/Updatable.hpp"
 #include "MiraiProject/updateSystem/UpdateModule.hpp"
 
-mp::Updatable::Updatable()
+mp::Updatable::Updatable(std::string key)
 {
-	mp::UpdateModule::addUpdater(this);
+	mp::UpdateModule::addUpdater(this, key);
 }
 
 mp::Updatable::~Updatable()

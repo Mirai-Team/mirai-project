@@ -27,6 +27,9 @@
 
 #include <iostream>
 #include <memory>
+#include <string>
+
+#include <SFML/System/Time.hpp>
 
 /** @file Updatable.hpp
  * 	\brief This file define Updatable class.
@@ -49,11 +52,11 @@ namespace mp
 			 * 
 			 * \param deltaTime : time elapsed since last update.
 			 */
-			virtual void update(float deltaTime) = 0;
+			virtual void update(sf::Time deltaTime) = 0;
 			
 		protected:	
 			/** \brief Constructor */
-			Updatable();
+			Updatable(std::string key = "default");
 			
 			/** \brief Destructor */
 			virtual ~Updatable();

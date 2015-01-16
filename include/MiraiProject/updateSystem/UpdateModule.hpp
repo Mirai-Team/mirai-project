@@ -27,6 +27,8 @@
 
 #include <memory>
 #include <list>
+#include <map>
+#include <string>
 #include <algorithm>
 
 #include "MiraiProject/updateSystem/Updatable.hpp"
@@ -51,17 +53,17 @@ namespace mp
 			 *
 			 * \param deltaTime : time elapsed since last update.
 			 */
-			static void update(float deltaTime);
+			static void update(sf::Time deltaTime, std::string key);
 			
 		private:
 			// Add an Updater in updatableList_
-			static void addUpdater(Updatable* updatable);
+			static void addUpdater(Updatable* updatable, std::string key);
 			
 			// Remove an Updater from updatableList_
 			static void removeUpdater(Updatable* updatable);
 			
 			// Objects list to update.
-			static std::list<Updatable*> updatableList_;
+			static std::map<std::string, std::list<Updatable*>> updatableList_;
 	};
 
 }
