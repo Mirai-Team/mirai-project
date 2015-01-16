@@ -1,0 +1,5 @@
+someBoolean=1
+someIntVector=5;8;9;1;2;4
+someStringVector=abc;hello there !;mirai project
+someFloatValue=3.14
+someIntValue=42

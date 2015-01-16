@@ -26,35 +26,84 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include "MiraiProject/parser/Parser.hpp"
-#include "MiraiProject/encryption/Encryption.hpp"
+
+#include <MiraiProject/parser/Parser.hpp>
+#include <MiraiProject/encryption/Encryption.hpp>
 
 using namespace std;
 
 int main()
 {
-	mp::Encryption EncryptMotor("lol");
-	string fileName { "ressources/config.txt" };
-	string variableName { "fullscreen" };
-	string EncryptedData;
-	vector<string> values;
+	string encryptionKey{ "someKeyForEncryption" };
+	
+	mp::Encryption encryptMotor(encryptionKey);
+	
+	string clearFileName{ "resources/clearConfig.txt" };
+	string encryptedFileName{ "resources/encryptedConfig.txt" };
+	string decryptedFileName{ "resources/decryptedConfig.txt" };
+	
+	string encryptedData{ };
+	string decryptedData{ };
+	
 	ofstream file;
 	
-	// Encrypt file for the example.
-	EncryptedData = EncryptMotor.encryptFile(fileName);
-	file.open(fileName, ios::trunc);
-	file << EncryptedData;
-	file.close();
+	cout << "Trying to encrypt " << clearFileName << "." << endl;
 	
-	// Read fullscreen values
-	values = mp::Parser::vFileParser<string>(fileName, "fullscreen", '=', ';', true, "lol");
-	cout << values[0] << endl;
+	// Encrypt config file.
+	encryptedData = encryptMotor.encryptFile(clearFileName);
 	
-	// Decrypt file for the example
-	EncryptedData = EncryptMotor.encryptFile(fileName);
-	file.open(fileName, ios::trunc);
-	file << EncryptedData;
-	file.close();
+	if (encryptedData != "")
+	{
+		file.open(encryptedFileName, ios::trunc);
+		file << encryptedData;
+		file.close();
+	
+		cout << "Encryption successful." << endl;
+		
+		cout << "Trying to decrypt " << encryptedFileName << "." << endl;
+		
+		// Decrypt encrypted config file.
+		decryptedData = encryptMotor.encryptFile(encryptedFileName);
+		file.open(decryptedFileName, ios::trunc);
+		file << decryptedData;
+		file.close();
+		
+		cout << "Decryption successful." << endl;
+		
+		// Read some values from config files.
+		bool myBool { };
+		vector<int> myIntVector { };
+		vector<string> myStringVector { };
+		float myFloat { };
+		int myInt { };
+		
+		// From the encrypted config file.
+		myBool = mp::Parser::fileParser<bool>(encryptedFileName, "someBoolean", '=', true, encryptionKey);
+		myIntVector = mp::Parser::vFileParser<int>(encryptedFileName, "someIntVector", '=', ';', true, encryptionKey);
+		
+		// From the clear config file.
+		myStringVector = mp::Parser::vFileParser<string>(clearFileName, "someStringVector", '=', ';');
+		myFloat = mp::Parser::fileParser<float>(clearFileName, "someFloatValue", '=');
+		myInt = mp::Parser::fileParser<int>(clearFileName, "someIntValue", '=');
+		
+		// Let's print what we got.
+		cout << "someBoolean = " << myBool << endl;
+		
+		cout << "someIntVector =";
+		for (auto value : myIntVector)
+			cout << " " << value;
+		cout << endl;
+		
+		cout << "someStringVector =";
+		for (auto value : myStringVector)
+			cout << " " << value;
+		cout << endl;
+		
+		cout << "someFloatValue = " << myFloat << endl;
+		cout << "someIntValue = " << myInt << endl;
+	}
+	else
+		cout << clearFileName << " is not found or empty." << endl;
 	
 	return 0;
 }
