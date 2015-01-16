@@ -22,61 +22,37 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include "MiraiProject/inputManager/MouseManager.hpp"
+#ifndef CHARACTER_HPP_INCLUDED
+#define CHARACTER_HPP_INCLUDED
 
-mp::MouseManager::MouseManager() : bindings_ { },
-								   enabled_{ true }
-{
-	
-}
+#include <memory>
 
-mp::MouseManager::~MouseManager()
-{
-	
-}
+#include <SFML/System/Vector2.hpp>
+#include <SFML/System/Time.hpp>
+#include <MiraiProject/animations/AnimatedSprite.hpp>
 
-void mp::MouseManager::operator()()
+class Character : public mp::AnimatedSprite
 {
-	if (enabled_)
-	{
-		for(auto &binding : bindings_)
-		{
-			if(binding.second())
-				binding.second.callFunction();
-		}
-	}
-}
+	public:
+		Character(std::shared_ptr<sf::Texture> spriteSheet);
+		
+		void update(sf::Time dt);
+		
+		void moveRight();
+		void moveLeft();
+		void moveUp();
+		void moveDown();
+		
+	private:
+		float speed_;
+		
+		sf::Vector2f lastPosition_;
+		
+		bool movingLeft;
+		bool movingRight;
+		bool movingDown;
+		bool movingUp;
+};
 
-void mp::MouseManager::addBinding(std::string index, sf::Mouse::Button button, std::function<void()> funct)
-{
-	bindings_.emplace(std::make_pair(index, mp::Binding(button, funct)));
-}
 
-void mp::MouseManager::removeBinding(std::string index)
-{
-	bindings_.erase(index);
-}
-
-void mp::MouseManager::clearKey(sf::Mouse::Button button)
-{
-	for(auto &binding : bindings_)
-	{
-		if(binding.second.getButton() == button)
-			bindings_.erase(binding.first);
-	}
-}
-
-void mp::MouseManager::enable()
-{
-	enabled_ = true;
-}
-
-void mp::MouseManager::disable()
-{
-	enabled_ = false;
-}
-
-bool mp::MouseManager::isEnabled() const
-{
-	return enabled_;
-}
+#endif // CHARACTER_HPP_INCLUDED
