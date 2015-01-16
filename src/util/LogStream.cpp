@@ -30,7 +30,8 @@
 
 using namespace std;
 
-mp::Logstream::Logstream(mp::Logger& logger, string priority) : logger_(logger), priority_(priority)
+mp::Logstream::Logstream(mp::Logger& logger, string priority) : logger_(logger), 
+																priority_(priority)
 {
 }
 

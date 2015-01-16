@@ -40,17 +40,6 @@ string mp::priorityWarning = "WARNING";
 string mp::priorityInfo = "INFO";
 string mp::priorityConfig = "CONFIG";
     
-ostream& operator<< (ostream& stream, const tm* time)
-{
-    // We write values on two digits.
-	return stream << 1900 + time->tm_year << '-' 
-		<< setfill('0') << setw(2) << time->tm_mon + 1 << '-'
-		<< setfill('0') << setw(2) << time->tm_mday << ' '
-		<< setfill('0') << setw(2) << time->tm_hour << ':'
-		<< setfill('0') << setw(2) << time->tm_min << ':'
-		<< setfill('0') << setw(2) << time->tm_sec;
-}
-
 // 0 in time_ are for -Wmissing-field-initializers
 mp::Logger::Logger(string filename) : 
 	mutex_ { }, 
@@ -68,6 +57,17 @@ mp::Logger::~Logger()
 		file_.flush();
 		file_.close();
 	}
+}
+
+ostream& operator<< (ostream& stream, const tm* time)
+{
+    // We write values on two digits.
+	return stream << 1900 + time->tm_year << '-' 
+		<< setfill('0') << setw(2) << time->tm_mon + 1 << '-'
+		<< setfill('0') << setw(2) << time->tm_mday << ' '
+		<< setfill('0') << setw(2) << time->tm_hour << ':'
+		<< setfill('0') << setw(2) << time->tm_min << ':'
+		<< setfill('0') << setw(2) << time->tm_sec;
 }
 
 mp::Logstream mp::Logger::operator()()

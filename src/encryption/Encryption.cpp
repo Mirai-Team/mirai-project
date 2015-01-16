@@ -63,7 +63,7 @@ bool mp::Encryption::createFile(string outputFile, path directory)
 
     fileNames_ = filesUtilities::listFiles(directory, true);
 	
-	//In order to keep cross-plateform, we replace windowsSeparator by unixSeparator
+	// In order to keep cross-plateform, we replace windowsSeparator by unixSeparator
 	char windowsSeparator = '\\' ;
 	char unixSeparator = '/' ;
 
@@ -75,7 +75,6 @@ bool mp::Encryption::createFile(string outputFile, path directory)
 				fileNames_[i][j] = unixSeparator;
 		}
 	}
-	//std::replace(fileNames_.begin(), fileNames_.end(), windowsSeparator, unixSeparator);
 	
     if(writeHeader() && writeData())
         return true;
@@ -86,18 +85,20 @@ bool mp::Encryption::createFile(string outputFile, path directory)
 bool mp::Encryption::writeHeader()
 {
     bool hasSuccess = false;
-    //Set base offset to 8 bytes (headerLen + fileCount).
-    long unsigned int offset=8, fileCount, fileOffset;
-    long unsigned int headerLen;
+
+    // Set base offset to 8 bytes (headerLen + fileCount).
+    long unsigned int offset=8;
+    long unsigned int headerLen, fileCount, fileOffset;
 
     vector<long unsigned int> fileSize, fileNameLen;
 
     fstream output(outputFile_, ios::in | ios::out | ios::binary | ios::trunc);
+
     if(output)
     {
         for(unsigned int i = 0; i<fileNames_.size(); i++)
         {
-            //Calculate the filename length and push it in filename.
+            // Calculate the filename length and push it in filename.
             fileNameLen.push_back(fileNames_[i].size());
             fileSize.push_back(file_size(fileNames_[i]));
 
@@ -117,29 +118,35 @@ bool mp::Encryption::writeHeader()
         output.seekg(0,ios::beg);
         encryptFile(outputFile_);
 
-        //Add the last offset in headerlen and write it.
+        // Add the last offset in headerlen and write it.
         headerLen = file_size(outputFile_)+4;
         output.write(reinterpret_cast<char*>(&headerLen),4);
 
-        //Write the number of files which are encrypted.
+        // Write the number of files which are encrypted.
         fileCount = fileNames_.size();
         output.write(reinterpret_cast<char*>(&fileCount),4);
 
-        //Set base offset to 4, and base fileoffset to headerlen.
+        // Set base offset to 4, and base fileoffset to headerlen.
         offset=4;
         fileOffset = headerLen;
 
         for(unsigned int i = 0; i<fileNames_.size(); i++)
         {
+            // Calculate offset
             offset+=fileNames_[i].size()+4+4+4;
+
+            // Push fileOffset in offset_ for writeData() method.
             offset_.push_back(fileOffset);
 
+            // Write offset in fileOffset.
             output.seekg(offset,ios::beg);
             output.write(reinterpret_cast<const char*>(&fileOffset),4);
 
             fileOffset += fileSize[i];
         }
+
         output.close();
+
         hasSuccess = true;
     }
     else
@@ -151,7 +158,9 @@ bool mp::Encryption::writeHeader()
 bool mp::Encryption::writeData()
 {
     bool hasSuccess = false;
+
     fstream output(outputFile_, ios::in | ios::out | ios::binary);
+
     if(output)
     {
         for(unsigned int i =0; i<fileNames_.size(); i++)
@@ -163,7 +172,9 @@ bool mp::Encryption::writeData()
             output << encryptFile(fileNames_[i]);
 
         }
+
         output.close();
+
         hasSuccess = true;
     }
     else
@@ -204,39 +215,39 @@ string mp::Encryption::loadFile(string inputFile, string targetFile)
 
     
 
-    //Read headerlen & filecount
+    // Read headerlen & filecount
     input.read(reinterpret_cast<char*>(&headerLen), 4);
     input.read(reinterpret_cast<char*>(&fileCount), 4);
 
     while(i<fileCount)
     {
-		//read the filenamelen.
+		// Read the filenamelen.
         input.seekg(offset,ios::beg);
         input.read(reinterpret_cast<char*>(&fileNameLen), 4);
 
-		//read filename
+		// Read filename
         string filename(fileNameLen, ' ');
         input.read(&filename[0], fileNameLen);
 
-        //increment the offset with filenamelen.
+        // Increment the offset with filenamelen.
         offset+=fileNameLen+4+4+4;
 
         if(filename == targetFile)
         {
-            //read the filesize into the input file.
+            // Read the filesize into the input file.
             input.read(reinterpret_cast<char*>(&fileSize), 4);
-            //read the fileoffset into the input file.
+            // Read the fileoffset into the input file.
             input.read(reinterpret_cast<char*>(&fileOffset), 4);
 
-            //Move the cursor on the first bit of the file and read it with filesize.
+            // Move the cursor on the first bit of the file and read it with filesize.
             std::string file(fileSize, ' ');
             input.seekg(fileOffset, ios::beg);
             input.read(&file[0], fileSize);
 
-            //convert in order to use crypt_data function.
+            // Convert in order to use crypt_data function.
             file = encryptData(key_, file);
 
-            //The file have been found, no need to keep running the loop.
+            // The file have been found, no need to keep running the loop.
             return file;
         }
         i++;
@@ -250,7 +261,7 @@ string mp::Encryption::loadFile(string inputFile, string targetFile)
 
 string mp::Encryption::encryptKey(string key)
 {
-    //Apply a NOT on each bit from each character of key string.
+    // Apply a NOT on each bit from each character of key string.
     for(unsigned int i=0; i<key.length(); i++)
         key[i] = static_cast<char>( ~key[i] );
 
@@ -259,7 +270,7 @@ string mp::Encryption::encryptKey(string key)
 
 string mp::Encryption::encryptData(string key, string data)
 {
-    //Apply a XOR between the key MOD length() and data.
+    // Apply a XOR between the key MOD length() and data.
     for(unsigned int i=0; i<data.length(); i++)
         data[i] = static_cast<char>( data[i] ^ key[i%key.length()] );
     return data;
