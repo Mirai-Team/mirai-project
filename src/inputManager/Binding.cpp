@@ -27,17 +27,17 @@
 
 #include "MiraiProject/inputManager/Binding.hpp"
 
-mp::Binding::Binding(sf::Keyboard::Key key, std::function<void()> funct) : isKeyboardBinding{ true },
-																		   key_ { key },
-																		   button_ { },
+mp::Binding::Binding(std::vector<sf::Keyboard::Key> keys, std::function<void()> funct) : isKeyboardBinding{ true },
+																		   keys_ { keys },
+																		   buttons_ { },
 																		   funct_ { funct }
 {
 	
 }
 
-mp::Binding::Binding(sf::Mouse::Button button, std::function<void()> funct) : isKeyboardBinding{ false },
-																			  key_ { },
-																			  button_ { button },
+mp::Binding::Binding(std::vector<sf::Mouse::Button> buttons, std::function<void()> funct) : isKeyboardBinding{ false },
+																			  keys_ { },
+																			  buttons_ { buttons },
 																			  funct_ { funct }
 {
 	
@@ -58,18 +58,33 @@ void mp::Binding::callFunction()
 
 bool mp::Binding::operator()()
 {
-	if((isKeyboardBinding and sf::Keyboard::isKeyPressed(key_)) or (!isKeyboardBinding and sf::Mouse::isButtonPressed(button_)))
-		return true;
-	else
-		return false;
+	bool IsPressed = true;
+
+	for(unsigned int i = 0; i < keys_.size(); i++)
+	{
+		if(isKeyboardBinding and sf::Keyboard::isKeyPressed(keys_[i]))
+			IsPressed &= true;
+		else
+			IsPressed = false;
+	}
+	
+	for(unsigned int i = 0; i < buttons_.size(); i++)
+	{
+		if(!isKeyboardBinding and sf::Mouse::isButtonPressed(buttons_[i]))
+			IsPressed &= true;
+		else
+			IsPressed = false;
+	}
+	
+	return IsPressed;
 }
 
-sf::Keyboard::Key mp::Binding::getKey()
+std::vector<sf::Keyboard::Key> mp::Binding::getKeys()
 {
-	return key_;
+	return keys_;
 }
 
-sf::Mouse::Button mp::Binding::getButton()
+std::vector<sf::Mouse::Button> mp::Binding::getButtons()
 {
-	return button_;
+	return buttons_;
 }

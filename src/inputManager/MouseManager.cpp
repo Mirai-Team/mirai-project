@@ -49,7 +49,15 @@ void mp::MouseManager::operator()()
 
 void mp::MouseManager::addBinding(std::string index, sf::Mouse::Button button, std::function<void()> funct)
 {
-	bindings_.emplace(std::make_pair(index, mp::Binding(button, funct)));
+	std::vector<sf::Mouse::Button> temp;
+	temp.push_back(button);
+	
+	bindings_.emplace(std::make_pair(index, mp::Binding(temp, funct)));
+}
+
+void mp::MouseManager::addBinding(std::string index, std::vector<sf::Mouse::Button> buttons, std::function<void()> funct)
+{
+	bindings_.emplace(std::make_pair(index, mp::Binding(buttons, funct)));
 }
 
 void mp::MouseManager::removeBinding(std::string index)
@@ -57,11 +65,23 @@ void mp::MouseManager::removeBinding(std::string index)
 	bindings_.erase(index);
 }
 
-void mp::MouseManager::clearKey(sf::Mouse::Button button)
+void mp::MouseManager::clearButton(sf::Mouse::Button button)
+{
+	std::vector<sf::Mouse::Button> temp;
+	temp.push_back(button);
+	
+	for(auto &binding : bindings_)
+	{
+		if(binding.second.getButtons() == temp)
+			bindings_.erase(binding.first);
+	}
+}
+
+void mp::MouseManager::clearButton(std::vector<sf::Mouse::Button> button)
 {
 	for(auto &binding : bindings_)
 	{
-		if(binding.second.getButton() == button)
+		if(binding.second.getButtons() == button)
 			bindings_.erase(binding.first);
 	}
 }

@@ -49,7 +49,15 @@ void mp::KeyboardManager::operator()()
 
 void mp::KeyboardManager::addBinding(std::string index, sf::Keyboard::Key key, std::function<void()> funct)
 {
-	bindings_.emplace(std::make_pair(index, mp::Binding(key, funct)));
+	std::vector<sf::Keyboard::Key> temp;
+	temp.push_back(key);
+	
+	bindings_.emplace(std::make_pair(index, mp::Binding(temp, funct)));
+}
+
+void mp::KeyboardManager::addBinding(std::string index, std::vector<sf::Keyboard::Key> keys, std::function<void()> funct)
+{
+	bindings_.emplace(std::make_pair(index, mp::Binding(keys, funct)));
 }
 
 void mp::KeyboardManager::removeBinding(std::string index)
@@ -59,9 +67,12 @@ void mp::KeyboardManager::removeBinding(std::string index)
 
 void mp::KeyboardManager::clearKey(sf::Keyboard::Key key)
 {
+	std::vector<sf::Keyboard::Key> temp;
+	temp.push_back(key);
+	
 	for(auto &binding : bindings_)
 	{
-		if(binding.second.getKey() == key)
+		if(binding.second.getKeys() == temp)
 			bindings_.erase(binding.first);
 	}
 }

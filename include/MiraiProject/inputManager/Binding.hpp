@@ -42,13 +42,13 @@ namespace mp
 			 * \param key : a key
 			 * \param funct : a function to launch when key is pressed or released.
 			 */
-			explicit Binding(sf::Keyboard::Key key, std::function<void()> funct);
+			explicit Binding(std::vector<sf::Keyboard::Key> keys, std::function<void()> funct);
 			
 			/** \brief Constructor for MouseManager
 			 * \param button : a key
 			 * \param funct : a function to launch when key is pressed or released.
 			 */
-			explicit Binding(sf::Mouse::Button button, std::function<void()> funct);
+			explicit Binding(std::vector<sf::Mouse::Button> buttons, std::function<void()> funct);
 			
 			/** \brief Destructor */
 			~Binding();
@@ -63,19 +63,19 @@ namespace mp
 			 *
 			 * \return a sfml key.
 			 */
-			sf::Keyboard::Key getKey();
+			std::vector<sf::Keyboard::Key> getKeys();
 			
 			/** \brief Button getter
 			 *
 			 * \return a sfml button.
 			 */
-			sf::Mouse::Button getButton();
+			std::vector<sf::Mouse::Button> getButtons();
 			
 		private:
 			bool isKeyboardBinding;
 		
-			sf::Keyboard::Key key_;
-			sf::Mouse::Button button_;
+			std::vector<sf::Keyboard::Key> keys_;
+			std::vector<sf::Mouse::Button> buttons_;
 			
 			std::function<void()> funct_;
 	};

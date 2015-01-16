@@ -55,6 +55,14 @@ namespace mp
 			 */
 			void addBinding(std::string index, sf::Keyboard::Key key, std::function<void()> funct = [](){ return true; });
 			
+			/** \brief Add an action for a key.
+			 *
+			 * \param index : index of key in map.
+			 * \param funct : function to launch when key is pressed or released.
+			 * \param onPress : launch function when key is pressed or released.
+			 */
+			void addBinding(std::string index, std::vector<sf::Keyboard::Key> keys, std::function<void()> funct = [](){ return true; });
+			
 			/** \brief Remove action.
 			 *
 			 * \param index : index of key in map.
