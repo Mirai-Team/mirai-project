@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-project(playerControl)
+project(PlayerControl)
 
 # Enable debug symbols by default
 if(CMAKE_BUILD_TYPE STREQUAL "")
@@ -7,9 +7,9 @@ if(CMAKE_BUILD_TYPE STREQUAL "")
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-	set(APP_NAME playerControl-d)
+	set(APP_NAME PlayerControl-d)
 else()
-	set(APP_NAME playerControl)
+	set(APP_NAME PlayerControl)
 endif()
 
 set(EXECUTABLE_OUTPUT_PATH .)

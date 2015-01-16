@@ -49,7 +49,7 @@ namespace mp
 			
 			void clearButton(sf::Mouse::Button button);
 			
-			void clearButton(std::vector<sf::Mouse::Button> button);
+			void clearButton(std::vector<sf::Mouse::Button> buttons);
 			
 			void operator()();
 			

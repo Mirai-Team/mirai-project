@@ -69,11 +69,28 @@ void mp::KeyboardManager::clearKey(sf::Keyboard::Key key)
 {
 	std::vector<sf::Keyboard::Key> temp;
 	temp.push_back(key);
-	
-	for(auto &binding : bindings_)
+
+	auto binding = bindings_.begin();
+	while (binding != bindings_.end())
 	{
-		if(binding.second.getKeys() == temp)
-			bindings_.erase(binding.first);
+		if (binding->second.getKeys() == temp) {
+			binding = bindings_.erase(binding);
+		}
+		else 
+			binding++;
+	}
+}
+
+void mp::KeyboardManager::clearKey(std::vector<sf::Keyboard::Key> keys)
+{
+	auto binding = bindings_.begin();
+	while (binding != bindings_.end())
+	{
+		if (binding->second.getKeys() == keys) {
+			binding = bindings_.erase(binding);
+		}
+		else 
+			binding++;
 	}
 }
 

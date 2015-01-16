@@ -70,19 +70,29 @@ void mp::MouseManager::clearButton(sf::Mouse::Button button)
 	std::vector<sf::Mouse::Button> temp;
 	temp.push_back(button);
 	
-	for(auto &binding : bindings_)
+	auto binding = bindings_.begin();
+	while (binding != bindings_.end())
 	{
-		if(binding.second.getButtons() == temp)
-			bindings_.erase(binding.first);
+		if (binding->second.getButtons() == temp) {
+			binding = bindings_.erase(binding);
+		}
+		else 
+		{
+			binding++;
+		}
 	}
 }
 
-void mp::MouseManager::clearButton(std::vector<sf::Mouse::Button> button)
+void mp::MouseManager::clearButton(std::vector<sf::Mouse::Button> buttons)
 {
-	for(auto &binding : bindings_)
+	auto binding = bindings_.begin();
+	while (binding != bindings_.end())
 	{
-		if(binding.second.getButtons() == button)
-			bindings_.erase(binding.first);
+		if (binding->second.getButtons() == buttons) {
+			binding = bindings_.erase(binding);
+		}
+		else 
+			binding++;
 	}
 }
 

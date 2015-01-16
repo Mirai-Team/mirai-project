@@ -75,6 +75,12 @@ namespace mp
 			 */
 			void clearKey(sf::Keyboard::Key key);
 			
+			/** \brief Clear all actions associated to a key. 
+			 *
+			 * \param keys : keys to clean.
+			 */
+			void clearKey(std::vector<sf::Keyboard::Key> keys);
+			
 			/** \brief Execute action matching the key.
 			 * 
 			 * \param event : the event to check.
