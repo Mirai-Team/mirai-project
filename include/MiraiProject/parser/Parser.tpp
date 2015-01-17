@@ -30,6 +30,7 @@
 #include "MiraiProject/util/StringUtilities.hpp"
 #include "MiraiProject/util/Logger.hpp"
 #include "MiraiProject/encryption/Encryption.hpp"
+
 using namespace std;
 
 namespace mp

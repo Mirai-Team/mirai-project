@@ -40,7 +40,7 @@
 namespace mp
 {
 	/** \class UpdateModule
-	 * \brief Static class to update all Updatable based objects.
+	 * \brief Static class to update all Updatable based objects according to the map key.
 	 */
 	 
 	class UpdateModule
@@ -52,6 +52,7 @@ namespace mp
 			/** \brief Update all the Updatable stored in the update module by calling their update() method.
 			 *
 			 * \param deltaTime : time elapsed since last update.
+			 * \param key : Map key to update.
 			 */
 			static void update(sf::Time deltaTime, std::string key);
 			

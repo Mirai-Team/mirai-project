@@ -40,7 +40,7 @@ int main(int argc, char **argv)
 		return 0;
 	}
 
-	if(strcmp(argv[1],"-c")==0 and argc == 3)
+	if(strcmp(argv[1],"-c")==0 and argc == 5)
 	{
 		path directory(argv[2]);
 		encryptFiles(argv[3], directory, argv[4]);
@@ -52,5 +52,6 @@ int main(int argc, char **argv)
 		cout << "To crypt	: -c directory key outputFile" << endl;
 		cout << "To decrypt	: -d inputFile key" << endl;
 	}
+
 	return 0;
 }

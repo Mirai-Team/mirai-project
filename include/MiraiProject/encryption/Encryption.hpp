@@ -54,6 +54,7 @@ namespace mp {
              */
             Encryption(std::string key);
             
+            /** \brief Class Destructor*/
             virtual ~Encryption();
 
             /** \brief Encrypt the file.

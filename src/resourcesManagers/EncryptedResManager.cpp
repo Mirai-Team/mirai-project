@@ -33,6 +33,7 @@ using namespace std;
 // ______________________________ Textures ______________________________
 shared_ptr<sf::Texture> mp::EncryptedResManager::getTexture(const string &fileName, const string &inputFile, const string &key)
 {
+	// Load file in fileData.
 	mp::Encryption encryptMotor(key);
 	string fileData = encryptMotor.loadFile(inputFile, fileName);
 	
@@ -47,6 +48,7 @@ shared_ptr<sf::Texture> mp::EncryptedResManager::getTexture(const string &fileNa
 // ______________________________ Sound Buffers ______________________________
 shared_ptr<sf::SoundBuffer> mp::EncryptedResManager::getSoundBuffer(const string &fileName, const string &inputFile, const string &key)
 {
+	// Load file in fileData.
     mp::Encryption encryptMotor(key);
 	string fileData = encryptMotor.loadFile(inputFile, fileName);
 	
