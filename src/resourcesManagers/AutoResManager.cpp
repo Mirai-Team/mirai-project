@@ -33,20 +33,20 @@ using namespace std;
 shared_ptr<sf::Texture> mp::AutoResManager::getTexture(const string &fileName)
 {
     // Automatically load the texture if needed.
-	if (textureIsAvailable(fileName) == false)
-		loadTextureFromFile(fileName);
-    
-	return mp::BaseResManager::getTexture(fileName, false);
+    if (textureIsAvailable(fileName) == false)
+        loadTextureFromFile(fileName);
+
+    return mp::BaseResManager::getTexture(fileName, false);
 }
 
 // ______________________________ Sound Buffers ______________________________
 shared_ptr<sf::SoundBuffer> mp::AutoResManager::getSoundBuffer(const string &fileName)
 {
     // Automatically load the sound buffer if needed.
-	if (soundBufferIsAvailable(fileName) == false)
-		loadSoundBufferFromFile(fileName);
-    
-	return mp::BaseResManager::getSoundBuffer(fileName, false);
+    if (soundBufferIsAvailable(fileName) == false)
+        loadSoundBufferFromFile(fileName);
+
+    return mp::BaseResManager::getSoundBuffer(fileName, false);
 }
 
 // ______________________________ Font ______________________________
@@ -55,6 +55,6 @@ shared_ptr<sf::Font> mp::AutoResManager::getFontBuffer(const string &fileName)
     // Automatically load the font if needed.
     if (fontIsAvailable(fileName) == false)
         loadFontFromFile(fileName);
-    
+
     return mp::BaseResManager::getFont(fileName, false);
 }

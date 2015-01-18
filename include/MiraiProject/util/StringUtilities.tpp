@@ -43,10 +43,10 @@ namespace mp
 
     template <typename T>
     T StringUtilities::fromString(const string& str){
-	    stringstream ss(str);
-	    T t;
-	    ss >> t;
-	    return t;
+        stringstream ss(str);
+        T t;
+        ss >> t;
+        return t;
     }
 
 }

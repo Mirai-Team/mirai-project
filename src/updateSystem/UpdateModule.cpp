@@ -34,33 +34,32 @@ std::map<std::string, std::list<mp::Updatable*>> mp::UpdateModule::updatableList
 
 void mp::UpdateModule::update(sf::Time deltaTime, std::string key)
 {
-	for_each(updatableList_[key].begin(), updatableList_[key].end(), [&](mp::Updatable* p)
-	{
-			p->update(deltaTime);
-	});
+    for_each(updatableList_[key].begin(), updatableList_[key].end(), [&](mp::Updatable* p)
+    {
+        p->update(deltaTime);
+    });
 }
 
 void mp::UpdateModule::addUpdater(mp::Updatable* updatable, std::string key)
 {
-	// If key exist we push updatable in list according to key.
-	// Else we create a list and add it in map.
-	if (updatableList_.find(key) != updatableList_.end())
-		updatableList_[key].push_back(updatable);
-	else
-	{
-		std::list<mp::Updatable*> temp;
-		temp.push_back(updatable);
-		updatableList_[key] = temp;
-		
-	}
+    // If key exist we push updatable in list according to key.
+    // Else we create a list and add it in map.
+    if (updatableList_.find(key) != updatableList_.end())
+        updatableList_[key].push_back(updatable);
+    else
+    {
+        std::list<mp::Updatable*> temp;
+        temp.push_back(updatable);
+        updatableList_[key] = temp;
+    }
 }
 
 void mp::UpdateModule::removeUpdater(Updatable* updatable)
 {
-	for(auto &updatableClass : updatableList_)
-	{
-		updatableClass.second.remove_if([updatable] (Updatable* p) { 
-			return p == updatable;
-		});
-	}
+    for(auto &updatableClass : updatableList_)
+    {
+        updatableClass.second.remove_if([updatable] (Updatable* p) {
+            return p == updatable;
+        });
+    }
 }

@@ -39,35 +39,34 @@
 
 namespace mp
 {
-	class Logger;
-	
-	/** \class Logstream
-	 * \brief A class to manage input stream of Logger class.
-	 */
-	class Logstream : public std::ostringstream
-	{
-		public:
+    class Logger;
+    
+    /** \class Logstream
+     * \brief A class to manage input stream of Logger class.
+     */
+    class Logstream : public std::ostringstream
+    {
+        public:
+            /** \brief Constructor.
+             *
+             * \param logger : a Logger object.
+             * \param priority : a string which contains Priority name.
+             */
+            Logstream(Logger& logger, std::string priority);
 
-			/** \brief Constructor.
-			 *
-			 * \param logger : a Logger object.
-			 * \param priority : a string which contains Priority name.
-			 */
-			Logstream(Logger& logger, std::string priority);
+            /** \brief Constructor.
+             *
+             * \param ls : a Logstream object.
+             */
 
-			/** \brief Constructor.
-			 *
-			 * \param ls : a Logstream object.
-			 */
+            Logstream(const Logstream& ls);
 
-			Logstream(const Logstream& ls);
+            /** \brief Destructor */
+            ~Logstream();
 
-			/** \brief Destructor */
-			~Logstream();
-
-		private:
-			Logger&     	logger_;
-			std::string 	priority_;
-	};
+        private:
+            Logger&         logger_;
+            std::string     priority_;
+    };
 }
 #endif // LOGSTREAM_HPP_INCLUDED

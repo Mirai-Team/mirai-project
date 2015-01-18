@@ -34,67 +34,68 @@
 
 namespace mp
 {
-	/** \class StringUtilities
-	 * \brief A static class with various functions to manipulate std::string.
-	 */
-	
-	class StringUtilities
-	{
-		public:
-			/** \brief Remove the given letter from the given string. 
-			 *
-			 * The string is updated by reference.
-			 *
-			 * \param str : the string to modify by reference.
-			 * \param letter : the letter to remove.
-			 */
-			static void stripLetter(std::string &str, const char &letter);
+    /** \class StringUtilities
+     * \brief A static class with various functions to manipulate std::string.
+     */
 
-			/** \brief Get a uppercase version from a string. 
-			 * 
-			 * \param text : the string to convert.
-			 *
-			 * \return the given string but with each character in uppercase. 
-			 */
-			static std::string upper(std::string text);
+    class StringUtilities
+    {
+        public:
+            /** \brief Remove the given letter from the given string. 
+             *
+             * The string is updated by reference.
+             *
+             * \param str : the string to modify by reference.
+             * \param letter : the letter to remove.
+             */
+            static void stripLetter(std::string &str, const char &letter);
 
-			/** \brief Split the given string using the given separator (a single letter).
-			 *
-			 * \param text : the text to explode.
-			 * \param separator : the character to use as separator.
-			 * \param limit : specifies the number of separator until the function stop splitting. If limit = 0, there is no limit
-			 *
-			 * \return all part of the given string in a vector<string>.
-			 */
-			static std::vector<std::string> split(const std::string &text, const char &separator, unsigned int limit=0);
+            /** \brief Get a uppercase version from a string. 
+             * 
+             * \param text : the string to convert.
+             *
+             * \return the given string but with each character in uppercase. 
+             */
+            static std::string upper(std::string text);
 
-			/** \brief Replace all chosen occurrences by a given string in the given text. 
-			 *
-			 * \param text : the text where replace operation should be operated.
-			 * \param toReplace : occurrence to replace.
-			 * \param replaceWith : string which will replace the occurrences.
-			 * 
-			 * \return the string with all occurrences replaced.
-			 */
-			static std::string replace(std::string &text, std::string toReplace, std::string replaceWith);
+            /** \brief Split the given string using the given separator (a single letter).
+             *
+             * \param text : the text to explode.
+             * \param separator : the character to use as separator.
+             * \param limit : specifies the number of separator until the function stop splitting. If limit = 0, there is no limit
+             *
+             * \return all part of the given string in a vector<string>.
+             */
+            static std::vector<std::string> split(const std::string &text, const char &separator, unsigned int limit=0);
 
-			/** \brief Convert the given object into string if possible by using an ostringstream object.
-			 *
-			 * \param object : the object to convert.
-			 *
-			 * \return the given object converted into string.
-			 */
-			template<typename T> static std::string toString(const T &object);
-			
-			/** \brief Convert string content to T type.
-			 *
-			 * \param str : the string.
-			 *
-			 * \return the converted value into the type T.
-			 */
-			template <typename T> static T fromString(const std::string& str);
-	};
+            /** \brief Replace all chosen occurrences by a given string in the given text. 
+             *
+             * \param text : the text where replace operation should be operated.
+             * \param toReplace : occurrence to replace.
+             * \param replaceWith : string which will replace the occurrences.
+             * 
+             * \return the string with all occurrences replaced.
+             */
+            static std::string replace(std::string &text, std::string toReplace, std::string replaceWith);
+
+            /** \brief Convert the given object into string if possible by using an ostringstream object.
+             *
+             * \param object : the object to convert.
+             *
+             * \return the given object converted into string.
+             */
+            template<typename T> static std::string toString(const T &object);
+            
+            /** \brief Convert string content to T type.
+             *
+             * \param str : the string.
+             *
+             * \return the converted value into the type T.
+             */
+            template <typename T> static T fromString(const std::string& str);
+    };
 }
 
 #include "MiraiProject/util/StringUtilities.tpp"
+
 #endif // STRINGUTILITIES_HPP_INCLUDED

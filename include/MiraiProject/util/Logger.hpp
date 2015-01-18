@@ -40,60 +40,60 @@
 
 namespace mp
 {
-	extern bool debugMode;
-	
-	extern std::string prioritySevere;
+    extern bool debugMode;
+
+    extern std::string prioritySevere;
     extern std::string priorityError;
     extern std::string priorityWarning;
     extern std::string priorityInfo;
     extern std::string priorityConfig;
-	
-	class Logstream; // Because Logger use Logstream and Logstream use Logger..
-	
-	/** \class Logger
-	 * \brief Class for logging.
-	 */
-	
-	class Logger
-	{
-		public:
-			/** \brief Constructor
-			 *
-			 * \param filename : Path to file.
-			 */
-			Logger(std::string filename);
 
-			/** \brief Deconstructor */
-			virtual ~Logger();
+    class Logstream; // Because Logger use Logstream and Logstream use Logger..
 
-			/** \brief Write msg in log file.
-			 *
-			 * \param priority : a string which contains Priority name.
-			 * \param msg : message to write.
-			 */
-			void log(std::string priority, std::string msg);
+    /** \class Logger
+     * \brief Class for logging.
+     */
 
-			/** \brief Operator() with Info Priority.
-			 *
-			 * \return a Logstream using Info priority.
-			 */
-			Logstream operator()();
+    class Logger
+    {
+        public:
+            /** \brief Constructor
+             *
+             * \param filename : Path to file.
+             */
+            Logger(std::string filename);
 
-			/** \brief Operator() with string parameter.
-			 *
-			 * \param priority : the priority name.
-			 * 
-			 * \return a Logstream using the given priority name.
-			 */
-			Logstream operator()(std::string priority);
+            /** \brief Deconstructor */
+            virtual ~Logger();
 
-		private:
-			const tm* getLocalTime();
+            /** \brief Write msg in log file.
+             *
+             * \param priority : a string which contains Priority name.
+             * \param msg : message to write.
+             */
+            void log(std::string priority, std::string msg);
 
-			boost::mutex	mutex_;
-			std::ofstream	file_;
-			tm				time_;
-	};
+            /** \brief Operator() with Info Priority.
+             *
+             * \return a Logstream using Info priority.
+             */
+            Logstream operator()();
+
+            /** \brief Operator() with string parameter.
+             *
+             * \param priority : the priority name.
+             * 
+             * \return a Logstream using the given priority name.
+             */
+            Logstream operator()(std::string priority);
+
+        private:
+            const tm* getLocalTime();
+
+            boost::mutex    mutex_;
+            std::ofstream   file_;
+            tm              time_;
+    };
 }
 
 #endif // LOGGER_HPP_INCLUDED

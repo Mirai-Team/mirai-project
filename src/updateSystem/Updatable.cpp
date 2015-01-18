@@ -27,7 +27,7 @@
 
 mp::Updatable::Updatable(std::string key)
 {
-	mp::UpdateModule::addUpdater(this, key);
+    mp::UpdateModule::addUpdater(this, key);
 }
 
 mp::Updatable::~Updatable()

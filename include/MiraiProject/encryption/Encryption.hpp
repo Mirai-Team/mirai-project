@@ -37,23 +37,23 @@
 /** \file Encryption.hpp
  * \brief This file contains Encryption class definition.
  */
- 
+
 namespace mp {
 
-	/** \class Encryption
-	* \brief A class to encrypt files.
-	*
-	* Contains some methods to encrypt and read files.
-	*/
+    /** \class Encryption
+    * \brief A class to encrypt files.
+    *
+    * Contains some methods to encrypt and read files.
+    */
     class Encryption
     {
         public:
             /** \brief Class Constructor. Set and encrypt the key.
-			 * 
+             * 
              * \param key : a string who contains the key.
              */
             Encryption(std::string key);
-            
+
             /** \brief Class Destructor*/
             virtual ~Encryption();
 
@@ -78,30 +78,30 @@ namespace mp {
              *
              * \param outputFile : path for the output file.
              * \param directory : directory to encrypt.
-			 *
-			 * \return true if the operation is a success.
+             *
+             * \return true if the operation is a success.
              */
             bool createFile(std::string outputFile, boost::filesystem::path directory);
-			
-			/** \brief Encrypt the key with a NOT logic gates.
-			 *
-			 * \param key : the non-encrypted key.
-			 *
-			 * \return the encrypted key.
-			 */
-			static std::string encryptKey(std::string key);
-			
-			/** \brief Encrypt the given data with the given key.
-			 *
-			 * The nth character from the data is modified by a logic XOR 
-			 * with the (n MOD key_length)th character from the key.
-			 *
-			 * \param key : the key.
-			 * \param data : the data.
-			 *
-			 * \return the encrypted data.
-			 */
-			static std::string encryptData(std::string key, std::string data);
+
+            /** \brief Encrypt the key with a NOT logic gates.
+             *
+             * \param key : the non-encrypted key.
+             *
+             * \return the encrypted key.
+             */
+            static std::string encryptKey(std::string key);
+
+            /** \brief Encrypt the given data with the given key.
+             *
+             * The nth character from the data is modified by a logic XOR 
+             * with the (n MOD key_length)th character from the key.
+             *
+             * \param key : the key.
+             * \param data : the data.
+             *
+             * \return the encrypted data.
+             */
+            static std::string encryptData(std::string key, std::string data);
 
         private:
 
@@ -123,7 +123,6 @@ namespace mp {
             std::vector<std::string>fileNames_;
             
             Logger log_;
-
 
     };
 }
