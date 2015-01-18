@@ -39,33 +39,43 @@
 
 namespace mp
 {
-	/** \class EncryptedResManager
+    /** \class EncryptedResManager
      * \brief A class to automatically handle resources from encrypted files.(images and sounds).
-	 * Though, you still have to clean resources using clean method.
-	 */
+     * Though, you still have to clean resources using clean method.
+     */
 
     class EncryptedResManager : public BaseResManager
     {
-		public:
+        public:
             /** \brief Automatically load the texture if necessary and return it.
-			 *
-			 * \param fileName : the file name related to the wanted texture.
-			 * \param inputFile : the encrypted file where is the file to load.
-			 * \param key : the key of the encrypted file.
-			 * 
-			 * \return the texture related to the given file name.
-			 */
-			std::shared_ptr<sf::Texture> getTexture(const std::string &fileName, const std::string &inputFile, const std::string &key);
-			
+             *
+             * \param fileName : the file name related to the wanted texture.
+             * \param inputFile : the encrypted file where is the file to load.
+             * \param key : the key of the encrypted file.
+             * 
+             * \return the texture related to the given file name.
+             */
+            std::shared_ptr<sf::Texture> getTexture(const std::string &fileName, const std::string &inputFile, const std::string &key);
+
             /** \brief Automatically load the sound buffer if necessary and return it.
-			 *
-			 * \param fileName : the file name related to the wanted texture.
-			 * \param inputFile : the encrypted file where is the file to load.
-			 * \param key : the key of the encrypted file.
-			 * 
-			 * \return the sound buffer related to the given file name.
-			 */
-			std::shared_ptr<sf::SoundBuffer> getSoundBuffer(const std::string &fileName, const std::string &inputFile, const std::string &key);
+             *
+             * \param fileName : the file name related to the wanted sound buffer.
+             * \param inputFile : the encrypted file where is the file to load.
+             * \param key : the key of the encrypted file.
+             * 
+             * \return the sound buffer related to the given file name.
+             */
+            std::shared_ptr<sf::SoundBuffer> getSoundBuffer(const std::string &fileName, const std::string &inputFile, const std::string &key);
+
+            /** \brief Automatically load the font if necessary and return it.
+             *
+             * \param fileName : the file name related to the wanted font.
+             * \param inputFile : the encrypted file where is the file to load.
+             * \param key : the key of the encrypted file.
+             * 
+             * \return the font related to the given file name.
+             */
+            std::shared_ptr<sf::Font> getFont(const std::string &fileName, const std::string &inputFile, const std::string &key);
     };
 }
 

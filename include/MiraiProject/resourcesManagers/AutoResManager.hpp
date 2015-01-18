@@ -39,29 +39,37 @@
 
 namespace mp
 {
-	/** \class AutoResManager
-	 * \brief A class to automatically handle resources (images and sounds).
-	 * Though, you still have to clean resources using clean method.
-	 */
+    /** \class AutoResManager
+     * \brief A class to automatically handle resources (images and sounds).
+     * Though, you still have to clean resources using clean method.
+     */
 
     class AutoResManager : public BaseResManager
     {
-		public:
+        public:
             /** \brief Automatically load the texture if necessary and return it.
-			 *
-			 * \param fileName : the file name related to the wanted texture.
-			 *
-			 * \return the texture related to the given file name.
-			 */
-			std::shared_ptr<sf::Texture> getTexture(const std::string &fileName);
-			
+             *
+             * \param fileName : the file name related to the wanted texture.
+             *
+             * \return the texture related to the given file name.
+             */
+            std::shared_ptr<sf::Texture> getTexture(const std::string &fileName);
+            
             /** \brief Automatically load the sound buffer if necessary and return it.
-			 *
-			 * \param fileName : the file name related to the wanted sound buffer.
-			 *
-			 * \return the sound buffer related to the given file name.
-			 */
-			std::shared_ptr<sf::SoundBuffer> getSoundBuffer(const std::string &fileName);
+             *
+             * \param fileName : the file name related to the wanted sound buffer.
+             *
+             * \return the sound buffer related to the given file name.
+             */
+            std::shared_ptr<sf::SoundBuffer> getSoundBuffer(const std::string &fileName);
+
+            /** \brief Automatically load the font if necessary and return it.
+             *
+             * \param fileName : the file name related to the wanted font.
+             *
+             * \return the font related to the given file name.
+             */
+            std::shared_ptr<sf::Font> getFontBuffer(const std::string &fileName);
     };
 }
 

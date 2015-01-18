@@ -127,12 +127,51 @@ namespace mp
             bool soundBufferIsAvailable(const std::string &fileName);
 			
 			
-			/** \brief Automatically clean unused textures and sound buffers cache. */
+            /** \brief Get back a loaded font.
+             *
+             * \param fileName : the file name related to the wanted font.
+             * \param safeMode : set to false if you want to disable the font existence check (faster).
+             *      Do it only if you know what you're doing, your program may crash if you try to get
+             *      a non loaded font.
+             *
+             * \return the font related to the given file name.
+             */
+            std::shared_ptr<sf::Font> getFont(const std::string &fileName, const bool &safeMode);
+
+            /** \brief Load Font into cache from file by the file name. 
+             *
+             * \param fileName : the file name related to the wanted file.
+             *
+             * \return a boolean about operation success.
+             */
+            bool loadFontFromFile(const std::string &fileName);
+            
+            /** \brief Load font into cache from memory. 
+             *
+             * \param fileName : the file name related to the wanted file.
+             * \param fileData : fileData ptr.
+             * \param fileSize : Size of file.
+             * 
+             * \return a boolean about operation success.
+             */
+            bool loadFontFromMemory(const std::string &fileName, const void *fileData, std::size_t fileSize);
+
+            /** \brief Return whether the given font related to the given file name exists. 
+             *
+             * \param fileName : the file name related to the wanted font.
+             *
+             * \return a boolean about font existence.
+             */
+            bool fontIsAvailable(const std::string &fileName);
+
+
+			/** \brief Automatically clean unused textures, sound buffers cache and fonts cache. */
 			void clean();
 			
         private:
             std::map<std::string, std::shared_ptr<sf::Texture>> texturesCache;
             std::map<std::string, std::shared_ptr<sf::SoundBuffer>> soundBufferCache;
+            std::map<std::string, std::shared_ptr<sf::Font>> fontCache;
             Logger log_;
     };
 }

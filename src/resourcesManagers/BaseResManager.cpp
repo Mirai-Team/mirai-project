@@ -34,6 +34,7 @@ using namespace std;
 
 mp::BaseResManager::BaseResManager() : texturesCache{ },
                                        soundBufferCache{ },
+                                       fontCache{ },
                                        log_ { "mirai_project.log" }
 {
 	// constructor
@@ -164,6 +165,66 @@ bool mp::BaseResManager::soundBufferIsAvailable(const string &fileName)
         return false;
 }
 
+// ______________________________ Font ______________________________
+shared_ptr<sf::Font> mp::BaseResManager::getFont(const string &fileName, const bool &safeMode)
+{
+    // Check if the font already exists...
+    if (safeMode == false or fontIsAvailable(fileName))
+        return fontCache[fileName];
+    else
+    {
+        // The font doesen't exist. Return an empty font.
+        shared_ptr<sf::Font> ptrFont{ new sf::Font };
+        return move(ptrFont);
+    }
+
+}
+
+bool mp::BaseResManager::loadFontFromFile(const string &fileName)
+{
+    bool success{ true };
+
+    shared_ptr<sf::Font> ptrFont{ new sf::Font };
+
+    if (!ptrFont->loadFromFile(fileName))
+    {
+        // Font not found...
+        log_(mp::priorityError) << "File " << fileName << " was not found... (for font)";
+        success = false;
+    }
+
+    fontCache[fileName] = ptrFont;
+
+    return success;
+}
+
+bool mp::BaseResManager::loadFontFromMemory(const string &fileName, const void *fileData, size_t fileSize)
+{
+    bool success{ true };
+
+    shared_ptr<sf::Font> ptrFont{ new sf::Font };
+
+    if (!ptrFont->loadFromMemory(fileData, fileSize))
+    {
+        // Font not found...
+        log_(mp::priorityError) << "File " << fileName << " was not found... (for font)";
+        success = false;
+    }
+
+    fontCache[fileName] = ptrFont;
+
+    return success;
+}
+
+bool mp::BaseResManager::fontIsAvailable(const string &fileName)
+{
+    // Check if the font already exists...
+    if (fontCache.find(fileName) != fontCache.end())
+        return true;
+    else
+        return false;
+}
+
 void mp::BaseResManager::clean()
 {
     // ___________________ Clean textures cache... ___________________
@@ -197,4 +258,20 @@ void mp::BaseResManager::clean()
 
     for (const string &key : keysToErase)
         soundBufferCache.erase(key);
+
+    // ___________________ Clean font cache... ___________________
+    log_(mp::priorityInfo) << "Cleaning font cache.";
+
+    keysToErase.clear(); // Clear keys_to_erase vector.
+
+    for (map<string, shared_ptr<sf::Font>>::const_iterator it = fontCache.begin() ;
+         it != fontCache.end() ;
+         it++)
+    {
+        if (it->second.unique()) // If the last reference is keep by the resource manager.
+            keysToErase.push_back(it->first);
+    }
+
+    for (const string &key : keysToErase)
+        fontCache.erase(key);
 }
