@@ -32,26 +32,26 @@
 
 using namespace std;
 
-bool mp::debugMode = false;
+bool mp::Logger::debugMode = false;
 
-string mp::prioritySevere = "SEVERE";
-string mp::priorityError = "ERROR";
-string mp::priorityWarning = "WARNING";
-string mp::priorityInfo = "INFO";
-string mp::priorityConfig = "CONFIG";
+const string mp::Logger::prioritySevere = "SEVERE";
+const string mp::Logger::priorityError = "ERROR";
+const string mp::Logger::priorityWarning = "WARNING";
+const string mp::Logger::priorityInfo = "INFO";
+const string mp::Logger::priorityConfig = "CONFIG";
 
 // 0 in time_ are for -Wmissing-field-initializers
 mp::Logger::Logger(string filename) : mutex_ { },
                                       file_ { },
                                       time_ { 0, 0, 0, 0, 0, 0, 0, 0, 0 } // warning under linux, cause it seems to have one more field.
 {
-    if(mp::debugMode)
+    if(debugMode)
         file_.open(filename, fstream::app);
 }
 
 mp::Logger::~Logger()
 {
-    if(mp::debugMode)
+    if(debugMode)
     {
         file_.flush();
         file_.close();
@@ -89,7 +89,7 @@ const tm* mp::Logger::getLocalTime()
 
 void mp::Logger::log(string priority, string msg)
 {
-    if(mp::debugMode)
+    if(debugMode)
     {
         mutex_.lock();
         file_   << '[' << getLocalTime() << ']'

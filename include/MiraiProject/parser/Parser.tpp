@@ -68,10 +68,10 @@ namespace mp
                 }
             }
             else
-                log(priorityWarning) << "The file doesn't exist";
+                log(Logger::priorityWarning) << "The file doesn't exist";
         }
         else
-            log(priorityError) << "The file is encrypted, but the key isn't defined";
+            log(Logger::priorityError) << "File encrypted, and no key provided";
 
         return value;
     }
@@ -82,14 +82,15 @@ namespace mp
         vector<string> words;
         string value;
         ifstream file;
-        
+
         mp::Logger log("mirai_project.log");
-        
+
         if(isEncrypted && key != "")
         {
+
             mp::Encryption EncryptMotor(key);
             stringstream filedata(EncryptMotor.encryptFile(inputFile));
-            
+
             while(getline(filedata,line))
             {
                 words = mp::StringUtilities::split(line, separator);
@@ -110,16 +111,14 @@ namespace mp
                 }
             }
             else
-            {
-                log(priorityWarning) << "The file doesn't exist";
-            }
+                log(Logger::priorityWarning) << "The file doesn't exist";
         }
         else
-            log(priorityError) << "The file is encrypted, but the key isn't defined";
+            log(Logger::priorityError) << "File encrypted, and no key provided";
 
         return value;
     }
-    
+
     template<typename T> vector<T> mp::Parser::vFileParser(std::string inputFile, std::string variableName, char separator, char separatorValues, bool isEncrypted, std::string key)
     {
         string line;
@@ -146,6 +145,7 @@ namespace mp
                     }
                 }
             }
+            
         }
         else if(!isEncrypted)
         {
@@ -166,10 +166,10 @@ namespace mp
                 }
             }
             else
-                log(priorityWarning) << "The file doesn't exist";
+                log(Logger::priorityWarning) << "The file doesn't exist";
         }
         else
-            log(priorityError) << "The file is encrypted, but the key isn't defined";
+            log(Logger::priorityError) << "File encrypted, and no key provided";
 
         return values;
 
@@ -188,7 +188,7 @@ namespace mp
         {
             mp::Encryption EncryptMotor(key);
             stringstream filedata(EncryptMotor.encryptFile(inputFile));
-            
+
             while(getline(filedata,line))
             {
                 words = mp::StringUtilities::split(line, separator);
@@ -222,11 +222,11 @@ namespace mp
             }
             else
             {
-                log(priorityWarning) << "The file doesn't exist";
+                log(Logger::priorityWarning) << "The file doesn't exist";
             }
         }
         else
-            log(priorityError) << "The file is encrypted, but the key isn't defined";
+            log(Logger::priorityError) << "File encrypted, and no key provided";
 
         return values;
 

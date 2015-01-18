@@ -40,14 +40,6 @@
 
 namespace mp
 {
-    extern bool debugMode;
-
-    extern std::string prioritySevere;
-    extern std::string priorityError;
-    extern std::string priorityWarning;
-    extern std::string priorityInfo;
-    extern std::string priorityConfig;
-
     class Logstream; // Because Logger use Logstream and Logstream use Logger..
 
     /** \class Logger
@@ -86,6 +78,24 @@ namespace mp
              * \return a Logstream using the given priority name.
              */
             Logstream operator()(std::string priority);
+
+            /** \brief True to enable logging, false to disable logging. */
+            static bool debugMode;
+
+            /** \brief  For severe logs. */
+            static const std::string prioritySevere;
+
+            /** \brief For error logs. */
+            static const std::string priorityError;
+
+            /** \brief For warning logs. */
+            static const std::string priorityWarning;
+
+            /** \brief For info logs. */
+            static const std::string priorityInfo;
+
+            /** \brief For config logs. */
+            static const std::string priorityConfig;
 
         private:
             const tm* getLocalTime();
