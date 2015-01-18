@@ -56,7 +56,7 @@ bool mp::Encryption::createFile(string outputFile, path directory)
     outputFile_ = outputFile;
     if(!exists(directory) || !is_directory(directory))
     {
-        log_(mp::priorityError) << "Path " << directory.string() << " doesn't exist or isn't a directory. (encryption)";
+        log_(mp::Logger::priorityError) << "Path " << directory.string() << " doesn't exist or isn't a directory. (encryption)";
         return false;
     }
 
@@ -150,7 +150,7 @@ bool mp::Encryption::writeHeader()
         hasSuccess = true;
     }
     else
-        log_(mp::priorityError) << "Unable to open " << outputFile_ << " to write the header. (encryption)";
+        log_(mp::Logger::priorityError) << "Unable to open " << outputFile_ << " to write the header. (encryption)";
 
     return hasSuccess;
 }
@@ -178,7 +178,7 @@ bool mp::Encryption::writeData()
         hasSuccess = true;
     }
     else
-        log_(mp::priorityError) << "Unable to open " << outputFile_ << " to write the data. (encryption)";
+        log_(mp::Logger::priorityError) << "Unable to open " << outputFile_ << " to write the data. (encryption)";
 
     return hasSuccess;
 }
@@ -187,7 +187,7 @@ string mp::Encryption::encryptFile(string file)
 {
     ifstream input(file, ios::binary);
     if(!input)
-		log_(mp::priorityError) << "Unable to open " << file << " to crypt the file. (encryption)";
+		log_(mp::Logger::priorityError) << "Unable to open " << file << " to crypt the file. (encryption)";
 
     stringstream buffer;
     string encryptedFile;
@@ -211,7 +211,7 @@ string mp::Encryption::loadFile(string inputFile, string targetFile)
 
     ifstream input(inputFile, ios::in | ios::binary);
     if(!input)
-		log_(mp::priorityError) << "Unable to open " << inputFile << " to parse the header. (encryption)";
+		log_(mp::Logger::priorityError) << "Unable to open " << inputFile << " to parse the header. (encryption)";
 
     
 
