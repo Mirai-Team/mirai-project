@@ -39,71 +39,71 @@
  */
 
 namespace mp
-{	
-	class Logstream; // Because Logger use Logstream and Logstream use Logger..
-	
-	/** \class Logger
-	 * \brief Class for logging.
-	 */
-	
-	class Logger
-	{
-		public:
-			/** \brief Constructor
-			 *
-			 * \param filename : Path to file.
-			 */
-			Logger(std::string filename);
+{
+    class Logstream; // Because Logger use Logstream and Logstream use Logger..
 
-			/** \brief Deconstructor */
-			virtual ~Logger();
+    /** \class Logger
+     * \brief Class for logging.
+     */
 
-			/** \brief Write msg in log file.
-			 *
-			 * \param priority : a string which contains Priority name.
-			 * \param msg : message to write.
-			 */
-			void log(std::string priority, std::string msg);
+    class Logger
+    {
+        public:
+            /** \brief Constructor
+             *
+             * \param filename : Path to file.
+             */
+            Logger(std::string filename);
 
-			/** \brief Operator() with Info Priority.
-			 *
-			 * \return a Logstream using Info priority.
-			 */
-			Logstream operator()();
+            /** \brief Deconstructor */
+            virtual ~Logger();
 
-			/** \brief Operator() with string parameter.
-			 *
-			 * \param priority : the priority name.
-			 * 
-			 * \return a Logstream using the given priority name.
-			 */
-			Logstream operator()(std::string priority);
-			
-			/** \brief True to enable logging, false to disable logging. */
-			static bool debugMode;
-			
-			/** \brief  For severe logs. */
-			static const std::string prioritySevere;
-			
-			/** \brief For error logs. */
-			static const std::string priorityError;
-			
-			/** \brief For warning logs. */
-			static const std::string priorityWarning;
-			
-			/** \brief For info logs. */
-			static const std::string priorityInfo;
-			
-			/** \brief For config logs. */
-			static const std::string priorityConfig;
-			
-		private:
-			const tm* getLocalTime();
+            /** \brief Write msg in log file.
+             *
+             * \param priority : a string which contains Priority name.
+             * \param msg : message to write.
+             */
+            void log(std::string priority, std::string msg);
 
-			boost::mutex	mutex_;
-			std::ofstream	file_;
-			tm				time_;
-	};
+            /** \brief Operator() with Info Priority.
+             *
+             * \return a Logstream using Info priority.
+             */
+            Logstream operator()();
+
+            /** \brief Operator() with string parameter.
+             *
+             * \param priority : the priority name.
+             * 
+             * \return a Logstream using the given priority name.
+             */
+            Logstream operator()(std::string priority);
+
+            /** \brief True to enable logging, false to disable logging. */
+            static bool debugMode;
+
+            /** \brief  For severe logs. */
+            static const std::string prioritySevere;
+
+            /** \brief For error logs. */
+            static const std::string priorityError;
+
+            /** \brief For warning logs. */
+            static const std::string priorityWarning;
+
+            /** \brief For info logs. */
+            static const std::string priorityInfo;
+
+            /** \brief For config logs. */
+            static const std::string priorityConfig;
+
+        private:
+            const tm* getLocalTime();
+
+            boost::mutex    mutex_;
+            std::ofstream   file_;
+            tm              time_;
+    };
 }
 
 #endif // LOGGER_HPP_INCLUDED

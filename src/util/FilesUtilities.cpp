@@ -45,7 +45,7 @@ vector<string> mp::filesUtilities::listFiles(path directory, bool recursive)
     {
         // If it's not a directory, add it in filesPaths.
         if (is_regular_file(itr->path()))
-		{
+        {
             filesPaths.push_back(itr->path().string());
         }
         else if(recursive && is_directory(itr->path()))
@@ -54,18 +54,17 @@ vector<string> mp::filesUtilities::listFiles(path directory, bool recursive)
             tempFilesPaths = filesUtilities::listFiles(itr->path(), true);
             filesPaths.insert(filesPaths.end(), tempFilesPaths.begin(), tempFilesPaths.end());
         }
-
     }
-	
+
     return filesPaths;
 }
 
 string mp::filesUtilities::convertFilePath(string &filePath)
 {
-	#if defined(WIN32)
-		filePath.replace(filePath.find("/"), 1, "\\");
-	#elif defined(__unix__)
-		filePath.replace(filePath.find("\\"), 1, "/");
-	#endif
-	return filePath;
+    #if defined(WIN32)
+        filePath.replace(filePath.find("/"), 1, "\\");
+    #elif defined(__unix__)
+        filePath.replace(filePath.find("\\"), 1, "/");
+    #endif
+    return filePath;
 }

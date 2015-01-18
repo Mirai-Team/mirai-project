@@ -32,35 +32,35 @@
 #include <SFML/System/Time.hpp>
 
 /** @file Updatable.hpp
- * 	\brief This file define Updatable class.
+ *  \brief This file define Updatable class.
  */
- 
+
 namespace mp
 {
-	/** \class Updatable
-	 * \brief Virtual class to create entities to update with an UpdateModule.
-	 */
-	class Updatable
-	{
-		// In order to prevent the user to call UpdateModule::AddUpdater.
-		friend class UpdateModule;
-		
-		public:
-			/** \brief Function called by UpdateModule
-			 * 
-			 * This is a pure virtual function that has to be implemented by derived class to update their content.
-			 * 
-			 * \param deltaTime : time elapsed since last update.
-			 */
-			virtual void update(sf::Time deltaTime) = 0;
-			
-		protected:	
-			/** \brief Constructor */
-			Updatable(std::string key = "default");
-			
-			/** \brief Destructor */
-			virtual ~Updatable();
-	};
+    /** \class Updatable
+     * \brief Virtual class to create entities to update with an UpdateModule.
+     */
+    class Updatable
+    {
+        // In order to prevent the user to call UpdateModule::AddUpdater.
+        friend class UpdateModule;
+
+        public:
+            /** \brief Function called by UpdateModule
+             * 
+             * This is a pure virtual function that has to be implemented by derived class to update their content.
+             * 
+             * \param deltaTime : time elapsed since last update.
+             */
+            virtual void update(sf::Time deltaTime) = 0;
+
+        protected:  
+            /** \brief Constructor */
+            Updatable(std::string key = "default");
+
+            /** \brief Destructor */
+            virtual ~Updatable();
+    };
 }
 
 #endif // UPDATABLE_HPP_INCLUDED

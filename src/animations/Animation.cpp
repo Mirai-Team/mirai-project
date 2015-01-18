@@ -29,21 +29,21 @@
 #include "MiraiProject/animations/Animation.hpp"
 
 mp::Animation::Animation(const std::string& name, const unsigned int& numStartingFrame,  const unsigned int& numEndingFrame) :
-	name_{ name },
-	
-	numStartingFrame_{ numStartingFrame },
-	numEndingFrame_{ numEndingFrame },
-	numFrames_{ numEndingFrame_ - numStartingFrame_ + 1 },
-	
-	timePerFrame_{ sf::seconds(1) },
-	duration_{ sf::Time::Zero }
+    name_{ name },
+
+    numStartingFrame_{ numStartingFrame },
+    numEndingFrame_{ numEndingFrame },
+    numFrames_{ numEndingFrame_ - numStartingFrame_ + 1 },
+
+    timePerFrame_{ sf::seconds(1) },
+    duration_{ sf::Time::Zero }
 {
-	update();
+    update();
 }
 
 mp::Animation::~Animation()
 {
-	
+
 }
 
 /////////////
@@ -52,32 +52,32 @@ mp::Animation::~Animation()
 
 std::string mp::Animation::getName() const
 {
-	return name_;
+    return name_;
 }
-	
+
 unsigned int mp::Animation::getNumStartingFrame() const
 {
-	return numStartingFrame_;
+    return numStartingFrame_;
 }
 
 unsigned int mp::Animation::getNumEndingFrame() const
 {
-	return numEndingFrame_;
+    return numEndingFrame_;
 }
 
 unsigned int mp::Animation::getNumFrames() const
 {
-	return numFrames_;
+    return numFrames_;
 }
 
 sf::Time mp::Animation::getDuration() const
 {
-	return duration_;
+    return duration_;
 }
 
 sf::Time mp::Animation::getTimePerFrame() const
 {
-	return timePerFrame_;
+    return timePerFrame_;
 }
 
 /////////////
@@ -86,33 +86,33 @@ sf::Time mp::Animation::getTimePerFrame() const
 
 void mp::Animation::setName(const std::string& newName)
 {
-	name_ = newName;
+    name_ = newName;
 }
 
 void mp::Animation::setNumStartingFrame(const unsigned int& newNumStartingFrame)
 {
-	numStartingFrame_ = newNumStartingFrame;
-	update();
+    numStartingFrame_ = newNumStartingFrame;
+    update();
 }
 
 void mp::Animation::setNumEndingFrame(const unsigned int& newNumEndingFrame)
 {
-	numEndingFrame_ = newNumEndingFrame;
-	update();
+    numEndingFrame_ = newNumEndingFrame;
+    update();
 }
 
 void mp::Animation::setDuration(const sf::Time& newDuration)
 {
-	if (newDuration != sf::Time::Zero) // Duration cannot be null.
-		duration_ = newDuration;
-	timePerFrame_ = duration_ / static_cast<float>(numFrames_);
+    if (newDuration != sf::Time::Zero) // Duration cannot be null.
+        duration_ = newDuration;
+    timePerFrame_ = duration_ / static_cast<float>(numFrames_);
 }
 
 void mp::Animation::setTimePerFrame(const sf::Time& newTimePerFrame)
 {
-	if (newTimePerFrame != sf::Time::Zero) // timePerFrame cannot be null.
-		timePerFrame_ = newTimePerFrame;
-	duration_ = timePerFrame_ * static_cast<float>(numFrames_);
+    if (newTimePerFrame != sf::Time::Zero) // timePerFrame cannot be null.
+        timePerFrame_ = newTimePerFrame;
+    duration_ = timePerFrame_ * static_cast<float>(numFrames_);
 }
 
 /////////////
@@ -121,10 +121,10 @@ void mp::Animation::setTimePerFrame(const sf::Time& newTimePerFrame)
 
 void mp::Animation::update()
 {
-	if (numEndingFrame_ < numStartingFrame_)
-		numEndingFrame_ = numStartingFrame_;
-	
-	numFrames_ = numEndingFrame_ - numStartingFrame_ + 1;
-	
-	duration_ = timePerFrame_ * static_cast<float>(numFrames_);
+    if (numEndingFrame_ < numStartingFrame_)
+        numEndingFrame_ = numStartingFrame_;
+    
+    numFrames_ = numEndingFrame_ - numStartingFrame_ + 1;
+    
+    duration_ = timePerFrame_ * static_cast<float>(numFrames_);
 }

@@ -32,26 +32,26 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	if(argc < 3)
-	{
-		cout << "To crypt	: -c directory key outputFile" << endl;
-		cout << "To decrypt	: -d inputFile key" << endl;
-		
-		return 0;
-	}
+    if(argc < 3)
+    {
+        cout << "To crypt   : -c directory key outputFile" << endl;
+        cout << "To decrypt : -d inputFile key" << endl;
 
-	if(strcmp(argv[1],"-c")==0 and argc == 5)
-	{
-		path directory(argv[2]);
-		encryptFiles(argv[3], directory, argv[4]);
-	}
-	else if(strcmp(argv[1],"-d")==0 and argc == 4)
-		decryptFiles(argv[3], argv[2]);
-	else
-	{
-		cout << "To crypt	: -c directory key outputFile" << endl;
-		cout << "To decrypt	: -d inputFile key" << endl;
-	}
+        return 0;
+    }
 
-	return 0;
+    if(strcmp(argv[1],"-c")==0 and argc == 5)
+    {
+        path directory(argv[2]);
+        encryptFiles(argv[3], directory, argv[4]);
+    }
+    else if(strcmp(argv[1],"-d")==0 and argc == 4)
+        decryptFiles(argv[3], argv[2]);
+    else
+    {
+        cout << "To crypt   : -c directory key outputFile" << endl;
+        cout << "To decrypt : -d inputFile key" << endl;
+    }
+
+    return 0;
 }

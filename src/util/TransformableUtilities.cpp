@@ -33,18 +33,18 @@ using namespace std;
 
 void mp::TransformableUtilities::centerOrigin(sf::Sprite& sprite)
 {
-	sf::FloatRect bounds = sprite.getLocalBounds();
-	sprite.setOrigin(floor(bounds.left + bounds.width / 2.f), floor(bounds.top + bounds.height / 2.f));
+    sf::FloatRect bounds = sprite.getLocalBounds();
+    sprite.setOrigin(floor(bounds.left + bounds.width / 2.f), floor(bounds.top + bounds.height / 2.f));
 }
 
 void mp::TransformableUtilities::centerOrigin(mp::AnimatedSprite& animatedSprite)
 {
-	sf::FloatRect bounds = animatedSprite.getLocalBounds();
-	animatedSprite.setOrigin(floor(bounds.left + bounds.width / 2.f), floor(bounds.top + bounds.height / 2.f));
+    sf::FloatRect bounds = animatedSprite.getLocalBounds();
+    animatedSprite.setOrigin(floor(bounds.left + bounds.width / 2.f), floor(bounds.top + bounds.height / 2.f));
 }
 
 void mp::TransformableUtilities::centerOrigin(sf::Text& text)
 {
-	sf::FloatRect bounds = text.getLocalBounds();
-	text.setOrigin(floor(bounds.left + bounds.width / 2.f), floor(bounds.top + bounds.height / 2.f));
+    sf::FloatRect bounds = text.getLocalBounds();
+    text.setOrigin(floor(bounds.left + bounds.width / 2.f), floor(bounds.top + bounds.height / 2.f));
 }

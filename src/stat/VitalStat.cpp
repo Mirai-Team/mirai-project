@@ -27,11 +27,10 @@
 #include "MiraiProject/stat/ModifiedStat.hpp"
 #include "MiraiProject/stat/VitalStat.hpp"
 
-mp::VitalStat::VitalStat() : 	ModifiedStat(),
-								curValue_ { 0 }
-									
+mp::VitalStat::VitalStat() :    ModifiedStat(),
+                                curValue_ { 0 }
 {
-	// constructor
+    // constructor
 }
 
 mp::VitalStat::~VitalStat()
@@ -41,16 +40,16 @@ mp::VitalStat::~VitalStat()
 
 int mp::VitalStat::getCurValue()
 {
-	if(curValue_ > ModifiedStat().adjustedBaseValue())
-		curValue_ = ModifiedStat().adjustedBaseValue();
-		
-	return curValue_;
+    if(curValue_ > ModifiedStat().adjustedBaseValue())
+        curValue_ = ModifiedStat().adjustedBaseValue();
+
+    return curValue_;
 }
 
 void mp::VitalStat::setCurValue(int curValue)
 {
-	if(curValue > ModifiedStat().adjustedBaseValue())
-		curValue = ModifiedStat().adjustedBaseValue();
-		
-	curValue_ = curValue;
+    if(curValue > ModifiedStat().adjustedBaseValue())
+        curValue = ModifiedStat().adjustedBaseValue();
+
+    curValue_ = curValue;
 }

@@ -32,115 +32,115 @@
 /** @file Animation.hpp
  * \brief This file define Animation class.
  */
- 
+
 namespace mp
 {
-	/** \class Animation
-	 * \brief A class to modelize animations for AnimatedSprite.
-	 */
-	
- 	class Animation
-	{
-		friend class AnimatedSprite;
-		
-		public:				
-			/** \brief Constructor. 
-			 *
-			 * \param name : the animation name.
-			 * \param numStartingFrame : the number of the first animation's frame (on the sprite sheet).
-			 * \param numEndingFrame : the number of the last animation's frame (on the sprite sheet).
-			 */
-			Animation(const std::string& name="NA", const unsigned int& numStartingFrame=0,  const unsigned int& numEndingFrame=0);
-		
-			/** \brief Destructor. */
-			~Animation();
-			
-			/////////////
-			// Getters //
-			/////////////
-			
-			/** \brief Return the animation's name.
-			 *
-			 * \return the animation's name.
-			 */
-			std::string getName() const;
-			
-			/** \brief Return the starting frame's number for the animation.
-			 *
-			 * \return the number starting frame's number for the animation.
-			 */
-			unsigned int getNumStartingFrame() const;
-			
-			/** \brief Return the ending frame's number for the animation.
-			 *
-			 * \return the number ending frame's number for the animation.
-			 */
-			unsigned int getNumEndingFrame() const;
-			
-			/** \brief Return the number of frames for the animation.
-			 *
-			 * \return the number of frames for the animation.
-			 */
-			unsigned int getNumFrames() const;
-			
-			/** \brief Return the duration of the animation.
-			 *
-			 * \return the duration of the animation.
-			 */
-			sf::Time getDuration() const;
-			
-			/** \brief Return the time per frame of the animation.
-			 *
-			 * \return the time per frame of the animation.
-			 */
-			sf::Time getTimePerFrame() const;
-			
-			/////////////
-			// Setters //
-			/////////////
-			
-			/** \brief Set a new name for the animation.
-			 *
-			 * \param newName : the new name for the animation.
-			 */
-			void setName(const std::string& newName);
-			
-			/** \brief Set the new starting frame's number for the animation.
-			 *
-			 * \param newNumStartingFrame : the new starting frame's number for the animation.
-			 */
-			void setNumStartingFrame(const unsigned int& newNumStartingFrame);
-			
-			/** \brief Set the new ending frame's number for the animation.
-			 *
-			 * \param newNumStartingFrame : the new ending frame's number for the animation.
-			 */
-			void setNumEndingFrame(const unsigned int& newNumEndingFrame);
-			
-			/** \brief Set the new duration for the animation.
-			 *
-			 * \param newNumStartingFrame : the new duration for the animation.
-			 */
-			void setDuration(const sf::Time& newDuration);
-			
-			/** \brief Set the new time per frame for the animation.
-			 *
-			 * \param newNumStartingFrame : the new time per frame for the animation.
-			 */
-			void setTimePerFrame(const sf::Time& newTimePerFrame);
-		
-		private:
-			void update();
-		
-			std::string name_;
-		
-			unsigned int numStartingFrame_;
-			unsigned int numEndingFrame_;
-			unsigned int numFrames_;
-			
-			sf::Time timePerFrame_;
-			sf::Time duration_;
-	 };
+    /** \class Animation
+     * \brief A class to modelize animations for AnimatedSprite.
+     */
+
+    class Animation
+    {
+        friend class AnimatedSprite;
+
+        public:             
+            /** \brief Constructor. 
+             *
+             * \param name : the animation name.
+             * \param numStartingFrame : the number of the first animation's frame (on the sprite sheet).
+             * \param numEndingFrame : the number of the last animation's frame (on the sprite sheet).
+             */
+            Animation(const std::string& name="NA", const unsigned int& numStartingFrame=0,  const unsigned int& numEndingFrame=0);
+
+            /** \brief Destructor. */
+            ~Animation();
+
+            /////////////
+            // Getters //
+            /////////////
+
+            /** \brief Return the animation's name.
+             *
+             * \return the animation's name.
+             */
+            std::string getName() const;
+
+            /** \brief Return the starting frame's number for the animation.
+             *
+             * \return the number starting frame's number for the animation.
+             */
+            unsigned int getNumStartingFrame() const;
+
+            /** \brief Return the ending frame's number for the animation.
+             *
+             * \return the number ending frame's number for the animation.
+             */
+            unsigned int getNumEndingFrame() const;
+
+            /** \brief Return the number of frames for the animation.
+             *
+             * \return the number of frames for the animation.
+             */
+            unsigned int getNumFrames() const;
+
+            /** \brief Return the duration of the animation.
+             *
+             * \return the duration of the animation.
+             */
+            sf::Time getDuration() const;
+
+            /** \brief Return the time per frame of the animation.
+             *
+             * \return the time per frame of the animation.
+             */
+            sf::Time getTimePerFrame() const;
+
+            /////////////
+            // Setters //
+            /////////////
+
+            /** \brief Set a new name for the animation.
+             *
+             * \param newName : the new name for the animation.
+             */
+            void setName(const std::string& newName);
+
+            /** \brief Set the new starting frame's number for the animation.
+             *
+             * \param newNumStartingFrame : the new starting frame's number for the animation.
+             */
+            void setNumStartingFrame(const unsigned int& newNumStartingFrame);
+
+            /** \brief Set the new ending frame's number for the animation.
+             *
+             * \param newNumStartingFrame : the new ending frame's number for the animation.
+             */
+            void setNumEndingFrame(const unsigned int& newNumEndingFrame);
+
+            /** \brief Set the new duration for the animation.
+             *
+             * \param newNumStartingFrame : the new duration for the animation.
+             */
+            void setDuration(const sf::Time& newDuration);
+
+            /** \brief Set the new time per frame for the animation.
+             *
+             * \param newNumStartingFrame : the new time per frame for the animation.
+             */
+            void setTimePerFrame(const sf::Time& newTimePerFrame);
+
+        private:
+            void update();
+        
+            std::string name_;
+
+            unsigned int numStartingFrame_;
+            unsigned int numEndingFrame_;
+            unsigned int numFrames_;
+
+            sf::Time timePerFrame_;
+            sf::Time duration_;
+     };
 }
 
 #endif // ANIMATION_HPP_INCLUDED

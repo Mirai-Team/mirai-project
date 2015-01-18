@@ -31,30 +31,30 @@
 using namespace mp;
 
 WindowManager::WindowManager(const bool& fullscreen, const bool& verticalSync, const bool& cursorVisible,
-							 const int& optimalWinWidth, const int& optimalWinHeight,
-							 const int& videoModeWidth, const int& videoModeHeight,
-							 const std::string& windowName) : 
-			window_{ },
-			defaultView_{ },
+                             const int& optimalWinWidth, const int& optimalWinHeight,
+                             const int& videoModeWidth, const int& videoModeHeight,
+                             const std::string& windowName) :
+            window_{ },
+            defaultView_{ },
 
-			fullscreen_{ fullscreen },
-			verticalSync_{ verticalSync },
-			cursorVisible_{ cursorVisible },
+            fullscreen_{ fullscreen },
+            verticalSync_{ verticalSync },
+            cursorVisible_{ cursorVisible },
 
-			optimalWinWidth_{ optimalWinWidth },
-			optimalWinHeight_{ optimalWinHeight },
+            optimalWinWidth_{ optimalWinWidth },
+            optimalWinHeight_{ optimalWinHeight },
 
-			videoModeWidth_{ videoModeWidth },
-			videoModeHeight_{ videoModeHeight },
+            videoModeWidth_{ videoModeWidth },
+            videoModeHeight_{ videoModeHeight },
 
-			windowName_{ windowName }
+            windowName_{ windowName }
 {
-	// Constructor
+    // Constructor
 }
 
 WindowManager::~WindowManager()
 {
-	// Destructor
+    // Destructor
 }
 
 
@@ -126,83 +126,83 @@ const sf::View& WindowManager::getDefaultView() const
 
 const bool& WindowManager::isFullscreen() const
 {
-	return fullscreen_;
+    return fullscreen_;
 }
 
 void WindowManager::setFullscreen(const bool& fullscreen)
 {
-	fullscreen_ = fullscreen;
+    fullscreen_ = fullscreen;
 }
 
 const bool& WindowManager::isVerticalSync() const
 {
-	return verticalSync_;
+    return verticalSync_;
 }
 
 void WindowManager::setVerticalSync(const bool& verticalSync)
 {
-	verticalSync_ = verticalSync;
+    verticalSync_ = verticalSync;
 }
 
 const bool& WindowManager::isCursorVisible() const
 {
-	return cursorVisible_;
+    return cursorVisible_;
 }
 
 void WindowManager::setCursorVisible(const bool& cursorVisible)
 {
-	cursorVisible_ = cursorVisible;
+    cursorVisible_ = cursorVisible;
 }
 
 
 const int& WindowManager::getOptimalWinWidth() const
 {
-	return optimalWinWidth_;
+    return optimalWinWidth_;
 }
 
 void WindowManager::setOptimalWinWidth(const int& optimalWinWidth)
 {
-	optimalWinWidth_ = optimalWinWidth;
+    optimalWinWidth_ = optimalWinWidth;
 }
 
 const int& WindowManager::getOptimalWinHeight() const
 {
-	return optimalWinHeight_;
+    return optimalWinHeight_;
 }
 
 void WindowManager::setOptimalWinHeight(const int& optimalWinHeight)
 {
-	optimalWinHeight_ = optimalWinHeight;
+    optimalWinHeight_ = optimalWinHeight;
 }
 
 
 const int& WindowManager::getVideomodeWidth() const
 {
-	return videoModeWidth_;
+    return videoModeWidth_;
 }
 
 void WindowManager::setVideomodeWidth(const int& videoModeWidth)
 {
-	videoModeWidth_ = videoModeWidth;
+    videoModeWidth_ = videoModeWidth;
 }
 
 const int& WindowManager::getVideomodeHeight() const
 {
-	return videoModeHeight_;
+    return videoModeHeight_;
 }
 
 void WindowManager::setVideomodeHeight(const int& videoModeHeight)
 {
-	videoModeHeight_ = videoModeHeight;
+    videoModeHeight_ = videoModeHeight;
 }
 
 
 const std::string& WindowManager::getWindowName() const
 {
-	return windowName_;
+    return windowName_;
 }
 
 void WindowManager::setWindowName(const std::string& windowName)
 {
-	windowName_ = windowName;
+    windowName_ = windowName;
 }

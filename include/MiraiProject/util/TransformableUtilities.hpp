@@ -36,31 +36,31 @@
 
 namespace mp
 {
-	/** \class TransformableUtilities
-	 * \brief A static class with various functions to manipulate sf::Transformable.
-	 */
-	
-	class TransformableUtilities
-	{
-		public:
-			/** \brief Sets the sprite's origin to its center. 
-			 *
-			 * \param sprite : the sprite.
-			 */
-			static void centerOrigin(sf::Sprite& sprite);
+    /** \class TransformableUtilities
+     * \brief A static class with various functions to manipulate sf::Transformable.
+     */
 
-			/** \brief Sets the animated sprite's origin to its center. 
-			 *
-			 * \param sprite : the animated sprite.
-			 */
-			static void centerOrigin(mp::AnimatedSprite& animatedSprite);
-			
-			/** \brief Sets the text's origin to its center. 
-			 *
-			 * \param text : the text.
-			 */
-			static void centerOrigin(sf::Text& text);
-	};
+    class TransformableUtilities
+    {
+        public:
+            /** \brief Sets the sprite's origin to its center. 
+             *
+             * \param sprite : the sprite.
+             */
+            static void centerOrigin(sf::Sprite& sprite);
+
+            /** \brief Sets the animated sprite's origin to its center. 
+             *
+             * \param sprite : the animated sprite.
+             */
+            static void centerOrigin(mp::AnimatedSprite& animatedSprite);
+
+            /** \brief Sets the text's origin to its center. 
+             *
+             * \param text : the text.
+             */
+            static void centerOrigin(sf::Text& text);
+    };
 }
 
 #endif // TRANSFORMABLE_UTILITIES_HPP_INCLUDED

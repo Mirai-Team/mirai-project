@@ -38,12 +38,12 @@ using namespace std;
 using namespace boost::filesystem;
 
 mp::Encryption::Encryption(string key) : key_{ encryptKey(key) },
-										 outputFile_{ },
-										 offset_{ },
-										 fileNames_{ },
-										 log_ { "mirai_project.log" }
+                                         outputFile_{ },
+                                         offset_{ },
+                                         fileNames_{ },
+                                         log_ { "mirai_project.log" }
 {
-	// constructor
+    // constructor
 }
 
 mp::Encryption::~Encryption()
@@ -60,22 +60,21 @@ bool mp::Encryption::createFile(string outputFile, path directory)
         return false;
     }
 
-
     fileNames_ = filesUtilities::listFiles(directory, true);
-	
-	// In order to keep cross-plateform, we replace windowsSeparator by unixSeparator
-	char windowsSeparator = '\\' ;
-	char unixSeparator = '/' ;
 
-	for(unsigned int i = 0; i < fileNames_.size(); i++)
-	{
-		for(unsigned int j = 0; j <fileNames_[i].size(); j++)
-		{
-			if(fileNames_[i][j] == windowsSeparator)
-				fileNames_[i][j] = unixSeparator;
-		}
-	}
-	
+    // In order to keep cross-plateform, we replace windowsSeparator by unixSeparator
+    char windowsSeparator = '\\' ;
+    char unixSeparator = '/' ;
+
+    for(unsigned int i = 0; i < fileNames_.size(); i++)
+    {
+        for(unsigned int j = 0; j <fileNames_[i].size(); j++)
+        {
+            if(fileNames_[i][j] == windowsSeparator)
+                fileNames_[i][j] = unixSeparator;
+        }
+    }
+    
     if(writeHeader() && writeData())
         return true;
     else
@@ -187,7 +186,7 @@ string mp::Encryption::encryptFile(string file)
 {
     ifstream input(file, ios::binary);
     if(!input)
-		log_(mp::Logger::priorityError) << "Unable to open " << file << " to crypt the file. (encryption)";
+        log_(mp::Logger::priorityError) << "Unable to open " << file << " to crypt the file. (encryption)";
 
     stringstream buffer;
     string encryptedFile;
@@ -211,9 +210,8 @@ string mp::Encryption::loadFile(string inputFile, string targetFile)
 
     ifstream input(inputFile, ios::in | ios::binary);
     if(!input)
-		log_(mp::Logger::priorityError) << "Unable to open " << inputFile << " to parse the header. (encryption)";
+        log_(mp::Logger::priorityError) << "Unable to open " << inputFile << " to parse the header. (encryption)";
 
-    
 
     // Read headerlen & filecount
     input.read(reinterpret_cast<char*>(&headerLen), 4);
@@ -221,11 +219,11 @@ string mp::Encryption::loadFile(string inputFile, string targetFile)
 
     while(i<fileCount)
     {
-		// Read the filenamelen.
+        // Read the filenamelen.
         input.seekg(offset,ios::beg);
         input.read(reinterpret_cast<char*>(&fileNameLen), 4);
 
-		// Read filename
+        // Read filename
         string filename(fileNameLen, ' ');
         input.read(&filename[0], fileNameLen);
 
@@ -254,7 +252,6 @@ string mp::Encryption::loadFile(string inputFile, string targetFile)
     }
 
     input.close();
-
 
     return "";
 }

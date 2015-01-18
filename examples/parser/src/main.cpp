@@ -34,76 +34,76 @@ using namespace std;
 
 int main()
 {
-	string encryptionKey{ "someKeyForEncryption" };
-	
-	mp::Encryption encryptMotor(encryptionKey);
-	
-	string clearFileName{ "resources/clearConfig.txt" };
-	string encryptedFileName{ "resources/encryptedConfig.txt" };
-	string decryptedFileName{ "resources/decryptedConfig.txt" };
-	
-	string encryptedData{ };
-	string decryptedData{ };
-	
-	ofstream file;
-	
-	cout << "Trying to encrypt " << clearFileName << "." << endl;
-	
-	// Encrypt config file.
-	encryptedData = encryptMotor.encryptFile(clearFileName);
-	
-	if (encryptedData != "")
-	{
-		file.open(encryptedFileName, ios::trunc);
-		file << encryptedData;
-		file.close();
-	
-		cout << "Encryption successful." << endl;
-		
-		cout << "Trying to decrypt " << encryptedFileName << "." << endl;
-		
-		// Decrypt encrypted config file.
-		decryptedData = encryptMotor.encryptFile(encryptedFileName);
-		file.open(decryptedFileName, ios::trunc);
-		file << decryptedData;
-		file.close();
-		
-		cout << "Decryption successful." << endl;
-		
-		// Read some values from config files.
-		bool myBool { };
-		vector<int> myIntVector { };
-		vector<string> myStringVector { };
-		float myFloat { };
-		int myInt { };
-		
-		// From the encrypted config file.
-		myBool = mp::Parser::fileParser<bool>(encryptedFileName, "someBoolean", '=', true, encryptionKey);
-		myIntVector = mp::Parser::vFileParser<int>(encryptedFileName, "someIntVector", '=', ';', true, encryptionKey);
-		
-		// From the clear config file.
-		myStringVector = mp::Parser::vFileParser(clearFileName, "someStringVector", '=', ';'); // We use speciality for string
-		myFloat = mp::Parser::fileParser<float>(clearFileName, "someFloatValue", '=');
-		myInt = mp::Parser::fileParser<int>(clearFileName, "someIntValue", '=');
-		
-		// Let's print what we got.
-		cout << "someBoolean = " << myBool << endl;
-		
-		cout << "someIntVector =";
-		for (auto value : myIntVector)
-			cout << " " << value;
-		cout << endl;
-		
-		cout << "someStringVector =";
-		for (auto value : myStringVector)
-			cout << " " << value;
-		cout << endl;
-		
-		cout << "someFloatValue = " << myFloat << endl;
-		cout << "someIntValue = " << myInt << endl;
-	}
-	else
-		cout << clearFileName << " is not found or empty." << endl;
-	
-	return 0;
+    string encryptionKey{ "someKeyForEncryption" };
+
+    mp::Encryption encryptMotor(encryptionKey);
+
+    string clearFileName{ "resources/clearConfig.txt" };
+    string encryptedFileName{ "resources/encryptedConfig.txt" };
+    string decryptedFileName{ "resources/decryptedConfig.txt" };
+
+    string encryptedData{ };
+    string decryptedData{ };
+
+    ofstream file;
+
+    cout << "Trying to encrypt " << clearFileName << "." << endl;
+
+    // Encrypt config file.
+    encryptedData = encryptMotor.encryptFile(clearFileName);
+
+    if (encryptedData != "")
+    {
+        file.open(encryptedFileName, ios::trunc);
+        file << encryptedData;
+        file.close();
+
+        cout << "Encryption successful." << endl;
+
+        cout << "Trying to decrypt " << encryptedFileName << "." << endl;
+
+        // Decrypt encrypted config file.
+        decryptedData = encryptMotor.encryptFile(encryptedFileName);
+        file.open(decryptedFileName, ios::trunc);
+        file << decryptedData;
+        file.close();
+
+        cout << "Decryption successful." << endl;
+
+        // Read some values from config files.
+        bool myBool { };
+        vector<int> myIntVector { };
+        vector<string> myStringVector { };
+        float myFloat { };
+        int myInt { };
+
+        // From the encrypted config file.
+        myBool = mp::Parser::fileParser<bool>(encryptedFileName, "someBoolean", '=', true, encryptionKey);
+        myIntVector = mp::Parser::vFileParser<int>(encryptedFileName, "someIntVector", '=', ';', true, encryptionKey);
+
+        // From the clear config file.
+        myStringVector = mp::Parser::vFileParser(clearFileName, "someStringVector", '=', ';'); // We use speciality for string
+        myFloat = mp::Parser::fileParser<float>(clearFileName, "someFloatValue", '=');
+        myInt = mp::Parser::fileParser<int>(clearFileName, "someIntValue", '=');
+
+        // Let's print what we got.
+        cout << "someBoolean = " << myBool << endl;
+
+        cout << "someIntVector =";
+        for (auto value : myIntVector)
+            cout << " " << value;
+        cout << endl;
+
+        cout << "someStringVector =";
+        for (auto value : myStringVector)
+            cout << " " << value;
+        cout << endl;
+
+        cout << "someFloatValue = " << myFloat << endl;
+        cout << "someIntValue = " << myInt << endl;
+    }
+    else
+        cout << clearFileName << " is not found or empty." << endl;
+
+    return 0;
 }

@@ -100,7 +100,7 @@ string encryptFile(string file)
 {
     ifstream input(file, ios::binary);
     if(!input)
-		cout << "Unable to open " << file << " to crypt the file. (encryption)";
+        cout << "Unable to open " << file << " to crypt the file. (encryption)";
 
     stringstream buffer;
     string encryptedFile;
@@ -160,12 +160,12 @@ bool writeData(vector<string> fileNames)
 
 void decryptFiles(std::string key, std::string inputFile)
 {
-	key_ = key;
+    key_ = key;
     int headerLen, fileCount, fileNameLen, fileSize, fileOffset, i=0, offset=8;
 
     ifstream input(inputFile, ios::in | ios::binary);
     if(!input)
-		cout << "Unable to open " << inputFile << " to parse the header. (encryption)";
+        cout << "Unable to open " << inputFile << " to parse the header. (encryption)";
 
     //string filename;
 
@@ -186,35 +186,35 @@ void decryptFiles(std::string key, std::string inputFile)
         //increment the offset with filenamelen.
         offset+=fileNameLen+4+4+4;
 
-		//read the filesize into the input file.
-		input.read(reinterpret_cast<char*>(&fileSize), 4);
-		//read the fileoffset into the input file.
-		input.read(reinterpret_cast<char*>(&fileOffset), 4);
+        //read the filesize into the input file.
+        input.read(reinterpret_cast<char*>(&fileSize), 4);
+        //read the fileoffset into the input file.
+        input.read(reinterpret_cast<char*>(&fileOffset), 4);
 
-		//Move the cursor on the first bit of the file and read it with filesize.
-		std::string file(fileSize, ' ');
-		input.seekg(fileOffset, ios::beg);
-		input.read(&file[0], fileSize);
+        //Move the cursor on the first bit of the file and read it with filesize.
+        std::string file(fileSize, ' ');
+        input.seekg(fileOffset, ios::beg);
+        input.read(&file[0], fileSize);
 
-		//decrypt file
-		file = encryptData(key_, file);
-		
-		//extract and create directory
-		vector<string> temp;
-		temp = split(filename);
-		string directory;
-		for(unsigned int j = 0; j < temp.size() - 1; j++)
-		{
-			directory += temp[j] + "/";
-			path dir(directory);
-			if(!is_directory(dir))
-				create_directory(dir);
-		}
-		
-		//write file
-		ofstream output(filename, ios::binary);
-		output << file;
-		output.close();
+        //decrypt file
+        file = encryptData(key_, file);
+        
+        //extract and create directory
+        vector<string> temp;
+        temp = split(filename);
+        string directory;
+        for(unsigned int j = 0; j < temp.size() - 1; j++)
+        {
+            directory += temp[j] + "/";
+            path dir(directory);
+            if(!is_directory(dir))
+                create_directory(dir);
+        }
+
+        //write file
+        ofstream output(filename, ios::binary);
+        output << file;
+        output.close();
 
         i++;
     }
@@ -225,30 +225,28 @@ void decryptFiles(std::string key, std::string inputFile)
 
 void encryptFiles(string key, path directory, string outputFile)
 {
-	vector<string>fileNames;
-	key_ = key;
-	outputFile_ = outputFile;
-	if(!exists(directory) || !is_directory(directory))
-    {
+    vector<string>fileNames;
+    key_ = key;
+    outputFile_ = outputFile;
+    if(!exists(directory) || !is_directory(directory))
         cout << "Path " << directory.string() << " doesn't exist or isn't a directory. (encryption)";
-    }
 
 
     fileNames = listFiles(directory, true);
-	
-	//In order to keep cross-plateform, we replace windowsSeparator by unixSeparator
-	char windowsSeparator = '\\' ;
-	char unixSeparator = '/' ;
+    
+    //In order to keep cross-plateform, we replace windowsSeparator by unixSeparator
+    char windowsSeparator = '\\' ;
+    char unixSeparator = '/' ;
 
-	for(unsigned int i = 0; i < fileNames.size(); i++)
-	{
-		for(unsigned int j = 0; j <fileNames[i].size(); j++)
-		{
-			if(fileNames[i][j] == windowsSeparator)
-				fileNames[i][j] = unixSeparator;
-		}
-	}
-		
+    for(unsigned int i = 0; i < fileNames.size(); i++)
+    {
+        for(unsigned int j = 0; j <fileNames[i].size(); j++)
+        {
+            if(fileNames[i][j] == windowsSeparator)
+                fileNames[i][j] = unixSeparator;
+        }
+    }
+
     writeHeader(fileNames);
     writeData(fileNames);
 }
@@ -264,7 +262,7 @@ vector<string> listFiles(path directory, bool recursive)
     {
         // If it's not a directory, add it in filesPaths.
         if (is_regular_file(itr->path()))
-		{
+        {
             filesPaths.push_back(itr->path().string());
         }
         else if(recursive && is_directory(itr->path()))
@@ -275,7 +273,7 @@ vector<string> listFiles(path directory, bool recursive)
         }
 
     }
-	
+
     return filesPaths;
 }
 

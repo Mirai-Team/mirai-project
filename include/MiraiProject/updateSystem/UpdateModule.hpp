@@ -34,38 +34,38 @@
 #include "MiraiProject/updateSystem/Updatable.hpp"
 
 /** @file UpdateModule.hpp
- * 	\brief This file define UpdateModule class.
+ *  \brief This file define UpdateModule class.
  */
- 
+
 namespace mp
 {
-	/** \class UpdateModule
-	 * \brief Static class to update all Updatable based objects according to the map key.
-	 */
-	 
-	class UpdateModule
-	{
-		// In order to prevent the user to call UpdateModule::AddUpdater, UpdateModule::RemoveUpdater, ...
-		friend class Updatable;
-		
-		public:
-			/** \brief Update all the Updatable stored in the update module by calling their update() method.
-			 *
-			 * \param deltaTime : time elapsed since last update.
-			 * \param key : Map key to update.
-			 */
-			static void update(sf::Time deltaTime, std::string key);
-			
-		private:
-			// Add an Updater in updatableList_
-			static void addUpdater(Updatable* updatable, std::string key);
-			
-			// Remove an Updater from updatableList_
-			static void removeUpdater(Updatable* updatable);
-			
-			// Objects list to update.
-			static std::map<std::string, std::list<Updatable*>> updatableList_;
-	};
+    /** \class UpdateModule
+     * \brief Static class to update all Updatable based objects according to the map key.
+     */
+
+    class UpdateModule
+    {
+        // In order to prevent the user to call UpdateModule::AddUpdater, UpdateModule::RemoveUpdater, ...
+        friend class Updatable;
+
+        public:
+            /** \brief Update all the Updatable stored in the update module by calling their update() method.
+             *
+             * \param deltaTime : time elapsed since last update.
+             * \param key : Map key to update.
+             */
+            static void update(sf::Time deltaTime, std::string key);
+
+        private:
+            // Add an Updater in updatableList_
+            static void addUpdater(Updatable* updatable, std::string key);
+
+            // Remove an Updater from updatableList_
+            static void removeUpdater(Updatable* updatable);
+
+            // Objects list to update.
+            static std::map<std::string, std::list<Updatable*>> updatableList_;
+    };
 
 }
 

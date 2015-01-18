@@ -46,4 +46,5 @@ void decryptFiles(std::string key, std::string inputFile);
 
 bool writeHeader(std::vector<std::string> fileNames);
 bool writeData(std::vector<std::string> fileNames);
+
 #endif

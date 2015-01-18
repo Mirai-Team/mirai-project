@@ -37,12 +37,12 @@ mp::BaseResManager::BaseResManager() : texturesCache{ },
                                        fontCache{ },
                                        log_ { "mirai_project.log" }
 {
-	// constructor
+    // constructor
 }
 
 mp::BaseResManager::~BaseResManager()
 {
-	// destructor
+    // destructor
 }
 
 // ______________________________ Textures ______________________________
@@ -61,39 +61,40 @@ shared_ptr<sf::Texture> mp::BaseResManager::getTexture(const string &fileName, c
 
 bool mp::BaseResManager::loadTextureFromFile(const string &fileName)
 {
-	bool success{ true };
+    bool success{ true };
 
     shared_ptr<sf::Texture> ptr_texture{ new sf::Texture };
     ptr_texture->setSmooth(false);
 
     if (!ptr_texture->loadFromFile(fileName))
-	{
-		// File not found...
+    {
+        // File not found...
         log_(mp::Logger::priorityError) << "File " << fileName << " was not found... (for texture)";
-		success = false;
-	}
+        success = false;
+    }
 
     texturesCache[fileName] = ptr_texture;
 
-	return success;
+    return success;
 }
 
 bool mp::BaseResManager::loadTextureFromMemory(const string &fileName, const void *fileData, size_t fileSize)
 {
-	bool success{ true };
+    bool success{ true };
 
     shared_ptr<sf::Texture> ptr_texture{ new sf::Texture };
     ptr_texture->setSmooth(false);
+
     if (!ptr_texture->loadFromMemory(fileData, fileSize))
-	{
-		// File not found...
+    {
+        // File not found...
         log_(mp::Logger::priorityError) << "File " << fileName << " was not found... (for texture)";
-		success = false;
-	}
+        success = false;
+    }
 
     texturesCache[fileName] = ptr_texture;
 
-	return success;
+    return success;
 }
 
 bool mp::BaseResManager::textureIsAvailable(const string &fileName)
@@ -117,43 +118,42 @@ shared_ptr<sf::SoundBuffer> mp::BaseResManager::getSoundBuffer(const string &fil
         shared_ptr<sf::SoundBuffer> ptr_sound_buffer{ new sf::SoundBuffer };
         return move(ptr_sound_buffer);
     }
-
 }
 
 bool mp::BaseResManager::loadSoundBufferFromFile(const string &fileName)
 {
-	bool success{ true };
+    bool success{ true };
 
     shared_ptr<sf::SoundBuffer> ptr_sound_buffer{ new sf::SoundBuffer };
 
     if (!ptr_sound_buffer->loadFromFile(fileName))
-	{
-		// Sound not found...
+    {
+        // Sound not found...
         log_(mp::Logger::priorityError) << "File " << fileName << " was not found... (for sound)";
-		success = false;
-	}
+        success = false;
+    }
 
     soundBufferCache[fileName] = ptr_sound_buffer;
 
-	return success;
+    return success;
 }
 
 bool mp::BaseResManager::loadSoundBufferFromMemory(const string &fileName, const void *fileData, size_t fileSize)
 {
-	bool success{ true };
+    bool success{ true };
 
     shared_ptr<sf::SoundBuffer> ptr_sound_buffer{ new sf::SoundBuffer };
 
     if (!ptr_sound_buffer->loadFromMemory(fileData, fileSize))
-	{
-		// Sound not found...
+    {
+        // Sound not found...
         log_(mp::Logger::priorityError) << "File " << fileName << " was not found... (for sound)";
-		success = false;
-	}
+        success = false;
+    }
 
     soundBufferCache[fileName] = ptr_sound_buffer;
 
-	return success;
+    return success;
 }
 
 bool mp::BaseResManager::soundBufferIsAvailable(const string &fileName)
@@ -177,7 +177,6 @@ shared_ptr<sf::Font> mp::BaseResManager::getFont(const string &fileName, const b
         shared_ptr<sf::Font> ptrFont{ new sf::Font };
         return move(ptrFont);
     }
-
 }
 
 bool mp::BaseResManager::loadFontFromFile(const string &fileName)

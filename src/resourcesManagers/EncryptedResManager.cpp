@@ -33,44 +33,44 @@ using namespace std;
 // ______________________________ Textures ______________________________
 shared_ptr<sf::Texture> mp::EncryptedResManager::getTexture(const string &fileName, const string &inputFile, const string &key)
 {
-	// Load file in fileData.
-	mp::Encryption encryptMotor(key);
-	string fileData = encryptMotor.loadFile(inputFile, fileName);
-	
-	size_t fileSize = fileData.size();
+    // Load file in fileData.
+    mp::Encryption encryptMotor(key);
+    string fileData = encryptMotor.loadFile(inputFile, fileName);
+
+    size_t fileSize = fileData.size();
     // Automatically load the texture if needed.
-	if (textureIsAvailable(fileName) == false)
-		loadTextureFromMemory(fileName, &fileData[0], fileSize);
-    
-	return mp::BaseResManager::getTexture(fileName, false);
+    if (textureIsAvailable(fileName) == false)
+        loadTextureFromMemory(fileName, &fileData[0], fileSize);
+
+    return mp::BaseResManager::getTexture(fileName, false);
 }
 
 // ______________________________ Sound Buffers ______________________________
 shared_ptr<sf::SoundBuffer> mp::EncryptedResManager::getSoundBuffer(const string &fileName, const string &inputFile, const string &key)
 {
-	// Load file in fileData.
+    // Load file in fileData.
     mp::Encryption encryptMotor(key);
-	string fileData = encryptMotor.loadFile(inputFile, fileName);
-	
-	size_t fileSize = fileData.size();
+    string fileData = encryptMotor.loadFile(inputFile, fileName);
+
+    size_t fileSize = fileData.size();
     // Automatically load the texture if needed.
-	if (soundBufferIsAvailable(fileName) == false)
-		loadSoundBufferFromMemory(fileName, &fileData, fileSize);
-    
-	return mp::BaseResManager::getSoundBuffer(fileName, false);
+    if (soundBufferIsAvailable(fileName) == false)
+        loadSoundBufferFromMemory(fileName, &fileData, fileSize);
+
+    return mp::BaseResManager::getSoundBuffer(fileName, false);
 }
 
 // ______________________________ Font ______________________________
 shared_ptr<sf::Font> mp::EncryptedResManager::getFont(const string &fileName, const string &inputFile, const string &key)
 {
-	// Load file in fileData.
+    // Load file in fileData.
     mp::Encryption encryptMotor(key);
-	string fileData = encryptMotor.loadFile(inputFile, fileName);
-	
-	size_t fileSize = fileData.size();
+    string fileData = encryptMotor.loadFile(inputFile, fileName);
+
+    size_t fileSize = fileData.size();
     // Automatically load the font if needed.
-	if (fontIsAvailable(fileName) == false)
-		loadFontFromMemory(fileName, &fileData, fileSize);
-    
-	return mp::BaseResManager::getFont(fileName, false);
+    if (fontIsAvailable(fileName) == false)
+        loadFontFromMemory(fileName, &fileData, fileSize);
+
+    return mp::BaseResManager::getFont(fileName, false);
 }

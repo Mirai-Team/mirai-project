@@ -32,56 +32,56 @@ using namespace std;
 
 int main()
 {
-	cout << "Starting example." << endl;
-	
-	bool running{ true };
-	
-	mp::WindowManager mainWindowManager { };
-	sf::RenderWindow &window = mainWindowManager.getWindow();
-	
-	mainWindowManager.setWindowName("Simple Window Test");
-	mainWindowManager.setOptimalWinWidth(500);
-	mainWindowManager.setOptimalWinHeight(500);
-	mainWindowManager.setVideomodeWidth(500);
-	mainWindowManager.setVideomodeHeight(500);
-	
-	cout << "Creating the main window." << endl;
-	mainWindowManager.create();
-	
-	// Useful only for testing purpose, but not very effective for real games.
-	window.setFramerateLimit(60);
-	
-	// Creating a small circle to draw.
-	sf::CircleShape shape(25);
-	shape.setFillColor(sf::Color(255, 255, 255));
-	shape.setPosition(200, 200);
-	
-	while (running)
-	{
-		// Process events...
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			switch (event.type)
-			{
-				case sf::Event::Closed:
-					running = false;
-					break;
-				default:
-					break;
-			}
-		}
-		
-		window.clear(sf::Color::Black);
-		window.draw(shape);
-		window.display();
-	}
-	
+    cout << "Starting example." << endl;
+
+    bool running{ true };
+
+    mp::WindowManager mainWindowManager { };
+    sf::RenderWindow &window = mainWindowManager.getWindow();
+
+    mainWindowManager.setWindowName("Simple Window Test");
+    mainWindowManager.setOptimalWinWidth(500);
+    mainWindowManager.setOptimalWinHeight(500);
+    mainWindowManager.setVideomodeWidth(500);
+    mainWindowManager.setVideomodeHeight(500);
+
+    cout << "Creating the main window." << endl;
+    mainWindowManager.create();
+
+    // Useful only for testing purpose, but not very effective for real games.
+    window.setFramerateLimit(60);
+
+    // Creating a small circle to draw.
+    sf::CircleShape shape(25);
+    shape.setFillColor(sf::Color(255, 255, 255));
+    shape.setPosition(200, 200);
+
+    while (running)
+    {
+        // Process events...
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            switch (event.type)
+            {
+                case sf::Event::Closed:
+                    running = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        window.clear(sf::Color::Black);
+        window.draw(shape);
+        window.display();
+    }
+    
     // Closing the window if necessary.
     if (window.isOpen())
-		window.close();
-	
-	cout << "Example stopped." << endl;
-	
-	return 0;
+        window.close();
+
+    cout << "Example stopped." << endl;
+
+    return 0;
 }
