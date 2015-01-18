@@ -189,7 +189,7 @@ bool mp::BaseResManager::loadFontFromFile(const string &fileName)
     if (!ptrFont->loadFromFile(fileName))
     {
         // Font not found...
-        log_(mp::priorityError) << "File " << fileName << " was not found... (for font)";
+        log_(mp::Logger::priorityError) << "File " << fileName << " was not found... (for font)";
         success = false;
     }
 
@@ -207,7 +207,7 @@ bool mp::BaseResManager::loadFontFromMemory(const string &fileName, const void *
     if (!ptrFont->loadFromMemory(fileData, fileSize))
     {
         // Font not found...
-        log_(mp::priorityError) << "File " << fileName << " was not found... (for font)";
+        log_(mp::Logger::priorityError) << "File " << fileName << " was not found... (for font)";
         success = false;
     }
 
@@ -260,7 +260,7 @@ void mp::BaseResManager::clean()
         soundBufferCache.erase(key);
 
     // ___________________ Clean font cache... ___________________
-    log_(mp::priorityInfo) << "Cleaning font cache.";
+    log_(mp::Logger::priorityInfo) << "Cleaning fonts cache.";
 
     keysToErase.clear(); // Clear keys_to_erase vector.
 
