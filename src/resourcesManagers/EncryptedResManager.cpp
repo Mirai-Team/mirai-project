@@ -60,3 +60,17 @@ shared_ptr<sf::SoundBuffer> mp::EncryptedResManager::getSoundBuffer(const string
 	return mp::BaseResManager::getSoundBuffer(fileName, false);
 }
 
+// ______________________________ Font ______________________________
+shared_ptr<sf::Font> mp::EncryptedResManager::getFont(const string &fileName, const string &inputFile, const string &key)
+{
+	// Load file in fileData.
+    mp::Encryption encryptMotor(key);
+	string fileData = encryptMotor.loadFile(inputFile, fileName);
+	
+	size_t fileSize = fileData.size();
+    // Automatically load the font if needed.
+	if (fontIsAvailable(fileName) == false)
+		loadFontFromMemory(fileName, &fileData, fileSize);
+    
+	return mp::BaseResManager::getFont(fileName, false);
+}

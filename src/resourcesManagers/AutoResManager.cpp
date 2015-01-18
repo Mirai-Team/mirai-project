@@ -48,3 +48,13 @@ shared_ptr<sf::SoundBuffer> mp::AutoResManager::getSoundBuffer(const string &fil
     
 	return mp::BaseResManager::getSoundBuffer(fileName, false);
 }
+
+// ______________________________ Font ______________________________
+shared_ptr<sf::Font> mp::AutoResManager::getFontBuffer(const string &fileName)
+{
+    // Automatically load the font if needed.
+    if (fontIsAvailable(fileName) == false)
+        loadFontFromFile(fileName);
+    
+    return mp::BaseResManager::getFont(fileName, false);
+}
