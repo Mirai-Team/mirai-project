@@ -49,16 +49,18 @@ namespace mp
             /** \brief Add an action for a key.
              *
              * \param index : index of key in map.
+             * \param keys : a sfml key.
              * \param funct : function to launch when key is pressed or released.
-             * \param onPress : launch function when key is pressed or released.
+             * \param Mode : Binding::Mode, onPress, onRelease or Always.
              */
             void addBinding(std::string index, sf::Keyboard::Key key, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
 
             /** \brief Add an action for a key.
              *
              * \param index : index of key in map.
+             * \param keys : a vector of sfml keys.
              * \param funct : function to launch when key is pressed or released.
-             * \param onPress : launch function when key is pressed or released.
+             * \param Mode : Binding::Mode, onPress, onRelease or Always.
              */
             void addBinding(std::string index, std::vector<sf::Keyboard::Key> keys, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
 
@@ -76,20 +78,22 @@ namespace mp
 
             /** \brief Clear all actions associated to a key. 
              *
-             * \param keys : keys to clean.
+             * \param keys : a vector of keys to clean.
              */
             void clearKey(std::vector<sf::Keyboard::Key> keys);
 
-            /** \brief Execute action matching the key.
-             * 
-             * \param event : the event to check.
-             */
+            /** \brief Execute action matching to the key. */
             void operator()();
 
+            /** \brief disable KeyboardManager */
             void disable();
 
+            /** \brief enable KeyboardManager */
             void enable();
 
+            /** \brief Return if KeyboardManager is enable or disable
+             * \return a bool which contains KeyboardManager State.
+             */
             bool isEnabled() const;
 
         private:

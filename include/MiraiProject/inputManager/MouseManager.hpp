@@ -39,25 +39,60 @@ namespace mp
     class MouseManager
     {
         public:
+            /** \brief Constructor */
             MouseManager();
+
+            /** \brief Destructor */
             ~MouseManager();
 
+            /** \brief Add an action for a button.
+             *
+             * \param index : index of button in map.
+             * \param buttons : a sfml button.
+             * \param funct : function to launch when button is pressed or released.
+             * \param Mode : Binding::Mode, onPress, onRelease or Always.
+             */
             void addBinding(std::string index, sf::Mouse::Button button, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
 
+            /** \brief Add an action for a button.
+             *
+             * \param index : index of button in map.
+             * \param buttons : a vector of sfml buttons.
+             * \param funct : function to launch when button is pressed or released.
+             * \param Mode : Binding::Mode, onPress, onRelease or Always.
+             */
             void addBinding(std::string index, std::vector<sf::Mouse::Button> button, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
 
+            /** \brief Remove action.
+             *
+             * \param index : index of button in map.
+             */
             void removeBinding(std::string index);
 
+            /** \brief Clear all actions associated to a button. 
+             *
+             * \param button : button to clean.
+             */
             void clearButton(sf::Mouse::Button button);
 
+            /** \brief Clear all actions associated to a buttons. 
+             *
+             * \param buttons : a vector of buttons to clean.
+             */
             void clearButton(std::vector<sf::Mouse::Button> buttons);
 
+            /** \brief Execute action matching to the button. */
             void operator()();
 
+            /** \brief disable MouseManager */
             void disable();
 
+            /** \brief enable MouseManager */
             void enable();
 
+            /** \brief Return if MouseManager is enable or disable
+             * \return a bool which contains MouseManager State.
+             */
             bool isEnabled() const;
 
         private:
