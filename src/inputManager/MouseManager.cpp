@@ -80,7 +80,7 @@ void mp::MouseManager::clearButton(sf::Mouse::Button button)
     }
 }
 
-void mp::MouseManager::clearButton(std::vector<sf::Mouse::Button> buttons)
+void mp::MouseManager::clearButtons(std::vector<sf::Mouse::Button> buttons)
 {
     auto binding = bindings_.begin();
     while (binding != bindings_.end())

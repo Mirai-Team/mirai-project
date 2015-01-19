@@ -80,7 +80,7 @@ void mp::KeyboardManager::clearKey(sf::Keyboard::Key key)
     }
 }
 
-void mp::KeyboardManager::clearKey(std::vector<sf::Keyboard::Key> keys)
+void mp::KeyboardManager::clearKeys(std::vector<sf::Keyboard::Key> keys)
 {
     auto binding = bindings_.begin();
     while (binding != bindings_.end())

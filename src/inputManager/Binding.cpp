@@ -28,7 +28,7 @@
 
 #include "MiraiProject/inputManager/Binding.hpp"
 
-mp::Binding::Binding(std::vector<sf::Keyboard::Key> keys, std::function<void()> funct, Mode mode) : isKeyboardBinding{ true },
+mp::Binding::Binding(std::vector<sf::Keyboard::Key> keys, std::function<void()> funct, Mode mode) : isKeyboardBinding_{ true },
                                                                                                     mode_ { mode },
                                                                                                     keys_ { keys },
                                                                                                     lastStateKeys_ { false },
@@ -39,7 +39,7 @@ mp::Binding::Binding(std::vector<sf::Keyboard::Key> keys, std::function<void()> 
 
 }
 
-mp::Binding::Binding(std::vector<sf::Mouse::Button> buttons, std::function<void()> funct, Mode mode) :  isKeyboardBinding{ false },
+mp::Binding::Binding(std::vector<sf::Mouse::Button> buttons, std::function<void()> funct, Mode mode) :  isKeyboardBinding_{ false },
                                                                                                         mode_ { mode },
                                                                                                         keys_ { },
                                                                                                         lastStateKeys_ { false },
@@ -67,7 +67,7 @@ bool mp::Binding::operator()()
 
     for(unsigned int i = 0; i < keys_.size(); i++)
     {
-        if(isKeyboardBinding and ((mode_ == Mode::Always and sf::Keyboard::isKeyPressed(keys_[i]))
+        if(isKeyboardBinding_ and ((mode_ == Mode::Always and sf::Keyboard::isKeyPressed(keys_[i]))
            or (mode_ == Mode::onPress and lastStateKeys_[i] == false and sf::Keyboard::isKeyPressed(keys_[i]) == true)
            or (mode_ == Mode::onRelease and lastStateKeys_[i] == true and sf::Keyboard::isKeyPressed(keys_[i]) == false)))
             IsPressed &= true;
@@ -79,7 +79,7 @@ bool mp::Binding::operator()()
 
     for(unsigned int i = 0; i < buttons_.size(); i++)
     {
-        if(!isKeyboardBinding and ((mode_ == Mode::Always and sf::Mouse::isButtonPressed(buttons_[i]))
+        if(!isKeyboardBinding_ and ((mode_ == Mode::Always and sf::Mouse::isButtonPressed(buttons_[i]))
            or (mode_ == Mode::onPress and lastStateButtons_[i] == false and sf::Mouse::isButtonPressed(buttons_[i]) == true)
            or (mode_ == Mode::onRelease and lastStateButtons_[i] == true and sf::Mouse::isButtonPressed(buttons_[i]) == false)))
             IsPressed &= true;

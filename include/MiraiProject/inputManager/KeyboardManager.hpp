@@ -34,11 +34,18 @@
 
 #include "MiraiProject/inputManager/Binding.hpp"
 
+/** @file KeyboardManager.hpp
+ * \brief This file define KeyboardManager class.
+ */
+ 
 namespace mp
 {
+    /** \class KeyboardManager
+     * \brief A class to handle keyboard inputs.
+     */
+    
     class KeyboardManager
     {
-
         public:
             /** \brief Constructor */
             KeyboardManager();
@@ -51,7 +58,7 @@ namespace mp
              * \param index : index of key in map.
              * \param keys : a sfml key.
              * \param funct : function to launch when key is pressed or released.
-             * \param Mode : Binding::Mode, onPress, onRelease or Always.
+             * \param mode : the mode for this binding (on release, on press, ...). See Binding::Mode enum.
              */
             void addBinding(std::string index, sf::Keyboard::Key key, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
 
@@ -60,7 +67,7 @@ namespace mp
              * \param index : index of key in map.
              * \param keys : a vector of sfml keys.
              * \param funct : function to launch when key is pressed or released.
-             * \param Mode : Binding::Mode, onPress, onRelease or Always.
+             * \param mode : the mode for this binding (on release, on press, ...). See Binding::Mode enum.
              */
             void addBinding(std::string index, std::vector<sf::Keyboard::Key> keys, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
 
@@ -72,27 +79,28 @@ namespace mp
 
             /** \brief Clear all actions associated to a key. 
              *
-             * \param key : key to clean.
+             * \param key : the key matching bindings to remove.
              */
             void clearKey(sf::Keyboard::Key key);
 
-            /** \brief Clear all actions associated to a key. 
+            /** \brief Clear all actions associated to keys. 
              *
-             * \param keys : a vector of keys to clean.
+             * \param keys : the keys matching bindings to remove.
              */
-            void clearKey(std::vector<sf::Keyboard::Key> keys);
+            void clearKeys(std::vector<sf::Keyboard::Key> keys);
 
             /** \brief Execute action matching to the key. */
             void operator()();
 
-            /** \brief disable KeyboardManager */
+            /** \brief disable the keyboard manager */
             void disable();
 
-            /** \brief enable KeyboardManager */
+            /** \brief enable the keyboard manager */
             void enable();
 
-            /** \brief Return if KeyboardManager is enable or disable
-             * \return a bool which contains KeyboardManager State.
+            /** \brief Return whether the keyboard manager is enabled or disabled
+             *
+             * \return a bool which contains the keyboard manager state.
              */
             bool isEnabled() const;
 

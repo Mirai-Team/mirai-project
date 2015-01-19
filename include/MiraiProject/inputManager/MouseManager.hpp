@@ -34,10 +34,18 @@
 
 #include "MiraiProject/inputManager/Binding.hpp"
 
+/** @file MouseManager.hpp
+ * \brief This file define MouseManager class.
+ */
+
 namespace mp
 {
+    /** \class MouseManager
+     * \brief A class to handle mouse inputs.
+     */
+    
     class MouseManager
-    {
+    {        
         public:
             /** \brief Constructor */
             MouseManager();
@@ -50,7 +58,7 @@ namespace mp
              * \param index : index of button in map.
              * \param buttons : a sfml button.
              * \param funct : function to launch when button is pressed or released.
-             * \param Mode : Binding::Mode, onPress, onRelease or Always.
+             * \param mode : the mode for this binding (on release, on press, ...). See Binding::Mode enum.
              */
             void addBinding(std::string index, sf::Mouse::Button button, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
 
@@ -59,7 +67,7 @@ namespace mp
              * \param index : index of button in map.
              * \param buttons : a vector of sfml buttons.
              * \param funct : function to launch when button is pressed or released.
-             * \param Mode : Binding::Mode, onPress, onRelease or Always.
+             * \param mode : the mode for this binding (on release, on press, ...). See Binding::Mode enum.
              */
             void addBinding(std::string index, std::vector<sf::Mouse::Button> button, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
 
@@ -71,27 +79,28 @@ namespace mp
 
             /** \brief Clear all actions associated to a button. 
              *
-             * \param button : button to clean.
+             * \param button : the button matching bindings to remove.
              */
             void clearButton(sf::Mouse::Button button);
 
-            /** \brief Clear all actions associated to a buttons. 
+            /** \brief Clear all actions associated to buttons. 
              *
-             * \param buttons : a vector of buttons to clean.
+             * \param buttons : the buttons matching bindings to remove.
              */
-            void clearButton(std::vector<sf::Mouse::Button> buttons);
+            void clearButtons(std::vector<sf::Mouse::Button> buttons);
 
             /** \brief Execute action matching to the button. */
             void operator()();
 
-            /** \brief disable MouseManager */
+            /** \brief disable the mouse manager */
             void disable();
 
-            /** \brief enable MouseManager */
+            /** \brief enable the mouse manager */
             void enable();
 
-            /** \brief Return if MouseManager is enable or disable
-             * \return a bool which contains MouseManager State.
+            /** \brief Return whether the mouse manager is enabled or disabled
+             *
+             * \return a bool which contains the mouse manager state.
              */
             bool isEnabled() const;
 
