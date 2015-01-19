@@ -35,29 +35,29 @@ mp::KeyboardManager::~KeyboardManager()
 	
 }
 
-void mp::KeyboardManager::operator()()
+void mp::KeyboardManager::operator()(sf::Event& event)
 {
 	if (enabled_)
 	{
 		for(auto &binding : bindings_)
 		{
-			if(binding.second())
+			if(binding.second(event))
 				binding.second.callFunction();
 		}
 	}
 }
 
-void mp::KeyboardManager::addBinding(std::string index, sf::Keyboard::Key key, std::function<void()> funct)
+void mp::KeyboardManager::addBinding(std::string index, sf::Keyboard::Key key, std::function<void()> funct, mp::Binding::Mode mode)
 {
 	std::vector<sf::Keyboard::Key> temp;
 	temp.push_back(key);
 	
-	bindings_.emplace(std::make_pair(index, mp::Binding(temp, funct)));
+	bindings_.emplace(std::make_pair(index, mp::Binding(temp, funct, mode)));
 }
 
-void mp::KeyboardManager::addBinding(std::string index, std::vector<sf::Keyboard::Key> keys, std::function<void()> funct)
+void mp::KeyboardManager::addBinding(std::string index, std::vector<sf::Keyboard::Key> keys, std::function<void()> funct, mp::Binding::Mode mode)
 {
-	bindings_.emplace(std::make_pair(index, mp::Binding(keys, funct)));
+	bindings_.emplace(std::make_pair(index, mp::Binding(keys, funct, mode)));
 }
 
 void mp::KeyboardManager::removeBinding(std::string index)

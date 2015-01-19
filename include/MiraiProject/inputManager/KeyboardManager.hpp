@@ -40,7 +40,6 @@ namespace mp
 	{
 		
 		public:
-			
 			/** \brief Constructor */
 			KeyboardManager();
 			
@@ -53,7 +52,7 @@ namespace mp
 			 * \param funct : function to launch when key is pressed or released.
 			 * \param onPress : launch function when key is pressed or released.
 			 */
-			void addBinding(std::string index, sf::Keyboard::Key key, std::function<void()> funct = [](){ return true; });
+			void addBinding(std::string index, sf::Keyboard::Key key, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
 			
 			/** \brief Add an action for a key.
 			 *
@@ -61,7 +60,7 @@ namespace mp
 			 * \param funct : function to launch when key is pressed or released.
 			 * \param onPress : launch function when key is pressed or released.
 			 */
-			void addBinding(std::string index, std::vector<sf::Keyboard::Key> keys, std::function<void()> funct = [](){ return true; });
+			void addBinding(std::string index, std::vector<sf::Keyboard::Key> keys, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
 			
 			/** \brief Remove action.
 			 *
@@ -85,7 +84,7 @@ namespace mp
 			 * 
 			 * \param event : the event to check.
 			 */
-			void operator()();
+			void operator()(sf::Event& event);
 			
 			void disable();
 			

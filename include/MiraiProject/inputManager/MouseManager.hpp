@@ -42,8 +42,9 @@ namespace mp
 			MouseManager();
 			~MouseManager();
 			
-			void addBinding(std::string index, sf::Mouse::Button button, std::function<void()> funct = [](){ return true; });
-			void addBinding(std::string index, std::vector<sf::Mouse::Button> button, std::function<void()> funct = [](){ return true; });
+			void addBinding(std::string index, sf::Mouse::Button button, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
+			
+			void addBinding(std::string index, std::vector<sf::Mouse::Button> button, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
 			
 			void removeBinding(std::string index);
 			
@@ -51,7 +52,7 @@ namespace mp
 			
 			void clearButton(std::vector<sf::Mouse::Button> buttons);
 			
-			void operator()();
+			void operator()(sf::Event& event);
 			
 			void disable();
 			

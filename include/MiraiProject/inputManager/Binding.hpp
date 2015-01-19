@@ -38,17 +38,24 @@ namespace mp
 	class Binding
 	{
 		public:
+			enum Mode
+			{
+				Always = 0,
+				onRelease,
+				onPress
+			};
+			
 			/** \brief Constructor for KeyboardManager
 			 * \param key : a key
 			 * \param funct : a function to launch when key is pressed or released.
 			 */
-			explicit Binding(std::vector<sf::Keyboard::Key> keys, std::function<void()> funct);
+			explicit Binding(std::vector<sf::Keyboard::Key> keys, std::function<void()> funct, Mode mode);
 			
 			/** \brief Constructor for MouseManager
 			 * \param button : a key
 			 * \param funct : a function to launch when key is pressed or released.
 			 */
-			explicit Binding(std::vector<sf::Mouse::Button> buttons, std::function<void()> funct);
+			explicit Binding(std::vector<sf::Mouse::Button> buttons, std::function<void()> funct, Mode mode);
 			
 			/** \brief Destructor */
 			~Binding();
@@ -57,7 +64,7 @@ namespace mp
 			void callFunction();
 			
 			/** \brief Test if key is pressed or released. */
-			bool operator()();
+			bool operator()(sf::Event& event);
 			
 			/** \brief Key getter
 			 *
@@ -72,7 +79,10 @@ namespace mp
 			std::vector<sf::Mouse::Button> getButtons();
 			
 		private:
+			
 			bool isKeyboardBinding;
+			
+			Mode mode_;
 		
 			std::vector<sf::Keyboard::Key> keys_;
 			std::vector<sf::Mouse::Button> buttons_;
