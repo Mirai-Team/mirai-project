@@ -25,88 +25,84 @@
 #include "MiraiProject/inputManager/MouseManager.hpp"
 
 mp::MouseManager::MouseManager() : bindings_ { },
-								   enabled_{ true }
+                                   enabled_{ true }
 {
-	
+
 }
 
 mp::MouseManager::~MouseManager()
 {
-	
+
 }
 
 void mp::MouseManager::operator()()
 {
-	if (enabled_)
-	{
-		for(auto &binding : bindings_)
-		{
-			if(binding.second())
-				binding.second.callFunction();
-		}
-	}
+    if (enabled_)
+    {
+        for(auto &binding : bindings_)
+        {
+            if(binding.second())
+                binding.second.callFunction();
+        }
+    }
 }
 
 void mp::MouseManager::addBinding(std::string index, sf::Mouse::Button button, std::function<void()> funct, mp::Binding::Mode mode)
 {
-	std::vector<sf::Mouse::Button> temp;
-	temp.push_back(button);
-	
-	bindings_.emplace(std::make_pair(index, mp::Binding(temp, funct, mode)));
+    std::vector<sf::Mouse::Button> temp;
+    temp.push_back(button);
+    
+    bindings_.emplace(std::make_pair(index, mp::Binding(temp, funct, mode)));
 }
 
 void mp::MouseManager::addBinding(std::string index, std::vector<sf::Mouse::Button> buttons, std::function<void()> funct, mp::Binding::Mode mode)
 {
-	bindings_.emplace(std::make_pair(index, mp::Binding(buttons, funct, mode)));
+    bindings_.emplace(std::make_pair(index, mp::Binding(buttons, funct, mode)));
 }
 
 void mp::MouseManager::removeBinding(std::string index)
 {
-	bindings_.erase(index);
+    bindings_.erase(index);
 }
 
 void mp::MouseManager::clearButton(sf::Mouse::Button button)
 {
-	std::vector<sf::Mouse::Button> temp;
-	temp.push_back(button);
-	
-	auto binding = bindings_.begin();
-	while (binding != bindings_.end())
-	{
-		if (binding->second.getButtons() == temp) {
-			binding = bindings_.erase(binding);
-		}
-		else 
-		{
-			binding++;
-		}
-	}
+    std::vector<sf::Mouse::Button> temp;
+    temp.push_back(button);
+    
+    auto binding = bindings_.begin();
+    while (binding != bindings_.end())
+    {
+        if (binding->second.getButtons() == temp)
+            binding = bindings_.erase(binding);
+        else
+            binding++;
+    }
 }
 
 void mp::MouseManager::clearButton(std::vector<sf::Mouse::Button> buttons)
 {
-	auto binding = bindings_.begin();
-	while (binding != bindings_.end())
-	{
-		if (binding->second.getButtons() == buttons) {
-			binding = bindings_.erase(binding);
-		}
-		else 
-			binding++;
-	}
+    auto binding = bindings_.begin();
+    while (binding != bindings_.end())
+    {
+        if (binding->second.getButtons() == buttons)
+            binding = bindings_.erase(binding);
+        else
+            binding++;
+    }
 }
 
 void mp::MouseManager::enable()
 {
-	enabled_ = true;
+    enabled_ = true;
 }
 
 void mp::MouseManager::disable()
 {
-	enabled_ = false;
+    enabled_ = false;
 }
 
 bool mp::MouseManager::isEnabled() const
 {
-	return enabled_;
+    return enabled_;
 }

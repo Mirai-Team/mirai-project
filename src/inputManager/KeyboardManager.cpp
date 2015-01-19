@@ -25,86 +25,84 @@
 #include "MiraiProject/inputManager/KeyboardManager.hpp"
 
 mp::KeyboardManager::KeyboardManager() : bindings_{ },
-										 enabled_{ true }
+                                         enabled_{ true }
 {
-	
+
 }
 
 mp::KeyboardManager::~KeyboardManager()
 {
-	
+
 }
 
 void mp::KeyboardManager::operator()()
 {
-	if (enabled_)
-	{
-		for(auto &binding : bindings_)
-		{
-			if(binding.second())
-				binding.second.callFunction();
-		}
-	}
+    if (enabled_)
+    {
+        for(auto &binding : bindings_)
+        {
+            if(binding.second())
+                binding.second.callFunction();
+        }
+    }
 }
 
 void mp::KeyboardManager::addBinding(std::string index, sf::Keyboard::Key key, std::function<void()> funct, mp::Binding::Mode mode)
 {
-	std::vector<sf::Keyboard::Key> temp;
-	temp.push_back(key);
-	
-	bindings_.emplace(std::make_pair(index, mp::Binding(temp, funct, mode)));
+    std::vector<sf::Keyboard::Key> temp;
+    temp.push_back(key);
+
+    bindings_.emplace(std::make_pair(index, mp::Binding(temp, funct, mode)));
 }
 
 void mp::KeyboardManager::addBinding(std::string index, std::vector<sf::Keyboard::Key> keys, std::function<void()> funct, mp::Binding::Mode mode)
 {
-	bindings_.emplace(std::make_pair(index, mp::Binding(keys, funct, mode)));
+    bindings_.emplace(std::make_pair(index, mp::Binding(keys, funct, mode)));
 }
 
 void mp::KeyboardManager::removeBinding(std::string index)
 {
-	bindings_.erase(index);
+    bindings_.erase(index);
 }
 
 void mp::KeyboardManager::clearKey(sf::Keyboard::Key key)
 {
-	std::vector<sf::Keyboard::Key> temp;
-	temp.push_back(key);
+    std::vector<sf::Keyboard::Key> temp;
+    temp.push_back(key);
 
-	auto binding = bindings_.begin();
-	while (binding != bindings_.end())
-	{
-		if (binding->second.getKeys() == temp) {
-			binding = bindings_.erase(binding);
-		}
-		else 
-			binding++;
-	}
+    auto binding = bindings_.begin();
+    while (binding != bindings_.end())
+    {
+        if (binding->second.getKeys() == temp)
+            binding = bindings_.erase(binding);
+        else
+            binding++;
+    }
 }
 
 void mp::KeyboardManager::clearKey(std::vector<sf::Keyboard::Key> keys)
 {
-	auto binding = bindings_.begin();
-	while (binding != bindings_.end())
-	{
-		if (binding->second.getKeys() == keys) {
-			binding = bindings_.erase(binding);
-		}
-		else 
-			binding++;
-	}
+    auto binding = bindings_.begin();
+    while (binding != bindings_.end())
+    {
+        if (binding->second.getKeys() == keys)
+            binding = bindings_.erase(binding);
+        else
+            binding++;
+    }
 }
 
 void mp::KeyboardManager::enable()
 {
-	enabled_ = true;
+    enabled_ = true;
 }
 
 void mp::KeyboardManager::disable()
 {
-	enabled_ = false;
+    enabled_ = false;
 }
 
 bool mp::KeyboardManager::isEnabled() const
 {
-	return enabled_;
+    return enabled_;
 }
