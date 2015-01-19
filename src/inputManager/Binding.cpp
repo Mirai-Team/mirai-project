@@ -24,69 +24,80 @@
 
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Mouse.hpp>
+#include <iostream>
 
 #include "MiraiProject/inputManager/Binding.hpp"
 
 mp::Binding::Binding(std::vector<sf::Keyboard::Key> keys, std::function<void()> funct, Mode mode) : isKeyboardBinding{ true },
-																									mode_ { mode },
-																									keys_ { keys },
-																									buttons_ { },
-																									funct_ { funct }
+                                                                                                    mode_ { mode },
+                                                                                                    keys_ { keys },
+                                                                                                    lastStateKeys_ { false },
+                                                                                                    buttons_ { },
+                                                                                                    lastStateButtons_ { false },
+                                                                                                    funct_ { funct }
 {
-	
+
 }
 
-mp::Binding::Binding(std::vector<sf::Mouse::Button> buttons, std::function<void()> funct, Mode mode) : 	isKeyboardBinding{ false },
-																										mode_ { mode },
-																										keys_ { },
-																										buttons_ { buttons },
-																										funct_ { funct }
+mp::Binding::Binding(std::vector<sf::Mouse::Button> buttons, std::function<void()> funct, Mode mode) :  isKeyboardBinding{ false },
+                                                                                                        mode_ { mode },
+                                                                                                        keys_ { },
+                                                                                                        lastStateKeys_ { false },
+                                                                                                        buttons_ { buttons },
+                                                                                                        lastStateButtons_ { false },
+                                                                                                        funct_ { funct }
 {
-	
+
 }
 
 mp::Binding::~Binding()
 {
-	
+
 }
 
 void mp::Binding::callFunction()
 {
-	if(funct_)
-		funct_();
+    if(funct_)
+        funct_();
 }
 
-bool mp::Binding::operator()(sf::Event& event)
+bool mp::Binding::operator()()
 {
-	bool IsPressed = true;
+    bool IsPressed = true;
 
-	for(unsigned int i = 0; i < keys_.size(); i++)
-	{
-		if(isKeyboardBinding and ((mode_ == Mode::Always and sf::Keyboard::isKeyPressed(keys_[i]))
-			or (mode_ == Mode::onPress and event.type == sf::Event::KeyPressed)
-			or (mode_ == Mode::onRelease and event.type == sf::Event::KeyReleased)))
-			IsPressed &= true;
-		else
-			IsPressed = false;
-	}
-	
-	for(unsigned int i = 0; i < buttons_.size(); i++)
-	{
-		if(!isKeyboardBinding and sf::Mouse::isButtonPressed(buttons_[i]))
-			IsPressed &= true;
-		else
-			IsPressed = false;
-	}
-	
-	return IsPressed;
+    for(unsigned int i = 0; i < keys_.size(); i++)
+    {
+        if(isKeyboardBinding and ((mode_ == Mode::Always and sf::Keyboard::isKeyPressed(keys_[i]))
+           or (mode_ == Mode::onPress and lastStateKeys_[i] == false and sf::Keyboard::isKeyPressed(keys_[i]) == true)
+           or (mode_ == Mode::onRelease and lastStateKeys_[i] == true and sf::Keyboard::isKeyPressed(keys_[i]) == false)))
+            IsPressed &= true;
+        else
+            IsPressed = false;
+
+        lastStateKeys_[i] = sf::Keyboard::isKeyPressed(keys_[i]);
+    }
+
+    for(unsigned int i = 0; i < buttons_.size(); i++)
+    {
+        if(!isKeyboardBinding and ((mode_ == Mode::Always and sf::Mouse::isButtonPressed(buttons_[i]))
+           or (mode_ == Mode::onPress and lastStateButtons_[i] == false and sf::Mouse::isButtonPressed(buttons_[i]) == true)
+           or (mode_ == Mode::onRelease and lastStateButtons_[i] == true and sf::Mouse::isButtonPressed(buttons_[i]) == false)))
+            IsPressed &= true;
+        else
+            IsPressed = false;
+
+        lastStateButtons_[i] = sf::Mouse::isButtonPressed(buttons_[i]);
+    }
+
+    return IsPressed;
 }
 
 std::vector<sf::Keyboard::Key> mp::Binding::getKeys()
 {
-	return keys_;
+    return keys_;
 }
 
 std::vector<sf::Mouse::Button> mp::Binding::getButtons()
 {
-	return buttons_;
+    return buttons_;
 }

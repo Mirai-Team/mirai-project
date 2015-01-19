@@ -32,90 +32,90 @@
 using namespace std;
 
 Character::Character(std::shared_ptr<sf::Texture> spriteSheet) :
-	mp::AnimatedSprite(*spriteSheet),
-	
-	speed_{ 0.7f },
-	lastPosition_{ getPosition() },
-	
-	movingLeft{ false },
-	movingRight{ false },
-	movingDown{ false },
-	movingUp{ false }
+    mp::AnimatedSprite(*spriteSheet),
+
+    speed_{ 0.7f },
+    lastPosition_{ getPosition() },
+
+    movingLeft{ false },
+    movingRight{ false },
+    movingDown{ false },
+    movingUp{ false }
 {
-	setFrameSize(sf::Vector2i(32, 36));
-	setDefaultTimePerFrame(sf::seconds(0.2f));
-	
-	addAnimation("up", 0, 3);
-	addAnimation("right", 4, 7);
-	addAnimation("down", 8, 11);
-	addAnimation("left", 12, 15);
+    setFrameSize(sf::Vector2i(32, 36));
+    setDefaultTimePerFrame(sf::seconds(0.2f));
+
+    addAnimation("up", 0, 3);
+    addAnimation("right", 4, 7);
+    addAnimation("down", 8, 11);
+    addAnimation("left", 12, 15);
 }
 
 void Character::update(sf::Time dt)
 {
-	mp::AnimatedSprite::update(dt);
-	
-	if (lastPosition_ == getPosition())
-	{
-		setRepeating(false);
-		setCurrentFrame(3);
-		
-		movingLeft = false;
-		movingRight = false;
-		movingUp = false;
-		movingDown = false;
-	}
-	else
-		setRepeating(true);
-	
-	lastPosition_ = getPosition();
+    mp::AnimatedSprite::update(dt);
+
+    if (lastPosition_ == getPosition())
+    {
+        setRepeating(false);
+        setCurrentFrame(3);
+
+        movingLeft = false;
+        movingRight = false;
+        movingUp = false;
+        movingDown = false;
+    }
+    else
+        setRepeating(true);
+
+    lastPosition_ = getPosition();
 }
 
 void Character::moveRight()
 {
-	movingRight = true;
-	
-	if (getCurrentAnimation() != 1)
-		setCurrentAnimation(1);
-	
-	move(speed_, 0);
+    movingRight = true;
+
+    if (getCurrentAnimation() != 1)
+        setCurrentAnimation(1);
+
+    move(speed_, 0);
 }
 
 void Character::moveLeft()
 {
-	if (!movingRight)
-	{
-		movingLeft = true;
-		
-		if (getCurrentAnimation() != 3)
-			setCurrentAnimation(3);
-		
-		move(-speed_, 0);
-	}
+    if (!movingRight)
+    {
+        movingLeft = true;
+
+        if (getCurrentAnimation() != 3)
+            setCurrentAnimation(3);
+
+        move(-speed_, 0);
+    }
 }
 
 void Character::moveUp()
 {
-	if (!movingRight and !movingLeft)
-	{
-		movingUp = true;
-	
-		if (getCurrentAnimation() != 0)
-			setCurrentAnimation(0);
-	
-		move(0, -speed_);
-	}
+    if (!movingRight and !movingLeft)
+    {
+        movingUp = true;
+
+        if (getCurrentAnimation() != 0)
+            setCurrentAnimation(0);
+
+        move(0, -speed_);
+    }
 }
 
 void Character::moveDown()
 {
-	if (!movingRight and !movingLeft and !movingUp)
-	{
-		movingDown = true;
-		
-		if (getCurrentAnimation() != 2)
-			setCurrentAnimation(2);
-		
-		move(0, speed_);
-	}
+    if (!movingRight and !movingLeft and !movingUp)
+    {
+        movingDown = true;
+
+        if (getCurrentAnimation() != 2)
+            setCurrentAnimation(2);
+
+        move(0, speed_);
+    }
 }

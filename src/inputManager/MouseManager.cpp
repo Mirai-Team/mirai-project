@@ -35,13 +35,13 @@ mp::MouseManager::~MouseManager()
 	
 }
 
-void mp::MouseManager::operator()(sf::Event& event)
+void mp::MouseManager::operator()()
 {
 	if (enabled_)
 	{
 		for(auto &binding : bindings_)
 		{
-			if(binding.second(event))
+			if(binding.second())
 				binding.second.callFunction();
 		}
 	}

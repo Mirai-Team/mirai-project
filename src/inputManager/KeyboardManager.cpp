@@ -35,13 +35,13 @@ mp::KeyboardManager::~KeyboardManager()
 	
 }
 
-void mp::KeyboardManager::operator()(sf::Event& event)
+void mp::KeyboardManager::operator()()
 {
 	if (enabled_)
 	{
 		for(auto &binding : bindings_)
 		{
-			if(binding.second(event))
+			if(binding.second())
 				binding.second.callFunction();
 		}
 	}

@@ -35,68 +35,68 @@
 #include "MiraiProject/inputManager/Binding.hpp"
 
 namespace mp
-{	
-	class KeyboardManager
-	{
-		
-		public:
-			/** \brief Constructor */
-			KeyboardManager();
-			
-			/** \brief Destructor */
-			~KeyboardManager();
-			
-			/** \brief Add an action for a key.
-			 *
-			 * \param index : index of key in map.
-			 * \param funct : function to launch when key is pressed or released.
-			 * \param onPress : launch function when key is pressed or released.
-			 */
-			void addBinding(std::string index, sf::Keyboard::Key key, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
-			
-			/** \brief Add an action for a key.
-			 *
-			 * \param index : index of key in map.
-			 * \param funct : function to launch when key is pressed or released.
-			 * \param onPress : launch function when key is pressed or released.
-			 */
-			void addBinding(std::string index, std::vector<sf::Keyboard::Key> keys, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
-			
-			/** \brief Remove action.
-			 *
-			 * \param index : index of key in map.
-			 */ 
-			void removeBinding(std::string index);
-			
-			/** \brief Clear all actions associated to a key. 
-			 *
-			 * \param key : key to clean.
-			 */
-			void clearKey(sf::Keyboard::Key key);
-			
-			/** \brief Clear all actions associated to a key. 
-			 *
-			 * \param keys : keys to clean.
-			 */
-			void clearKey(std::vector<sf::Keyboard::Key> keys);
-			
-			/** \brief Execute action matching the key.
-			 * 
-			 * \param event : the event to check.
-			 */
-			void operator()(sf::Event& event);
-			
-			void disable();
-			
-			void enable();
-			
-			bool isEnabled() const;
-			
-		private:
-			std::map<std::string, Binding> bindings_;
-			
-			bool enabled_;
-	};
+{
+    class KeyboardManager
+    {
+
+        public:
+            /** \brief Constructor */
+            KeyboardManager();
+
+            /** \brief Destructor */
+            ~KeyboardManager();
+
+            /** \brief Add an action for a key.
+             *
+             * \param index : index of key in map.
+             * \param funct : function to launch when key is pressed or released.
+             * \param onPress : launch function when key is pressed or released.
+             */
+            void addBinding(std::string index, sf::Keyboard::Key key, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
+
+            /** \brief Add an action for a key.
+             *
+             * \param index : index of key in map.
+             * \param funct : function to launch when key is pressed or released.
+             * \param onPress : launch function when key is pressed or released.
+             */
+            void addBinding(std::string index, std::vector<sf::Keyboard::Key> keys, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
+
+            /** \brief Remove action.
+             *
+             * \param index : index of key in map.
+             */ 
+            void removeBinding(std::string index);
+
+            /** \brief Clear all actions associated to a key. 
+             *
+             * \param key : key to clean.
+             */
+            void clearKey(sf::Keyboard::Key key);
+
+            /** \brief Clear all actions associated to a key. 
+             *
+             * \param keys : keys to clean.
+             */
+            void clearKey(std::vector<sf::Keyboard::Key> keys);
+
+            /** \brief Execute action matching the key.
+             * 
+             * \param event : the event to check.
+             */
+            void operator()();
+
+            void disable();
+
+            void enable();
+
+            bool isEnabled() const;
+
+        private:
+            std::map<std::string, Binding> bindings_;
+
+            bool enabled_;
+    };
 }
 
 #endif // KEYBOARDMANAGER_HPP_INCLUDED

@@ -35,60 +35,63 @@
 
 namespace mp
 {
-	class Binding
-	{
-		public:
-			enum Mode
-			{
-				Always = 0,
-				onRelease,
-				onPress
-			};
-			
-			/** \brief Constructor for KeyboardManager
-			 * \param key : a key
-			 * \param funct : a function to launch when key is pressed or released.
-			 */
-			explicit Binding(std::vector<sf::Keyboard::Key> keys, std::function<void()> funct, Mode mode);
-			
-			/** \brief Constructor for MouseManager
-			 * \param button : a key
-			 * \param funct : a function to launch when key is pressed or released.
-			 */
-			explicit Binding(std::vector<sf::Mouse::Button> buttons, std::function<void()> funct, Mode mode);
-			
-			/** \brief Destructor */
-			~Binding();
-			
-			/** \brief Call function in funct_ */
-			void callFunction();
-			
-			/** \brief Test if key is pressed or released. */
-			bool operator()(sf::Event& event);
-			
-			/** \brief Key getter
-			 *
-			 * \return a sfml key.
-			 */
-			std::vector<sf::Keyboard::Key> getKeys();
-			
-			/** \brief Button getter
-			 *
-			 * \return a sfml button.
-			 */
-			std::vector<sf::Mouse::Button> getButtons();
-			
-		private:
-			
-			bool isKeyboardBinding;
-			
-			Mode mode_;
-		
-			std::vector<sf::Keyboard::Key> keys_;
-			std::vector<sf::Mouse::Button> buttons_;
-			
-			std::function<void()> funct_;
-	};
+    class Binding
+    {
+        public:
+            enum Mode
+            {
+                Always = 0,
+                onRelease,
+                onPress
+            };
+
+            /** \brief Constructor for KeyboardManager
+             * \param key : a key
+             * \param funct : a function to launch when key is pressed or released.
+             */
+            explicit Binding(std::vector<sf::Keyboard::Key> keys, std::function<void()> funct, Mode mode);
+
+            /** \brief Constructor for MouseManager
+             * \param button : a key
+             * \param funct : a function to launch when key is pressed or released.
+             */
+            explicit Binding(std::vector<sf::Mouse::Button> buttons, std::function<void()> funct, Mode mode);
+
+            /** \brief Destructor */
+            ~Binding();
+
+            /** \brief Call function in funct_ */
+            void callFunction();
+            
+            /** \brief Test if key is pressed or released. */
+            bool operator()();
+
+            /** \brief Key getter
+             *
+             * \return a sfml key.
+             */
+            std::vector<sf::Keyboard::Key> getKeys();
+
+            /** \brief Button getter
+             *
+             * \return a sfml button.
+             */
+            std::vector<sf::Mouse::Button> getButtons();
+
+        private:
+
+            bool isKeyboardBinding;
+
+            Mode mode_;
+
+            std::vector<sf::Keyboard::Key> keys_;
+            std::vector<bool> lastStateKeys_;
+
+            std::vector<sf::Mouse::Button> buttons_;
+            std::vector<bool> lastStateButtons_;
+
+            std::function<void()> funct_;
+    };
 }
 
 #endif // BINDING_HPP_INCLUDED

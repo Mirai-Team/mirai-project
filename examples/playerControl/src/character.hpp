@@ -33,26 +33,25 @@
 
 class Character : public mp::AnimatedSprite
 {
-	public:
-		Character(std::shared_ptr<sf::Texture> spriteSheet);
-		
-		void update(sf::Time dt);
-		
-		void moveRight();
-		void moveLeft();
-		void moveUp();
-		void moveDown();
-		
-	private:
-		float speed_;
-		
-		sf::Vector2f lastPosition_;
-		
-		bool movingLeft;
-		bool movingRight;
-		bool movingDown;
-		bool movingUp;
-};
+    public:
+        Character(std::shared_ptr<sf::Texture> spriteSheet);
 
+        void update(sf::Time dt);
+
+        void moveRight();
+        void moveLeft();
+        void moveUp();
+        void moveDown();
+
+    private:
+        float speed_;
+
+        sf::Vector2f lastPosition_;
+
+        bool movingLeft;
+        bool movingRight;
+        bool movingDown;
+        bool movingUp;
+};
 
 #endif // CHARACTER_HPP_INCLUDED

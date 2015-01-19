@@ -35,36 +35,36 @@
 #include "MiraiProject/inputManager/Binding.hpp"
 
 namespace mp
-{	
-	class MouseManager
-	{
-		public:
-			MouseManager();
-			~MouseManager();
-			
-			void addBinding(std::string index, sf::Mouse::Button button, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
-			
-			void addBinding(std::string index, std::vector<sf::Mouse::Button> button, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
-			
-			void removeBinding(std::string index);
-			
-			void clearButton(sf::Mouse::Button button);
-			
-			void clearButton(std::vector<sf::Mouse::Button> buttons);
-			
-			void operator()(sf::Event& event);
-			
-			void disable();
-			
-			void enable();
-			
-			bool isEnabled() const;
-			
-		private:
-			std::map<std::string, Binding> bindings_;
-			
-			bool enabled_;
-	};
+{
+    class MouseManager
+    {
+        public:
+            MouseManager();
+            ~MouseManager();
+
+            void addBinding(std::string index, sf::Mouse::Button button, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
+
+            void addBinding(std::string index, std::vector<sf::Mouse::Button> button, std::function<void()> funct = [](){ return true; }, mp::Binding::Mode mode = mp::Binding::Mode::Always);
+
+            void removeBinding(std::string index);
+
+            void clearButton(sf::Mouse::Button button);
+
+            void clearButton(std::vector<sf::Mouse::Button> buttons);
+
+            void operator()();
+
+            void disable();
+
+            void enable();
+
+            bool isEnabled() const;
+
+        private:
+            std::map<std::string, Binding> bindings_;
+
+            bool enabled_;
+    };
 }
 
 #endif // MOUSEMANAGER_HPP_INCLUDED
