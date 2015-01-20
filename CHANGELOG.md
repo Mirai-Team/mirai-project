@@ -1,6 +1,7 @@
 ### Mirai Project v0.2
 ------------------
 
++ Added input manager
 + Added file parser system.
 + Added an updatable system using update modules.
 + Added animated sprite system.
