@@ -24,7 +24,10 @@
 
 #include <string>
 
-#include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 #include "MiraiProject/util/WindowManager.hpp"
 
@@ -33,7 +36,7 @@ using namespace mp;
 WindowManager::WindowManager(const bool& fullscreen, const bool& verticalSync, const bool& cursorVisible,
                              const int& optimalWinWidth, const int& optimalWinHeight,
                              const int& videoModeWidth, const int& videoModeHeight,
-                             const std::string& windowName) :
+                             const std::string& windowName, const sf::Color& bordersColor) :
             window_{ },
             defaultView_{ },
 
@@ -47,9 +50,16 @@ WindowManager::WindowManager(const bool& fullscreen, const bool& verticalSync, c
             videoModeWidth_{ videoModeWidth },
             videoModeHeight_{ videoModeHeight },
 
-            windowName_{ windowName }
+            windowName_{ windowName },
+            
+            borders_{ }
 {
-    // Constructor
+    sf::RectangleShape border{ };
+    border.setFillColor(bordersColor);
+    
+    // Put two borders with wanted colour.
+    for (unsigned int i = 0 ; i < 2 ; i++)
+        borders_.push_back(border);
 }
 
 WindowManager::~WindowManager()
@@ -80,8 +90,8 @@ void WindowManager::create()
 }
 
 void WindowManager::setup()
-{
-    // _________ Setup default view _____________
+{   
+    // _________ Set up default view _____________
     sf::Vector2u window_size{ window_.getSize() };
 
     float win_ratio = static_cast<float>(window_size.x) / static_cast<float>(window_size.y);
@@ -111,6 +121,29 @@ void WindowManager::setup()
 
     sf::FloatRect rect{ left, top, width, height };
     defaultView_.reset(rect);
+    
+    // _________ Set up borders dimensions _____________
+    sf::Vector2f bordersSize{ };
+    
+    if (idiff_width > idiff_height)
+    {
+        bordersSize.x = (width - static_cast<float>(optimalWinWidth_)) / 2;
+        bordersSize.y = height;
+        
+        borders_[0].setPosition(-bordersSize.x, 0);
+        borders_[1].setPosition(static_cast<float>(optimalWinWidth_), 0);
+    }
+    else
+    {
+        bordersSize.x = width;
+        bordersSize.y = (height - static_cast<float>(optimalWinHeight_)) / 2;
+        
+        borders_[0].setPosition(0, -bordersSize.y);
+        borders_[1].setPosition(0, static_cast<float>(optimalWinHeight_));
+    }
+    
+    for (unsigned int i = 0 ; i < borders_.size() ; i++)
+        borders_[i].setSize(bordersSize);
 }
 
 sf::RenderWindow& WindowManager::getWindow()
@@ -205,4 +238,20 @@ const std::string& WindowManager::getWindowName() const
 void WindowManager::setWindowName(const std::string& windowName)
 {
     windowName_ = windowName;
+}
+
+
+void WindowManager::setBordersColor(sf::Color newColor)
+{
+    for (unsigned int i = 0 ; i < borders_.size() ; i++)
+        borders_[i].setFillColor(newColor);
+}
+
+void WindowManager::drawBorders()
+{
+    // Set the default view to draw borders.
+    window_.setView(defaultView_);
+    
+    for (unsigned int i = 0 ; i < borders_.size() ; i++)
+        window_.draw(borders_[i]);
 }
