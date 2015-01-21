@@ -24,6 +24,7 @@
 
 #include <iostream>
 
+#include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 #include <MiraiProject/util/WindowManager.hpp>
@@ -42,8 +43,13 @@ int main()
     mainWindowManager.setWindowName("Simple Window Test");
     mainWindowManager.setOptimalWinWidth(500);
     mainWindowManager.setOptimalWinHeight(500);
-    mainWindowManager.setVideomodeWidth(500);
-    mainWindowManager.setVideomodeHeight(500);
+    
+    // Deliberately set a video mode different from the optimal window dimensions (to show borders).
+    mainWindowManager.setVideomodeWidth(750);
+    mainWindowManager.setVideomodeHeight(600);
+    
+    // Set borders' colour.
+    mainWindowManager.setBordersColor(sf::Color::White);
 
     cout << "Creating the main window." << endl;
     mainWindowManager.create();
@@ -54,7 +60,7 @@ int main()
     // Creating a small circle to draw.
     sf::CircleShape shape(25);
     shape.setFillColor(sf::Color(255, 255, 255));
-    shape.setPosition(200, 200);
+    shape.setPosition(5, 5);
 
     while (running)
     {
@@ -74,6 +80,7 @@ int main()
 
         window.clear(sf::Color::Black);
         window.draw(shape);
+        mainWindowManager.drawBorders(); // Draw the borders.
         window.display();
     }
     

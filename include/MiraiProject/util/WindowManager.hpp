@@ -25,7 +25,11 @@
 #ifndef WINDOWMANAGER_HPP_INCLUDED
 #define WINDOWMANAGER_HPP_INCLUDED
 
-#include <SFML/Graphics.hpp>
+#include <vector>
+
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 /** \file WindowManager.hpp
  * \brief This file contains the WindowManager class definition.
@@ -57,7 +61,7 @@ namespace mp
             WindowManager(const bool& fullscreen=false, const bool& verticalSync=false, const bool& cursorVisible=false,
                           const int& optimalWinWidth=1024, const int& optimalWinHeight=768, 
                           const int& videoModeWidth=1024, const int& videoModeHeight=768,
-                          const std::string& windowName="SFML Window");
+                          const std::string& windowName="SFML Window", const sf::Color& bordersColor=sf::Color::Black);
 
             /** \brief Class destructor **/
             virtual ~WindowManager();
@@ -150,6 +154,20 @@ namespace mp
              * \param windowName : the new window's name.
              */
             void setWindowName(const std::string& windowName);
+			
+			
+            /** \brief Set the new borders colour.
+             *
+             * \param newColor : the new colour for borders.
+             */
+            void setBordersColor(sf::Color newColor);
+            
+            /** \brief Draw borders on the window. 
+             *
+             * This method should be called only if the handled window's view
+             * is set to this window manager's default view.
+             */
+            void drawBorders();
 
         private:
             sf::RenderWindow window_;
@@ -166,6 +184,8 @@ namespace mp
             int videoModeHeight_;
 
             std::string windowName_;
+            
+            std::vector<sf::RectangleShape> borders_;
     };
 }
 

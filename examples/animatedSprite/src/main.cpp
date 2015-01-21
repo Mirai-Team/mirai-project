@@ -24,6 +24,7 @@
 
 #include <iostream>
 
+#include <SFML/Window/Event.hpp>
 #include <MiraiProject/util/WindowManager.hpp>
 #include <MiraiProject/animations/Animation.hpp>
 #include <MiraiProject/animations/AnimatedSprite.hpp>
