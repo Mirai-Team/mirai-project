@@ -150,7 +150,7 @@ void mp::AnimatedSprite::removeAnimation(const unsigned int& numAnimation)
         animations_.erase(animations_.begin() + numAnimation);
 
         if (currentAnimation_ >= animations_.size())
-            currentAnimation_ = animations_.size() - 1;
+            currentAnimation_ = static_cast<unsigned int>(animations_.size() - 1);
     }
 }
 
@@ -165,7 +165,7 @@ void mp::AnimatedSprite::removeAnimation(const std::string& nameAnimation)
             animations_.erase(animations_.begin() + i);
 
             if (currentAnimation_ >= animations_.size())
-                currentAnimation_ = animations_.size() - 1;
+                currentAnimation_ = static_cast<unsigned int>(animations_.size() - 1);
         }
 
         i++;
@@ -359,7 +359,7 @@ void mp::AnimatedSprite::restart()
 void mp::AnimatedSprite::setCurrentAnimation(const unsigned int& newCurrentAnimation)
 {
     if (newCurrentAnimation >= animations_.size())
-        currentAnimation_ = animations_.size() - 1;
+        currentAnimation_ = static_cast<unsigned int>(animations_.size() - 1);
     else
         currentAnimation_ = newCurrentAnimation;
 
