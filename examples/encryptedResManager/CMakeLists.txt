@@ -40,7 +40,18 @@ add_executable(
  
 # Set the path where cmake should look for modules.
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
- 
+
+# Add flags for g++
+if(CMAKE_COMPILER_IS_GNUCXX)
+    set(CMAKE_CXX_FLAGS "-pedantic -pedantic-errors -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -Wfloat-equal -Wwrite-strings -Wpointer-arith -Wcast-qual -Wcast-align -Wconversion -Wshadow -Wredundant-decls -Wdouble-promotion -Winit-self -Wswitch-default -Wundef -Wlogical-op -Winline -Weffc++ -std=c++11" CACHE STRING "Flags used by the compiler during all build types." FORCE)
+
+    set(CMAKE_CXX_FLAGS_DEBUG "-g" CACHE STRING "Flags used by the compiler during debug builds." FORCE)
+
+    set(CMAKE_CXX_FLAGS_MINSIZEREL "-s -Os" CACHE STRING "Flags used by the compiler during release builds for minimum size" FORCE)
+
+    set(CMAKE_CXX_FLAGS_RELEASE "-s -O2" CACHE STRING "Flags used by the compiler during release builds." FORCE)
+endif()
+
 # Detect and add SFML
 # Find any version 2.X of SFML
 find_package(SFML 2.0 REQUIRED system window graphics)
