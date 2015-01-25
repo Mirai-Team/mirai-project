@@ -17,12 +17,10 @@ before_install:
   - tar -zxvf /tmp/sfml.tar.bz2
   - sudo cp -r SFML-2.2/* /usr/
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 50
-  - sudo ln -sf /lib/x86_64-linux-gnu/libudev.so.0 /lib/x86_64-linux-gnu/libudev.so.1
-  - sudo ln -sf /usr/lib/x86_64-linux-gnu/libGLEW.so /usr/lib/x86_64-linux-gnu/libGLEW.so.1.10
   - mkdir build/
   - cd build/
 install:
-  - cmake . --build ../ -DMIRAI_TOOLS:BOOL=1 -DMIRAI_EXAMPLES:BOOL=1
+  - cmake . --build ../ -DMIRAI_TOOLS:BOOL=1
 
 script:
   - make -j 10
