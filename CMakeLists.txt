@@ -29,6 +29,8 @@ endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     include(cmake/macros/gcc-settings.cmake)
+elseif(CMAKE_CXX_COMPILER MATCHES "clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    include(cmake/macros/clang-settings.cmake)
 endif()
 
 include(cmake/genrev.cmake)
