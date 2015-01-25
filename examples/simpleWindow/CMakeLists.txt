@@ -9,30 +9,43 @@ file(GLOB_RECURSE source_files src/*)
 # link_directories MUST be called before the target is created.
 link_directories(${CMAKE_BINARY_DIR}/bin/lib/${CMAKE_BUILD_TYPE})
 
+# Include Mirai Project headers.
+include_directories(${CMAKE_SOURCE_DIR}/include)
+
+# Add SFML and Boost.
+# The parameter SYSTEM is to treat headers found there as system headers, and 
+# suppress warnings originating from there by using the -isystem flag instead 
+# of the -I flag while building with gcc/g++.
+include_directories(
+    SYSTEM ${SFML_INCLUDE_DIR}
+    SYSTEM ${Boost_INCLUDE_DIRS}
+)
+
 # Setting up executable.
 add_executable(
         ${APP_NAME}
         ${source_files}
 )
 
-include_directories(
-    ${CMAKE_SOURCE_DIR}/include
-    SYSTEM ${SFML_INCLUDE_DIR}
-    SYSTEM ${Boost_INCLUDE_DIRS}
+
+# Link SFML and Boost.
+target_link_libraries(
+    ${APP_NAME}
+    ${SFML_LIBRARIES}
+    ${Boost_LIBRARIES}
 )
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug") # Link Mirai Project debug.
+# Link Mirai Project.
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    # Link Mirai Project debug.
     target_link_libraries(
         ${APP_NAME}
         MiraiProject-d
-        ${SFML_LIBRARIES}
-        ${Boost_LIBRARIES}
     )
-else() # Link Mirai Project release.
+else()
+    # Link Mirai Project release.
     target_link_libraries(
         ${APP_NAME}
         MiraiProject
-        ${SFML_LIBRARIES}
-        ${Boost_LIBRARIES}
     )
 endif()
