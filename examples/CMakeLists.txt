@@ -1,0 +1,7 @@
+add_subdirectory(animatedSprite)
+add_subdirectory(encryptedResManager)
+add_subdirectory(encryption)
+add_subdirectory(parser)
+add_subdirectory(playerControl)
+add_subdirectory(simpleWindow)
+add_subdirectory(updateSystem)
