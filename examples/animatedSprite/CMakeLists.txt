@@ -15,7 +15,11 @@ add_executable(
         ${source_files}
 )
 
-include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(
+    ${CMAKE_SOURCE_DIR}/include
+    SYSTEM ${SFML_INCLUDE_DIR}
+    SYSTEM ${Boost_INCLUDE_DIRS}
+)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug") # Link Mirai Project debug.
     target_link_libraries(

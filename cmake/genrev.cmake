@@ -11,7 +11,7 @@ if(NO_GIT)
 else()
   if(GIT_EXEC)
     execute_process(
-      COMMAND "${GIT_EXEC}" rev-parse HEAD
+      COMMAND "${GIT_EXEC}" describe --tags --dirty=+ --abbrev=4
       WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
       OUTPUT_VARIABLE revHash
       OUTPUT_STRIP_TRAILING_WHITESPACE

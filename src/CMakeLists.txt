@@ -25,8 +25,11 @@ set(core_sources
     ${sources_util}
 )
 
+#
 include_directories(
     ${CMAKE_SOURCE_DIR}/include
+    SYSTEM ${SFML_INCLUDE_DIR}
+    SYSTEM ${Boost_INCLUDE_DIRS}
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -35,10 +38,19 @@ else()
     set(CORE_NAME MiraiProject)
 endif()
 
+#set output path
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin/lib/${CMAKE_BUILD_TYPE})
 
+#Create MiraiProject lib.
 add_library(
     ${CORE_NAME}
     SHARED
     ${core_sources}
+)
+
+#Link dependance.
+target_link_libraries(
+    ${CORE_NAME}
+    ${SFML_LIBRARIES}
+    ${Boost_LIBRARIES}
 )

@@ -1,14 +1,10 @@
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(APP_NAME EncryptionTool-d)
-else()
-    set(APP_NAME EncryptionTool)
-endif()
+set(APP_NAME EncryptionTool)
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin/tools/${APP_NAME}/${CMAKE_BUILD_TYPE})
 
 file(GLOB_RECURSE source_files src/*)
 
-#include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
+include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 
 # Setting up executable.
 add_executable(
@@ -16,6 +12,7 @@ add_executable(
     ${source_files}
 )
 
-target_link_libraries(${APP_NAME}
+target_link_libraries(
+    ${APP_NAME}
     ${Boost_LIBRARIES}
 )

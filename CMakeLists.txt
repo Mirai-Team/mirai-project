@@ -5,8 +5,11 @@ cmake_minimum_required(VERSION 2.8.9)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
+
+#Disable possibility to write binary in sources directory.
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
+# Enable debug mode by default
 if( NOT CMAKE_BUILD_TYPE )
     set(CMAKE_BUILD_TYPE "Debug")
 endif()
@@ -31,8 +34,8 @@ endif()
 include(cmake/genrev.cmake)
 
 message("")
-message("* MiraiProject : ${revHash} ${revDate} (${revBranch} branch)")
-
+message("* MiraiProject           : ${revHash} ${revDate} (${revBranch} branch)")
+message("* MiraiProject buildtype : ${CMAKE_BUILD_TYPE}")
 if(MIRAI_TOOLS)
     message("* Build tools            : Yes")
 else()
