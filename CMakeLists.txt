@@ -1,77 +1,70 @@
-cmake_minimum_required(VERSION 2.6)
 project(MiraiProject)
 
-# Enable debug symbols by default
-if(CMAKE_BUILD_TYPE STREQUAL "")
-  set(CMAKE_BUILD_TYPE Debug)
+cmake_minimum_required(VERSION 2.8.9)
+
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/macros")
+
+set(CMAKE_DISABLE_SOURCE_CHANGES ON)
+set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
+
+if( NOT CMAKE_BUILD_TYPE )
+    set(CMAKE_BUILD_TYPE "Debug")
 endif()
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(APP_NAME MiraiProject-d)
-else()
-    set(APP_NAME MiraiProject)
-endif()
+include(CheckCXXSourceRuns)
+include(CheckIncludeFiles)
 
-set(LIBRARY_OUTPUT_PATH lib/${CMAKE_BUILD_TYPE})
+# set default buildoptions and print them
+include(cmake/options.cmake)
 
-# include public headers.
-include_directories(include)
-
-# Generate source files list.
-file(
-        GLOB_RECURSE
-
-        source_files
-
-        src/*
-        include/*
-)
-
-# Setting up library (our project).
-add_library(
-        ${APP_NAME}
-        SHARED
-        ${source_files}
-)
-
-# Set the path where cmake should look for modules.
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules" ${CMAKE_MODULE_PATH})
-
-# Add flags for g++
-if(CMAKE_COMPILER_IS_GNUCXX)
-    set(CMAKE_CXX_FLAGS "-pedantic -pedantic-errors -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -Wfloat-equal -Wwrite-strings -Wpointer-arith -Wcast-qual -Wcast-align -Wconversion -Wshadow -Wredundant-decls -Wdouble-promotion -Winit-self -Wswitch-default -Wundef -Wlogical-op -Winline -Weffc++ -std=c++11" CACHE STRING "Flags used by the compiler during all build types." FORCE)
-
-    set(CMAKE_CXX_FLAGS_DEBUG "-g" CACHE STRING "Flags used by the compiler during debug builds." FORCE)
-
-    set(CMAKE_CXX_FLAGS_MINSIZEREL "-s -Os" CACHE STRING "Flags used by the compiler during release builds for minimum size" FORCE)
-
-    set(CMAKE_CXX_FLAGS_RELEASE "-s -O2" CACHE STRING "Flags used by the compiler during release builds." FORCE)
-endif()
-
-# Detect and add SFML
-# Find any version 2.X of SFML
 find_package(SFML 2.0 REQUIRED system window graphics audio network)
-if(SFML_FOUND)
-    include_directories(SYSTEM ${SFML_INCLUDE_DIR})
-    
-    # Setting up link edition.
-    target_link_libraries(
-        ${APP_NAME}
-        ${SFML_LIBRARIES}
-    )
+find_package(Boost 1.54.0 REQUIRED filesystem system thread)
+
+if(MIRAI_WITH_GIT)
+    find_package(Git)
 endif()
 
-# Detect and add Boost
-find_package(Boost 1.54.0 REQUIRED filesystem system thread)
-if(Boost_FOUND)
-    # The parameter SYSTEM is to treat headers found there as system headers, and 
-    # suppress warnings originating from there by using the -isystem flag instead 
-    # of the -I flag while building with gcc/g++.
-    include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
+if(CMAKE_COMPILER_IS_GNUCXX)
+    include(cmake/macros/gcc-settings.cmake)
+endif()
 
-    # Setting up link edition.
-    target_link_libraries( 
-        ${APP_NAME}
-        ${Boost_LIBRARIES}
-    )
+include(cmake/genrev.cmake)
+
+message("")
+message("* MiraiProject : ${revHash} ${revDate} (${revBranch} branch)")
+
+if(MIRAI_TOOLS)
+    message("* Build tools            : Yes")
+else()
+    message("* Build tools            : No  (default)")
+endif()
+
+if(MIRAI_EXAMPLES)
+    message("* Build examples         : Yes")
+else()
+    message("* Build examples         : No  (default)")
+endif()
+
+if(MIRAI_WITH_WARNINGS)
+    message("* Show all warnings      : Yes (default)")
+else()
+    message("* Show all warnings      : No")
+endif()
+
+if(MIRAI_WITH_GIT)
+    message("* Use GIT revision hash  : Yes (default)")
+else()
+    message("* Use GIT revision hash  : No")
+endif()
+
+message("")
+
+add_subdirectory(src)
+
+if(MIRAI_TOOLS)
+    add_subdirectory(tools)
+endif()
+
+if(MIRAI_EXAMPLES)
+    add_subdirectory(examples)
 endif()
