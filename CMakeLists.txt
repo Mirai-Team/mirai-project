@@ -2,7 +2,7 @@ project(MiraiProject)
 
 cmake_minimum_required(VERSION 2.8.9)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/macros")
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
