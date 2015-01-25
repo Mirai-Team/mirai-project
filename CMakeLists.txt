@@ -6,7 +6,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 
-#Disable possibility to write binary in sources directory.
+# Disable possibility to write binary in sources directory.
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
 # Enable debug mode by default
@@ -17,10 +17,13 @@ endif()
 include(CheckCXXSourceRuns)
 include(CheckIncludeFiles)
 
-# set default buildoptions and print them
+# Set default build options and display them.
 include(cmake/options.cmake)
 
+# Find any version 2.X of SFML
 find_package(SFML 2.0 REQUIRED system window graphics audio network)
+
+# Find any 1.54.X or higher version of Boost.
 find_package(Boost 1.54.0 REQUIRED filesystem system thread)
 
 if(MIRAI_WITH_GIT)
@@ -36,8 +39,10 @@ endif()
 include(cmake/genrev.cmake)
 
 message("")
+
 message("* MiraiProject           : ${revHash} ${revDate} (${revBranch} branch)")
 message("* MiraiProject buildtype : ${CMAKE_BUILD_TYPE}")
+
 if(MIRAI_TOOLS)
     message("* Build tools            : Yes")
 else()
@@ -64,6 +69,7 @@ endif()
 
 message("")
 
+# Add subdirectories to the build.
 add_subdirectory(src)
 
 if(MIRAI_TOOLS)
