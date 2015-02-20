@@ -37,15 +37,13 @@ namespace mp
     class SceneNode : public sf::Transformable, public sf::Drawable, private sf::NonCopyable
     {
         public:
+            typedef std::shared_ptr<SceneNode> childPtr;
+
             /** \brief Class constructor **/
-            SceneNode();
+            SceneNode(const std::string& name="NA");
 
             /** \brief Class destructor **/
             virtual ~SceneNode();
-
-            void attachChild(std::unique_ptr<SceneNode> child);
-
-            std::unique_ptr<SceneNode> detachChild(const SceneNode& node);
 
             sf::Vector2f getWorldPosition() const;
 
@@ -53,15 +51,42 @@ namespace mp
 
             float distance(const SceneNode& otherNode) const;
 
+            void addFrontChild(childPtr child);
+
+            void addBackChild(childPtr child);
+
+            void removeChildByName(const std::string& name);
+
+            void removeChildById(const unsigned int& id);
+
+            void clearChildren();
+
+            std::vector<childPtr> getChildren();
+
+            void setName(const std::string& newName);
+
+            std::string getName();
+
+            unsigned int getId();
+
         private:
             SceneNode* parent_;
-            std::vector<std::unique_ptr<SceneNode>> children_;
+
+            std::vector<childPtr> frontChildren_;
+            std::vector<childPtr> backChildren_;
+
+            std::string name_;
+            const unsigned int id_;
+
+            static unsigned int sLastId;
 
             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const final;
 
             virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
-            void drawChildren(sf::RenderTarget& target, sf::RenderStates states) const;
+            void drawFrontChildren(sf::RenderTarget& target, sf::RenderStates states) const;
+
+            void drawBackChildren(sf::RenderTarget& target, sf::RenderStates states) const;
     };
 }
 

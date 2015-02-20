@@ -29,40 +29,21 @@
 
 using namespace mp;
 
-SceneNode::SceneNode() : parent_{ nullptr },
-                         children_{ }
+unsigned int SceneNode::sLastId { 0 };
+
+SceneNode::SceneNode(const std::string& name) : parent_{ nullptr },
+
+                                                frontChildren_{ },
+                                                backChildren_{ },
+                                            
+                                                name_{ name },
+                                                id_{ sLastId + 1 }
 {
+    sLastId++;
 }
 
 SceneNode::~SceneNode()
 {
-}
-
-void SceneNode::attachChild(std::unique_ptr<SceneNode> child)
-{
-    child->parent_ = this;
-    children_.push_back(std::move(child));
-}
-
-std::unique_ptr<SceneNode> SceneNode::detachChild(const SceneNode& node)
-{
-    auto found = std::find_if(children_.begin(), children_.end(), 
-                                [&] (std::unique_ptr<SceneNode>& child) -> bool 
-                                { 
-                                    return child.get() == &node; 
-                                }
-                             );
-
-    // Check for validity.
-    assert(found != children_.end());
-
-    std::unique_ptr<SceneNode> result { std::move(*found) };
-    result->parent_ = nullptr;
-
-    // Erase empty element from children_ vector.
-    children_.erase(found);
-
-    return result;
 }
 
 sf::Vector2f SceneNode::getWorldPosition() const
@@ -86,23 +67,122 @@ float SceneNode::distance(const SceneNode& otherNode) const
     return std::sqrt(vector.x * vector.x + vector.y * vector.y);
 }
 
+
+void SceneNode::addFrontChild(childPtr child)
+{
+    child->parent_ = this;
+    frontChildren_.push_back(child);
+}
+
+void SceneNode::addBackChild(childPtr child)
+{
+    child->parent_ = this;
+    backChildren_.push_back(child);
+}
+
+void SceneNode::removeChildByName(const std::string& name)
+{
+    std::vector<childPtr> children{ getChildren() };
+
+    for (unsigned int i = 0; i < children.size(); )
+    {
+        if (children[i]->name_ == name)
+        {
+            children[i]->parent_ = nullptr;
+
+            if (i < frontChildren_.size())
+                frontChildren_.erase(frontChildren_.begin() + i);
+            else
+                backChildren_.erase(frontChildren_.begin() + (i - frontChildren_.size()));
+        }
+        else
+        {
+            i++;
+        }
+    }
+}
+
+void SceneNode::removeChildById(const unsigned int& id)
+{
+    std::vector<childPtr> children{ getChildren() };
+
+    for (unsigned int i = 0; i < children.size(); i++)
+    {
+        if (children[i]->id_ == id)
+        {
+            children[i]->parent_ = nullptr;
+
+            if (i < frontChildren_.size())
+                frontChildren_.erase(frontChildren_.begin() + i);
+            else
+                backChildren_.erase(frontChildren_.begin() + (i - frontChildren_.size()));
+
+            break;
+        }
+    }
+}
+
+void SceneNode::clearChildren()
+{
+    for (childPtr child : getChildren())
+        child->parent_ = nullptr;
+
+    frontChildren_.clear();
+    backChildren_.clear();
+}
+
+std::vector<SceneNode::childPtr> SceneNode::getChildren()
+{
+    std::vector<childPtr> children{ };
+    children.insert(children.end(), frontChildren_.begin(), frontChildren_.end());
+    children.insert(children.end(), backChildren_.begin(), backChildren_.end());
+
+    return children;
+}
+
+void SceneNode::setName(const std::string& newName)
+{
+    name_ = newName;
+}
+
+std::string SceneNode::getName()
+{
+    return name_;
+}
+
+unsigned int SceneNode::getId()
+{
+    return id_;
+}
+
+///////////////
+/// Private ///
+///////////////
+
 void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     // Apply transform of current node
     states.transform *= getTransform();
 
     // Draw node and children with changed transform
+    drawBackChildren(target, states);
     drawCurrent(target, states);
-    drawChildren(target, states);
-}
-
-void SceneNode::drawChildren(sf::RenderTarget& target, sf::RenderStates states) const
-{
-    for (const std::unique_ptr<SceneNode>& child : children_)
-        child->draw(target, states);
+    drawFrontChildren(target, states);
 }
 
 void SceneNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
     // Do nothing by default
+}
+
+void SceneNode::drawFrontChildren(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    for (const childPtr& child : frontChildren_)
+        child->draw(target, states);
+}
+
+void SceneNode::drawBackChildren(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    for (const childPtr& child : backChildren_)
+        child->draw(target, states);
 }
