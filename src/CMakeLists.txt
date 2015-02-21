@@ -1,5 +1,6 @@
 file(GLOB_RECURSE sources_animations ${CMAKE_CURRENT_SOURCE_DIR}/animations/* ${CMAKE_SOURCE_DIR}/include/animations/*)
 file(GLOB_RECURSE sources_encryption ${CMAKE_CURRENT_SOURCE_DIR}/encryption/* ${CMAKE_SOURCE_DIR}/include/encryption/*)
+file(GLOB_RECURSE sources_gui ${CMAKE_CURRENT_SOURCE_DIR}/gui/* ${CMAKE_SOURCE_DIR}/include/gui/*)
 file(GLOB_RECURSE sources_inputManager ${CMAKE_CURRENT_SOURCE_DIR}/inputManager/* ${CMAKE_SOURCE_DIR}/include/inputManager/*)
 file(GLOB_RECURSE sources_parser ${CMAKE_CURRENT_SOURCE_DIR}/parser/* ${CMAKE_SOURCE_DIR}/include/parser/*)
 file(GLOB_RECURSE sources_resourcesManagers ${CMAKE_CURRENT_SOURCE_DIR}/resourcesManagers/* ${CMAKE_SOURCE_DIR}/include/resourcesManagers/*)
@@ -11,6 +12,7 @@ file(GLOB_RECURSE sources_util ${CMAKE_CURRENT_SOURCE_DIR}/util/* ${CMAKE_SOURCE
 set(core_sources
     ${sources_animations}
     ${sources_encryption}
+    ${sources_gui}
     ${sources_inputManager}
     ${sources_parser}
     ${sources_resourcesManagers}
