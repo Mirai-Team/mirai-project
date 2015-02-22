@@ -26,6 +26,7 @@
 #define CLICKABLE_WIDGET_HPP_INCLUDED
 
 #include <SFML/Window/Mouse.hpp>
+#include <SFML/Window/Window.hpp>
 
 #include "MiraiProject/gui/Widget.hpp"
 
@@ -34,7 +35,7 @@ namespace mp
     class ClickableWidget : public Widget
     {
         public:
-            ClickableWidget();
+            ClickableWidget(sf::Window& window);
 
             void setSize(sf::Vector2f size);
 
@@ -49,6 +50,8 @@ namespace mp
             bool isPressed_;
 
             sf::Vector2f size_;
+
+            sf::Window& window_;
 
     };
 }

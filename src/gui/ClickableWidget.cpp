@@ -24,8 +24,9 @@
 
 #include "MiraiProject/gui/ClickableWidget.hpp"
 
-mp::ClickableWidget::ClickableWidget() :    isPressed_ { },
-                                            size_ { }
+mp::ClickableWidget::ClickableWidget(sf::Window& window) :  isPressed_ { },
+                                                            size_ { },
+                                                            window_ { window }
 {
 
 }
@@ -42,8 +43,8 @@ sf::Vector2f mp::ClickableWidget::getSize()
 
 bool mp::ClickableWidget::mouseOnWidget()
 {
-    sf::Vector2f mousePosition(sf::Mouse::getPosition());
-    sf::FloatRect rect(getPosition().x, getPosition().y, getSize().x, getSize().y);
+    sf::Vector2f mousePosition(sf::Mouse::getPosition(window_));
+    sf::FloatRect rect(0, 0, getSize().x, getSize().y);
     if(getTransform().transformRect(rect).contains(mousePosition))
         return true;
     else
