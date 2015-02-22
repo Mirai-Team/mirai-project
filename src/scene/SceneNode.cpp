@@ -170,11 +170,6 @@ void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const
     drawFrontChildren(target, states);
 }
 
-void SceneNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
-{
-    // Do nothing by default
-}
-
 void SceneNode::drawFrontChildren(sf::RenderTarget& target, sf::RenderStates states) const
 {
     for (const childPtr& child : frontChildren_)
