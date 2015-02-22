@@ -22,8 +22,8 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef CLICKABE_WIDGET_HPP_INCLUDED
-#define CLICKABE_WIDGET_HPP_INCLUDED
+#ifndef CLICKABLE_WIDGET_HPP_INCLUDED
+#define CLICKABLE_WIDGET_HPP_INCLUDED
 
 #include <SFML/Window/Mouse.hpp>
 

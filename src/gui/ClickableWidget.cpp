@@ -43,7 +43,7 @@ sf::Vector2f mp::ClickableWidget::getSize()
 bool mp::ClickableWidget::mouseOnWidget()
 {
     sf::Vector2f mousePosition(sf::Mouse::getPosition());
-    sf::FloatRect rect(0, 0, getSize().x, getSize().y);
+    sf::FloatRect rect(getPosition().x, getPosition().y, getSize().x, getSize().y);
     if(getTransform().transformRect(rect).contains(mousePosition))
         return true;
     else
@@ -63,8 +63,14 @@ bool mp::ClickableWidget::isPressed()
 
 bool mp::ClickableWidget::isReleased()
 {
-    if(isPressed_ && mouseOnWidget())
-        return true;
+    if(isPressed_ && !isPressed())
+    {
+        isPressed_ = false;
+        if(mouseOnWidget())
+            return true;
+        else
+            return false;
+    }
     else
         return false;
 }
