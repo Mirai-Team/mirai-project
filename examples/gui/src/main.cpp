@@ -3,12 +3,18 @@
 #include <string>
 #include <vector>
 
+#include <MiraiProject/gui/Button.hpp>
 #include <MiraiProject/gui/Image.hpp>
 #include <MiraiProject/gui/Label.hpp>
 #include <MiraiProject/resourcesManagers/AutoResManager.hpp>
 #include <MiraiProject/util/WindowManager.hpp>
 
 #include <SFML/Graphics.hpp>
+
+void helloWorld(mp::Label* label)
+{
+    label->setColor(sf::Color::Green);
+}
 
 int main()
 {
@@ -24,10 +30,9 @@ int main()
     mainWindowManager.setVideomodeWidth(300);
     mainWindowManager.setVideomodeHeight(300);
 
-    mp::Image image;
+    mp::Button button(window);
 
     mp::Label* label = new mp::Label();
-
     label->setText(L"Mirai Project Logo");
     label->setPosition(10, 10);
     label->setFont(*resourcesManager.getFontBuffer("resources/UbuntuMono-R.ttf"));
@@ -35,9 +40,12 @@ int main()
     label->setColor(sf::Color::Red);
 
     mp::Label::childPtr labelNode(label);
-    image.setTexture(*resourcesManager.getTexture("resources/logo.png"));
-    image.setPosition(45, 45);
-    image.addFrontChild(labelNode);
+    button.setNormalTexture(*resourcesManager.getTexture("resources/logo.png"));
+    button.setDownTexture(*resourcesManager.getTexture("resources/logoD.png"));
+    button.setHoverTexture(*resourcesManager.getTexture("resources/logoH.png"));
+    button.setPosition(0, 0);
+    button.setFunction([&]() { helloWorld(label); });
+    button.addFrontChild(labelNode);
 
     // Set borders' colour.
     mainWindowManager.setBordersColor(sf::Color::White);
@@ -61,10 +69,11 @@ int main()
                 default:
                     break;
             }
+            button.update();
         }
 
         window.clear(sf::Color::Blue);
-        window.draw(image);
+        window.draw(button);
         window.display();
     }
     
