@@ -22,8 +22,6 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <iostream>
-
 #include "MiraiProject/gui/Button.hpp"
 
 using namespace std;
@@ -64,7 +62,6 @@ void mp::Button::setNormalTexture(sf::Texture &texture)
 
     sprite_ = &normal_;
 
-    cout << texture.getSize().y << endl;
     sf::Vector2f size(texture.getSize());
     setSize(size);
 }
