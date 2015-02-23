@@ -43,7 +43,7 @@ int main()
     button.setNormalTexture(*resourcesManager.getTexture("resources/logo.png"));
     button.setDownTexture(*resourcesManager.getTexture("resources/logoD.png"));
     button.setHoverTexture(*resourcesManager.getTexture("resources/logoH.png"));
-    button.setPosition(0, 0);
+    button.setPosition(45, 45);
     button.setFunction([&]() { helloWorld(label); });
     button.addFrontChild(labelNode);
 
