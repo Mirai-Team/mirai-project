@@ -68,12 +68,12 @@ void mp::Border::createRectangle(float width, float height, sf::Color color)
     }
 }
 
-void mp::Border::createBlank(mp::Border::Edge corner, float width, float offset)
+void mp::Border::createBlank(mp::Border::Edge edge, float width, float offset)
 {
     if(type_ != 1)
         return;
 
-    switch(corner)
+    switch(edge)
     {
         case 0:
             vertices_[1] = sf::Vertex(sf::Vector2f(0, offset), color_);
