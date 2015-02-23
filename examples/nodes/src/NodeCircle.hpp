@@ -33,6 +33,8 @@
 class NodeCircle : public mp::Node
 {
     public:
+        typedef std::shared_ptr<NodeCircle> childPtr;
+
         NodeCircle(float radius);
 
         ~NodeCircle();

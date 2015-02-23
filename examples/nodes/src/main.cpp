@@ -22,13 +22,15 @@
 //
 ////////////////////////////////////////////////////////////
 
+#include <cmath>
 #include <iostream>
 #include <memory>
 
+#include <MiraiProject/util/WindowManager.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
-#include <MiraiProject/util/WindowManager.hpp>
+#include <SFML/Graphics/Color.hpp>
 
 #include "NodeCircle.hpp"
 
@@ -65,19 +67,22 @@ int main()
 
     std::vector<NodeCircle::childPtr> circles{ };
     NodeCircle::childPtr initPtr{ new NodeCircle(60.f) };
+    initPtr->setPosition(250, 250);
 
     circles.push_back(initPtr);
     for (unsigned int i = 1; i < 6; i++)
     {
         NodeCircle::childPtr ptr{ new NodeCircle(50.f / static_cast<float>(i)) };
+        ptr->circle.setFillColor(
+                                 sf::Color(static_cast<char>(200 - i * 25),
+                                           static_cast<char>(200 - i * 25),
+                                           static_cast<char>(200 - i * 25))
+                                );
         circles.push_back(ptr);
         circles[i - 1]->addFrontChild(circles[i]);
     }
 
-    for (NodeCircle::childPtr circle : circles)
-    {
-        circle->setPosition(75, 75);
-    }
+    float theta{ 0.f };
 
     while (running)
     {
@@ -93,6 +98,21 @@ int main()
                 default:
                     break;
             }
+        }
+
+        theta += 0.01f;
+
+        // Some logic
+        float factor{ 0.f };
+        for (unsigned int i = 1; i < circles.size(); i++)
+        {
+            factor = static_cast<float>(i);
+
+            if (i % 2 == 0)
+                factor = -factor;
+
+            circles[i]->setPosition(100 / factor * cos(theta * factor),
+                                    100 / factor * sin(theta * factor));
         }
 
         window.clear(sf::Color::Black);
