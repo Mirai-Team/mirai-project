@@ -40,7 +40,7 @@ int main()
     mp::WindowManager mainWindowManager { };
     sf::RenderWindow &window = mainWindowManager.getWindow();
 
-    mainWindowManager.setWindowName("Simple Window Test");
+    mainWindowManager.setWindowName("Simple Window example");
     mainWindowManager.setOptimalWinWidth(500);
     mainWindowManager.setOptimalWinHeight(500);
     

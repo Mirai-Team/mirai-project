@@ -32,8 +32,20 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/System/NonCopyable.hpp>
 
+/** \file Node.hpp
+ * \brief This file contains Node class definition.
+ */
+
 namespace mp
 {
+    /** \class Node
+     * \brief A class to represent and manage a scene graph.
+     *
+     * A node can have front and back children. Children are drawn
+     * with the parent. Front children are drawn after the parent,
+     * and back children are drawn before.
+     */
+
     class Node : public sf::Transformable, public sf::Drawable, private sf::NonCopyable
     {
         public:
