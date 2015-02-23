@@ -24,8 +24,6 @@
 
 #include "MiraiProject/gui/Button.hpp"
 
-using namespace std;
-
 mp::Button::Button(sf::Window& window) :    ClickableWidget(window), 
                                             funct_ { },
                                             sprite_ { },
