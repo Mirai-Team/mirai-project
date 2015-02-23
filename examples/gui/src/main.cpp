@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+#include <MiraiProject/gui/Border.hpp>
 #include <MiraiProject/gui/Button.hpp>
 #include <MiraiProject/gui/Image.hpp>
 #include <MiraiProject/gui/Label.hpp>
@@ -11,9 +12,10 @@
 
 #include <SFML/Graphics.hpp>
 
-void helloWorld(mp::Label* label)
+void helloWorld(mp::Label* label, mp::Border* border)
 {
     label->setColor(sf::Color::Green);
+    border->setColor(sf::Color::Green);
 }
 
 int main()
@@ -38,14 +40,23 @@ int main()
     label->setFont(*resourcesManager.getFontBuffer("resources/UbuntuMono-R.ttf"));
     label->setCharacterSize(20);
     label->setColor(sf::Color::Red);
-
     mp::Label::childPtr labelNode(label);
+
+    mp::Border* border = new mp::Border();
+
+    border->createRectangle(220.f, 220.f, sf::Color::Red);
+    border->createBlank(mp::Border::Edge::Bottom, 100, 10);
+    border->createBlank(mp::Border::Edge::Left, 100, 10);
+    border->setPosition(-10.f, -10.f);
+    mp::Border::childPtr borderNode(border);
+
     button.setNormalTexture(*resourcesManager.getTexture("resources/logo.png"));
     button.setDownTexture(*resourcesManager.getTexture("resources/logoD.png"));
     button.setHoverTexture(*resourcesManager.getTexture("resources/logoH.png"));
-    button.setPosition(45, 45);
-    button.setFunction([&]() { helloWorld(label); });
+    button.setPosition(45.f, 45.f);
+    button.setFunction([&]() { helloWorld(label, border); });
     button.addFrontChild(labelNode);
+    button.addFrontChild(borderNode);
 
     // Set borders' colour.
     mainWindowManager.setBordersColor(sf::Color::White);
