@@ -27,11 +27,11 @@
 
 #include <SFML/System/Vector2.hpp>
 
-#include "MiraiProject/scene/SceneNode.hpp"
+#include "MiraiProject/scene/Node.hpp"
 
 namespace mp
 {
-    class Widget : public SceneNode
+    class Widget : public Node
     {
         public:
             Widget();
