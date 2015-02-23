@@ -22,8 +22,8 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef SCENENODE_HPP_INCLUDED
-#define SCENENODE_HPP_INCLUDED
+#ifndef NODE_HPP_INCLUDED
+#define NODE_HPP_INCLUDED
 
 #include <memory>
 #include <vector>
@@ -34,22 +34,22 @@
 
 namespace mp
 {
-    class SceneNode : public sf::Transformable, public sf::Drawable, private sf::NonCopyable
+    class Node : public sf::Transformable, public sf::Drawable, private sf::NonCopyable
     {
         public:
-            typedef std::shared_ptr<SceneNode> childPtr;
+            typedef std::shared_ptr<Node> childPtr;
 
             /** \brief Class constructor **/
-            SceneNode(const std::string& name="NA");
+            Node(const std::string& name="NA");
 
             /** \brief Class destructor **/
-            virtual ~SceneNode();
+            virtual ~Node();
 
             sf::Vector2f getWorldPosition() const;
 
             sf::Transform getWorldTransform() const;
 
-            float distance(const SceneNode& otherNode) const;
+            float distance(const Node& otherNode) const;
 
             void addFrontChild(childPtr child);
 
@@ -70,7 +70,7 @@ namespace mp
             unsigned int getId();
 
         private:
-            SceneNode* parent_;
+            Node* parent_;
 
             std::vector<childPtr> frontChildren_;
             std::vector<childPtr> backChildren_;
@@ -90,4 +90,4 @@ namespace mp
     };
 }
 
-#endif // SCENENODE_HPP_INCLUDED
+#endif // NODE_HPP_INCLUDED

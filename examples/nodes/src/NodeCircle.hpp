@@ -28,9 +28,9 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
-#include <MiraiProject/scene/SceneNode.hpp>
+#include <MiraiProject/scene/Node.hpp>
 
-class NodeCircle : public mp::SceneNode
+class NodeCircle : public mp::Node
 {
     public:
         NodeCircle(float radius);
