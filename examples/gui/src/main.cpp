@@ -50,9 +50,9 @@ int main()
     border->setPosition(-10.f, -10.f);
     mp::Border::childPtr borderNode(border);
 
-    button.setNormalTexture(*resourcesManager.getTexture("resources/logo.png"));
-    button.setDownTexture(*resourcesManager.getTexture("resources/logoD.png"));
-    button.setHoverTexture(*resourcesManager.getTexture("resources/logoH.png"));
+    button.setNormalTexture(resourcesManager.getTexture("resources/logo.png"));
+    button.setDownTexture(resourcesManager.getTexture("resources/logoD.png"));
+    button.setHoverTexture(resourcesManager.getTexture("resources/logoH.png"));
     button.setPosition(45.f, 45.f);
     button.setFunction([&]() { helloWorld(label, border); });
     button.addFrontChild(labelNode);

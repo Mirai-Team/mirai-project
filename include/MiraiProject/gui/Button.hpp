@@ -26,6 +26,7 @@
 #define BUTTON_HPP_INCLUDED
 
 #include <functional>
+#include <memory>
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -44,11 +45,11 @@ namespace mp
 
             void setFunction(std::function<void()> funct);
 
-            void setNormalTexture(sf::Texture &texture);
+            void setNormalTexture(std::shared_ptr<sf::Texture> texture);
 
-            void setHoverTexture(sf::Texture &texture);
+            void setHoverTexture(std::shared_ptr<sf::Texture> texture);
 
-            void setDownTexture(sf::Texture &texture);
+            void setDownTexture(std::shared_ptr<sf::Texture> texture);
         private:
             virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 

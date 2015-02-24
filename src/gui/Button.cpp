@@ -54,24 +54,24 @@ void mp::Button::setFunction(std::function<void()> funct)
     funct_ = funct;
 }
 
-void mp::Button::setNormalTexture(sf::Texture &texture)
+void mp::Button::setNormalTexture(std::shared_ptr<sf::Texture> texture)
 {
-    normal_.setTexture(texture);
+    normal_.setTexture(*texture);
 
     sprite_ = &normal_;
 
-    sf::Vector2f size(texture.getSize());
+    sf::Vector2f size(texture->getSize());
     setSize(size);
 }
 
-void mp::Button::setHoverTexture(sf::Texture &texture)
+void mp::Button::setHoverTexture(std::shared_ptr<sf::Texture> texture)
 {
-    hover_.setTexture(texture);
+    hover_.setTexture(*texture);
 }
 
-void mp::Button::setDownTexture(sf::Texture &texture)
+void mp::Button::setDownTexture(std::shared_ptr<sf::Texture> texture)
 {
-    down_.setTexture(texture);
+    down_.setTexture(*texture);
 }
 
 void mp::Button::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
