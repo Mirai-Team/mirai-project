@@ -35,7 +35,7 @@
 #include "MiraiProject/gui/Widget.hpp"
 
 namespace mp
- {
+{
     class Border : public Widget
     {
         public:
@@ -67,6 +67,6 @@ namespace mp
 
             short int type_;
     };
- }
+}
 
- #endif
+#endif

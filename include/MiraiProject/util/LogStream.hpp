@@ -39,6 +39,7 @@
 
 namespace mp
 {
+    // Forward declaration.
     class Logger;
     
     /** \class Logstream

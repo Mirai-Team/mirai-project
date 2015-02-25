@@ -40,7 +40,8 @@
 
 namespace mp
 {
-    class Logstream; // Because Logger use Logstream and Logstream use Logger..
+    // Forward declaration.
+    class Logstream;
 
     /** \class Logger
      * \brief Class for logging.
