@@ -27,6 +27,7 @@
 #include <memory>
 
 #include <MiraiProject/util/WindowManager.hpp>
+#include <MiraiProject/util/StringUtilities.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
@@ -45,7 +46,7 @@ int main()
     mp::WindowManager mainWindowManager { };
     sf::RenderWindow &window = mainWindowManager.getWindow();
 
-    mainWindowManager.setWindowName("Simple Window Test");
+    mainWindowManager.setWindowName("Nodes example");
     mainWindowManager.setOptimalWinWidth(500);
     mainWindowManager.setOptimalWinHeight(500);
     
@@ -68,6 +69,8 @@ int main()
     std::vector<NodeCircle::childPtr> circles{ };
     NodeCircle::childPtr initPtr{ new NodeCircle(60.f) };
     initPtr->setPosition(250, 250);
+    initPtr->setName("circle 0");
+    cout << "Adding node " << initPtr->getName() << "." << endl;
 
     circles.push_back(initPtr);
     for (unsigned int i = 1; i < 6; i++)
@@ -78,6 +81,9 @@ int main()
                                            static_cast<char>(200 - i * 25),
                                            static_cast<char>(200 - i * 25))
                                 );
+        ptr->setName("circle " + mp::StringUtilities::toString(i));
+        cout << "Adding node " << ptr->getName() << "." << endl;
+
         circles.push_back(ptr);
         circles[i - 1]->addFrontChild(circles[i]);
     }

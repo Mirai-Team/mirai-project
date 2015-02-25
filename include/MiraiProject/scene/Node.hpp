@@ -32,8 +32,24 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/System/NonCopyable.hpp>
 
+/** \file Node.hpp
+ * \brief This file contains Node class definition.
+ */
+
 namespace mp
 {
+    /** \class Node
+     * \brief A class to represent and manage a scene graph.
+     *
+     * A node can have front and back children. Children are drawn
+     * with the parent. Front children are drawn after the parent,
+     * and back children are drawn before.
+     *
+     * The virtual method drawCurrent() should be overloaded (just to
+     * draw THIS node, not to draw children, operation which is
+     * automatically performed).
+     */
+
     class Node : public sf::Transformable, public sf::Drawable, private sf::NonCopyable
     {
         public:
@@ -45,31 +61,95 @@ namespace mp
             /** \brief Class destructor **/
             virtual ~Node();
 
+            /** \brief Return node's absolute position.
+             * 
+             * \return the absolute position.
+             */
             sf::Vector2f getWorldPosition() const;
 
+            /** \brief Return node's absolute transform.
+             *
+             * \return the absolute transform.
+             */
             sf::Transform getWorldTransform() const;
 
+            /** \brief Return the distance between this node and another one.
+             *
+             * \param otherNode : this other one.
+             *
+             * \return the distance between them.
+             */
             float distance(const Node& otherNode) const;
 
+            /** \brief Add a front child
+             *
+             * \param child : the child to add on the front.
+             */
             void addFrontChild(childPtr child);
 
+            /** \brief Add a back child
+             *
+             * \param child : the child to add on the back.
+             */
             void addBackChild(childPtr child);
 
+            /** \brief Remove children matching the given name.
+             *
+             * \param name : the name.
+             */
             void removeChildByName(const std::string& name);
 
+            /** \brief Remove the child matching the given id.
+             *
+             * \param id : the id.
+             */
             void removeChildById(const unsigned int& id);
 
+            /** \brief Remove all children. */
             void clearChildren();
 
+            /** \brief Return a vector containing pointer to all children.
+             *
+             * \return the vector containing pointer to all children.
+             */
             std::vector<childPtr> getChildren();
 
+            /** \brief Change node's name. 
+             *
+             * \param newName : the new name.
+             */
             void setName(const std::string& newName);
 
+            /** \brief Return node's name.
+             *
+             * \return the name.
+             */
             std::string getName();
 
+            /** \brief Return node's id.
+             *
+             * \return the id.
+             */
             unsigned int getId();
 
+        protected:
+            /** \brief Draw the node to a render target.
+             *
+             * This is a pure virtual function that has to be implemented by the derived 
+             * class to define how the node should be drawn.
+             *
+             * \param target : the render target.
+             * \param states : the current states.
+             */
+            virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const = 0;
+
         private:
+            virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const final;
+
+            void drawFrontChildren(sf::RenderTarget& target, sf::RenderStates states) const;
+
+            void drawBackChildren(sf::RenderTarget& target, sf::RenderStates states) const;
+
             Node* parent_;
 
             std::vector<childPtr> frontChildren_;
@@ -79,14 +159,6 @@ namespace mp
             const unsigned int id_;
 
             static unsigned int sLastId;
-
-            virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const final;
-
-            virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const = 0;
-
-            void drawFrontChildren(sf::RenderTarget& target, sf::RenderStates states) const;
-
-            void drawBackChildren(sf::RenderTarget& target, sf::RenderStates states) const;
     };
 }
 

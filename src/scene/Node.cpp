@@ -44,6 +44,10 @@ Node::Node(const std::string& name) : parent_{ nullptr },
 
 Node::~Node()
 {
+    std::vector<childPtr> children{ getChildren() };
+
+    for (unsigned int i = 0; i < children.size(); i++)
+        children[i]->parent_ = nullptr;
 }
 
 sf::Vector2f Node::getWorldPosition() const
