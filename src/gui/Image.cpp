@@ -29,9 +29,9 @@ mp::Image::Image()
 
 }
 
-void mp::Image::setTexture(sf::Texture &texture)
+void mp::Image::setTexture(std::shared_ptr<sf::Texture> texture)
 {
-    sprite_.setTexture(texture);
+    sprite_.setTexture(*texture);
 }
 
 void mp::Image::setColor(sf::Color color)

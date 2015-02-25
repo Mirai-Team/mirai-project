@@ -25,6 +25,8 @@
 #ifndef IMAGE_HPP_INCLUDED
 #define IMAGE_HPP_INCLUDED
 
+#include <memory>
+
 #include <SFML/System/String.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -40,7 +42,7 @@ namespace mp
         public:
             Image();
 
-            void setTexture(sf::Texture &texture);
+            void setTexture(std::shared_ptr<sf::Texture> texture);
 
             void setColor(sf::Color color);
 
