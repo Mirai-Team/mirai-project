@@ -35,9 +35,11 @@ namespace mp
     class ClickableWidget : public Widget
     {
         public:
-            ClickableWidget(sf::Window& window);
+            ClickableWidget();
 
             void setSize(sf::Vector2f size);
+
+            void setMousePosition(sf::Vector2f position);
 
             sf::Vector2f getSize();
 
@@ -51,8 +53,7 @@ namespace mp
 
             sf::Vector2f size_;
 
-            sf::Window& window_;
-
+            sf::Vector2f mousePosition_;
     };
 }
 

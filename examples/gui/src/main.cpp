@@ -32,7 +32,7 @@ int main()
     mainWindowManager.setVideomodeWidth(300);
     mainWindowManager.setVideomodeHeight(300);
 
-    mp::Button button(window);
+    mp::Button button;
 
     mp::Label* label = new mp::Label();
     label->setText(L"Mirai Project Logo");
@@ -80,7 +80,7 @@ int main()
                 default:
                     break;
             }
-            button.update();
+            button.update(sf::Mouse::getPosition(window));
         }
 
         window.clear(sf::Color::Blue);

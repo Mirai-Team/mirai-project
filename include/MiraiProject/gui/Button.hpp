@@ -39,9 +39,9 @@ namespace mp
     class Button : public ClickableWidget
     {
         public:
-            Button(sf::Window& window);
+            Button();
 
-            void update();
+            void update(sf::Vector2i mousePosition);
 
             void setFunction(std::function<void()> funct);
 

@@ -24,19 +24,19 @@
 
 #include "MiraiProject/gui/Button.hpp"
 
-mp::Button::Button(sf::Window& window) :    ClickableWidget(window), 
-                                            funct_ { },
-                                            sprite_ { },
-                                            normal_ { },
-                                            hover_ { },
-                                            down_ { }
+mp::Button::Button() :  funct_ { },
+                        sprite_ { },
+                        normal_ { },
+                        hover_ { },
+                        down_ { }
 {
 
 }
 
-void mp::Button::update()
+void mp::Button::update(sf::Vector2i mousePosition)
 {
-    
+    setMousePosition(sf::Vector2f(mousePosition));
+
     if(isPressed())
         sprite_ = &down_;
     else if(mouseOnWidget())
