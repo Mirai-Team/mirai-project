@@ -40,14 +40,10 @@ namespace mp
 
             void disable();
 
-            void show();
+            bool isEnabled() const;
 
-            void hide(); 
         private:
-            virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const = 0;
-
             bool isEnabled_;
-            bool visibility_;
     };
 }
 #endif

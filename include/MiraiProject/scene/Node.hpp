@@ -112,7 +112,7 @@ namespace mp
              *
              * \return the vector containing pointer to all children.
              */
-            std::vector<childPtr> getChildren();
+            std::vector<childPtr> getChildren() const;
 
             /** \brief Change node's name. 
              *
@@ -124,13 +124,34 @@ namespace mp
              *
              * \return the name.
              */
-            std::string getName();
+            std::string getName() const;
 
             /** \brief Return node's id.
              *
              * \return the id.
              */
-            unsigned int getId();
+            unsigned int getId() const;
+
+            /** \brief Show the node. */
+            void show();
+
+            /** \brief Hide the node. */
+            void hide();
+
+            /** \brief Change node's visibility. */
+            void toggleVisible();
+
+            /** \brief Set whether the node is visible or not. 
+             *
+             * \param newValue : the new visibility value.
+             */
+            void setVisible(bool newValue);
+
+            /** \brief Return whether the node is visible or not.
+             *
+             * \return whether the node is visible or not.
+             */
+            bool isVisible() const;
 
         protected:
             /** \brief Draw the node to a render target.
@@ -154,6 +175,8 @@ namespace mp
 
             std::vector<childPtr> frontChildren_;
             std::vector<childPtr> backChildren_;
+
+            bool isVisible_;
 
             std::string name_;
             const unsigned int id_;

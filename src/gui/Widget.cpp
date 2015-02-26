@@ -24,8 +24,7 @@
 
 #include "MiraiProject/gui/Widget.hpp"
 
-mp::Widget::Widget() :  isEnabled_ { true },
-                        visibility_ { true }
+mp::Widget::Widget() :  isEnabled_ { true }
 {
 
 }
@@ -40,12 +39,7 @@ void mp::Widget::disable()
     isEnabled_ = false;
 }
 
-void mp::Widget::show()
+bool mp::Widget::isEnabled() const
 {
-    visibility_ = true;
-}
-
-void mp::Widget::hide()
-{
-    visibility_ = false;
+    return isEnabled_;
 }

@@ -48,6 +48,7 @@ namespace mp
             virtual bool isPressed();
 
             virtual bool isReleased();
+            
         private:
             bool isPressed_;
 

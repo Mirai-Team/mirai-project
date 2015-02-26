@@ -33,11 +33,13 @@ unsigned int Node::sLastId { 0 };
 
 Node::Node(const std::string& name) : parent_{ nullptr },
 
-                                                frontChildren_{ },
-                                                backChildren_{ },
-                                            
-                                                name_{ name },
-                                                id_{ sLastId + 1 }
+                                      frontChildren_{ },
+                                      backChildren_{ },
+                                      
+                                      isVisible_{ true },
+
+                                      name_{ name },
+                                      id_{ sLastId + 1 }
 {
     sLastId++;
 }
@@ -135,7 +137,7 @@ void Node::clearChildren()
     backChildren_.clear();
 }
 
-std::vector<Node::childPtr> Node::getChildren()
+std::vector<Node::childPtr> Node::getChildren() const
 {
     std::vector<childPtr> children{ };
     children.insert(children.end(), frontChildren_.begin(), frontChildren_.end());
@@ -149,14 +151,42 @@ void Node::setName(const std::string& newName)
     name_ = newName;
 }
 
-std::string Node::getName()
+std::string Node::getName() const
 {
     return name_;
 }
 
-unsigned int Node::getId()
+unsigned int Node::getId() const
 {
     return id_;
+}
+
+void Node::show()
+{
+    isVisible_ = true;
+}
+
+void Node::hide()
+{
+    isVisible_ = false;
+}
+
+void Node::toggleVisible()
+{
+    if (isVisible_)
+        isVisible_ = false;
+    else
+        isVisible_ = true;
+}
+
+void Node::setVisible(bool newValue)
+{
+    isVisible_ = newValue;
+}
+
+bool Node::isVisible() const
+{
+    return isVisible_;
 }
 
 ///////////////
@@ -165,13 +195,16 @@ unsigned int Node::getId()
 
 void Node::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    // Apply transform of current node
-    states.transform *= getTransform();
+    if (isVisible_)
+    {
+        // Apply transform of current node
+        states.transform *= getTransform();
 
-    // Draw node and children with changed transform
-    drawBackChildren(target, states);
-    drawCurrent(target, states);
-    drawFrontChildren(target, states);
+        // Draw node and children with changed transform
+        drawBackChildren(target, states);
+        drawCurrent(target, states);
+        drawFrontChildren(target, states);
+    }
 }
 
 void Node::drawFrontChildren(sf::RenderTarget& target, sf::RenderStates states) const
