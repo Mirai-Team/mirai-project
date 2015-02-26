@@ -22,45 +22,43 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef EVENTMANAGER_HPP_INCLUDED
-#define EVENTMANAGER_HPP_INCLUDED
+#ifndef EVENT_MANAGER_TPP_INCLUDED
+#define EVENT_MANAGER_TPP_INCLUDED
 
-#include <iostream>
-#include <memory>
-#include <functional>
-#include <map>
-#include <string>
+#include "MiraiProject/eventManager/EventManager.hpp"
 
-#include <boost/any.hpp>
-#include <boost/variant.hpp>
+using namespace std;
 
-namespace mp
+template<typename T, typename... Args>
+void mp::EventManager::AddListener(std::string eventName, std::function<T(Args...)> funct)
 {
-    class EventManager
-    {
-    public:
-        static EventManager* getInstance();
-
-        template<typename T, typename... Args>
-        void AddListener(std::string eventName, std::function<T(Args...)> funct);
-
-        template<typename T>
-        void AddListener(std::string eventName, std::function<T()> funct);
-
-        template<typename T, typename... Args>
-        T Broadcast(std::string eventName, Args... args);
-
-        template<typename T>
-        T Broadcast(std::string eventName);
-        
-    private:
-        EventManager();
-        static EventManager *instance_;
-
-        std::map<std::string, boost::any> events_;
-    };
+    events_[eventName] = funct;
 }
 
-#include "MiraiProject/eventManager/EventManager.tpp"
+template<typename T>
+void mp::EventManager::AddListener(std::string eventName, std::function<T()> funct)
+{
+    events_[eventName] = funct;
+}
 
-#endif
+template<typename T, typename... Args>
+T mp::EventManager::Broadcast(std::string eventName, Args... args)
+{
+    for(auto it = events_.begin(); it != events_.end(); ++it)
+    {
+        if(it->first == eventName)
+            return boost::any_cast<function<T(Args...)>>(events_[eventName])(args...);
+    }
+}
+
+template<typename T>
+T mp::EventManager::Broadcast(std::string eventName)
+{
+    for(auto it = events_.begin(); it != events_.end(); ++it)
+    {
+        if(it->first == eventName)
+            return boost::any_cast< function<T()> >(events_[eventName])();
+    }
+}
+
+#endif // EVENT_MANAGER_TPP_INCLUDED
