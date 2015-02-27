@@ -35,6 +35,9 @@ mp::Button::Button() :  funct_ { },
 
 void mp::Button::update(sf::Vector2i mousePosition)
 {
+    if(!isEnabled())
+        return;
+
     setMousePosition(sf::Vector2f(mousePosition));
 
     if(isPressed())
@@ -76,5 +79,6 @@ void mp::Button::setDownTexture(std::shared_ptr<sf::Texture> texture)
 
 void mp::Button::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    target.draw(*sprite_, states);
+    if(isVisible())
+        target.draw(*sprite_, states);
 }
