@@ -30,19 +30,19 @@
 using namespace std;
 
 template<typename T, typename... Args>
-void mp::EventManager::AddListener(std::string eventName, std::function<T(Args...)> funct)
+void mp::EventManager::addListener(std::string eventName, std::function<T(Args...)> funct)
 {
     events_[eventName] = funct;
 }
 
 template<typename T>
-void mp::EventManager::AddListener(std::string eventName, std::function<T()> funct)
+void mp::EventManager::addListener(std::string eventName, std::function<T()> funct)
 {
     events_[eventName] = funct;
 }
 
 template<typename T, typename... Args>
-T mp::EventManager::Broadcast(std::string eventName, Args... args)
+T mp::EventManager::broadcast(std::string eventName, Args... args)
 {
     for(auto it = events_.begin(); it != events_.end(); ++it)
     {
@@ -52,7 +52,7 @@ T mp::EventManager::Broadcast(std::string eventName, Args... args)
 }
 
 template<typename T>
-T mp::EventManager::Broadcast(std::string eventName)
+T mp::EventManager::broadcast(std::string eventName)
 {
     for(auto it = events_.begin(); it != events_.end(); ++it)
     {

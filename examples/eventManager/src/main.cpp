@@ -38,7 +38,7 @@ public:
             return this->displayDamage(a);
         };
         shared_ptr<mp::EventManager> eventManager = mp::EventManager::getInstance();
-        eventManager->AddListener<int, int>("helloWorld", f);
+        eventManager->addListener<int, int>("helloWorld", f);
 
     }
 
@@ -61,7 +61,7 @@ public:
     void makeDamage(int damage)
     {
         shared_ptr<mp::EventManager> eventManager = mp::EventManager::getInstance();
-        int state = eventManager->Broadcast<int, int>("helloWorld", damage);
+        int state = eventManager->broadcast<int, int>("helloWorld", damage);
         if(state == 0) {
             cout << "I'm Dead" << endl;
         }else

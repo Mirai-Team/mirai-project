@@ -46,17 +46,47 @@ namespace mp
          */
         static std::shared_ptr<EventManager> getInstance();
 
+        /**
+         * @brief Add a Listener with parameter(s).
+         * 
+         * @param eventName : Name of the event.
+         * @param funct : Function to execute if Broadcast method is executed.
+         * @tparam T : Function's type.
+         * @tparam Args : Arguments' type.
+         */
         template<typename T, typename... Args>
-        void AddListener(std::string eventName, std::function<T(Args...)> funct);
+        void addListener(std::string eventName, std::function<T(Args...)> funct);
 
+        /**
+         * @brief Add a Listener without parameters.
+         * 
+         * @param eventName : Name of the event.
+         * @param funct : Function to execute if Broadcast method is executed.
+         * @tparam T : Function's type.
+         */
         template<typename T>
-        void AddListener(std::string eventName, std::function<T()> funct);
+        void addListener(std::string eventName, std::function<T()> funct);
 
+        /**
+         * @brief Execute function register with AddListener
+         * 
+         * @param eventName : Event to call.
+         * @param args : Function's parameters.
+         * @tparam T : Function's type.
+         * @return If not void, return function return.
+         */
         template<typename T, typename... Args>
-        T Broadcast(std::string eventName, Args... args);
+        T broadcast(std::string eventName, Args... args);
 
+        /**
+         * @brief Execute function register with AddListener
+         * 
+         * @param eventName : Event to call.
+         * @tparam T : Function's type.
+         * @return If not void, return function return.
+         */
         template<typename T>
-        T Broadcast(std::string eventName);
+        T broadcast(std::string eventName);
         
     private:
         EventManager();
