@@ -37,7 +37,7 @@ public:
         std::function<int(int)> f = [=](int a) {
             return this->displayDamage(a);
         };
-        mp::EventManager* eventManager = mp::EventManager::getInstance();
+        shared_ptr<mp::EventManager> eventManager = mp::EventManager::getInstance();
         eventManager->AddListener<int, int>("helloWorld", f);
 
     }
@@ -60,7 +60,7 @@ public:
 
     void makeDamage(int damage)
     {
-        mp::EventManager* eventManager = mp::EventManager::getInstance();
+        shared_ptr<mp::EventManager> eventManager = mp::EventManager::getInstance();
         int state = eventManager->Broadcast<int, int>("helloWorld", damage);
         if(state == 0) {
             cout << "I'm Dead" << endl;

@@ -39,7 +39,12 @@ namespace mp
     class EventManager
     {
     public:
-        static EventManager* getInstance();
+        /**
+         * @brief Return a shared pointer from EventManager class.
+         * @details If the manager doesn't exist, we create it and we return an unique pointer of it.
+         * @return An event manager pointer.
+         */
+        static std::shared_ptr<EventManager> getInstance();
 
         template<typename T, typename... Args>
         void AddListener(std::string eventName, std::function<T(Args...)> funct);
@@ -55,7 +60,7 @@ namespace mp
         
     private:
         EventManager();
-        static EventManager *instance_;
+        static std::shared_ptr<EventManager> instance_;
 
         std::map<std::string, boost::any> events_;
     };
