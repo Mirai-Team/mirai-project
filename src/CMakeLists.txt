@@ -4,6 +4,7 @@ file(GLOB_RECURSE sources_eventManager ${CMAKE_CURRENT_SOURCE_DIR}/eventManager/
 file(GLOB_RECURSE sources_inputManager ${CMAKE_CURRENT_SOURCE_DIR}/inputManager/* ${CMAKE_SOURCE_DIR}/include/inputManager/*)
 file(GLOB_RECURSE sources_parser ${CMAKE_CURRENT_SOURCE_DIR}/parser/* ${CMAKE_SOURCE_DIR}/include/parser/*)
 file(GLOB_RECURSE sources_resourcesManagers ${CMAKE_CURRENT_SOURCE_DIR}/resourcesManagers/* ${CMAKE_SOURCE_DIR}/include/resourcesManagers/*)
+file(GLOB_RECURSE sources_scene ${CMAKE_CURRENT_SOURCE_DIR}/scene/* ${CMAKE_SOURCE_DIR}/include/scene/*)
 file(GLOB_RECURSE sources_stat ${CMAKE_CURRENT_SOURCE_DIR}/stat/* ${CMAKE_SOURCE_DIR}/include/stat/*)
 file(GLOB_RECURSE sources_updateSystem ${CMAKE_CURRENT_SOURCE_DIR}/updateSystem/* ${CMAKE_SOURCE_DIR}/include/updateSystem/*)
 file(GLOB_RECURSE sources_util ${CMAKE_CURRENT_SOURCE_DIR}/util/* ${CMAKE_SOURCE_DIR}/include/util/*)
@@ -15,6 +16,7 @@ set(core_sources
     ${sources_inputManager}
     ${sources_parser}
     ${sources_resourcesManagers}
+    ${sources_scene}
     ${sources_stat}
     ${sources_updateSystem}
     ${sources_util}

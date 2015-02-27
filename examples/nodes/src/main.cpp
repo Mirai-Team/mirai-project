@@ -22,12 +22,18 @@
 //
 ////////////////////////////////////////////////////////////
 
+#include <cmath>
 #include <iostream>
+#include <memory>
 
+#include <MiraiProject/util/WindowManager.hpp>
+#include <MiraiProject/util/StringUtilities.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
-#include <MiraiProject/util/WindowManager.hpp>
+#include <SFML/Graphics/Color.hpp>
+
+#include "NodeCircle.hpp"
 
 using namespace std;
 
@@ -40,7 +46,7 @@ int main()
     mp::WindowManager mainWindowManager { };
     sf::RenderWindow &window = mainWindowManager.getWindow();
 
-    mainWindowManager.setWindowName("Simple Window example");
+    mainWindowManager.setWindowName("Nodes example");
     mainWindowManager.setOptimalWinWidth(500);
     mainWindowManager.setOptimalWinHeight(500);
     
@@ -57,10 +63,32 @@ int main()
     // Useful only for testing purpose, but not very effective for real games.
     window.setFramerateLimit(60);
 
-    // Creating a small circle to draw.
-    sf::CircleShape shape(25);
-    shape.setFillColor(sf::Color(255, 255, 255));
-    shape.setPosition(5, 5);
+    // Creating circles to draw
+    cout << "Creating nodes." << endl;
+
+    std::vector<NodeCircle::childPtr> circles{ };
+    NodeCircle::childPtr initPtr{ new NodeCircle(60.f) };
+    initPtr->setPosition(250, 250);
+    initPtr->setName("circle 0");
+    cout << "Adding node " << initPtr->getName() << "." << endl;
+
+    circles.push_back(initPtr);
+    for (unsigned int i = 1; i < 6; i++)
+    {
+        NodeCircle::childPtr ptr{ new NodeCircle(50.f / static_cast<float>(i)) };
+        ptr->circle.setFillColor(
+                                 sf::Color(static_cast<char>(200 - i * 25),
+                                           static_cast<char>(200 - i * 25),
+                                           static_cast<char>(200 - i * 25))
+                                );
+        ptr->setName("circle " + mp::StringUtilities::toString(i));
+        cout << "Adding node " << ptr->getName() << "." << endl;
+
+        circles.push_back(ptr);
+        circles[i - 1]->addFrontChild(circles[i]);
+    }
+
+    float theta{ 0.f };
 
     while (running)
     {
@@ -78,8 +106,25 @@ int main()
             }
         }
 
+        theta += 0.01f;
+
+        // Some logic
+        float factor{ 0.f };
+        for (unsigned int i = 1; i < circles.size(); i++)
+        {
+            factor = static_cast<float>(i);
+
+            if (i % 2 == 0)
+                factor = -factor;
+
+            circles[i]->setPosition(100 / factor * cos(theta * factor),
+                                    100 / factor * sin(theta * factor));
+        }
+
         window.clear(sf::Color::Black);
-        window.draw(shape);
+
+        window.draw(*circles[0]);
+
         mainWindowManager.drawBorders(); // Draw the borders.
         window.display();
     }
