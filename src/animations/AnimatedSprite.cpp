@@ -415,7 +415,6 @@ void mp::AnimatedSprite::setDuration(const sf::Time& newDuration, const std::str
 
 void mp::AnimatedSprite::setTimePerFrame(const sf::Time& newTimePerFrame)
 {
-    std::cout << currentAnimation_ << std::endl;
     mp::Animation currentAnimation{ animations_[currentAnimation_] };
     currentAnimation.setTimePerFrame(newTimePerFrame);
 }
