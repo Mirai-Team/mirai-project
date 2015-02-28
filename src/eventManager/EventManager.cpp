@@ -16,3 +16,14 @@ mp::EventManager::EventManager() : events_ { }
 {
 
 }
+
+void mp::EventManager::deleteListener(std::string eventName)
+{
+    events_.erase(eventName);
+}
+
+void mp::EventManager::clearListeners()
+{
+    while(events_.size() > 0)
+        events_.erase(events_.begin());
+}

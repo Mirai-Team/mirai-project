@@ -68,6 +68,18 @@ namespace mp
         void addListener(std::string eventName, std::function<T()> funct);
 
         /**
+         * @brief Delete a listener.
+         * 
+         * @param eventName : Event to delete.
+         */
+        void deleteListener(std::string eventName);
+
+        /**
+         * @brief Clear all listeners.
+         */
+        void clearListeners();
+
+        /**
          * @brief Execute function register with AddListener
          * 
          * @param eventName : Event to call.
