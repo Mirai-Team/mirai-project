@@ -26,56 +26,73 @@
 #include <functional>
 
 #include <MiraiProject/eventManager/EventManager.hpp>
+#include <MiraiProject/util/StringUtilities.hpp>
+
+#include "Monster.hpp"
 
 using namespace std;
 
-class Test
+class Player
 {
 public:
-    Test()
+    Player() : exp_ { 0 }
     {
-        std::function<int(int)> f = [=](int a) {
-            return this->displayDamage(a);
+        function<void(int)> f = [=](int exp) {
+            return this->addExp(exp);
         };
+
         shared_ptr<mp::EventManager> eventManager = mp::EventManager::getInstance();
-        eventManager->addListener<int, int>("helloWorld", f);
 
+        eventManager->addListener<void, int>("PlayerExp", f);
     }
 
-    int displayDamage(int a)
+    void makeDamage(int damage, int monsterID)
     {
-        cout << "I took " << a << " damages points." << endl;
+        std::string eventName = "Monster" + mp::StringUtilities::toString(monsterID) + "TakeDamage";
 
-        if(a >= 10)
-            return 0;
-        else
-            return 1;
+        shared_ptr<mp::EventManager> eventManager = mp::EventManager::getInstance();
+        eventManager->broadcast<void, int>(eventName, damage);
     }
-    
+
+    int getExp()
+    {
+        return exp_;
+    }
+
+private:
+    void addExp(int exp){
+        exp_ += exp;
+    }
+
+    int exp_;
 };
 
-class Test2
-{
-public:
-
-    void makeDamage(int damage)
-    {
-        shared_ptr<mp::EventManager> eventManager = mp::EventManager::getInstance();
-        int state = eventManager->broadcast<int, int>("helloWorld", damage);
-        if(state == 0) {
-            cout << "I'm Dead" << endl;
-        }else
-        {
-            cout << "I'm alive" << endl;
-        }
-    }
-    
-};
 int main()
 {
-    Test test;
-    Test2 test2;
+    Player player;
 
-    test2.makeDamage(10);
+    // Monster0 doesn't exist so this line do nothing.
+    player.makeDamage(10, 0);
+
+    // We create two monsters.
+    Monster monster0;
+    Monster monster1;
+
+    // We kill the first monster
+    player.makeDamage(10, 0);
+
+    cout << "Player exp = " << player.getExp() << endl;
+
+    // We make 5 damages to the second monster.
+    player.makeDamage(5, 1);
+    monster1.setInvincibility(true);
+
+    // We attempt to make damage to the second monster but he is invincible.
+    player.makeDamage(5, 1);
+
+    monster1.setInvincibility(false);
+
+    // We make 5 damages to the second monster and so we kill him.
+    player.makeDamage(5, 1);
     return 0;
 }
