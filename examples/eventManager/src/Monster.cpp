@@ -24,29 +24,36 @@
 
 #include "Monster.hpp"
 
-int Monster::lastId { 0 };
+int Monster::lastId_ { 0 };
 
-Monster::Monster() :    id { lastId },
-                        isAlive { true }
+Monster::Monster() :    id_ { lastId_ },
+                        alive_ { true }
 {
-    cout << "Monster" << id << " created" << endl;
-    life = 10;
-    lastId++; 
+    cout << "Monster" << id_ << " created" << endl;
+    life_ = 10;
+    lastId_++; 
     function<void(int)> f = [=](int damage) {
         this->takeDamage(damage);
     };
     mp::EventManager& eventManager = mp::EventManager::getInstance();
-    std::string eventName = "Monster" + mp::StringUtilities::toString(id) + "TakeDamage";
+    std::string eventName = "Monster" + mp::StringUtilities::toString(id_) + "TakeDamage";
     eventManager.addListener<void, int>(eventName, f);
+
+    function<bool()> funct = [=]() {
+        return this->isAlive();
+    };
+
+    eventName = "Monster" + mp::StringUtilities::toString(id_) + "isAlive";
+    eventManager.addListener<bool>(eventName, funct);
 }
 
 void Monster::takeDamage(int damage)
 {
-    cout << "Monster" << id << " take " << damage << " damages" << endl;
-    life -= damage;
-    if (life <= 0)
+    cout << "Monster" << id_ << " take " << damage << " damages" << endl;
+    life_ -= damage;
+    if (life_ <= 0)
     {
-        life = 0;
+        life_ = 0;
         onDead();
     }
 }
@@ -56,13 +63,13 @@ void Monster::setInvincibility(bool state)
     if (state)
     {
         mp::EventManager& eventManager = mp::EventManager::getInstance();
-        std::string eventName = "Monster" + mp::StringUtilities::toString(id) + "TakeDamage";
+        std::string eventName = "Monster" + mp::StringUtilities::toString(id_) + "TakeDamage";
         eventManager.deleteListener(eventName);
     }
     else
     {
         mp::EventManager& eventManager = mp::EventManager::getInstance();
-        std::string eventName = "Monster" + mp::StringUtilities::toString(id) + "TakeDamage";
+        std::string eventName = "Monster" + mp::StringUtilities::toString(id_) + "TakeDamage";
         function<void(int)> f = [=](int damage) {
             this->takeDamage(damage);
         };
@@ -71,16 +78,21 @@ void Monster::setInvincibility(bool state)
     }
 }
 
+bool Monster::isAlive()
+{
+    return alive_;
+}
+
 void Monster::onDead()
 {
-    if (isAlive)
+    if (alive_)
     {
-        cout << "Monster" << id << " is dead" << endl;
+        cout << "Monster" << id_ << " is dead" << endl;
 
         mp::EventManager& eventManager = mp::EventManager::getInstance();
 
         eventManager.broadcast<void, int>("PlayerExp", 10);
     }
 
-    isAlive = false;
+    alive_ = false;
 }

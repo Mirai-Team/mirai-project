@@ -56,5 +56,8 @@ int main()
 
     // We make 5 damages to the second monster and so we kill him.
     player.makeDamage(5, 1);
+
+    // We attempt to make damage to the first monster but he is already dead.
+    player.makeDamage(5, 0);
     return 0;
 }

@@ -37,10 +37,17 @@ Player::Player() :  exp_ { 0 }
 
 void Player::makeDamage(int damage, int monsterID)
 {
-    std::string eventName = "Monster" + mp::StringUtilities::toString(monsterID) + "TakeDamage";
-
     mp::EventManager& eventManager = mp::EventManager::getInstance();
-    eventManager.broadcast<void, int>(eventName, damage);
+
+    std::string eventName = "Monster" + mp::StringUtilities::toString(monsterID) + "isAlive";
+
+    if (eventManager.broadcast<bool>(eventName))
+    {
+        eventName = "Monster" + mp::StringUtilities::toString(monsterID) + "TakeDamage";
+        eventManager.broadcast<void, int>(eventName, damage);
+    }
+    else
+        cout << "Monster" << monsterID << " is already dead or doesn't exist" << endl;
 }
 
 int Player::getExp()
