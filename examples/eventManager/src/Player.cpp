@@ -22,6 +22,8 @@
 //
 ////////////////////////////////////////////////////////////
 
+#include <iostream>
+
 #include "Player.hpp"
 
 Player::Player() :  exp_ { 0 }

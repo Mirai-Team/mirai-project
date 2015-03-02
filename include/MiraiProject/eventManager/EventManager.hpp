@@ -25,14 +25,11 @@
 #ifndef EVENTMANAGER_HPP_INCLUDED
 #define EVENTMANAGER_HPP_INCLUDED
 
-#include <iostream>
-#include <memory>
 #include <functional>
 #include <map>
 #include <string>
 
 #include <boost/any.hpp>
-#include <boost/variant.hpp>
 
 namespace mp
 {
