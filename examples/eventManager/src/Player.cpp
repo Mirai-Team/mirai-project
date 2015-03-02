@@ -22,39 +22,33 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <iostream>
-
-#include "Monster.hpp"
 #include "Player.hpp"
 
-using namespace std;
-
-int main()
+Player::Player() :  exp_ { 0 }
 {
-    Player player;
+    function<void(int)> f = [=](int exp) {
+        return this->addExp(exp);
+    };
 
-    // Monster0 doesn't exist so this line do nothing.
-    player.makeDamage(10, 0);
+    mp::EventManager& eventManager = mp::EventManager::getInstance();
 
-    // We create two monsters.
-    Monster monster0;
-    Monster monster1;
+    eventManager.addListener<void, int>("PlayerExp", f);
+}
 
-    // We kill the first monster
-    player.makeDamage(10, 0);
+void Player::makeDamage(int damage, int monsterID)
+{
+    std::string eventName = "Monster" + mp::StringUtilities::toString(monsterID) + "TakeDamage";
 
-    cout << "Player exp = " << player.getExp() << endl;
+    mp::EventManager& eventManager = mp::EventManager::getInstance();
+    eventManager.broadcast<void, int>(eventName, damage);
+}
 
-    // We make 5 damages to the second monster.
-    player.makeDamage(5, 1);
-    monster1.setInvincibility(true);
+int Player::getExp()
+{
+    return exp_;
+}
 
-    // We attempt to make damage to the second monster but he is invincible.
-    player.makeDamage(5, 1);
-
-    monster1.setInvincibility(false);
-
-    // We make 5 damages to the second monster and so we kill him.
-    player.makeDamage(5, 1);
-    return 0;
+void Player::addExp(int exp)
+{
+    exp_ += exp;
 }

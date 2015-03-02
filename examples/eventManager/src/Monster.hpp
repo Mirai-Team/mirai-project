@@ -22,6 +22,9 @@
 //
 ////////////////////////////////////////////////////////////
 
+#ifndef MONSTER_HPP_INCLUDED
+#define MONSTER_HPP_INCLUDED
+
 #include <iostream>
 #include <functional>
 
@@ -46,3 +49,5 @@ private:
 
     bool isAlive;    
 };
+
+#endif // MONSTER_HPP_INCLUDED

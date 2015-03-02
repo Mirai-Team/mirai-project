@@ -35,9 +35,9 @@ Monster::Monster() :    id { lastId },
     function<void(int)> f = [=](int damage) {
         this->takeDamage(damage);
     };
-    shared_ptr<mp::EventManager> eventManager = mp::EventManager::getInstance();
+    mp::EventManager& eventManager = mp::EventManager::getInstance();
     std::string eventName = "Monster" + mp::StringUtilities::toString(id) + "TakeDamage";
-    eventManager->addListener<void, int>(eventName, f);
+    eventManager.addListener<void, int>(eventName, f);
 }
 
 void Monster::takeDamage(int damage)
@@ -55,19 +55,19 @@ void Monster::setInvincibility(bool state)
 {
     if (state)
     {
-        shared_ptr<mp::EventManager> eventManager = mp::EventManager::getInstance();
+        mp::EventManager& eventManager = mp::EventManager::getInstance();
         std::string eventName = "Monster" + mp::StringUtilities::toString(id) + "TakeDamage";
-        eventManager->deleteListener(eventName);
+        eventManager.deleteListener(eventName);
     }
     else
     {
-        shared_ptr<mp::EventManager> eventManager = mp::EventManager::getInstance();
+        mp::EventManager& eventManager = mp::EventManager::getInstance();
         std::string eventName = "Monster" + mp::StringUtilities::toString(id) + "TakeDamage";
         function<void(int)> f = [=](int damage) {
             this->takeDamage(damage);
         };
 
-        eventManager->addListener(eventName, f);
+        eventManager.addListener(eventName, f);
     }
 }
 
@@ -77,9 +77,9 @@ void Monster::onDead()
     {
         cout << "Monster" << id << " is dead" << endl;
 
-        shared_ptr<mp::EventManager> eventManager = mp::EventManager::getInstance();
+        mp::EventManager& eventManager = mp::EventManager::getInstance();
 
-        eventManager->broadcast<void, int>("PlayerExp", 10);
+        eventManager.broadcast<void, int>("PlayerExp", 10);
     }
 
     isAlive = false;

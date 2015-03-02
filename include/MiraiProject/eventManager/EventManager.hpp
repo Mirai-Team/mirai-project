@@ -44,7 +44,7 @@ namespace mp
          * @details If the manager doesn't exist, we create it and we return an unique pointer of it.
          * @return An event manager pointer.
          */
-        static std::shared_ptr<EventManager> getInstance();
+        static EventManager& getInstance();
 
         /**
          * @brief Add a Listener with parameter(s).
@@ -102,7 +102,6 @@ namespace mp
         
     private:
         EventManager();
-        static std::shared_ptr<EventManager> instance_;
 
         std::map<std::string, boost::any> events_;
     };
