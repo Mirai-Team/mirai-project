@@ -27,7 +27,7 @@
 Player::Player() :  exp_ { 0 }
 {
     function<void(int)> f = [=](int exp) {
-        return this->addExp(exp);
+        this->addExp(exp);
     };
 
     mp::EventManager& eventManager = mp::EventManager::getInstance();
