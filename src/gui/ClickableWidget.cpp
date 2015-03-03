@@ -46,6 +46,11 @@ sf::Vector2f mp::ClickableWidget::getSize()
     return size_;
 }
 
+sf::Vector2f mp::ClickableWidget::getMousePosition()
+{
+    return mousePosition_;
+}
+
 bool mp::ClickableWidget::mouseOnWidget()
 {
     sf::FloatRect rect(0, 0, getSize().x, getSize().y);

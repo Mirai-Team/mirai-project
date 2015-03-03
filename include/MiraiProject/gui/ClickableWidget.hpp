@@ -43,6 +43,8 @@ namespace mp
 
             sf::Vector2f getSize();
 
+            sf::Vector2f getMousePosition();
+
             virtual bool mouseOnWidget();
 
             virtual bool isPressed();
