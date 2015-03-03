@@ -59,5 +59,6 @@ int main()
 
     // We attempt to make damage to the first monster but he is already dead.
     player.makeDamage(5, 0);
+
     return 0;
 }
