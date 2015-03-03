@@ -2,6 +2,13 @@ project(MiraiProject)
 
 cmake_minimum_required(VERSION 2.8.9)
 
+#setup version
+set(VERSION_MAJOR 0)
+set(VERSION_MINOR 2)
+set(VERSION_PATCH 0)
+
+set(CORE_NAME MiraiProject)
+
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
@@ -16,6 +23,8 @@ endif()
 
 include(CheckCXXSourceRuns)
 include(CheckIncludeFiles)
+
+include(cmake/config.cmake)
 
 # Set default build options and display them.
 include(cmake/options.cmake)

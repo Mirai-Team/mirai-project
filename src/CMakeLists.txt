@@ -32,12 +32,6 @@ include_directories(
     SYSTEM ${Boost_INCLUDE_DIRS}
 )
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(CORE_NAME MiraiProject-d)
-else()
-    set(CORE_NAME MiraiProject)
-endif()
-
 # Set output path
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin/lib/${CMAKE_BUILD_TYPE})
 
@@ -47,6 +41,14 @@ add_library(
     SHARED
     ${core_sources}
 )
+
+set_target_properties(${CORE_NAME} PROPERTIES DEBUG_POSTFIX -d)
+
+if(OS_LINUX)
+    include(${CMAKE_SOURCE_DIR}/cmake/macros/unix.cmake)
+elseif(OS_WINDOWS)
+    include(${CMAKE_SOURCE_DIR}/cmake/macros/windows.cmake)
+endif()
 
 # Link SFML and Boost.
 target_link_libraries(
