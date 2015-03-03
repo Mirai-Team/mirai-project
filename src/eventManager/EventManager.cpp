@@ -2,14 +2,10 @@
 
 using namespace std;
 
-shared_ptr<mp::EventManager> mp::EventManager::instance_;
-
-shared_ptr<mp::EventManager> mp::EventManager::getInstance()
+mp::EventManager& mp::EventManager::getInstance()
 {
-    if (!instance_)
-        instance_ = make_shared<mp::EventManager>(mp::EventManager());
-
-    return instance_;
+    static mp::EventManager instance;
+    return instance;
 }
 
 mp::EventManager::EventManager() : events_ { }

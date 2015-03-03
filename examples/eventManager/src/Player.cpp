@@ -24,40 +24,40 @@
 
 #include <iostream>
 
-#include "Monster.hpp"
 #include "Player.hpp"
 
-using namespace std;
-
-int main()
+Player::Player() :  exp_ { 0 }
 {
-    Player player;
+    function<void(int)> f = [=](int exp) {
+        this->addExp(exp);
+    };
 
-    // Monster0 doesn't exist so this line do nothing.
-    player.makeDamage(10, 0);
+    mp::EventManager& eventManager = mp::EventManager::getInstance();
 
-    // We create two monsters.
-    Monster monster0;
-    Monster monster1;
+    eventManager.addListener<void, int>("PlayerExp", f);
+}
 
-    // We kill the first monster
-    player.makeDamage(10, 0);
+void Player::makeDamage(int damage, int monsterID)
+{
+    mp::EventManager& eventManager = mp::EventManager::getInstance();
 
-    cout << "Player exp = " << player.getExp() << endl;
+    std::string eventName = "Monster" + mp::StringUtilities::toString(monsterID) + "isAlive";
 
-    // We make 5 damages to the second monster.
-    player.makeDamage(5, 1);
-    monster1.setInvincibility(true);
+    if (eventManager.broadcast<bool>(eventName))
+    {
+        eventName = "Monster" + mp::StringUtilities::toString(monsterID) + "TakeDamage";
+        eventManager.broadcast<void, int>(eventName, damage);
+    }
+    else
+        cout << "Monster" << monsterID << " is already dead or doesn't exist" << endl;
+}
 
-    // We attempt to make damage to the second monster but he is invincible.
-    player.makeDamage(5, 1);
+int Player::getExp()
+{
+    return exp_;
+}
 
-    monster1.setInvincibility(false);
-
-    // We make 5 damages to the second monster and so we kill him.
-    player.makeDamage(5, 1);
-
-    // We attempt to make damage to the first monster but he is already dead.
-    player.makeDamage(5, 0);
-    return 0;
+void Player::addExp(int exp)
+{
+    exp_ += exp;
 }

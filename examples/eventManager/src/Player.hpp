@@ -22,42 +22,27 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <iostream>
+#ifndef PLAYER_HPP_INCLUDED
+#define PLAYER_HPP_INCLUDED
 
-#include "Monster.hpp"
-#include "Player.hpp"
+#include <functional>
 
-using namespace std;
+#include <MiraiProject/eventManager/EventManager.hpp>
+#include <MiraiProject/util/StringUtilities.hpp>
 
-int main()
+class Player
 {
-    Player player;
+public:
+    Player();
 
-    // Monster0 doesn't exist so this line do nothing.
-    player.makeDamage(10, 0);
+    void makeDamage(int damage, int monsterID);
 
-    // We create two monsters.
-    Monster monster0;
-    Monster monster1;
+    int getExp();
 
-    // We kill the first monster
-    player.makeDamage(10, 0);
+private:
+    void addExp(int exp);
 
-    cout << "Player exp = " << player.getExp() << endl;
+    int exp_;
+};
 
-    // We make 5 damages to the second monster.
-    player.makeDamage(5, 1);
-    monster1.setInvincibility(true);
-
-    // We attempt to make damage to the second monster but he is invincible.
-    player.makeDamage(5, 1);
-
-    monster1.setInvincibility(false);
-
-    // We make 5 damages to the second monster and so we kill him.
-    player.makeDamage(5, 1);
-
-    // We attempt to make damage to the first monster but he is already dead.
-    player.makeDamage(5, 0);
-    return 0;
-}
+#endif // PLAYER_HPP_INCLUDED

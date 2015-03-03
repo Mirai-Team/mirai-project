@@ -22,6 +22,9 @@
 //
 ////////////////////////////////////////////////////////////
 
+#ifndef MONSTER_HPP_INCLUDED
+#define MONSTER_HPP_INCLUDED
+
 #include <iostream>
 #include <functional>
 
@@ -36,13 +39,17 @@ public:
     void takeDamage(int damage);
 
     void setInvincibility(bool state);
+
+    bool isAlive();
 private:
     void onDead();
 
-    const int id;
-    static int lastId;
+    const int id_;
+    static int lastId_;
 
-    int life;
+    int life_;
 
-    bool isAlive;    
+    bool alive_;    
 };
+
+#endif // MONSTER_HPP_INCLUDED
