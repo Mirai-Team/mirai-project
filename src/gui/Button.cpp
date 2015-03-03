@@ -44,16 +44,25 @@ void mp::Button::update(sf::Vector2i mousePosition)
     {
         sprite_ = &down_;
         setCurrentTexture(sprite_->getTexture());
+
+        sf::Vector2f size(sprite_->getTexture()->getSize());
+        setSize(size);
     }
     else if(mouseOnWidget())
     {
         sprite_ = &hover_;
         setCurrentTexture(sprite_->getTexture());
+
+        sf::Vector2f size(sprite_->getTexture()->getSize());
+        setSize(size);
     }
     else
     {
         sprite_ = &normal_;
         setCurrentTexture(sprite_->getTexture());
+
+        sf::Vector2f size(sprite_->getTexture()->getSize());
+        setSize(size);
     }
 
 
