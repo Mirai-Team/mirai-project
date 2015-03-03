@@ -25,8 +25,10 @@
 #include "MiraiProject/gui/ClickableWidget.hpp"
 
 mp::ClickableWidget::ClickableWidget() :    isPressed_ { },
+                                            autoHitBox_ { true },
                                             size_ { },
-                                            mousePosition_ { }
+                                            mousePosition_ { },
+                                            currentTexture_ { }
 {
 
 }
@@ -41,6 +43,16 @@ void mp::ClickableWidget::setMousePosition(sf::Vector2f position)
     mousePosition_ = position;
 }
 
+void mp::ClickableWidget::setCurrentTexture(const sf::Texture* texture)
+{
+    currentTexture_ = texture;
+}
+
+void mp::ClickableWidget::setAutoHitBox(bool autoMode)
+{
+    autoHitBox_ = autoMode;
+}
+
 sf::Vector2f mp::ClickableWidget::getSize()
 {
     return size_;
@@ -49,10 +61,33 @@ sf::Vector2f mp::ClickableWidget::getSize()
 bool mp::ClickableWidget::mouseOnWidget()
 {
     sf::FloatRect rect(0, 0, getSize().x, getSize().y);
-    if(getTransform().transformRect(rect).contains(mousePosition_))
+
+    // Order have an importance.
+    if(getTransform().transformRect(rect).contains(mousePosition_) && onNonTransparent())
         return true;
     else
         return false;
+}
+
+bool mp::ClickableWidget::onNonTransparent()
+{
+    if(autoHitBox_)
+    {
+        unsigned int x = static_cast<int>(mousePosition_.x);
+        x -= static_cast<int>(Transformable::getPosition().x);
+
+        unsigned int y = static_cast<int>(mousePosition_.y);
+        y -= static_cast<int>(Transformable::getPosition().y);
+
+        sf::Color pixel_color = currentTexture_->copyToImage().getPixel(x, y);
+
+        if(pixel_color != sf::Color::Transparent)
+            return true;
+        else
+            return false;
+    }
+    else
+        return true;
 }
 
 bool mp::ClickableWidget::isPressed()

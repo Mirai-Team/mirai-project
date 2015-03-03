@@ -41,11 +41,20 @@ void mp::Button::update(sf::Vector2i mousePosition)
     setMousePosition(sf::Vector2f(mousePosition));
 
     if(isPressed())
+    {
         sprite_ = &down_;
+        setCurrentTexture(sprite_->getTexture());
+    }
     else if(mouseOnWidget())
+    {
         sprite_ = &hover_;
+        setCurrentTexture(sprite_->getTexture());
+    }
     else
+    {
         sprite_ = &normal_;
+        setCurrentTexture(sprite_->getTexture());
+    }
 
 
     if(isReleased())
@@ -62,6 +71,8 @@ void mp::Button::setNormalTexture(std::shared_ptr<sf::Texture> texture)
     normal_.setTexture(*texture);
 
     sprite_ = &normal_;
+
+    setCurrentTexture(sprite_->getTexture());
 
     sf::Vector2f size(texture->getSize());
     setSize(size);

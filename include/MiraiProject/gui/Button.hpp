@@ -30,7 +30,6 @@
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Texture.hpp>
 
 #include "MiraiProject/gui/ClickableWidget.hpp"
 

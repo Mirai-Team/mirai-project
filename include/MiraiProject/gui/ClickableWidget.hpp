@@ -25,6 +25,7 @@
 #ifndef CLICKABLE_WIDGET_HPP_INCLUDED
 #define CLICKABLE_WIDGET_HPP_INCLUDED
 
+#include <SFML/Graphics/Texture.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Window/Window.hpp>
 
@@ -41,9 +42,15 @@ namespace mp
 
             void setMousePosition(sf::Vector2f position);
 
+            void setCurrentTexture(const sf::Texture* texture);
+
+            void setAutoHitBox(bool autoMode);
+
             sf::Vector2f getSize();
 
             virtual bool mouseOnWidget();
+
+            bool onNonTransparent();
 
             virtual bool isPressed();
 
@@ -52,9 +59,13 @@ namespace mp
         private:
             bool isPressed_;
 
+            bool autoHitBox_;
+
             sf::Vector2f size_;
 
             sf::Vector2f mousePosition_;
+
+            const sf::Texture * currentTexture_;
     };
 }
 
