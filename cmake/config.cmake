@@ -7,3 +7,7 @@ elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 else()
     message(FATAL_ERROR "Unsupported operating system")
 endif()
+
+if(MIRAI_SHARED)
+    set(BUILD_SHARED_LIBS 1)
+endif()
