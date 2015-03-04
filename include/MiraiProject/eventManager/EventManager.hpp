@@ -37,9 +37,9 @@ namespace mp
     {
     public:
         /**
-         * @brief Return a shared pointer from EventManager class.
-         * @details If the manager doesn't exist, we create it and we return an unique pointer of it.
-         * @return An event manager pointer.
+         * @brief Get an unique instance of EventManager.
+         * @details If the manager doesn't exist, we create it and we return a reference of it.
+         * @return An event manager reference.
          */
         static EventManager& getInstance();
 
