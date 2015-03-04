@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // MiraiProject
-// Copyright (C) 2014-2015 CORTIER Benoît (benoit.cortier@gmail.com), BOULMIER Jérôme (jerome.boulmier@outlook.com)
+// Copyright (C) 2014-2015 CORTIER Benoît (benoit.cortier@gmail.com), BOULMIER Jérôme (jerome.boulmier@outlook.fr)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -415,7 +415,6 @@ void mp::AnimatedSprite::setDuration(const sf::Time& newDuration, const std::str
 
 void mp::AnimatedSprite::setTimePerFrame(const sf::Time& newTimePerFrame)
 {
-    std::cout << currentAnimation_ << std::endl;
     mp::Animation currentAnimation{ animations_[currentAnimation_] };
     currentAnimation.setTimePerFrame(newTimePerFrame);
 }
