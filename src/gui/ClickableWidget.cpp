@@ -22,6 +22,9 @@
 //
 ////////////////////////////////////////////////////////////
 
+#include <iostream>
+#include <stdexcept>
+
 #include "MiraiProject/gui/ClickableWidget.hpp"
 
 mp::ClickableWidget::ClickableWidget() :    isPressed_ { },
@@ -63,13 +66,13 @@ bool mp::ClickableWidget::mouseOnWidget()
     sf::FloatRect rect(0, 0, getSize().x, getSize().y);
 
     // Order have an importance.
-    if(getTransform().transformRect(rect).contains(mousePosition_) && onNonTransparent())
+    if(getTransform().transformRect(rect).contains(mousePosition_) && onNonTransparent(false))
         return true;
     else
         return false;
 }
 
-bool mp::ClickableWidget::onNonTransparent()
+bool mp::ClickableWidget::onNonTransparent(bool safeMode)
 {
     if(autoHitBox_)
     {
@@ -78,6 +81,14 @@ bool mp::ClickableWidget::onNonTransparent()
 
         unsigned int y = static_cast<int>(mousePosition_.y);
         y -= static_cast<int>(Transformable::getPosition().y);
+
+        if(safeMode)
+        {
+            if(x > currentTexture_->getSize().x)
+                x = 0;
+            if(y > currentTexture_->getSize().y)
+                y = 0;
+        }
 
         sf::Color pixel_color = currentTexture_->copyToImage().getPixel(x, y);
 

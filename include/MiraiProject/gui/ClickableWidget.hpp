@@ -50,7 +50,7 @@ namespace mp
 
             virtual bool mouseOnWidget();
 
-            bool onNonTransparent();
+            bool onNonTransparent(bool safeMode = true);
 
             virtual bool isPressed();
 
