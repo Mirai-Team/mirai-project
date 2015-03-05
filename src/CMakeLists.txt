@@ -57,3 +57,11 @@ target_link_libraries(
     ${SFML_LIBRARIES}
     ${Boost_LIBRARIES}
 )
+
+install(TARGETS ${CORE_NAME}
+    RUNTIME DESTINATION bin COMPONENT bin
+    LIBRARY DESTINATION lib${LIB_SUFFIX} COMPONENT bin
+    ARCHIVE DESTINATION lib${LIB_SUFFIX} COMPONENT devel
+)
+
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/MiraiProject DESTINATION include)
