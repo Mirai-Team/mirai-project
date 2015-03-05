@@ -11,16 +11,25 @@ before_install:
   - echo "yes" | sudo add-apt-repository ppa:ubuntu-toolchain-r/test
   - sudo apt-get -qq update
   - sudo apt-get -qq install build-essential libtool gcc-4.9 g++-4.9 make cmake openssl
-  - sudo apt-get -qq install libpthread-stubs0-dev libgl1-mesa-dev libx11-dev libxrandr-dev libfreetype6-dev libglew-dev libjpeg-dev libsndfile1-dev libopenal-dev
   - sudo apt-get -qq install libboost1.55-dev libboost-thread1.55-dev libboost-filesystem1.55-dev libboost-system1.55-dev libboost-program-options1.55-dev
-  - wget http://www.sfml-dev.org/files/SFML-2.2-linux-gcc-64-bit.tar.gz -O /tmp/sfml.tar.bz2
-  - tar -zxvf /tmp/sfml.tar.bz2
-  - sudo cp -r SFML-2.2/* /usr/
+  - sudo apt-get install libglew-dev
+  - sudo apt-get install libopenal-dev
+  - sudo apt-get install libsndfile-dev
+  - sudo apt-get install libfreetype6-dev
+  - sudo apt-get install libudev-dev
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 50
-  - mkdir build/
-  - cd build/
+  - wget https://github.com/LaurentGomila/SFML/archive/2.2.tar.gz -O /tmp/sfml.tar.gz
+  - tar -zxvf /tmp/sfml.tar.gz
+  - cd SFML-2.2
+  - mkdir build 
+  - cd build
+  - cmake . --build ../ -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-std=c++11"
+  - sudo make install
+  - cd ../../
+  - mkdir build
+  - cd build
 install:
-  - cmake . --build ../ -DMIRAI_TOOLS:BOOL=1
+  - cmake . --build ../ -DMIRAI_TOOLS:BOOL=1 -DMIRAI_EXAMPLES:BOOL=1
 
 script:
   - make -j 10
