@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // MiraiProject
-// Copyright (C) 2014-2015 CORTIER Benoît (benoit.cortier@gmail.com), BOULMIER Jérôme (jerome.boulmier@outlook.com)
+// Copyright (C) 2014-2015 CORTIER Benoît (benoit.cortier@gmail.com), BOULMIER Jérôme (jerome.boulmier@outlook.fr)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -41,11 +41,29 @@ void mp::Button::update(sf::Vector2i mousePosition)
     setMousePosition(sf::Vector2f(mousePosition));
 
     if(isPressed())
+    {
         sprite_ = &down_;
+        setCurrentTexture(sprite_->getTexture());
+
+        sf::Vector2f size(sprite_->getTexture()->getSize());
+        setSize(size);
+    }
     else if(mouseOnWidget())
+    {
         sprite_ = &hover_;
+        setCurrentTexture(sprite_->getTexture());
+
+        sf::Vector2f size(sprite_->getTexture()->getSize());
+        setSize(size);
+    }
     else
+    {
         sprite_ = &normal_;
+        setCurrentTexture(sprite_->getTexture());
+
+        sf::Vector2f size(sprite_->getTexture()->getSize());
+        setSize(size);
+    }
 
 
     if(isReleased())
@@ -62,6 +80,8 @@ void mp::Button::setNormalTexture(std::shared_ptr<sf::Texture> texture)
     normal_.setTexture(*texture);
 
     sprite_ = &normal_;
+
+    setCurrentTexture(sprite_->getTexture());
 
     sf::Vector2f size(texture->getSize());
     setSize(size);

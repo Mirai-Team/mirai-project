@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // MiraiProject
-// Copyright (C) 2014-2015 CORTIER Benoît (benoit.cortier@gmail.com), BOULMIER Jérôme (jerome.boulmier@outlook.com)
+// Copyright (C) 2014-2015 CORTIER Benoît (benoit.cortier@gmail.com), BOULMIER Jérôme (jerome.boulmier@outlook.fr)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -25,6 +25,7 @@
 #ifndef CLICKABLE_WIDGET_HPP_INCLUDED
 #define CLICKABLE_WIDGET_HPP_INCLUDED
 
+#include <SFML/Graphics/Texture.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Window/Window.hpp>
 
@@ -41,11 +42,17 @@ namespace mp
 
             void setMousePosition(sf::Vector2f position);
 
+            void setCurrentTexture(const sf::Texture* texture);
+
+            void setAutoHitBox(bool autoMode);
+
             sf::Vector2f getSize();
 
             sf::Vector2f getMousePosition();
 
             virtual bool mouseOnWidget();
+
+            bool onNonTransparent(bool safeMode = true);
 
             virtual bool isPressed();
 
@@ -54,9 +61,13 @@ namespace mp
         private:
             bool isPressed_;
 
+            bool autoHitBox_;
+
             sf::Vector2f size_;
 
             sf::Vector2f mousePosition_;
+
+            const sf::Texture * currentTexture_;
     };
 }
 

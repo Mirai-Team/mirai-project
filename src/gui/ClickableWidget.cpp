@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // MiraiProject
-// Copyright (C) 2014-2015 CORTIER Benoît (benoit.cortier@gmail.com), BOULMIER Jérôme (jerome.boulmier@outlook.com)
+// Copyright (C) 2014-2015 CORTIER Benoît (benoit.cortier@gmail.com), BOULMIER Jérôme (jerome.boulmier@outlook.fr)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -22,11 +22,16 @@
 //
 ////////////////////////////////////////////////////////////
 
+#include <iostream>
+#include <stdexcept>
+
 #include "MiraiProject/gui/ClickableWidget.hpp"
 
 mp::ClickableWidget::ClickableWidget() :    isPressed_ { },
+                                            autoHitBox_ { true },
                                             size_ { },
-                                            mousePosition_ { }
+                                            mousePosition_ { },
+                                            currentTexture_ { }
 {
 
 }
@@ -39,6 +44,16 @@ void mp::ClickableWidget::setSize(sf::Vector2f size)
 void mp::ClickableWidget::setMousePosition(sf::Vector2f position)
 {
     mousePosition_ = position;
+}
+
+void mp::ClickableWidget::setCurrentTexture(const sf::Texture* texture)
+{
+    currentTexture_ = texture;
+}
+
+void mp::ClickableWidget::setAutoHitBox(bool autoMode)
+{
+    autoHitBox_ = autoMode;
 }
 
 sf::Vector2f mp::ClickableWidget::getSize()
@@ -54,10 +69,41 @@ sf::Vector2f mp::ClickableWidget::getMousePosition()
 bool mp::ClickableWidget::mouseOnWidget()
 {
     sf::FloatRect rect(0, 0, getSize().x, getSize().y);
-    if(getTransform().transformRect(rect).contains(mousePosition_))
+
+    // Order have an importance.
+    if(getTransform().transformRect(rect).contains(mousePosition_) && onNonTransparent(false))
         return true;
     else
         return false;
+}
+
+bool mp::ClickableWidget::onNonTransparent(bool safeMode)
+{
+    if(autoHitBox_)
+    {
+        unsigned int x = static_cast<int>(mousePosition_.x);
+        x -= static_cast<int>(Transformable::getPosition().x);
+
+        unsigned int y = static_cast<int>(mousePosition_.y);
+        y -= static_cast<int>(Transformable::getPosition().y);
+
+        if(safeMode)
+        {
+            if(x > currentTexture_->getSize().x)
+                x = 0;
+            if(y > currentTexture_->getSize().y)
+                y = 0;
+        }
+
+        sf::Color pixel_color = currentTexture_->copyToImage().getPixel(x, y);
+
+        if(pixel_color != sf::Color::Transparent)
+            return true;
+        else
+            return false;
+    }
+    else
+        return true;
 }
 
 bool mp::ClickableWidget::isPressed()
