@@ -54,11 +54,14 @@ T mp::EventManager::broadcast(std::string eventName, Args... args)
 template<typename T>
 T mp::EventManager::broadcast(std::string eventName)
 {
+    T buffer;
     for(auto it = events_.begin(); it != events_.end(); ++it)
     {
         if(it->first == eventName)
-            return boost::any_cast< function<T()> >(events_[eventName])();
+            buffer = boost::any_cast< function<T()> >(events_[eventName])();
     }
+
+    return buffer;
 }
 
 #endif // EVENT_MANAGER_TPP_INCLUDED

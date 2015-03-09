@@ -102,6 +102,11 @@ namespace mp
 
         std::map<std::string, boost::any> events_;
     };
+
+    // Specialization for void type.
+    template<>
+    void EventManager::broadcast<void>(std::string eventName);
+
 }
 
 #include "MiraiProject/eventManager/EventManager.tpp"
