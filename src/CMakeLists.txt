@@ -58,7 +58,7 @@ target_link_libraries(
     ${Boost_LIBRARIES}
 )
 
-install(TARGETS ${CORE_NAME}
+install(TARGETS ${CORE}
     RUNTIME DESTINATION bin COMPONENT bin
     LIBRARY DESTINATION lib${LIB_SUFFIX} COMPONENT bin
     ARCHIVE DESTINATION lib${LIB_SUFFIX} COMPONENT devel
