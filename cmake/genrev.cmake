@@ -1,13 +1,9 @@
-if(NOT BUILDDIR)
-    set(NO_GIT ${WITHOUT_GIT})
-    set(GIT_EXEC ${GIT_EXECUTABLE})
-    set(BUILDDIR ${CMAKE_BINARY_DIR})
-endif()
+set(GIT_EXEC ${GIT_EXECUTABLE})
 
-if(NO_GIT)
-    set(rev_date "1970-01-01 00:00:00 +0000")
-    set(rev_hash "unknown")
-    set(rev_branch "unknown")
+if(NOT MIRAI_WITH_GIT)
+    set(revDate "1970-01-01 00:00:00 +0000")
+    set(revHash "unknown")
+    set(revBranch "unknown")
 else()
     if(GIT_EXEC)
         execute_process(

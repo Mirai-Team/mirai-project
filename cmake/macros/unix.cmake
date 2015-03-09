@@ -1,0 +1,7 @@
+if(MIRAI_SHARED)
+    set_target_properties(${CORE} PROPERTIES DEBUG_POSTFIX -d)
+else()
+    set_target_properties(${CORE} PROPERTIES DEBUG_POSTFIX -s-d)
+    set_target_properties(${CORE} PROPERTIES RELEASE_POSTFIX -s)
+    set_target_properties(${CORE} PROPERTIES MINSIZEREL_POSTFIX -s)
+endif()

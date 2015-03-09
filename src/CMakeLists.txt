@@ -32,25 +32,36 @@ include_directories(
     SYSTEM ${Boost_INCLUDE_DIRS}
 )
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(CORE_NAME MiraiProject-d)
-else()
-    set(CORE_NAME MiraiProject)
-endif()
-
 # Set output path
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin/lib/${CMAKE_BUILD_TYPE})
 
 # Create MiraiProject library.
 add_library(
-    ${CORE_NAME}
-    SHARED
+    ${CORE}
     ${core_sources}
 )
 
+# Set targets properties.
+if(OS_LINUX)
+    include(${CMAKE_SOURCE_DIR}/cmake/macros/unix.cmake)
+elseif(OS_WINDOWS)
+    include(${CMAKE_SOURCE_DIR}/cmake/macros/windows.cmake)
+endif()
+
+set_target_properties(${CORE} PROPERTIES SOVERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
+set_target_properties(${CORE} PROPERTIES VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
+
 # Link SFML and Boost.
 target_link_libraries(
-    ${CORE_NAME}
+    ${CORE}
     ${SFML_LIBRARIES}
     ${Boost_LIBRARIES}
 )
+
+install(TARGETS ${CORE}
+    RUNTIME DESTINATION bin COMPONENT bin
+    LIBRARY DESTINATION lib${LIB_SUFFIX} COMPONENT bin
+    ARCHIVE DESTINATION lib${LIB_SUFFIX} COMPONENT devel
+)
+
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/MiraiProject DESTINATION include)
