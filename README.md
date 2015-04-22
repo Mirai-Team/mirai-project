@@ -1,4 +1,4 @@
-# ![logo](https://avatars2.githubusercontent.com/u/10365256?v=3&s=200) Mirai Project
+![logo](https://avatars2.githubusercontent.com/u/10365256?v=3&s=200) Mirai Project
 =============
 
 [![Build Status](https://travis-ci.org/Mirai-Team/mirai-project.svg?branch=master)](https://travis-ci.org/Mirai-Team/mirai-project)
