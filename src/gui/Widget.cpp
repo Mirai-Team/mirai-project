@@ -24,7 +24,9 @@
 
 #include "MiraiProject/gui/Widget.hpp"
 
-mp::Widget::Widget() :  isEnabled_ { true }
+mp::Widget::Widget() : isEnabled_ { true },
+                       size_ { },
+                       sprite_ { }
 {
 
 }
@@ -32,11 +34,12 @@ mp::Widget::Widget() :  isEnabled_ { true }
 void mp::Widget::setCurrentTexture(std::shared_ptr<const sf::Texture> texture)
 {
     sprite_.setTexture(*texture);
+    setSize(texture->getSize());
 }
 
-std::shared_ptr<const sf::Texture> mp::Widget::getTexture() const
+void mp::Widget::setSize(sf::Vector2u size)
 {
-    return std::make_shared<const sf::Texture>(*sprite_.getTexture());
+    size_= size;
 }
 
 void mp::Widget::enable()
@@ -47,6 +50,16 @@ void mp::Widget::enable()
 void mp::Widget::disable()
 {
     isEnabled_ = false;
+}
+
+std::shared_ptr<const sf::Texture> mp::Widget::getTexture() const
+{
+    return std::make_shared<const sf::Texture>(*sprite_.getTexture());
+}
+
+sf::Vector2u mp::Widget::getSize() const
+{
+    return size_;
 }
 
 bool mp::Widget::isEnabled() const

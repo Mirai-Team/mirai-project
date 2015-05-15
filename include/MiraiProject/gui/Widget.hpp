@@ -42,13 +42,25 @@ namespace mp
         public:
             Widget();
 
+            /////////////
+            // Setters //
+            /////////////
+
             void setCurrentTexture(std::shared_ptr<const sf::Texture> texture);
 
-            std::shared_ptr<const sf::Texture> getTexture() const;
+            void setSize(sf::Vector2u size);
 
             void enable();
 
             void disable();
+
+            /////////////
+            // Getters //
+            /////////////
+
+            std::shared_ptr<const sf::Texture> getTexture() const;
+
+            sf::Vector2u getSize() const;
 
             bool isEnabled() const;
 
@@ -56,6 +68,8 @@ namespace mp
             virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
             bool isEnabled_;
+
+            sf::Vector2u size_;
 
             sf::Sprite sprite_;
     };

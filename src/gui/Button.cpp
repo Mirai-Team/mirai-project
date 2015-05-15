@@ -40,27 +40,11 @@ void mp::Button::update(sf::Vector2i mousePosition)
     setMousePosition(sf::Vector2f(mousePosition));
 
     if(isPressed())
-    {
         setCurrentTexture(std::const_pointer_cast<const sf::Texture>(down_));
-
-        sf::Vector2f size(getTexture()->getSize());
-        setSize(size);
-    }
     else if(mouseOnWidget())
-    {
         setCurrentTexture(std::const_pointer_cast<const sf::Texture>(hover_));
-
-        sf::Vector2f size(getTexture()->getSize());
-        setSize(size);
-    }
     else
-    {
         setCurrentTexture(std::const_pointer_cast<const sf::Texture>(normal_));
-
-        sf::Vector2f size(getTexture()->getSize());
-        setSize(size);
-    }
-
 
     if(isReleased())
         funct_();

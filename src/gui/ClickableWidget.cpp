@@ -29,15 +29,9 @@
 
 mp::ClickableWidget::ClickableWidget() :    isPressed_ { },
                                             autoHitBox_ { true },
-                                            size_ { },
                                             mousePosition_ { }
 {
 
-}
-
-void mp::ClickableWidget::setSize(sf::Vector2f size)
-{
-    size_= size;
 }
 
 void mp::ClickableWidget::setMousePosition(sf::Vector2f position)
@@ -50,11 +44,6 @@ void mp::ClickableWidget::setAutoHitBox(bool autoMode)
     autoHitBox_ = autoMode;
 }
 
-sf::Vector2f mp::ClickableWidget::getSize()
-{
-    return size_;
-}
-
 sf::Vector2f mp::ClickableWidget::getMousePosition()
 {
     return mousePosition_;
@@ -62,7 +51,7 @@ sf::Vector2f mp::ClickableWidget::getMousePosition()
 
 bool mp::ClickableWidget::mouseOnWidget()
 {
-    sf::FloatRect rect(0, 0, getSize().x, getSize().y);
+    sf::FloatRect rect(0, 0, static_cast<float>(getSize().x), static_cast<float>(getSize().y));
 
     // Order have an importance.
     if(getTransform().transformRect(rect).contains(mousePosition_) && onNonTransparent(false))

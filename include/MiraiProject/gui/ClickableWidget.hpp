@@ -38,13 +38,17 @@ namespace mp
         public:
             ClickableWidget();
 
-            void setSize(sf::Vector2f size);
+            /////////////
+            // Setters //
+            /////////////
 
             void setMousePosition(sf::Vector2f position);
 
             void setAutoHitBox(bool autoMode);
 
-            sf::Vector2f getSize();
+            /////////////
+            // Getters //
+            /////////////
 
             sf::Vector2f getMousePosition();
 
@@ -60,8 +64,6 @@ namespace mp
             bool isPressed_;
 
             bool autoHitBox_;
-
-            sf::Vector2f size_;
 
             sf::Vector2f mousePosition_;
     };
