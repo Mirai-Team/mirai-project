@@ -42,26 +42,26 @@ void mp::Button::update(sf::Vector2i mousePosition)
 
     if(isPressed())
     {
-        sprite_ = &down_;
-        setCurrentTexture(sprite_->getTexture());
+        sprite_.setTexture(*down_);
+        setCurrentTexture(std::make_shared<const sf::Texture>(*sprite_.getTexture()));
 
-        sf::Vector2f size(sprite_->getTexture()->getSize());
+        sf::Vector2f size(sprite_.getTexture()->getSize());
         setSize(size);
     }
     else if(mouseOnWidget())
     {
-        sprite_ = &hover_;
-        setCurrentTexture(sprite_->getTexture());
+        sprite_.setTexture(*hover_);
+        setCurrentTexture(std::make_shared<sf::Texture>(*sprite_.getTexture()));
 
-        sf::Vector2f size(sprite_->getTexture()->getSize());
+        sf::Vector2f size(sprite_.getTexture()->getSize());
         setSize(size);
     }
     else
     {
-        sprite_ = &normal_;
-        setCurrentTexture(sprite_->getTexture());
+        sprite_.setTexture(*normal_);
+        setCurrentTexture(std::make_shared<sf::Texture>(*sprite_.getTexture()));
 
-        sf::Vector2f size(sprite_->getTexture()->getSize());
+        sf::Vector2f size(sprite_.getTexture()->getSize());
         setSize(size);
     }
 
@@ -75,29 +75,22 @@ void mp::Button::setFunction(std::function<void()> funct)
     funct_ = funct;
 }
 
-void mp::Button::setNormalTexture(std::shared_ptr<sf::Texture> texture)
+void mp::Button::setNormalTexture(const std::shared_ptr<sf::Texture> &texture)
 {
-    normal_.setTexture(*texture);
-
-    sprite_ = &normal_;
-
-    setCurrentTexture(sprite_->getTexture());
-
-    sf::Vector2f size(texture->getSize());
-    setSize(size);
+    normal_ = texture;
 }
 
-void mp::Button::setHoverTexture(std::shared_ptr<sf::Texture> texture)
+void mp::Button::setHoverTexture(const std::shared_ptr<sf::Texture> &texture)
 {
-    hover_.setTexture(*texture);
+    hover_ = texture;
 }
 
-void mp::Button::setDownTexture(std::shared_ptr<sf::Texture> texture)
+void mp::Button::setDownTexture(const std::shared_ptr<sf::Texture> &texture)
 {
-    down_.setTexture(*texture);
+    down_ = texture;
 }
 
 void mp::Button::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    target.draw(*sprite_, states);
+    target.draw(sprite_, states);
 }

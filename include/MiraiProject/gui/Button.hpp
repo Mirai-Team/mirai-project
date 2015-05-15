@@ -44,20 +44,20 @@ namespace mp
 
             void setFunction(std::function<void()> funct);
 
-            void setNormalTexture(std::shared_ptr<sf::Texture> texture);
+            void setNormalTexture(const std::shared_ptr<sf::Texture> &texture);
 
-            void setHoverTexture(std::shared_ptr<sf::Texture> texture);
+            void setHoverTexture(const std::shared_ptr<sf::Texture> &texture);
 
-            void setDownTexture(std::shared_ptr<sf::Texture> texture);
+            void setDownTexture(const std::shared_ptr<sf::Texture> &texture);
         private:
             virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
             std::function<void()> funct_;
 
-            sf::Sprite* sprite_;
-            sf::Sprite normal_;
-            sf::Sprite hover_;
-            sf::Sprite down_;
+            sf::Sprite sprite_;
+            std::shared_ptr<sf::Texture> normal_;
+            std::shared_ptr<sf::Texture> hover_;
+            std::shared_ptr<sf::Texture> down_;
     };
 }
 

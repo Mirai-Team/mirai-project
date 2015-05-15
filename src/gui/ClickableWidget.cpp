@@ -46,7 +46,7 @@ void mp::ClickableWidget::setMousePosition(sf::Vector2f position)
     mousePosition_ = position;
 }
 
-void mp::ClickableWidget::setCurrentTexture(const sf::Texture* texture)
+void mp::ClickableWidget::setCurrentTexture(std::shared_ptr<const sf::Texture> texture)
 {
     currentTexture_ = texture;
 }
