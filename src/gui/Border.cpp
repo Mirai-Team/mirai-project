@@ -109,6 +109,5 @@ void mp::Border::setColor(sf::Color color)
 
 void mp::Border::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    if(isVisible())
-        target.draw(vertices_, states);
+    target.draw(vertices_, states);
 }

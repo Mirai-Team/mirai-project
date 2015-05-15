@@ -104,6 +104,5 @@ unsigned int mp::Label::getCharacterSize() const
 
 void mp::Label::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    if(isVisible())
-        target.draw(text_, states);
+    target.draw(text_, states);
 }

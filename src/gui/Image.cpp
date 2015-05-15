@@ -41,6 +41,5 @@ void mp::Image::setColor(sf::Color color)
 
 void mp::Image::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    if(isVisible())
-        target.draw(sprite_, states);
+    target.draw(sprite_, states);
 }

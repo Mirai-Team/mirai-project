@@ -99,6 +99,5 @@ void mp::Button::setDownTexture(std::shared_ptr<sf::Texture> texture)
 
 void mp::Button::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    if(isVisible())
-        target.draw(*sprite_, states);
+    target.draw(*sprite_, states);
 }
