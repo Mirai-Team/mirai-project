@@ -30,8 +30,7 @@
 mp::ClickableWidget::ClickableWidget() :    isPressed_ { },
                                             autoHitBox_ { true },
                                             size_ { },
-                                            mousePosition_ { },
-                                            currentTexture_ { }
+                                            mousePosition_ { }
 {
 
 }
@@ -44,11 +43,6 @@ void mp::ClickableWidget::setSize(sf::Vector2f size)
 void mp::ClickableWidget::setMousePosition(sf::Vector2f position)
 {
     mousePosition_ = position;
-}
-
-void mp::ClickableWidget::setCurrentTexture(std::shared_ptr<const sf::Texture> texture)
-{
-    currentTexture_ = texture;
 }
 
 void mp::ClickableWidget::setAutoHitBox(bool autoMode)
@@ -89,13 +83,13 @@ bool mp::ClickableWidget::onNonTransparent(bool safeMode)
 
         if(safeMode)
         {
-            if(x > currentTexture_->getSize().x)
+            if(x > getTexture()->getSize().x)
                 x = 0;
-            if(y > currentTexture_->getSize().y)
+            if(y > getTexture()->getSize().y)
                 y = 0;
         }
 
-        sf::Color pixel_color = currentTexture_->copyToImage().getPixel(x, y);
+        sf::Color pixel_color = getTexture()->copyToImage().getPixel(x, y);
 
         if(pixel_color != sf::Color::Transparent)
             return true;

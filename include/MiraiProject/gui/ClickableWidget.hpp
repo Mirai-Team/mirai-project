@@ -42,8 +42,6 @@ namespace mp
 
             void setMousePosition(sf::Vector2f position);
 
-            void setCurrentTexture(std::shared_ptr<const sf::Texture> texture);
-
             void setAutoHitBox(bool autoMode);
 
             sf::Vector2f getSize();
@@ -66,8 +64,6 @@ namespace mp
             sf::Vector2f size_;
 
             sf::Vector2f mousePosition_;
-
-            std::shared_ptr<const sf::Texture> currentTexture_;
     };
 }
 

@@ -50,11 +50,9 @@ namespace mp
 
             void setDownTexture(const std::shared_ptr<sf::Texture> &texture);
         private:
-            virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
             std::function<void()> funct_;
 
-            sf::Sprite sprite_;
             std::shared_ptr<sf::Texture> normal_;
             std::shared_ptr<sf::Texture> hover_;
             std::shared_ptr<sf::Texture> down_;

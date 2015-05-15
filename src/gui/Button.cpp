@@ -25,7 +25,6 @@
 #include "MiraiProject/gui/Button.hpp"
 
 mp::Button::Button() :  funct_ { },
-                        sprite_ { },
                         normal_ { },
                         hover_ { },
                         down_ { }
@@ -42,26 +41,23 @@ void mp::Button::update(sf::Vector2i mousePosition)
 
     if(isPressed())
     {
-        sprite_.setTexture(*down_);
-        setCurrentTexture(std::make_shared<const sf::Texture>(*sprite_.getTexture()));
+        setCurrentTexture(std::const_pointer_cast<const sf::Texture>(down_));
 
-        sf::Vector2f size(sprite_.getTexture()->getSize());
+        sf::Vector2f size(getTexture()->getSize());
         setSize(size);
     }
     else if(mouseOnWidget())
     {
-        sprite_.setTexture(*hover_);
-        setCurrentTexture(std::make_shared<sf::Texture>(*sprite_.getTexture()));
+        setCurrentTexture(std::const_pointer_cast<const sf::Texture>(hover_));
 
-        sf::Vector2f size(sprite_.getTexture()->getSize());
+        sf::Vector2f size(getTexture()->getSize());
         setSize(size);
     }
     else
     {
-        sprite_.setTexture(*normal_);
-        setCurrentTexture(std::make_shared<sf::Texture>(*sprite_.getTexture()));
+        setCurrentTexture(std::const_pointer_cast<const sf::Texture>(normal_));
 
-        sf::Vector2f size(sprite_.getTexture()->getSize());
+        sf::Vector2f size(getTexture()->getSize());
         setSize(size);
     }
 
@@ -88,9 +84,4 @@ void mp::Button::setHoverTexture(const std::shared_ptr<sf::Texture> &texture)
 void mp::Button::setDownTexture(const std::shared_ptr<sf::Texture> &texture)
 {
     down_ = texture;
-}
-
-void mp::Button::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
-{
-    target.draw(sprite_, states);
 }

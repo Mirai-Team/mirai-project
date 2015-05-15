@@ -29,6 +29,16 @@ mp::Widget::Widget() :  isEnabled_ { true }
 
 }
 
+void mp::Widget::setCurrentTexture(std::shared_ptr<const sf::Texture> texture)
+{
+    sprite_.setTexture(*texture);
+}
+
+std::shared_ptr<const sf::Texture> mp::Widget::getTexture() const
+{
+    return std::make_shared<const sf::Texture>(*sprite_.getTexture());
+}
+
 void mp::Widget::enable()
 {
     isEnabled_ = true;
@@ -42,4 +52,9 @@ void mp::Widget::disable()
 bool mp::Widget::isEnabled() const
 {
     return isEnabled_;
+}
+
+void mp::Widget::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    target.draw(sprite_, states);
 }

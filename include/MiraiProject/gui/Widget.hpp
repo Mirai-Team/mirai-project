@@ -25,6 +25,12 @@
 #ifndef WIDGET_HPP_INCLUDED
 #define WIDGET_HPP_INCLUDED
 
+#include <memory>
+
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Vector2.hpp>
 
 #include "MiraiProject/scene/Node.hpp"
@@ -36,6 +42,10 @@ namespace mp
         public:
             Widget();
 
+            void setCurrentTexture(std::shared_ptr<const sf::Texture> texture);
+
+            std::shared_ptr<const sf::Texture> getTexture() const;
+
             void enable();
 
             void disable();
@@ -43,7 +53,11 @@ namespace mp
             bool isEnabled() const;
 
         private:
+            virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+
             bool isEnabled_;
+
+            sf::Sprite sprite_;
     };
 }
 #endif
