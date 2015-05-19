@@ -72,13 +72,17 @@ void WindowManager::create()
 {
     // Creating the main window.
     if (fullscreen_)
+    {
         window_.create(sf::VideoMode(videoModeWidth_, videoModeHeight_, 32),
                       windowName_,
                       sf::Style::Fullscreen);
+    }
     else
+    {
         window_.create(sf::VideoMode(videoModeWidth_, videoModeHeight_, 32),
                       windowName_,
                       sf::Style::Close | sf::Style::Titlebar);
+    }
 
     window_.setMouseCursorVisible(cursorVisible_); // Hide the cursor.
     window_.setVerticalSyncEnabled(verticalSync_);

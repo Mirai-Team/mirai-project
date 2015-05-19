@@ -105,6 +105,7 @@ void mp::Animation::setDuration(const sf::Time& newDuration)
 {
     if (newDuration != sf::Time::Zero) // Duration cannot be null.
         duration_ = newDuration;
+
     timePerFrame_ = duration_ / static_cast<float>(numFrames_);
 }
 
@@ -112,6 +113,7 @@ void mp::Animation::setTimePerFrame(const sf::Time& newTimePerFrame)
 {
     if (newTimePerFrame != sf::Time::Zero) // timePerFrame cannot be null.
         timePerFrame_ = newTimePerFrame;
+
     duration_ = timePerFrame_ * static_cast<float>(numFrames_);
 }
 

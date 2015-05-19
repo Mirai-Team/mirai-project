@@ -74,9 +74,13 @@ void mp::MouseManager::clearButton(sf::Mouse::Button button)
     while (binding != bindings_.end())
     {
         if (binding->second.getButtons() == temp)
+        {
             binding = bindings_.erase(binding);
+        }
         else
+        {
             binding++;
+        }
     }
 }
 
@@ -86,9 +90,13 @@ void mp::MouseManager::clearButtons(std::vector<sf::Mouse::Button> buttons)
     while (binding != bindings_.end())
     {
         if (binding->second.getButtons() == buttons)
+        {
             binding = bindings_.erase(binding);
+        }
         else
+        {
             binding++;
+        }
     }
 }
 

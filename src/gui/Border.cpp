@@ -103,6 +103,7 @@ void mp::Border::createBlank(mp::Border::Edge edge, float width, float offset)
 void mp::Border::setColor(sf::Color color)
 {
     color_ = color;
+
     for(unsigned int i = 0; i < vertices_.getVertexCount(); i++)
         vertices_[i].color = color_;
 }

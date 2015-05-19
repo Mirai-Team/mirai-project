@@ -45,7 +45,9 @@ void mp::UpdateModule::addUpdater(mp::Updatable* updatable, std::string key)
     // If key exist we push updatable in list according to key.
     // Else we create a list and add it in map.
     if (updatableList_.find(key) != updatableList_.end())
+    {
         updatableList_[key].push_back(updatable);
+    }
     else
     {
         std::list<mp::Updatable*> temp;

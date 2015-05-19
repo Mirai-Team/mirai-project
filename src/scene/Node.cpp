@@ -97,9 +97,13 @@ void Node::removeChildByName(const std::string& name)
             children[i]->parent_ = nullptr;
 
             if (i < frontChildren_.size())
+            {
                 frontChildren_.erase(frontChildren_.begin() + i);
+            }
             else
+            {
                 backChildren_.erase(frontChildren_.begin() + (i - frontChildren_.size()));
+            }
         }
         else
         {
@@ -119,9 +123,13 @@ void Node::removeChildById(const unsigned int& id)
             children[i]->parent_ = nullptr;
 
             if (i < frontChildren_.size())
+            {
                 frontChildren_.erase(frontChildren_.begin() + i);
+            }
             else
+            {
                 backChildren_.erase(frontChildren_.begin() + (i - frontChildren_.size()));
+            }
 
             break;
         }

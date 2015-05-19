@@ -85,9 +85,13 @@ void mp::BaseStat::calculateBuffValue()
     for(unsigned int i = 0; i<buffs_.size(); i++)
     {
         if(buffs_[i].isDebuff)
+        {
             buffValue_ -= buffs_[i].value;
+        }
         else
+        {
             buffValue_ += buffs_[i].value;
+        }
     }
 }
 
