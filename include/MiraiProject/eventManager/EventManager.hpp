@@ -99,6 +99,8 @@ namespace mp
         
     private:
         EventManager();
+        EventManager( const EventManager& other ) = delete;
+        EventManager& operator=( const EventManager& ) = delete;
 
         std::map<std::string, boost::any> events_;
     };
