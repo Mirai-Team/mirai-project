@@ -76,9 +76,13 @@ bool mp::Encryption::createFile(string outputFile, path directory)
     }
     
     if(writeHeader() && writeData())
+    {
         return true;
+    }
     else
+    {
         return false;
+    }
 
 }
 bool mp::Encryption::writeHeader()
@@ -149,7 +153,9 @@ bool mp::Encryption::writeHeader()
         hasSuccess = true;
     }
     else
+    {
         log_(mp::Logger::priorityError) << "Unable to open " << outputFile_ << " to write the header. (encryption)";
+    }
 
     return hasSuccess;
 }
@@ -177,7 +183,9 @@ bool mp::Encryption::writeData()
         hasSuccess = true;
     }
     else
+    {
         log_(mp::Logger::priorityError) << "Unable to open " << outputFile_ << " to write the data. (encryption)";
+    }
 
     return hasSuccess;
 }
@@ -185,6 +193,7 @@ bool mp::Encryption::writeData()
 string mp::Encryption::encryptFile(string file)
 {
     ifstream input(file, ios::binary);
+
     if(!input)
         log_(mp::Logger::priorityError) << "Unable to open " << file << " to crypt the file. (encryption)";
 
@@ -209,6 +218,7 @@ string mp::Encryption::loadFile(string inputFile, string targetFile)
     int headerLen, fileCount, fileNameLen, fileSize, fileOffset, i=0, offset=8;
 
     ifstream input(inputFile, ios::in | ios::binary);
+
     if(!input)
         log_(mp::Logger::priorityError) << "Unable to open " << inputFile << " to parse the header. (encryption)";
 
@@ -270,5 +280,6 @@ string mp::Encryption::encryptData(string key, string data)
     // Apply a XOR between the key MOD length() and data.
     for(unsigned int i=0; i<data.length(); i++)
         data[i] = static_cast<char>( data[i] ^ key[i%key.length()] );
+
     return data;
 }

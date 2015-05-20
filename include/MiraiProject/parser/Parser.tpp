@@ -68,10 +68,14 @@ namespace mp
                 }
             }
             else
+            {
                 log(Logger::priorityWarning) << "The file doesn't exist";
+            }
         }
         else
+        {
             log(Logger::priorityError) << "File encrypted, and no key provided";
+        }
 
         return value;
     }
@@ -111,10 +115,14 @@ namespace mp
                 }
             }
             else
+            {
                 log(Logger::priorityWarning) << "The file doesn't exist";
+            }
         }
         else
+        {
             log(Logger::priorityError) << "File encrypted, and no key provided";
+        }
 
         return value;
     }
@@ -166,10 +174,14 @@ namespace mp
                 }
             }
             else
+            {
                 log(Logger::priorityWarning) << "The file doesn't exist";
+            }
         }
         else
+        {
             log(Logger::priorityError) << "File encrypted, and no key provided";
+        }
 
         return values;
 
@@ -226,7 +238,9 @@ namespace mp
             }
         }
         else
+        {
             log(Logger::priorityError) << "File encrypted, and no key provided";
+        }
 
         return values;
 

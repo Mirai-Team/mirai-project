@@ -70,9 +70,13 @@ bool mp::Binding::operator()()
         if(isKeyboardBinding_ and ((mode_ == Mode::Always and sf::Keyboard::isKeyPressed(keys_[i]))
            or (mode_ == Mode::onPress and lastStateKeys_[i] == false and sf::Keyboard::isKeyPressed(keys_[i]) == true)
            or (mode_ == Mode::onRelease and lastStateKeys_[i] == true and sf::Keyboard::isKeyPressed(keys_[i]) == false)))
+        {
             IsPressed &= true;
+        }
         else
+        {
             IsPressed = false;
+        }
 
         lastStateKeys_[i] = sf::Keyboard::isKeyPressed(keys_[i]);
     }
@@ -82,9 +86,13 @@ bool mp::Binding::operator()()
         if(!isKeyboardBinding_ and ((mode_ == Mode::Always and sf::Mouse::isButtonPressed(buttons_[i]))
            or (mode_ == Mode::onPress and lastStateButtons_[i] == false and sf::Mouse::isButtonPressed(buttons_[i]) == true)
            or (mode_ == Mode::onRelease and lastStateButtons_[i] == true and sf::Mouse::isButtonPressed(buttons_[i]) == false)))
+        {
             IsPressed &= true;
+        }
         else
+        {
             IsPressed = false;
+        }
 
         lastStateButtons_[i] = sf::Mouse::isButtonPressed(buttons_[i]);
     }

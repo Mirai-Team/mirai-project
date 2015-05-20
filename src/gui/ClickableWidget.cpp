@@ -55,9 +55,13 @@ bool mp::ClickableWidget::mouseOnWidget()
 
     // Order have an importance.
     if (getTransform().transformRect(rect).contains(mousePosition_) && onNonTransparent(false))
+    {
         return true;
+    }
     else
+    {
         return false;
+    }
 }
 
 bool mp::ClickableWidget::onNonTransparent(bool safeMode)
@@ -81,12 +85,18 @@ bool mp::ClickableWidget::onNonTransparent(bool safeMode)
         sf::Color pixel_color = getTexture()->copyToImage().getPixel(x, y);
 
         if(pixel_color != sf::Color::Transparent)
+        {
             return true;
+        }
         else
+        {
             return false;
+        }
     }
     else
+    {
         return true;
+    }
 }
 
 bool mp::ClickableWidget::isPressed()
@@ -97,7 +107,9 @@ bool mp::ClickableWidget::isPressed()
         return true;
     }
     else
+    {
         return false;
+    }
 }
 
 bool mp::ClickableWidget::isReleased()
@@ -105,11 +117,18 @@ bool mp::ClickableWidget::isReleased()
     if (isPressed_ && !isPressed())
     {
         isPressed_ = false;
+
         if(mouseOnWidget())
+        {
             return true;
+        }
         else
+        {
             return false;
+        }
     }
     else
+    {
         return false;
+    }
 }

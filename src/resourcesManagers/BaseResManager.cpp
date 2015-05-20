@@ -50,7 +50,9 @@ shared_ptr<sf::Texture> mp::BaseResManager::getTexture(const string &fileName, c
 {
     // Check if the texture already exists...
     if (safeMode == false or textureIsAvailable(fileName))
+    {
         return texturesCache[fileName];
+    }
     else
     {
         // The texture doesen't exist. Return a empty texture.
@@ -101,9 +103,13 @@ bool mp::BaseResManager::textureIsAvailable(const string &fileName)
 {
     // Check if the texture is available in the resource manager.
     if (texturesCache.find(fileName) != texturesCache.end())
+    {
         return true;
+    }
     else
+    {
         return false;
+    }
 }
 
 // ______________________________ Sound Buffers ______________________________
@@ -111,7 +117,9 @@ shared_ptr<sf::SoundBuffer> mp::BaseResManager::getSoundBuffer(const string &fil
 {
     // Check if the sound buffer already exists...
     if (safeMode == false or soundBufferIsAvailable(fileName))
+    {
         return soundBufferCache[fileName];
+    }
     else
     {
         // The sound buffer doesen't exist. Return an empty sound buffer.
@@ -160,9 +168,13 @@ bool mp::BaseResManager::soundBufferIsAvailable(const string &fileName)
 {
     // Check if the sound buffer already exists...
     if (soundBufferCache.find(fileName) != soundBufferCache.end())
+    {
         return true;
+    }
     else
+    {
         return false;
+    }
 }
 
 // ______________________________ Font ______________________________
@@ -170,7 +182,9 @@ shared_ptr<sf::Font> mp::BaseResManager::getFont(const string &fileName, const b
 {
     // Check if the font already exists...
     if (safeMode == false or fontIsAvailable(fileName))
+    {
         return fontCache[fileName];
+    }
     else
     {
         // The font doesen't exist. Return an empty font.
@@ -219,9 +233,13 @@ bool mp::BaseResManager::fontIsAvailable(const string &fileName)
 {
     // Check if the font already exists...
     if (fontCache.find(fileName) != fontCache.end())
+    {
         return true;
+    }
     else
+    {
         return false;
+    }
 }
 
 void mp::BaseResManager::clean()
