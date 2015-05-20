@@ -24,9 +24,9 @@
 
 #include "MiraiProject/gui/Widget.hpp"
 
-mp::Widget::Widget() : isEnabled_ { true },
-                       size_ { },
-                       sprite_ { }
+mp::Widget::Widget() : sprite_ { },
+                       isEnabled_ { true },
+                       size_ { }
 {
 
 }

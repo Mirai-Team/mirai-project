@@ -54,7 +54,7 @@ bool mp::ClickableWidget::mouseOnWidget()
     sf::FloatRect rect(0, 0, static_cast<float>(getSize().x), static_cast<float>(getSize().y));
 
     // Order have an importance.
-    if(getTransform().transformRect(rect).contains(mousePosition_) && onNonTransparent(false))
+    if (getTransform().transformRect(rect).contains(mousePosition_) && onNonTransparent(false))
         return true;
     else
         return false;
@@ -62,7 +62,7 @@ bool mp::ClickableWidget::mouseOnWidget()
 
 bool mp::ClickableWidget::onNonTransparent(bool safeMode)
 {
-    if(autoHitBox_)
+    if (autoHitBox_)
     {
         unsigned int x = static_cast<int>(mousePosition_.x);
         x -= static_cast<int>(Transformable::getPosition().x);
@@ -91,7 +91,7 @@ bool mp::ClickableWidget::onNonTransparent(bool safeMode)
 
 bool mp::ClickableWidget::isPressed()
 {
-    if(mouseOnWidget() && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+    if (mouseOnWidget() && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
     {
         isPressed_ = true;
         return true;
@@ -102,7 +102,7 @@ bool mp::ClickableWidget::isPressed()
 
 bool mp::ClickableWidget::isReleased()
 {
-    if(isPressed_ && !isPressed())
+    if (isPressed_ && !isPressed())
     {
         isPressed_ = false;
         if(mouseOnWidget())

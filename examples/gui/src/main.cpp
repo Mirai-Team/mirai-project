@@ -9,7 +9,6 @@
 #include <MiraiProject/gui/Label.hpp>
 #include <MiraiProject/resourcesManagers/AutoResManager.hpp>
 #include <MiraiProject/util/WindowManager.hpp>
-
 #include <SFML/Graphics.hpp>
 
 void helloWorld(mp::Label* label, mp::Border* border)
@@ -80,8 +79,9 @@ int main()
                 default:
                     break;
             }
-            button.update(sf::Mouse::getPosition(window));
         }
+
+        button.update(sf::Mouse::getPosition(window));
 
         window.clear(sf::Color::Blue);
         window.draw(button);

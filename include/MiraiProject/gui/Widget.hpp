@@ -64,14 +64,15 @@ namespace mp
 
             bool isEnabled() const;
 
+        protected:
+            sf::Sprite sprite_;
+            
         private:
             virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
             bool isEnabled_;
 
             sf::Vector2u size_;
-
-            sf::Sprite sprite_;
     };
 }
 #endif
