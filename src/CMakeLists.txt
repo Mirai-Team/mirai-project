@@ -1,27 +1,49 @@
-file(GLOB_RECURSE sources_animations ${CMAKE_CURRENT_SOURCE_DIR}/animations/* ${CMAKE_SOURCE_DIR}/include/animations/*)
-file(GLOB_RECURSE sources_encryption ${CMAKE_CURRENT_SOURCE_DIR}/encryption/* ${CMAKE_SOURCE_DIR}/include/encryption/*)
-file(GLOB_RECURSE sources_inputManager ${CMAKE_CURRENT_SOURCE_DIR}/inputManager/* ${CMAKE_SOURCE_DIR}/include/inputManager/*)
-file(GLOB_RECURSE sources_parser ${CMAKE_CURRENT_SOURCE_DIR}/parser/* ${CMAKE_SOURCE_DIR}/include/parser/*)
-file(GLOB_RECURSE sources_resourcesManagers ${CMAKE_CURRENT_SOURCE_DIR}/resourcesManagers/* ${CMAKE_SOURCE_DIR}/include/resourcesManagers/*)
-file(GLOB_RECURSE sources_scene ${CMAKE_CURRENT_SOURCE_DIR}/scene/* ${CMAKE_SOURCE_DIR}/include/scene/*)
-file(GLOB_RECURSE sources_stat ${CMAKE_CURRENT_SOURCE_DIR}/stat/* ${CMAKE_SOURCE_DIR}/include/stat/*)
-file(GLOB_RECURSE sources_updateSystem ${CMAKE_CURRENT_SOURCE_DIR}/updateSystem/* ${CMAKE_SOURCE_DIR}/include/updateSystem/*)
-file(GLOB_RECURSE sources_util ${CMAKE_CURRENT_SOURCE_DIR}/util/* ${CMAKE_SOURCE_DIR}/include/util/*)
+# Include source files.
+message(STATUS "SOURCES PREPARATION")
 
-set(core_sources
-    ${sources_animations}
-    ${sources_encryption}
-    ${sources_inputManager}
-    ${sources_parser}
-    ${sources_resourcesManagers}
-    ${sources_scene}
-    ${sources_stat}
-    ${sources_updateSystem}
-    ${sources_util}
+set(LIB_SRC
+    ${CMAKE_CURRENT_SOURCE_DIR}/animations/AnimatedSprite.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/animations/Animation.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/encryption/Encryption.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inputManager/Binding.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inputManager/KeyboardManager.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inputManager/MouseManager.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/parser/Parser.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/resourcesManagers/AutoResManager.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/resourcesManagers/BaseResManager.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/resourcesManagers/EncryptedResManager.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/scene/Node.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/stat/BaseStat.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/stat/ModifiedStat.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/stat/VitalStat.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/updateSystem/Updatable.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/updateSystem/UpdateModule.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/util/FilesUtilities.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/util/LogStream.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/util/Logger.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/util/StringUtilities.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/util/TransformableUtilities.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/util/WindowManager.cpp
 )
 
+message("   -> Prepared: Core sources")
+
+if(OS_LINUX)
+    set(LIB_SRC
+        ${LIB_SRC}
+    )
+    message("   -> Prepared: Linux sources")
+elseif(OS_WINDOWS)
+    set(LIB_SRC
+        ${LIB_SRC}
+    )
+    message("   -> Prepared: Windows sources")
+endif()
+
 # Include library headers.
-include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(${CMAKE_SOURCE_DIR}/include/)
+
+message(STATUS "SOURCES PREPARATIONS COMPLETE")
 
 # Add SFML and Boost.
 # The parameter SYSTEM is to treat headers found there as system headers, and 
@@ -38,7 +60,7 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin/lib/${CMAKE_BUILD_TYPE})
 # Create MiraiProject library.
 add_library(
     ${CORE}
-    ${core_sources}
+    ${LIB_SRC}
 )
 
 # Set targets properties.
