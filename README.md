@@ -45,28 +45,30 @@ You should use cmake (see requirements above) in order to get your makefile or f
 
 Open a command line prompt and go to Mirai Project directory.
 
-Windows :
-``cd /D \path\to\mirai\project\``
-Linux :
-``$ cd /path/to/mirai/project/``
+Windows : ``cd /D \path\to\mirai\project\``
+Linux : ``$ cd /path/to/mirai/project/``
 
 Then, make a new directory (called "build" for instance) and go into it :
+
 Windows :
 ```
 mkdir build\
 cd build\
 ```
+
 Linux :
 ```
 $ mkdir build/
 $ cd build/
 ```
+
 This step is a compulsory, because our cmake script disable the possibility to write binaries in a directory containing sources (you can also build in a totally different path).
 
 Now you can generate Makefile, Sublime Text / Code::Blocks / Visual Studio IDE project or whatever you want using cmake and the appropriate generator. Of course, you have to install cmake and add the binary in your system path or to use absolute path to the binary.
 
 Windows
 ``cmake . --build ..\ -G"GENERATOR_YOU_WANT"``
+
 Linux
 ``$ cmake . --build ../ -G"GENERATOR_YOU_WANT"``
 
@@ -76,9 +78,11 @@ You can then build Mirai Project library. Open your IDE if you generated an IDE 
 
 To build examples, you can set variable "MIRAI_EXAMPLES" to 1.
 You can do it by modifying your CMakeCache.txt file and rebuilding cmake cache or with the parameter -D"MIRAI_EXAMPLES=1" when you build the cmake cache.
-Windows
+
+Windows :
 ``cmake . --build ..\ -G"GENERATOR_YOU_WANT" -D"MIRAI_EXAMPLES=1"``
-Linux
+
+Linux :
 ``$ cmake . --build ../ -G"GENERATOR_YOU_WANT" -D"MIRAI_EXAMPLES=1"``
 
 To build tools provided with the library, this is the variable "MIRAI_TOOLS" which should be set to 1.
@@ -89,7 +93,9 @@ To build tools provided with the library, this is the variable "MIRAI_TOOLS" whi
 Read [NORMS](NORMS.md) file carefully and respect each of them if you want to contribute.
 
 If you add sources files, you should rebuild your cmake cache :
-Windows
+
+Windows :
 ``cmake . --build ..\``
-Linux
+
+Linux :
 ``$ cmake . --build ../``
