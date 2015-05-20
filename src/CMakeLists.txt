@@ -1,5 +1,5 @@
 # Include source files.
-message(STATUS "SOURCES PREPARATIONS")
+message(STATUS "SOURCES PREPARATION")
 
 set(LIB_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/animations/AnimatedSprite.cpp
