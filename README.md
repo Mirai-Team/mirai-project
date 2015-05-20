@@ -92,10 +92,11 @@ To build tools provided with the library, this is the variable "MIRAI_TOOLS" whi
 
 Read [NORMS](NORMS.md) file carefully and respect each of them if you want to contribute.
 
-If you add sources files, you should rebuild your cmake cache :
+If you add sources files, you have to add them in the LIB_SRC variable in [src/CMakeLists](src/CMakeLists.txt) file.
+Afterward, you should rebuid your cmake cache.
 
 Windows :
-``cmake . --build ..\``
+``cmake \path\to\build\``
 
 Linux :
-``$ cmake . --build ../``
+``$ cmake /path/to/build/``
