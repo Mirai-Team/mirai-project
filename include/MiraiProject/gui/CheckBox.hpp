@@ -22,41 +22,62 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef BUTTON_HPP_INCLUDED
-#define BUTTON_HPP_INCLUDED
+#ifndef CHECK_BOX_HPP
+#define CHECK_BOX_HPP
 
 #include <functional>
 #include <memory>
-
-#include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/Graphics/Sprite.hpp>
 
 #include "MiraiProject/gui/ClickableWidget.hpp"
 
 namespace mp
 {
-    class Button : public ClickableWidget
+    class CheckBox : public ClickableWidget
     {
         public:
-            Button();
+            CheckBox();
 
-            void update(sf::Vector2i mousePosition);
+            void setNormalTexture(const std::shared_ptr<sf::Texture> &texture);
+
+            void setCheckedTexture(const std::shared_ptr<sf::Texture> &texture);
+
+            void setHoverTexture(const std::shared_ptr<sf::Texture> &texture);
+
+            void setCheckedHoverTexture(const std::shared_ptr<sf::Texture> &texture);
+
+            void setDownTexture(const std::shared_ptr<sf::Texture> &texture);
+
+            void setCheckedDownTexture(const std::shared_ptr<sf::Texture> &texture);
 
             void setFunction(std::function<void()> funct);
 
-            virtual void setNormalTexture(const std::shared_ptr<sf::Texture> &texture);
+            void setChecked(bool state);
 
-            virtual void setHoverTexture(const std::shared_ptr<sf::Texture> &texture);
+            bool isChecked() const;
 
-            virtual void setDownTexture(const std::shared_ptr<sf::Texture> &texture);
+            void update(sf::Vector2i mousePosition);
+
+        protected:
+            virtual void onClick();
+
         private:
+
+            bool isChecked_;
 
             std::function<void()> funct_;
 
-            std::shared_ptr<sf::Texture> normal_;
-            std::shared_ptr<sf::Texture> hover_;
-            std::shared_ptr<sf::Texture> down_;
+            std::shared_ptr<sf::Texture> activeTexture_;
+            std::shared_ptr<sf::Texture> checkedTexture_;
+            std::shared_ptr<sf::Texture> normalTexture_;
+
+            std::shared_ptr<sf::Texture> activeHoverTexture_;
+            std::shared_ptr<sf::Texture> hoverCheckedTexture_;
+            std::shared_ptr<sf::Texture> hoverTexture_;
+
+            std::shared_ptr<sf::Texture> activeDownTexture_;
+            std::shared_ptr<sf::Texture> downCheckedTexture_;
+            std::shared_ptr<sf::Texture> downTexture_;
     };
 }
 
-#endif
+#endif // CHECK_BOX_HPP
