@@ -74,7 +74,7 @@ void mp::CheckBox::setCheckedHoverTexture(const std::shared_ptr<sf::Texture> &te
 
 void mp::CheckBox::setDownTexture(const std::shared_ptr<sf::Texture> &texture)
 {
-    activeDownTexture_ = texture;
+    downTexture_ = texture;
 
     if (!isChecked_)
         activeDownTexture_ = texture;
@@ -82,7 +82,7 @@ void mp::CheckBox::setDownTexture(const std::shared_ptr<sf::Texture> &texture)
 
 void mp::CheckBox::setCheckedDownTexture(const std::shared_ptr<sf::Texture> &texture)
 {
-    activeDownTexture_ = texture;
+    downCheckedTexture_ = texture;
 
     if (isChecked_)
         activeDownTexture_ = texture;
