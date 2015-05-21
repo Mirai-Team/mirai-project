@@ -22,6 +22,9 @@
 //
 ////////////////////////////////////////////////////////////
 
+#ifndef LABEL_HPP
+#define LABEL_HPP
+
 #include <string>
 
 #include <SFML/System/String.hpp>
@@ -76,3 +79,5 @@ namespace mp
             sf::Text text_;
     };
 }
+
+#endif // LABEL_HPP
