@@ -80,6 +80,11 @@ namespace mp
 
             void focus();
 
+            void unfocus();
+
+            /* Set maximun text lengh. 0 = no limit. */
+            void setMaxSize(const size_t& size);
+
             void handleInput(const Uint32 &unicode);
 
             void setText(const sf::String& text);
@@ -101,8 +106,6 @@ namespace mp
 
             mp::Label& getLabel() const;
 
-            sf::String getText() const;
-
             size_t getCursorPos() const;
 
             bool cursorIsVisible() const;
@@ -110,6 +113,10 @@ namespace mp
             bool multilineIsEnabled() const;
 
             bool isFocused() const;
+
+            size_t getMaxSize() const;
+
+            sf::String getText() const;
 
         private:
             virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;

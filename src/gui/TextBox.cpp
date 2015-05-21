@@ -151,33 +151,43 @@ void mp::TextBox::disableMultiline()
 
 void mp::TextBox::focus()
 {
+    focused_ = true;
+}
+
+void mp::TextBox::unfocus()
+{
     focused_ = false;
+}
+
+void mp::TextBox::setMaxSize(const size_t& size)
+{
+    maxSize_ = size;
 }
 
 void mp::TextBox::handleInput(const Uint32 &unicode)
 {
     if (focused_)
     {
-        if (unicode == 13) // Enter
+        switch (unicode)
         {
-            addText(sf::String('\n'));
-        }
-        else if (unicode == 8) // Backspace
-        {
-            if (cursorPos_ > 0)
-                deleteText(cursorPos_ - 1, 1);
-        }
-        else if (unicode == 127) // Delete
-        {
-            deleteText(cursorPos_, 1);
-        }
-        else if (unicode == 27) // Escape
-        {
-            deleteText(cursorPos_, 1);
-        }
-        else
-        {
-            addText(sf::String(unicode));
+            case 13: // Enter
+                if (multilineEnabled_)
+                    addText(sf::String('\n'));
+                break;
+            case 8: // Backspace
+                if (cursorPos_ > 0)
+                    deleteText(cursorPos_ - 1, 1);
+                break;
+            case 127: // Delete
+                deleteText(cursorPos_, 1);
+                break;
+            case 27: // Escape
+                focused_ = false;
+                break;
+            default:
+                if (!maxSize_ || label_.getText().getSize() < maxSize_)
+                    addText(sf::String(unicode));
+                break;
         }
     }
 }
@@ -252,6 +262,11 @@ bool mp::TextBox::multilineIsEnabled() const
 bool mp::TextBox::isFocused() const
 {
     return focused_;
+}
+
+size_t mp::TextBox::getMaxSize() const
+{
+    return maxSize_;
 }
 
 void mp::TextBox::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
