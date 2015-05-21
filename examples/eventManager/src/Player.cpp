@@ -41,6 +41,8 @@ Player::Player() :  xp_ { 0 }
 
 Player::~Player()
 {
+    mp::EventManager& eventManager = mp::EventManager::getInstance();
+    eventManager.deleteListener(ENTITY_DIE, getId());
 }
 
 void Player::jump()

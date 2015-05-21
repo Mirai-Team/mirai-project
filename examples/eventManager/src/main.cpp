@@ -64,5 +64,7 @@ int main()
 
     player.jump();
 
+    eventManager.clearListeners();
+
     return 0;
 }

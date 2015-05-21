@@ -43,6 +43,8 @@ Monster::Monster()
 
 Monster::~Monster()
 {
+    mp::EventManager& eventManager = mp::EventManager::getInstance();
+    eventManager.deleteListener(PLAYER_JUMP, getId());
 }
 
 bool Monster::onPlayerJump(Player* playerPtr)
