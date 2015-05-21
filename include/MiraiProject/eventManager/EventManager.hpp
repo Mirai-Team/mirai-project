@@ -27,7 +27,7 @@
 
 #include <functional>
 #include <map>
-#include <string>
+#include <list>
 
 #include <boost/any.hpp>
 
@@ -46,30 +46,20 @@ namespace mp
         /**
          * @brief Add a Listener with parameter(s).
          * 
-         * @param eventName : Name of the event.
+         * @param eventID : Name of the event.
          * @param funct : Function to execute if Broadcast method is executed.
          * @tparam T : Function's type.
          * @tparam Args : Arguments' type.
          */
-        template<typename T, typename... Args>
-        void addListener(std::string eventName, std::function<T(Args...)> funct);
-
-        /**
-         * @brief Add a Listener without parameters.
-         * 
-         * @param eventName : Name of the event.
-         * @param funct : Function to execute if Broadcast method is executed.
-         * @tparam T : Function's type.
-         */
-        template<typename T>
-        void addListener(std::string eventName, std::function<T()> funct);
+        template<typename... Args>
+        void addListener(int eventID, std::function<bool(Args...)> funct);
 
         /**
          * @brief Delete a listener.
          * 
-         * @param eventName : Event to delete.
+         * @param eventID : Event to delete.
          */
-        void deleteListener(std::string eventName);
+        void deleteListener(int eventID);
 
         /**
          * @brief Clear all listeners.
@@ -79,35 +69,21 @@ namespace mp
         /**
          * @brief Execute function register with AddListener
          * 
-         * @param eventName : Event to call.
+         * @param eventID : Event to call.
          * @param args : Function's parameters.
          * @tparam T : Function's type.
          * @return If not void, return function return.
          */
-        template<typename T, typename... Args>
-        T broadcast(std::string eventName, Args... args);
-
-        /**
-         * @brief Execute function register with AddListener
-         * 
-         * @param eventName : Event to call.
-         * @tparam T : Function's type.
-         * @return If not void, return function return.
-         */
-        template<typename T>
-        T broadcast(std::string eventName);
+        template<typename... Args>
+        bool broadcast(int eventID, Args... args);
         
     private:
         EventManager();
         EventManager( const EventManager& other ) = delete;
         EventManager& operator=( const EventManager& ) = delete;
 
-        std::map<std::string, boost::any> events_;
+        std::map<int, std::list<boost::any>> events_;
     };
-
-    // Specialization for void type.
-    template<>
-    void EventManager::broadcast<void>(std::string eventName);
 
 }
 

@@ -25,43 +25,33 @@
 #ifndef EVENT_MANAGER_TPP_INCLUDED
 #define EVENT_MANAGER_TPP_INCLUDED
 
-#include "MiraiProject/eventManager/EventManager.hpp"
-
 using namespace std;
 
-template<typename T, typename... Args>
-void mp::EventManager::addListener(std::string eventName, std::function<T(Args...)> funct)
+template<typename... Args>
+void mp::EventManager::addListener(int eventID, std::function<bool(Args...)> funct)
 {
-    events_[eventName] = funct;
-}
-
-template<typename T>
-void mp::EventManager::addListener(std::string eventName, std::function<T()> funct)
-{
-    events_[eventName] = funct;
-}
-
-template<typename T, typename... Args>
-T mp::EventManager::broadcast(std::string eventName, Args... args)
-{
-    for(auto it = events_.begin(); it != events_.end(); ++it)
+    if (events_.find(eventID) != events_.end())
     {
-        if(it->first == eventName)
-            return boost::any_cast<function<T(Args...)>>(events_[eventName])(args...);
+        events_[eventID].push_back(funct);
+    }
+    else
+    {
+        events_[eventID] = {funct};
     }
 }
 
-template<typename T>
-T mp::EventManager::broadcast(std::string eventName)
+template<typename... Args>
+bool mp::EventManager::broadcast(int eventID, Args... args)
 {
-    T buffer;
-    for(auto it = events_.begin(); it != events_.end(); ++it)
+    bool isNotCancelled = true;
+    std::list<boost::any> functions = events_[eventID];
+
+    for(auto funct : functions)
     {
-        if(it->first == eventName)
-            buffer = boost::any_cast< function<T()> >(events_[eventName])();
+        isNotCancelled &= boost::any_cast<function<bool(Args...)>>(funct)(args...);
     }
 
-    return buffer;
+    return isNotCancelled;
 }
 
 #endif // EVENT_MANAGER_TPP_INCLUDED
