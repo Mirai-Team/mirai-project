@@ -62,7 +62,9 @@ namespace mp
 
             void setFont(const sf::Font& font);
 
-            void setText(const sf::String& text);
+            void setLabelPos(const float& x, const float& y);
+
+            void setLabelPos(const sf::Vector2f& position);
 
             void setCursorPos(const size_t& pos);
 
@@ -79,6 +81,8 @@ namespace mp
             void focus();
 
             void handleInput(const Uint32 &unicode);
+
+            void setText(const sf::String& text);
 
             /* Add text at cursor position */
             void addText(const sf::String& text);

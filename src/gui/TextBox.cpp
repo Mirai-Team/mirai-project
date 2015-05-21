@@ -102,9 +102,14 @@ void mp::TextBox::setFont(const sf::Font& font)
     label_.setFont(font);
 }
 
-void mp::TextBox::setText(const sf::String& text)
+void mp::TextBox::setLabelPos(const float& x, const float& y)
 {
-    label_.setText(text);
+    label_.setPosition(x, y);
+}
+
+void mp::TextBox::setLabelPos(const sf::Vector2f& position)
+{
+    label_.setPosition(position);
 }
 
 void mp::TextBox::setCursorPos(const size_t& pos)
@@ -149,22 +154,24 @@ void mp::TextBox::focus()
     focused_ = false;
 }
 
-#include <iostream>
-
 void mp::TextBox::handleInput(const Uint32 &unicode)
 {
     if (focused_)
     {
-        if (unicode == 13)
+        if (unicode == 13) // Enter
         {
             addText(sf::String('\n'));
         }
-        else if (unicode == 8)
+        else if (unicode == 8) // Backspace
         {
             if (cursorPos_ > 0)
                 deleteText(cursorPos_ - 1, 1);
         }
-        else if (unicode == 127)
+        else if (unicode == 127) // Delete
+        {
+            deleteText(cursorPos_, 1);
+        }
+        else if (unicode == 27) // Escape
         {
             deleteText(cursorPos_, 1);
         }
@@ -173,6 +180,12 @@ void mp::TextBox::handleInput(const Uint32 &unicode)
             addText(sf::String(unicode));
         }
     }
+}
+
+void mp::TextBox::setText(const sf::String& text)
+{
+    label_.setText(text);
+    cursorPos_ = text.getSize();
 }
 
 void mp::TextBox::addText(const sf::String& text)

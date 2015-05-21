@@ -66,6 +66,7 @@ int main()
     textBox.setPosition(45.f, 310.f);
     textBox.setFont(*resourcesManager.getFontBuffer("resources/UbuntuMono-R.ttf"));
     textBox.setText(L"Some text.");
+    textBox.setLabelPos(5, 5);
 
     // Useful only for testing purpose, but not very effective for real games.
     window.setFramerateLimit(60);
@@ -82,6 +83,7 @@ int main()
                     running = false;
                     break;
                 case sf::Event::TextEntered:
+                    std::cout << event.text.unicode << std::endl;
                     textBox.handleInput(event.text.unicode);
                     break;
                 default:
