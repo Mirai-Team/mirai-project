@@ -34,9 +34,9 @@ public:
 
     void die();
 
-    bool isAlive();
+    bool isAlive() const;
 
-    int getId();
+    int getId() const;
 
 private:
     static int lastId_;

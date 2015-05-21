@@ -40,7 +40,7 @@ public:
 
     void giveXp(int exp);
 
-    int getXp();
+    int getXp() const;
 
 private:
     bool onEntityDie(Entity* entityPtr);
