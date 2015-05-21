@@ -42,11 +42,11 @@ int main()
 {
     mp::EventManager& eventManager = mp::EventManager::getInstance();
 
-    function<bool(Entity* entityPtr)> funct = [=](Entity* entityPtr) {
+    std::function<bool(Entity* entityPtr)> funct = [=](Entity* entityPtr) {
         return onEntityCreated(entityPtr);
     };
 
-    eventManager.addListener<Entity*>(ENTITY_CREATED, funct);
+    eventManager.addListener<Entity*>(ENTITY_CREATED, 0, funct);
 
     Player player;
 
@@ -63,6 +63,8 @@ int main()
     monster2.takeDamage(10);
 
     player.jump();
+
+    eventManager.clearListeners();
 
     return 0;
 }

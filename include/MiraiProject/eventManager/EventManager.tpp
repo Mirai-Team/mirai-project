@@ -25,18 +25,16 @@
 #ifndef EVENT_MANAGER_TPP_INCLUDED
 #define EVENT_MANAGER_TPP_INCLUDED
 
-using namespace std;
-
 template<typename... Args>
-void mp::EventManager::addListener(int eventID, std::function<bool(Args...)> funct)
+void mp::EventManager::addListener(int eventID, int listenerID, std::function<bool(Args...)> funct)
 {
     if (events_.find(eventID) != events_.end())
     {
-        events_[eventID].push_back(funct);
+        events_[eventID].push_back(std::make_pair(listenerID, funct));
     }
     else
     {
-        events_[eventID] = {funct};
+        events_[eventID] = {std::make_pair(listenerID, funct)};
     }
 }
 
@@ -44,12 +42,10 @@ template<typename... Args>
 bool mp::EventManager::broadcast(int eventID, Args... args)
 {
     bool isNotCancelled = true;
-    std::list<boost::any> functions = events_[eventID];
+    std::vector<std::pair<int, boost::any>> functions = events_[eventID];
 
     for(auto funct : functions)
-    {
-        isNotCancelled &= boost::any_cast<function<bool(Args...)>>(funct)(args...);
-    }
+        isNotCancelled &= boost::any_cast<std::function<bool(Args...)>>(funct.second)(args...);
 
     return isNotCancelled;
 }
