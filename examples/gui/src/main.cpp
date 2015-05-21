@@ -5,18 +5,13 @@
 
 #include <MiraiProject/gui/Border.hpp>
 #include <MiraiProject/gui/Button.hpp>
+#include <MiraiProject/gui/CheckBox.hpp>
 #include <MiraiProject/gui/Label.hpp>
 #include <MiraiProject/gui/TextBox.hpp>
 #include <MiraiProject/resourcesManagers/AutoResManager.hpp>
 #include <MiraiProject/util/WindowManager.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-
-void helloWorld(mp::Label* label, mp::Border* border)
-{
-    label->setColor(sf::Color::Green);
-    border->setColor(sf::Color::Green);
-}
 
 int main()
 {
@@ -26,7 +21,7 @@ int main()
     mp::WindowManager mainWindowManager { };
     sf::RenderWindow &window = mainWindowManager.getWindow();
 
-    mainWindowManager.setWindowName("Simple Window Test");
+    mainWindowManager.setWindowName("Gui examples");
     mainWindowManager.setOptimalWinWidth(800);
     mainWindowManager.setOptimalWinHeight(600);
     mainWindowManager.setVideomodeWidth(800);
@@ -49,15 +44,6 @@ int main()
     border->setPosition(-10.f, -10.f);
     mp::Border::childPtr borderNode(border);
 
-    mp::Button button;
-    button.setNormalTexture(resourcesManager.getTexture("resources/logo.png"));
-    button.setDownTexture(resourcesManager.getTexture("resources/logoD.png"));
-    button.setHoverTexture(resourcesManager.getTexture("resources/logoH.png"));
-    button.setPosition(45.f, 45.f);
-    button.setFunction([&]() { helloWorld(label, border); });
-    button.addFrontChild(labelNode);
-    button.addFrontChild(borderNode);
-
     // Creating a text box.
     mp::TextBox textBox;
     textBox.setNormalTexture(resourcesManager.getTexture("resources/textBoxNormal.png"));
@@ -66,6 +52,24 @@ int main()
     textBox.setPosition(45.f, 310.f);
     textBox.setFont(*resourcesManager.getFontBuffer("resources/UbuntuMono-R.ttf"));
     textBox.setText(L"Some text.");
+
+    mp::Button button;
+    button.setNormalTexture(resourcesManager.getTexture("resources/logo.png"));
+    button.setDownTexture(resourcesManager.getTexture("resources/logoD.png"));
+    button.setHoverTexture(resourcesManager.getTexture("resources/logoH.png"));
+    button.setPosition(45.f, 45.f);
+    button.setFunction([&textBox]() { textBox.setText("Mirai Project"); });
+    button.addFrontChild(labelNode);
+    button.addFrontChild(borderNode);
+
+    mp::CheckBox checkbox;
+    checkbox.setNormalTexture(resourcesManager.getTexture("resources/checkboxNormal.png"));
+    checkbox.setHoverTexture(resourcesManager.getTexture("resources/checkboxHover.png"));
+    checkbox.setDownTexture(resourcesManager.getTexture("resources/checkboxDown.png"));
+    checkbox.setCheckedTexture(resourcesManager.getTexture("resources/checkboxNormalCheck.png"));
+    checkbox.setCheckedHoverTexture(resourcesManager.getTexture("resources/checkboxHoverCheck.png"));
+    checkbox.setCheckedDownTexture(resourcesManager.getTexture("resources/checkboxDownCheck.png"));
+    checkbox.setPosition(310.f, 45.f);
 
     // Useful only for testing purpose, but not very effective for real games.
     window.setFramerateLimit(60);
@@ -90,11 +94,15 @@ int main()
         }
 
         button.update(sf::Mouse::getPosition(window));
+        checkbox.update(sf::Mouse::getPosition(window));
         textBox.update(sf::Mouse::getPosition(window));
 
         window.clear(sf::Color(132, 150, 150));
+
         window.draw(button);
+        window.draw(checkbox);
         window.draw(textBox);
+
         window.display();
     }
     
