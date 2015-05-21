@@ -60,9 +60,9 @@ int main()
 
     // Creating a text box.
     mp::TextBox textBox;
-    textBox.setNormalTexture(resourcesManager.getTexture("resources/logo.png"));
-    textBox.setFocusTexture(resourcesManager.getTexture("resources/logoD.png"));
-    textBox.setHoverTexture(resourcesManager.getTexture("resources/logoH.png"));
+    textBox.setNormalTexture(resourcesManager.getTexture("resources/textBoxNormal.png"));
+    textBox.setFocusTexture(resourcesManager.getTexture("resources/textBoxFocus.png"));
+    textBox.setHoverTexture(resourcesManager.getTexture("resources/textBoxHover.png"));
     textBox.setPosition(45.f, 310.f);
     textBox.setFont(*resourcesManager.getFontBuffer("resources/UbuntuMono-R.ttf"));
     textBox.setText(L"Some text.");
@@ -92,7 +92,7 @@ int main()
         button.update(sf::Mouse::getPosition(window));
         textBox.update(sf::Mouse::getPosition(window));
 
-        window.clear(sf::Color::Blue);
+        window.clear(sf::Color(132, 150, 150));
         window.draw(button);
         window.draw(textBox);
         window.display();
