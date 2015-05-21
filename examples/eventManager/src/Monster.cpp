@@ -34,11 +34,11 @@ Monster::Monster()
 {
     mp::EventManager& eventManager = mp::EventManager::getInstance();
 
-    function<bool(Player* playerPtr)> funct = [=](Player* playerPtr) {
+    std::function<bool(Player* playerPtr)> funct = [=](Player* playerPtr) {
         return this->onPlayerJump(playerPtr);
     };
     
-    eventManager.addListener<Player*>(PLAYER_JUMP, funct);
+    eventManager.addListener<Player*>(PLAYER_JUMP, getId(), funct);
 }
 
 Monster::~Monster()

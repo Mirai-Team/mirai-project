@@ -32,11 +32,11 @@ Player::Player() :  xp_ { 0 }
 {
     mp::EventManager& eventManager = mp::EventManager::getInstance();
 
-    function<bool(Entity* entityPtr)> funct = [=](Entity* entityPtr) {
+    std::function<bool(Entity* entityPtr)> funct = [=](Entity* entityPtr) {
         return this->onEntityDie(entityPtr);
     };
     
-    eventManager.addListener<Entity*>(ENTITY_DIE, funct);
+    eventManager.addListener<Entity*>(ENTITY_DIE, getId(), funct);
 }
 
 Player::~Player()
