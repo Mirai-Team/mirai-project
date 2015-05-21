@@ -27,7 +27,6 @@
 
 #include <functional>
 #include <map>
-#include <list>
 
 #include <boost/any.hpp>
 
@@ -52,14 +51,15 @@ namespace mp
          * @tparam Args : Arguments' type.
          */
         template<typename... Args>
-        void addListener(int eventID, std::function<bool(Args...)> funct);
+        void addListener(int eventID, int listenerID, std::function<bool(Args...)> funct);
 
         /**
          * @brief Delete a listener.
          * 
-         * @param eventID : Event to delete.
+         * @param eventID : Event ID matching the listener.
+         * @param IDListener : Listener to delete.
          */
-        void deleteListener(int eventID);
+        void deleteListener(int eventID, int IDListener);
 
         /**
          * @brief Clear all listeners.
@@ -82,7 +82,7 @@ namespace mp
         EventManager( const EventManager& other ) = delete;
         EventManager& operator=( const EventManager& ) = delete;
 
-        std::map<int, std::list<boost::any>> events_;
+        std::map<int, std::vector<std::pair<int, boost::any>>> events_;
     };
 
 }

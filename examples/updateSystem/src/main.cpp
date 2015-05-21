@@ -29,8 +29,6 @@
 
 #include <SFML/System/Time.hpp>
 
-using namespace std;
-
 class SomeClass
 {
     public:
@@ -42,8 +40,13 @@ class SomeClass
                 return this->update(deltaTime);
             };
 
-            eventManager.addListener(0, updateFunct);
+            eventManager.addListener(0, i, updateFunct);
+
+            myId = i;
+
+            i++;
         };
+
         //Since void mp::Updatable::Update() is virtual, it's necessary to create this function.
         bool update(sf::Time deltaTime)
         {
@@ -51,7 +54,18 @@ class SomeClass
 
             return true;
         }
+
+        void addition(int a, int b)
+        {
+            std::cout << a+b << std::endl;
+        }
+    private:
+        static int i;
+
+        int myId;
 };
+
+int SomeClass::i(0);
 
 int main()
 {
@@ -62,6 +76,11 @@ int main()
 
     delete b;
 
+    mp::EventManager::getInstance().deleteListener(0, 1);
+
     mp::EventManager::getInstance().broadcast<sf::Time>(0, sf::seconds(2.55486f));
+    
+    a->addition(10, 5);
+
     return 0;
 }

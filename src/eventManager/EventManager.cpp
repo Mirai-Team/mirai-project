@@ -22,6 +22,8 @@
 //
 ////////////////////////////////////////////////////////////
 
+
+#include <iostream>
 #include "MiraiProject/eventManager/EventManager.hpp"
 
 using namespace std;
@@ -37,9 +39,22 @@ mp::EventManager::EventManager() : events_ { }
 
 }
 
-void mp::EventManager::deleteListener(int eventName)
+void mp::EventManager::deleteListener(int eventID, int IDListener)
 {
-    events_.erase(eventName);
+    auto temp = events_[eventID].begin();
+
+    while (temp != events_[eventID].end())
+    {
+        if (temp->first == IDListener)
+        {
+            events_[eventID].erase(temp);
+        }
+        else
+        {
+            ++temp;
+        }
+        
+    }
 }
 
 void mp::EventManager::clearListeners()
