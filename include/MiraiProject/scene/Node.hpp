@@ -30,7 +30,6 @@
 
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/Drawable.hpp>
-#include <SFML/System/NonCopyable.hpp>
 
 /** \file Node.hpp
  * \brief This file contains Node class definition.
@@ -50,7 +49,7 @@ namespace mp
      * automatically performed).
      */
 
-    class Node : public sf::Transformable, public sf::Drawable, private sf::NonCopyable
+    class Node : public sf::Transformable, public sf::Drawable
     {
         public:
             typedef std::shared_ptr<Node> childPtr;
@@ -60,6 +59,12 @@ namespace mp
 
             /** \brief Class destructor **/
             virtual ~Node();
+
+            /** \brief Make class non-copyable **/
+            Node(const Node&) = delete;
+
+            /** \brief Make class non-copyable **/
+            Node& operator=(const Node&) = delete;
 
             /** \brief Return node's absolute position.
              * 
