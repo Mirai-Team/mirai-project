@@ -24,63 +24,62 @@
 
 #include <iostream>
 #include <functional>
-
 #include <MiraiProject/eventManager/EventManager.hpp>
 
-#include <SFML/System/Time.hpp>
+#include "EventsTypes.hpp"
+#include "Entity.hpp"
+#include "Monster.hpp"
+#include "Player.hpp"
 
-class SomeClass
+bool onEntityCreated(Entity* entityPtr)
 {
-    public:
-        SomeClass()
-        {
-            mp::EventManager& eventManager = mp::EventManager::getInstance();
+    std::cout << "(I see a new entity (" << entityPtr->getId() << ").)" << std::endl;
 
-            std::function<bool(sf::Time)> updateFunct = [=](sf::Time deltaTime){
-                return this->update(deltaTime);
-            };
+    return true;
+}
 
-            eventManager.addListener(0, i, updateFunct);
+bool monster2Invincibility(Entity* ptrEntity, int /*damages*/)
+{
+    if (ptrEntity->getId() == 2)
+    {
+        return false;
+    }
 
-            myId = i;
-
-            i++;
-        };
-
-        //Since void mp::Updatable::Update() is virtual, it's necessary to create this function.
-        bool update(sf::Time deltaTime)
-        {
-            std::cout << deltaTime.asSeconds() << std::endl;
-
-            return true;
-        }
-
-        void addition(int a, int b)
-        {
-            std::cout << a+b << std::endl;
-        }
-    private:
-        static int i;
-
-        int myId;
-};
-
-int SomeClass::i(0);
+    return true;
+}
 
 int main()
 {
-    SomeClass * a = new SomeClass();
-    SomeClass * b = new SomeClass();
+    mp::EventManager& eventManager = mp::EventManager::getInstance();
 
-    mp::EventManager::getInstance().broadcast<sf::Time>(0, sf::seconds(2.55486f));
+    std::function<bool(Entity* entityPtr)> funct = [=](Entity* entityPtr) {
+        return onEntityCreated(entityPtr);
+    };
 
-    delete b;
+    std::function<bool(Entity* entityPtr, int damages)> funct2 = [=](Entity* entityPtr, int damages) {
+        return monster2Invincibility(entityPtr, damages);
+    };
 
-    mp::EventManager::getInstance().deleteListener(0, 1);
+    eventManager.addListener<Entity*>(ENTITY_CREATED, 0, funct);
+    eventManager.addListener<Entity*>(ENTITY_TAKE_DAMAGES, 0, funct2);
 
-    mp::EventManager::getInstance().broadcast<sf::Time>(0, sf::seconds(2.55486f));
-    
-    a->addition(10, 5);
+    Player player;
+
+    Monster monster1;
+    Monster monster2;
+    Monster monster3;
+    Monster monster4;
+
+    monster1.takeDamage(7);
+
+    player.jump();
+
+    monster1.takeDamage(7);
+    monster2.takeDamage(10);
+
+    player.jump();
+
+    eventManager.clearListeners();
 
     return 0;
 }

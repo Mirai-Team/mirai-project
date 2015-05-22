@@ -22,44 +22,43 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <algorithm>
-#include <string>
-#include <map>
-#include <utility>
 
-#include "MiraiProject/updateSystem/UpdateModule.hpp"
-#include "MiraiProject/updateSystem/Updatable.hpp"
+#include <iostream>
+#include "MiraiProject/eventManager/EventManager.hpp"
 
-std::map<std::string, std::list<mp::Updatable*>> mp::UpdateModule::updatableList_;
+using namespace std;
 
-void mp::UpdateModule::update(sf::Time deltaTime, std::string key)
+mp::EventManager& mp::EventManager::getInstance()
 {
-    for_each(updatableList_[key].begin(), updatableList_[key].end(), [&](mp::Updatable* p)
-    {
-        p->update(deltaTime);
-    });
+    static mp::EventManager instance;
+    return instance;
 }
 
-void mp::UpdateModule::addUpdater(mp::Updatable* updatable, std::string key)
+mp::EventManager::EventManager() : events_ { }
 {
-    // If key exist we push updatable in list according to key.
-    // Else we create a list and add it in map.
-    if (updatableList_.find(key) != updatableList_.end())
-        updatableList_[key].push_back(updatable);
-    else
+
+}
+
+void mp::EventManager::deleteListener(int eventID, int IDListener)
+{
+    auto temp = events_[eventID].begin();
+
+    while (temp != events_[eventID].end())
     {
-        std::list<mp::Updatable*> temp;
-        temp.push_back(updatable);
-        updatableList_[key] = temp;
+        if (temp->first == IDListener)
+        {
+            events_[eventID].erase(temp);
+        }
+        else
+        {
+            ++temp;
+        }
+        
     }
 }
 
-void mp::UpdateModule::removeUpdater(Updatable* updatable)
+void mp::EventManager::clearListeners()
 {
-    for(auto &updatableClass : updatableList_)
-    {
-        updatableClass.second.remove_if([updatable] (Updatable* p) {
-            return p == updatable;
-        });
-    }
+    while(events_.size() > 0)
+        events_.erase(events_.begin());
 }

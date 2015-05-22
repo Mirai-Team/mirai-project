@@ -22,15 +22,32 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include "MiraiProject/updateSystem/Updatable.hpp"
-#include "MiraiProject/updateSystem/UpdateModule.hpp"
+#ifndef EVENT_MANAGER_TPP_INCLUDED
+#define EVENT_MANAGER_TPP_INCLUDED
 
-mp::Updatable::Updatable(std::string key)
+template<typename... Args>
+void mp::EventManager::addListener(int eventID, int listenerID, std::function<bool(Args...)> funct)
 {
-    mp::UpdateModule::addUpdater(this, key);
+    if (events_.find(eventID) != events_.end())
+    {
+        events_[eventID].push_back(std::make_pair(listenerID, funct));
+    }
+    else
+    {
+        events_[eventID] = {std::make_pair(listenerID, funct)};
+    }
 }
 
-mp::Updatable::~Updatable()
+template<typename... Args>
+bool mp::EventManager::broadcast(int eventID, Args... args)
 {
-    mp::UpdateModule::removeUpdater(this);
+    bool isNotCancelled = true;
+    std::vector<std::pair<int, boost::any>> functions = events_[eventID];
+
+    for(auto funct : functions)
+        isNotCancelled &= boost::any_cast<std::function<bool(Args...)>>(funct.second)(args...);
+
+    return isNotCancelled;
 }
+
+#endif // EVENT_MANAGER_TPP_INCLUDED

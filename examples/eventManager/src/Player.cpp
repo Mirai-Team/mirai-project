@@ -22,45 +22,52 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef UPDATABLE_HPP_INCLUDED
-#define UPDATABLE_HPP_INCLUDED
-
 #include <iostream>
-#include <memory>
-#include <string>
 
-#include <SFML/System/Time.hpp>
+#include "Entity.hpp"
+#include "Player.hpp"
+#include "EventsTypes.hpp"
 
-/** @file Updatable.hpp
- *  \brief This file define Updatable class.
- */
-
-namespace mp
+Player::Player() :  xp_ { 0 }
 {
-    /** \class Updatable
-     * \brief Virtual class to create entities to update with an UpdateModule.
-     */
-    class Updatable
-    {
-        // In order to prevent the user to call UpdateModule::AddUpdater.
-        friend class UpdateModule;
+    mp::EventManager& eventManager = mp::EventManager::getInstance();
 
-        public:
-            /** \brief Function called by UpdateModule
-             * 
-             * This is a pure virtual function that has to be implemented by derived class to update their content.
-             * 
-             * \param deltaTime : time elapsed since last update.
-             */
-            virtual void update(sf::Time deltaTime) = 0;
-
-        protected:  
-            /** \brief Constructor */
-            Updatable(std::string key = "default");
-
-            /** \brief Destructor */
-            virtual ~Updatable();
+    std::function<bool(Entity* entityPtr)> funct = [=](Entity* entityPtr) {
+        return this->onEntityDie(entityPtr);
     };
+    
+    eventManager.addListener<Entity*>(ENTITY_DIE, getId(), funct);
 }
 
-#endif // UPDATABLE_HPP_INCLUDED
+Player::~Player()
+{
+    mp::EventManager& eventManager = mp::EventManager::getInstance();
+    eventManager.deleteListener(ENTITY_DIE, getId());
+}
+
+void Player::jump()
+{
+    mp::EventManager& eventManager = mp::EventManager::getInstance();
+
+    std::cout << "Player (" << getId() << ") jump." << std::endl;
+
+    eventManager.broadcast(PLAYER_JUMP, this);
+}
+
+int Player::getXp() const
+{
+    return xp_;
+}
+
+void Player::giveXp(int xp)
+{
+    xp_ += xp;
+}
+
+bool Player::onEntityDie(Entity* /*entityPtr*/)
+{
+    giveXp(10);
+    std::cout << "Player (" << getId() << ") gained 10 XP !" << std::endl;
+
+    return true;
+}

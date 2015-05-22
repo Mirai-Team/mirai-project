@@ -24,63 +24,37 @@
 
 #include <iostream>
 #include <functional>
-
 #include <MiraiProject/eventManager/EventManager.hpp>
 
-#include <SFML/System/Time.hpp>
+#include "Monster.hpp"
+#include "Player.hpp"
+#include "EventsTypes.hpp"
 
-class SomeClass
+Monster::Monster()
 {
-    public:
-        SomeClass()
-        {
-            mp::EventManager& eventManager = mp::EventManager::getInstance();
+    mp::EventManager& eventManager = mp::EventManager::getInstance();
 
-            std::function<bool(sf::Time)> updateFunct = [=](sf::Time deltaTime){
-                return this->update(deltaTime);
-            };
-
-            eventManager.addListener(0, i, updateFunct);
-
-            myId = i;
-
-            i++;
-        };
-
-        //Since void mp::Updatable::Update() is virtual, it's necessary to create this function.
-        bool update(sf::Time deltaTime)
-        {
-            std::cout << deltaTime.asSeconds() << std::endl;
-
-            return true;
-        }
-
-        void addition(int a, int b)
-        {
-            std::cout << a+b << std::endl;
-        }
-    private:
-        static int i;
-
-        int myId;
-};
-
-int SomeClass::i(0);
-
-int main()
-{
-    SomeClass * a = new SomeClass();
-    SomeClass * b = new SomeClass();
-
-    mp::EventManager::getInstance().broadcast<sf::Time>(0, sf::seconds(2.55486f));
-
-    delete b;
-
-    mp::EventManager::getInstance().deleteListener(0, 1);
-
-    mp::EventManager::getInstance().broadcast<sf::Time>(0, sf::seconds(2.55486f));
+    std::function<bool(Player* playerPtr)> funct = [=](Player* playerPtr) {
+        return this->onPlayerJump(playerPtr);
+    };
     
-    a->addition(10, 5);
+    eventManager.addListener<Player*>(PLAYER_JUMP, getId(), funct);
+}
 
-    return 0;
+Monster::~Monster()
+{
+    mp::EventManager& eventManager = mp::EventManager::getInstance();
+    eventManager.deleteListener(PLAYER_JUMP, getId());
+}
+
+bool Monster::onPlayerJump(Player* playerPtr)
+{
+    if (isAlive())
+    {
+        std::cout << "Monster (" << getId()
+                  << ") look at the player jumping. It see that he have "
+                  << playerPtr->getXp() << " XP !" << std::endl;
+    }
+
+    return true;
 }
