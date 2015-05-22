@@ -1,3 +1,11 @@
+### Mirai Project v0.3
+------------------
+
++ Improved cmake.
++ Added events manager.
++ Added new examples.
++ Added nodes system (to create a scene graph).
+
 ### Mirai Project v0.2
 ------------------
 
