@@ -42,7 +42,7 @@ namespace mp
     {
         string line;
         vector<string> words;
-        T value;
+        T value { };
         ifstream file;
 
         mp::Logger log("mirai_project.log");
