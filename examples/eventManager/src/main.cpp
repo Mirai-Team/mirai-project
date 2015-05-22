@@ -38,6 +38,16 @@ bool onEntityCreated(Entity* entityPtr)
     return true;
 }
 
+bool monster2Invincibility(Entity* ptrEntity, int /*damages*/)
+{
+    if (ptrEntity->getId() == 2)
+    {
+        return false;
+    }
+
+    return true;
+}
+
 int main()
 {
     mp::EventManager& eventManager = mp::EventManager::getInstance();
@@ -46,7 +56,12 @@ int main()
         return onEntityCreated(entityPtr);
     };
 
+    std::function<bool(Entity* entityPtr, int damages)> funct2 = [=](Entity* entityPtr, int damages) {
+        return monster2Invincibility(entityPtr, damages);
+    };
+
     eventManager.addListener<Entity*>(ENTITY_CREATED, 0, funct);
+    eventManager.addListener<Entity*>(ENTITY_TAKE_DAMAGES, 0, funct2);
 
     Player player;
 
