@@ -54,7 +54,7 @@ void Player::jump()
     eventManager.broadcast(PLAYER_JUMP, this);
 }
 
-int Player::getXp()
+int Player::getXp() const
 {
     return xp_;
 }

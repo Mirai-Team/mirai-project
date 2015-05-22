@@ -62,12 +62,12 @@ void Entity::die()
     }
 }
 
-bool Entity::isAlive()
+bool Entity::isAlive() const
 {
     return alive_;
 }
 
-int Entity::getId()
+int Entity::getId() const
 {
     return id_;
 }
