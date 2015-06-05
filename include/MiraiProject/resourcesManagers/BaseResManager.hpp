@@ -41,7 +41,7 @@ namespace mp
     /** \class BaseResManager
      * \brief A class to handle resources (images and sounds).
      */
-     
+
     class BaseResManager
     {
         public:
@@ -64,7 +64,7 @@ namespace mp
              */
             std::shared_ptr<sf::Texture> getTexture(const std::string &fileName, const bool &safeMode);
 
-            /** \brief Load texture into cache from file by the file name. 
+            /** \brief Load texture into cache from file by the file name.
              *
              * \param fileName : the file name related to the wanted file.
              *
@@ -72,17 +72,17 @@ namespace mp
              */
             bool loadTextureFromFile(const std::string &fileName);
 
-            /** \brief Load texture into cache from memory. 
+            /** \brief Load texture into cache from memory.
              *
              * \param fileName : the file name related to the wanted file.
              * \param fileData : fileData ptr.
              * \param fileSize : Size of file.
-             * 
+             *
              * \return a boolean about operation success.
              */
             bool loadTextureFromMemory(const std::string &fileName, const void *fileData, std::size_t fileSize);
 
-            /** \brief Return whether the given texture related to the given file name exists. 
+            /** \brief Return whether the given texture related to the given file name exists.
              *
              * \param fileName : the file name related to the wanted texture.
              *
@@ -103,7 +103,7 @@ namespace mp
              */
             std::shared_ptr<sf::SoundBuffer> getSoundBuffer(const std::string &fileName, const bool &safeMode);
 
-            /** \brief Load sound buffer into cache from file by the file name. 
+            /** \brief Load sound buffer into cache from file by the file name.
              *
              * \param fileName : the file name related to the wanted file.
              *
@@ -111,7 +111,7 @@ namespace mp
              */
             bool loadSoundBufferFromFile(const std::string &fileName);
 
-            /** \brief Load sound buffer into cache from memory. 
+            /** \brief Load sound buffer into cache from memory.
              *
              * \param fileName : the file name related to the wanted file.
              * \param fileData : fileData ptr.
@@ -120,7 +120,7 @@ namespace mp
              */
             bool loadSoundBufferFromMemory(const std::string &fileName, const void *fileData, std::size_t fileSize);
 
-            /** \brief Return whether the given sound buffer related to the given file name exists. 
+            /** \brief Return whether the given sound buffer related to the given file name exists.
              *
              * \param fileName : the file name related to the wanted sound buffer.
              *
@@ -141,7 +141,7 @@ namespace mp
              */
             std::shared_ptr<sf::Font> getFont(const std::string &fileName, const bool &safeMode);
 
-            /** \brief Load Font into cache from file by the file name. 
+            /** \brief Load Font into cache from file by the file name.
              *
              * \param fileName : the file name related to the wanted file.
              *
@@ -149,17 +149,17 @@ namespace mp
              */
             bool loadFontFromFile(const std::string &fileName);
 
-            /** \brief Load font into cache from memory. 
+            /** \brief Load font into cache from memory.
              *
              * \param fileName : the file name related to the wanted file.
              * \param fileData : fileData ptr.
              * \param fileSize : Size of file.
-             * 
+             *
              * \return a boolean about operation success.
              */
             bool loadFontFromMemory(const std::string &fileName, const void *fileData, std::size_t fileSize);
 
-            /** \brief Return whether the given font related to the given file name exists. 
+            /** \brief Return whether the given font related to the given file name exists.
              *
              * \param fileName : the file name related to the wanted font.
              *
@@ -170,7 +170,7 @@ namespace mp
 
             /** \brief Automatically clean unused textures, sound buffers cache and fonts cache. */
             void clean();
-            
+
         private:
             std::map<std::string, std::shared_ptr<sf::Texture>> texturesCache;
             std::map<std::string, std::shared_ptr<sf::SoundBuffer>> soundBufferCache;

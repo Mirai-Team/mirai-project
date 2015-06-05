@@ -1,4 +1,4 @@
-/* 
+/*
 * @Author: Benoît CORTIER
 * @Date:   2015-05-21 17:38:48
 * @Last Modified by:   Benoît CORTIER
@@ -20,7 +20,7 @@ Entity::Entity() : id_    { lastId_ },
 {
     mp::EventManager& eventManager = mp::EventManager::getInstance();
 
-    ++lastId_; 
+    ++lastId_;
 
     std::cout << "Entity (" << id_ << ") created" << std::endl;
 
@@ -32,7 +32,7 @@ void Entity::takeDamage(int damages)
     mp::EventManager& eventManager = mp::EventManager::getInstance();
 
     std::cout << "Entity (" << id_ << ") take " << damages << " damages." << std::endl;
-    
+
     if (eventManager.broadcast(ENTITY_TAKE_DAMAGES, this, damages))
     {
         hp_ -= damages;

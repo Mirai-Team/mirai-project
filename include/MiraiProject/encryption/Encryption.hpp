@@ -49,7 +49,7 @@ namespace mp {
     {
         public:
             /** \brief Class Constructor. Set and encrypt the key.
-             * 
+             *
              * \param key : a string who contains the key.
              */
             Encryption(std::string key);
@@ -60,7 +60,7 @@ namespace mp {
             /** \brief Encrypt the file.
              *
              * \param file : path to file.
-             * 
+             *
              * \return the whole file content encrypted.
              */
             std::string encryptFile(std::string file);
@@ -69,7 +69,7 @@ namespace mp {
              *
              * \param inputFile : file to parse.
              * \param targetFile : the target file.
-             * 
+             *
              * \return the file content decrypted.
              */
             std::string loadFile(std::string inputFile, std::string targetFile);
@@ -93,7 +93,7 @@ namespace mp {
 
             /** \brief Encrypt the given data with the given key.
              *
-             * The nth character from the data is modified by a logic XOR 
+             * The nth character from the data is modified by a logic XOR
              * with the (n MOD key_length)th character from the key.
              *
              * \param key : the key.
@@ -106,13 +106,13 @@ namespace mp {
         private:
 
             /** \brief Write the header.
-             * 
+             *
              * \return true if the operation is a success.
              */
             bool writeHeader();
 
             /** \brief Write the data.
-             * 
+             *
              * \return true if the operation is a success.
              */
             bool writeData();
@@ -121,7 +121,7 @@ namespace mp {
             std::string outputFile_;
             std::vector<long int>offset_;
             std::vector<std::string>fileNames_;
-            
+
             Logger log_;
 
     };

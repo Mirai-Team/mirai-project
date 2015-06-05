@@ -45,8 +45,8 @@ include_directories(${CMAKE_SOURCE_DIR}/include/)
 message(STATUS "SOURCES PREPARATIONS COMPLETE")
 
 # Add SFML and Boost.
-# The parameter SYSTEM is to treat headers found there as system headers, and 
-# suppress warnings originating from there by using the -isystem flag instead 
+# The parameter SYSTEM is to treat headers found there as system headers, and
+# suppress warnings originating from there by using the -isystem flag instead
 # of the -I flag while building with gcc/g++.
 include_directories(
     SYSTEM ${SFML_INCLUDE_DIR}

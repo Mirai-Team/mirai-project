@@ -13,8 +13,8 @@ link_directories(${CMAKE_BINARY_DIR}/bin/lib/${CMAKE_BUILD_TYPE})
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
 # Add SFML and Boost.
-# The parameter SYSTEM is to treat headers found there as system headers, and 
-# suppress warnings originating from there by using the -isystem flag instead 
+# The parameter SYSTEM is to treat headers found there as system headers, and
+# suppress warnings originating from there by using the -isystem flag instead
 # of the -I flag while building with gcc/g++.
 include_directories(
     SYSTEM ${SFML_INCLUDE_DIR}

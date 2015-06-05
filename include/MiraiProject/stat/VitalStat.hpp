@@ -41,7 +41,7 @@ namespace mp
      * \brief Stat with variable value.
      */
 
-    class VitalStat : public ModifiedStat 
+    class VitalStat : public ModifiedStat
     {
         public:
             /** \brief Constructor */
@@ -51,13 +51,13 @@ namespace mp
             virtual ~VitalStat();
 
             /** \brief Get current stat value.
-             * 
+             *
              * \return an int which contains the value.
              */
             int getCurValue();
 
             /** \brief Set the current stat value.
-             * 
+             *
              * \param curValue : the new value, max is adjustedBaseValue()
              */
             void setCurValue(int curValue);

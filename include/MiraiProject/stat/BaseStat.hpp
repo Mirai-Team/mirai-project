@@ -38,8 +38,8 @@ namespace mp
     /** \struct Buff
      * \brief Base Buff which define a value, a name and a boolean about whether the buff is negative.
      */
-     
-    struct Buff 
+
+    struct Buff
     {
         int value = 0;
         bool isDebuff = false;
@@ -50,7 +50,7 @@ namespace mp
      * \brief Base stat supporting Buff modifications.
      */
 
-    class BaseStat 
+    class BaseStat
     {
         public:
             /** \brief Constructor */
@@ -71,7 +71,7 @@ namespace mp
             int getBaseValue() const;
 
             /** \brief Get the stat buff value.
-             * 
+             *
              * \return an int which contains the value.
              */
             int getBuffValue() const;
@@ -79,22 +79,22 @@ namespace mp
             /////////////
             // Setters //
             /////////////
-            
+
             /** \brief Set the stat base value.
-             * 
+             *
              * \param baseValue : the value taken
              */
             void setBaseValue(int baseValue);
 
 
             /** \brief Add a Buff to the buff list.
-             * 
+             *
              * \param buff : the buff.
              */
             void addBuff(Buff buff);
 
             /** \brief Delete a buff from buff list.
-             * 
+             *
              * \param buff : the buff.
              */
             void deleteBuff(Buff buff);
@@ -102,8 +102,8 @@ namespace mp
 
             /** \brief Calculate the sum of each buff value.
              *
-             * If it's a buff, the value is added. 
-             * If it's a debuff, the value is substrate. 
+             * If it's a buff, the value is added.
+             * If it's a debuff, the value is substrate.
              */
             void calculateBuffValue();
 
@@ -111,7 +111,7 @@ namespace mp
              *
              * \return the buff value plus the base value.
              */
-            int adjustedBaseValue() const; 
+            int adjustedBaseValue() const;
 
         private:
             int baseValue_;

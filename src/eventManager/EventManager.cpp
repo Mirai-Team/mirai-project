@@ -53,7 +53,7 @@ void mp::EventManager::deleteListener(int eventID, int IDListener)
         {
             ++temp;
         }
-        
+
     }
 }
 

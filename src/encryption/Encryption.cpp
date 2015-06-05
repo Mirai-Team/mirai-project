@@ -74,7 +74,7 @@ bool mp::Encryption::createFile(string outputFile, path directory)
                 fileNames_[i][j] = unixSeparator;
         }
     }
-    
+
     if(writeHeader() && writeData())
         return true;
     else

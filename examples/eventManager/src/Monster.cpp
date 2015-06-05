@@ -37,7 +37,7 @@ Monster::Monster()
     std::function<bool(Player* playerPtr)> funct = [=](Player* playerPtr) {
         return this->onPlayerJump(playerPtr);
     };
-    
+
     eventManager.addListener<Player*>(PLAYER_JUMP, getId(), funct);
 }
 

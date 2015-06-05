@@ -67,7 +67,7 @@ namespace mp
             Node& operator=(const Node&) = delete;
 
             /** \brief Return node's absolute position.
-             * 
+             *
              * \return the absolute position.
              */
             sf::Vector2f getWorldPosition() const;
@@ -119,7 +119,7 @@ namespace mp
              */
             std::vector<childPtr> getChildren();
 
-            /** \brief Change node's name. 
+            /** \brief Change node's name.
              *
              * \param newName : the new name.
              */
@@ -140,7 +140,7 @@ namespace mp
         protected:
             /** \brief Draw the node to a render target.
              *
-             * This is a pure virtual function that has to be implemented by the derived 
+             * This is a pure virtual function that has to be implemented by the derived
              * class to define how the node should be drawn.
              *
              * \param target : the render target.

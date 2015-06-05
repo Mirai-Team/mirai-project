@@ -35,7 +35,7 @@ Player::Player() :  xp_ { 0 }
     std::function<bool(Entity* entityPtr)> funct = [=](Entity* entityPtr) {
         return this->onEntityDie(entityPtr);
     };
-    
+
     eventManager.addListener<Entity*>(ENTITY_DIE, getId(), funct);
 }
 

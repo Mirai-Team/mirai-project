@@ -63,7 +63,7 @@ namespace mp
 
             /** \brief Use this template to pick a random element from a vector.
              *
-             * \param vec : a vector 
+             * \param vec : a vector
              *
              * \return a random element from the given vector.
              */

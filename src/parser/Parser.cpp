@@ -183,7 +183,7 @@ string mp::Parser::put_time(const struct tm* tmb, const string &format)
                 formatedTime << tmb->tm_year +1900 << " ";
                 break;
             case 'h':
-                formatedTime << abbrMonth[tmb->tm_mon] << " ";  
+                formatedTime << abbrMonth[tmb->tm_mon] << " ";
                 break;
             case 'm':
                 formatedTime << setfill('0') << setw(2) << tmb->tm_mon << " ";

@@ -44,7 +44,7 @@ namespace mp
 
         /**
          * @brief Add a Listener with parameter(s).
-         * 
+         *
          * @param eventID : Name of the event.
          * @param funct : Function to execute if Broadcast method is executed.
          * @tparam T : Function's type.
@@ -55,7 +55,7 @@ namespace mp
 
         /**
          * @brief Delete a listener.
-         * 
+         *
          * @param eventID : Event ID matching the listener.
          * @param IDListener : Listener to delete.
          */
@@ -68,7 +68,7 @@ namespace mp
 
         /**
          * @brief Execute function register with AddListener
-         * 
+         *
          * @param eventID : Event to call.
          * @param args : Function's parameters.
          * @tparam T : Function's type.
@@ -76,7 +76,7 @@ namespace mp
          */
         template<typename... Args>
         bool broadcast(int eventID, Args... args);
-        
+
     private:
         EventManager();
         EventManager( const EventManager& other ) = delete;

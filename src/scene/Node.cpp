@@ -35,7 +35,6 @@ Node::Node(const std::string& name) : parent_{ nullptr },
 
                                                 frontChildren_{ },
                                                 backChildren_{ },
-                                            
                                                 name_{ name },
                                                 id_{ sLastId + 1 }
 {

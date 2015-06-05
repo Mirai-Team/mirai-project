@@ -41,7 +41,7 @@ namespace mp
     class StringUtilities
     {
         public:
-            /** \brief Remove the given letter from the given string. 
+            /** \brief Remove the given letter from the given string.
              *
              * The string is updated by reference.
              *
@@ -50,11 +50,11 @@ namespace mp
              */
             static void stripLetter(std::string &str, const char &letter);
 
-            /** \brief Get a uppercase version from a string. 
-             * 
+            /** \brief Get a uppercase version from a string.
+             *
              * \param text : the string to convert.
              *
-             * \return the given string but with each character in uppercase. 
+             * \return the given string but with each character in uppercase.
              */
             static std::string upper(std::string text);
 
@@ -68,12 +68,12 @@ namespace mp
              */
             static std::vector<std::string> split(const std::string &text, const char &separator, unsigned int limit=0);
 
-            /** \brief Replace all chosen occurrences by a given string in the given text. 
+            /** \brief Replace all chosen occurrences by a given string in the given text.
              *
              * \param text : the text where replace operation should be operated.
              * \param toReplace : occurrence to replace.
              * \param replaceWith : string which will replace the occurrences.
-             * 
+             *
              * \return the string with all occurrences replaced.
              */
             static std::string replace(std::string &text, std::string toReplace, std::string replaceWith);
@@ -85,7 +85,7 @@ namespace mp
              * \return the given object converted into string.
              */
             template<typename T> static std::string toString(const T &object);
-            
+
             /** \brief Convert string content to T type.
              *
              * \param str : the string.

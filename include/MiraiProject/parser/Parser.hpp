@@ -51,11 +51,11 @@ namespace mp
              * \param separator : Character which separe the variableName and the value.
              * \param isEncrypted : If inputFile is encrypted.
              * \param key : Key of file.
-             * 
+             *
              * \return T
-             */ 
-            template<typename T> 
-            static T fileParser(std::string inputFile, std::string variableName, 
+             */
+            template<typename T>
+            static T fileParser(std::string inputFile, std::string variableName,
                                 char separator, bool isEncrypted = false,
                                 std::string key = "");
 
@@ -66,10 +66,10 @@ namespace mp
              * \param separator : Character which separe the variableName and the value.
              * \param isEncrypted : If inputFile is encrypted.
              * \param key : Key of file.
-             * 
+             *
              * \return a vector<T>
-             */ 
-            template<typename T> 
+             */
+            template<typename T>
             static std::vector<T> vFileParser(std::string inputFile, std::string variableName,
                                               char separator, char separatorValues,
                                               bool isEncrypted = false, std::string key = "");
@@ -112,7 +112,7 @@ namespace mp
     };
 
     template<>
-    std::string Parser::fileParser<std::string>(std::string inputFile, std::string variableName, 
+    std::string Parser::fileParser<std::string>(std::string inputFile, std::string variableName,
                                                 char separator, bool isEncrypted,
                                                 std::string key);
     template<>

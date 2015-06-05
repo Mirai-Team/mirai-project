@@ -51,7 +51,7 @@ namespace mp
             /** \brief Constructor */
             AnimatedSprite();
 
-            /** \brief Constructor with texture initialization 
+            /** \brief Constructor with texture initialization
              *
              * \param texture : the texture.
              */
@@ -99,22 +99,22 @@ namespace mp
              */
             void removeAnimation(const std::string& nameAnimation);
 
-            /** \brief Get the local bounding rectangle of the entity. 
+            /** \brief Get the local bounding rectangle of the entity.
              *
-             * The returned rectangle is in local coordinates, which means that it ignores the 
-             * transformations (translation, rotation, scale, ...) that are applied to the entity. 
-             * In other words, this function returns the bounds of the entity in the entity's 
+             * The returned rectangle is in local coordinates, which means that it ignores the
+             * transformations (translation, rotation, scale, ...) that are applied to the entity.
+             * In other words, this function returns the bounds of the entity in the entity's
              * coordinate system (this description comes from SFML documentation).
              *
-             * \return local bounding rectangle of the entity 
+             * \return local bounding rectangle of the entity
              */
             sf::FloatRect getLocalBounds() const;
 
-            /** \brief Get the global bounding rectangle of the entity. 
+            /** \brief Get the global bounding rectangle of the entity.
              *
-             * The returned rectangle is in global coordinates, which means that it takes in 
-             * account the transformations (translation, rotation, scale, ...) that are applied to 
-             * the entity. In other words, this function returns the bounds of the sprite in the 
+             * The returned rectangle is in global coordinates, which means that it takes in
+             * account the transformations (translation, rotation, scale, ...) that are applied to
+             * the entity. In other words, this function returns the bounds of the sprite in the
              * global 2D world's coordinate system (this description comes from SFML documentation).
              *
              * \return global bounding rectangle of the entity.
@@ -139,7 +139,7 @@ namespace mp
 
             /** \brief Get the animation's frames number.
              *
-             * If numAnimation is superior to the number of animations, it simply 
+             * If numAnimation is superior to the number of animations, it simply
              * take in account the last animation's data.
              *
              * \param numAnimation : the number of the wanted animation.
@@ -179,7 +179,7 @@ namespace mp
             /** \brief Return the current animation number.
              *
              * \return the current animation number.
-             */ 
+             */
             int getCurrentAnimation() const;
 
             /** \brief Return whether the animation will repeat or not.
@@ -196,7 +196,7 @@ namespace mp
 
             /** \brief Return the animation's duration.
              *
-             * If numAnimation is superior to the number of animations, it simply 
+             * If numAnimation is superior to the number of animations, it simply
              * take in account the last animation's data.
              *
              * \param numAnimation : the animation number.
@@ -221,7 +221,7 @@ namespace mp
 
             /** \brief Return the animation's time per frame.
              *
-             * If numAnimation is superior to the number of animations, it simply 
+             * If numAnimation is superior to the number of animations, it simply
              * take in account the last animation's data.
              *
              * \param numAnimation : the animation number.
@@ -269,7 +269,7 @@ namespace mp
              */
             void setCurrentFrame(const unsigned int& newCurrentFrame);
 
-            /** \brief Restart the animation. 
+            /** \brief Restart the animation.
              *
              * It simply set the current frame to 0.
              */
@@ -277,7 +277,7 @@ namespace mp
 
             /** \brief Set the current animation by the animation's number.
              *
-             * If newCurrentAnimation is superior to the number of animations, it simply 
+             * If newCurrentAnimation is superior to the number of animations, it simply
              * take the last animation's number.
              *
              * \param newCurrentAnimation : the new animation's number to set.
@@ -304,7 +304,7 @@ namespace mp
 
             /** \brief Set the new duration of the animation.
              *
-             * If numAnimation is superior to the number of animations, it simply 
+             * If numAnimation is superior to the number of animations, it simply
              * take in account the last animation's data.
              *
              * \param newDuration : the new duration.
@@ -327,7 +327,7 @@ namespace mp
 
             /** \brief Set the new time per frame of the animation.
              *
-             * If numAnimation is superior to the number of animations, it simply 
+             * If numAnimation is superior to the number of animations, it simply
              * take in account the last animation's data.
              *
              * \param newDuration : the new time per frame.
@@ -357,7 +357,7 @@ namespace mp
             void setTexture(const sf::Texture& texture);
 
             /** \brief Set reverse animation boolean.
-             * 
+             *
              * \param reversed : whether the sprite should reverse frame order.
              */
              void setReversed(bool reversed);

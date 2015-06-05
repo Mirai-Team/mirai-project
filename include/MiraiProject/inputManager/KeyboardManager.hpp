@@ -37,13 +37,13 @@
 /** @file KeyboardManager.hpp
  * \brief This file define KeyboardManager class.
  */
- 
+
 namespace mp
 {
     /** \class KeyboardManager
      * \brief A class to handle keyboard inputs.
      */
-    
+
     class KeyboardManager
     {
         public:
@@ -74,16 +74,16 @@ namespace mp
             /** \brief Remove action.
              *
              * \param index : index of key in map.
-             */ 
+             */
             void removeBinding(std::string index);
 
-            /** \brief Clear all actions associated to a key. 
+            /** \brief Clear all actions associated to a key.
              *
              * \param key : the key matching bindings to remove.
              */
             void clearKey(sf::Keyboard::Key key);
 
-            /** \brief Clear all actions associated to keys. 
+            /** \brief Clear all actions associated to keys.
              *
              * \param keys : the keys matching bindings to remove.
              */

@@ -79,7 +79,7 @@ int main()
     mp::EventManager::getInstance().deleteListener(0, 1);
 
     mp::EventManager::getInstance().broadcast<sf::Time>(0, sf::seconds(2.55486f));
-    
+
     a->addition(10, 5);
 
     return 0;

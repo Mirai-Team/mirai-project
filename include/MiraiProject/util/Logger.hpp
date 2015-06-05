@@ -74,7 +74,7 @@ namespace mp
             /** \brief Operator() with string parameter.
              *
              * \param priority : the priority name.
-             * 
+             *
              * \return a Logstream using the given priority name.
              */
             Logstream operator()(std::string priority);

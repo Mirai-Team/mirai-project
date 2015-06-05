@@ -54,7 +54,7 @@ namespace mp
              * \return the texture related to the given file name.
              */
             std::shared_ptr<sf::Texture> getTexture(const std::string &fileName);
-            
+
             /** \brief Automatically load the sound buffer if necessary and return it.
              *
              * \param fileName : the file name related to the wanted sound buffer.

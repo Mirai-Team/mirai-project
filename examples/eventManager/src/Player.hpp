@@ -44,7 +44,7 @@ public:
 
 private:
     bool onEntityDie(Entity* entityPtr);
-    
+
     int xp_;
 };
 

@@ -35,7 +35,7 @@ using namespace std;
 
 namespace mp
 {
-    template<typename T> 
+    template<typename T>
     T mp::Parser::fileParser(string inputFile, string variableName,
                              char separator, bool isEncrypted,
                              string key)
@@ -79,7 +79,7 @@ namespace mp
         return value;
     }
 
-    template<typename T> 
+    template<typename T>
     vector<T> mp::Parser::vFileParser(string inputFile, string variableName,
                                       char separator, char separatorValues,
                                       bool isEncrypted, string key)
@@ -108,7 +108,7 @@ namespace mp
                     }
                 }
             }
-            
+
         }
         else if(!isEncrypted)
         {

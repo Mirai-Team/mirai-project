@@ -43,19 +43,19 @@ namespace mp
     class TransformableUtilities
     {
         public:
-            /** \brief Sets the sprite's origin to its center. 
+            /** \brief Sets the sprite's origin to its center.
              *
              * \param sprite : the sprite.
              */
             static void centerOrigin(sf::Sprite& sprite);
 
-            /** \brief Sets the animated sprite's origin to its center. 
+            /** \brief Sets the animated sprite's origin to its center.
              *
              * \param sprite : the animated sprite.
              */
             static void centerOrigin(mp::AnimatedSprite& animatedSprite);
 
-            /** \brief Sets the text's origin to its center. 
+            /** \brief Sets the text's origin to its center.
              *
              * \param text : the text.
              */

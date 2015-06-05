@@ -59,7 +59,7 @@ namespace mp
              * \param windowName : set window name.
              */
             WindowManager(const bool& fullscreen=false, const bool& verticalSync=false, const bool& cursorVisible=false,
-                          const int& optimalWinWidth=1024, const int& optimalWinHeight=768, 
+                          const int& optimalWinWidth=1024, const int& optimalWinHeight=768,
                           const int& videoModeWidth=1024, const int& videoModeHeight=768,
                           const std::string& windowName="SFML Window", const sf::Color& bordersColor=sf::Color::Black);
 
@@ -83,7 +83,7 @@ namespace mp
             /** \return whether the window is configured to be fullscreen or not. */
             const bool& isFullscreen() const;
 
-            /** \brief Configure the window be fullscreen or not. 
+            /** \brief Configure the window be fullscreen or not.
              *
              * \param fullscreen : value to set for fullscreen.
              */
@@ -92,7 +92,7 @@ namespace mp
             /** \return whether the window is configured to be vertical synchronized or not. */
             const bool& isVerticalSync() const;
 
-            /** \brief Configure the window to be vertical synchronized or not. 
+            /** \brief Configure the window to be vertical synchronized or not.
              *
              * \param verticalSync : value to set for verticalSync.
              */
@@ -101,7 +101,7 @@ namespace mp
             /** \return whether the window is configured to hide mouse cursor or not. */
             const bool& isCursorVisible() const;
 
-            /** \brief Configure the window to hide mouse cursor or not. 
+            /** \brief Configure the window to hide mouse cursor or not.
              *
              * \param cursorVisible : value to set for cursor visibility.
              */
@@ -111,7 +111,7 @@ namespace mp
             /** \return the window optimal width. */
             const int& getOptimalWinWidth() const;
 
-            /** \brief Configure the window optimal width. 
+            /** \brief Configure the window optimal width.
              *
              * \param optimalWinWidth : value to set for optimal window width.
              */
@@ -120,7 +120,7 @@ namespace mp
             /** \return the window optimal height. */
             const int& getOptimalWinHeight() const;
 
-            /** \brief Configure the window optimal height. 
+            /** \brief Configure the window optimal height.
              *
              * \param optimalWinHeight : value to set for optimal window height.
              */
@@ -130,7 +130,7 @@ namespace mp
             /** \return the window videomode width. */
             const int& getVideomodeWidth() const;
 
-            /** \brief Configure the window videomode width. 
+            /** \brief Configure the window videomode width.
              *
              * \param videoModeWidth : value to set for video mode width.
              */
@@ -139,7 +139,7 @@ namespace mp
             /** \return the main window videomode height. */
             const int& getVideomodeHeight() const;
 
-            /** \brief Configure the main window videomode height. 
+            /** \brief Configure the main window videomode height.
              *
              * \param videoModeHeight : value to set for video mode height.
              */
@@ -149,20 +149,20 @@ namespace mp
             /** \return the main window name. */
             const std::string& getWindowName() const;
 
-            /** \brief Configure the main window name. 
+            /** \brief Configure the main window name.
              *
              * \param windowName : the new window's name.
              */
             void setWindowName(const std::string& windowName);
-			
-			
+
+
             /** \brief Set the new borders colour.
              *
              * \param newColor : the new colour for borders.
              */
             void setBordersColor(sf::Color newColor);
-            
-            /** \brief Draw borders on the window. 
+
+            /** \brief Draw borders on the window.
              *
              * This method should be called only if the handled window's view
              * is set to this window manager's default view.
@@ -184,7 +184,7 @@ namespace mp
             int videoModeHeight_;
 
             std::string windowName_;
-            
+
             std::vector<sf::RectangleShape> borders_;
     };
 }
