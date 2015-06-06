@@ -72,7 +72,7 @@ namespace mp
             const sf::Color& getColor() const;
 
             unsigned int getCharacterSize() const;
-            
+
         private:
             virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 

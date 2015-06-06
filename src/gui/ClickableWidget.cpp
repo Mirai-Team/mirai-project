@@ -78,7 +78,7 @@ bool mp::ClickableWidget::onNonTransparent(bool safeMode)
         {
             if(x > getTexture()->getSize().x)
                 x = 0;
-            
+
             if(y > getTexture()->getSize().y)
                 y = 0;
         }

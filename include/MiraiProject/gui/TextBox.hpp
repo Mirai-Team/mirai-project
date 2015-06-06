@@ -126,7 +126,7 @@ namespace mp
             std::shared_ptr<sf::Texture> textureFocus_;
 
             mp::Label label_;
-            
+
             size_t nFirstVisible_; // First visible character index.
             size_t cursorPos_;
             size_t maxSize_;

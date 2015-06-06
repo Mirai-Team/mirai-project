@@ -31,7 +31,7 @@
 
 #include "MiraiProject/gui/Widget.hpp"
 
-namespace mp 
+namespace mp
 {
     class ClickableWidget : public Widget
     {
@@ -59,7 +59,7 @@ namespace mp
             virtual bool isPressed();
 
             virtual bool isReleased();
-            
+
         private:
             bool isPressed_;
 
