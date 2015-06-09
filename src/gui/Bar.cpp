@@ -37,33 +37,15 @@ void mp::Bar::setTexture(const std::shared_ptr<sf::Texture>& texture)
 {
     texture->setRepeated(true);
     fillsprite_.setTexture(*texture);
-    if (orientation_ == Bar::Orientation::HORIZONTAL)
-    {
-        fillPart_ = static_cast<int>(value_ * static_cast<float>(getSize().x));
 
-        fillsprite_.setTextureRect(sf::IntRect(0,0, fillPart_, getSize().y));
-    }
-    else
-    {
-        fillPart_ = static_cast<int>(value_ * static_cast<float>(getSize().y));
-        fillsprite_.setTextureRect(sf::IntRect(0,0, getSize().x, fillPart_));
-    }
+    update();
 }
 
 
 void mp::Bar::setOrientation(Bar::Orientation orientation)
 {
     orientation_ = orientation;
-    if (orientation_ == Bar::Orientation::HORIZONTAL)
-    {
-        fillPart_ = static_cast<int>(value_ * static_cast<float>(getSize().x));
-        fillsprite_.setTextureRect(sf::IntRect(0,0, fillPart_, getSize().y));
-    }
-    else
-    {
-        fillPart_ = static_cast<int>(value_ * static_cast<float>(getSize().y));
-        fillsprite_.setTextureRect(sf::IntRect(0,0, getSize().x, fillPart_));
-    }
+    update();
 }
 
 void mp::Bar::setValue(float value)
@@ -75,16 +57,13 @@ void mp::Bar::setValue(float value)
     else if (value < 0.f)
         value_ = 0.f;
 
-    if (orientation_ == Bar::Orientation::HORIZONTAL)
-    {
-        fillPart_ = static_cast<int>(value_ * static_cast<float>(getSize().x));
-        fillsprite_.setTextureRect(sf::IntRect(0,0, fillPart_, getSize().y));
-    }
-    else
-    {
-        fillPart_ = static_cast<int>(value_ * static_cast<float>(getSize().y));
-        fillsprite_.setTextureRect(sf::IntRect(0,0, getSize().x, fillPart_));
-    }
+    update();
+}
+
+void mp::Bar::setSize(sf::Vector2u size)
+{
+    Widget::setSize(size);
+    update();
 }
 
 float mp::Bar::getValue() const
@@ -97,6 +76,19 @@ mp::Bar::Orientation mp::Bar::getOrientation() const
     return orientation_;
 }
 
+void mp::Bar::update()
+{
+    if (orientation_ == Bar::Orientation::HORIZONTAL)
+    {
+        fillPart_ = static_cast<int>(value_ * static_cast<float>(getSize().x));
+        fillsprite_.setTextureRect(sf::IntRect(0,0, fillPart_, getSize().y));
+    }
+    else
+    {
+        fillPart_ = static_cast<int>(value_ * static_cast<float>(getSize().y));
+        fillsprite_.setTextureRect(sf::IntRect(0,0, getSize().x, fillPart_));
+    }
+}
 void mp::Bar::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.draw(fillsprite_, states);

@@ -50,11 +50,15 @@ namespace mp
 
         void                setValue(float value);
 
+        void                setSize(sf::Vector2u size);
+
         float               getValue() const;
 
         Bar::Orientation    getOrientation() const;
 
     private:
+        void                update();
+
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
         float               value_;
