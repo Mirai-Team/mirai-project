@@ -22,49 +22,48 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef BORDER_HPP_INCLUDED
-#define BORDER_HPP_INCLUDED
+#ifndef BAR_HPP
+#define BAR_HPP
 
-#include <cmath>
-
-#include <SFML/Graphics/VertexArray.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
 #include "MiraiProject/gui/Widget.hpp"
 
 namespace mp
 {
-    class Border : public Widget
+    class Bar : public Widget
     {
-        public:
-            enum Edge
-            {
-                Left = 0,
-                Bottom,
-                Right,
-                Top,
-            };
+    public:
 
-            Border();
+        enum Orientation
+        {
+            HORIZONTAL,
+            VERTICAL
+        };
 
-            void createRectangle(float width, float height, sf::Color color = sf::Color::White);
+        Bar();
 
-            void createBlank(Edge corner, float width, float offset);
+        void                setTexture(const std::shared_ptr<sf::Texture>& texture);
 
-            void setColor(sf::Color color);
-        private:
-            virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+        void                setOrientation(Bar::Orientation orientation);
 
-            sf::VertexArray vertices_;
-            sf::Vector2f size_;
-            sf::Color color_;
+        void                setValue(float value);
 
-            float radius_;
+        float               getValue() const;
 
-            unsigned int pointCount_;
+        Bar::Orientation    getOrientation() const;
 
-            short int type_;
+    private:
+        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+
+        float               value_;
+        int                 fillPart_;
+
+        Orientation         orientation_;
+
+        sf::Sprite          fillsprite_;
     };
 }
 
-#endif
+#endif // BAR_HPP
