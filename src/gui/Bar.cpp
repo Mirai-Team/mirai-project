@@ -23,10 +23,12 @@
 ////////////////////////////////////////////////////////////
 
 #include "MiraiProject/gui/Bar.hpp"
-#include <iostream>
+#include <cmath>
+#include <limits>
 
 mp::Bar::Bar()
-    : value_ { 1.f }
+    : ratio_ { 1.f }
+    , value_ { }
     , fillPart_ {}
     , orientation_ { Bar::Orientation::HORIZONTAL }
     , fillsprite_ {}
@@ -48,14 +50,49 @@ void mp::Bar::setOrientation(Bar::Orientation orientation)
     update();
 }
 
+void mp::Bar::setRatio(float ratio)
+{
+    ratio_ = ratio;
+
+    if (ratio > 1.f)
+        ratio_ = 1;
+    else if (ratio <= 0.f)
+        ratio_ = 0.f;
+
+    update();
+}
+
 void mp::Bar::setValue(float value)
 {
     value_ = value;
 
-    if (value > 1.f)
-        value_ = 1;
-    else if (value < 0.f)
-        value_ = 0.f;
+    if (fabs(value_ - min_) < std::numeric_limits<float>::epsilon())
+        ratio_ = 0;
+    else
+        ratio_ = value_ / (max_ - min_);
+
+    update();
+}
+
+void mp::Bar::setMin(float value)
+{
+    min_ = value;
+
+    if (fabs(value_ - min_) < std::numeric_limits<float>::epsilon())
+        ratio_ = 0;
+    else
+        ratio_ = value_ / (max_ - min_);
+
+    update();
+}
+void mp::Bar::setMax(float value)
+{
+    max_ = value;
+
+    if (fabs(value_ - min_) < std::numeric_limits<float>::epsilon())
+        ratio_ = 0;
+    else
+        ratio_ = value_ / (max_ - min_);
 
     update();
 }
@@ -66,9 +103,19 @@ void mp::Bar::setSize(sf::Vector2u size)
     update();
 }
 
-float mp::Bar::getValue() const
+float mp::Bar::getRatio() const
 {
-    return value_;
+    return ratio_;
+}
+
+float mp::Bar::getMin() const
+{
+    return min_;
+}
+
+float mp::Bar::getMax() const
+{
+    return max_;
 }
 
 mp::Bar::Orientation mp::Bar::getOrientation() const
@@ -80,12 +127,12 @@ void mp::Bar::update()
 {
     if (orientation_ == Bar::Orientation::HORIZONTAL)
     {
-        fillPart_ = static_cast<int>(value_ * static_cast<float>(getSize().x));
+        fillPart_ = static_cast<int>(ratio_ * static_cast<float>(getSize().x));
         fillsprite_.setTextureRect(sf::IntRect(0,0, fillPart_, getSize().y));
     }
     else
     {
-        fillPart_ = static_cast<int>(value_ * static_cast<float>(getSize().y));
+        fillPart_ = static_cast<int>(ratio_ * static_cast<float>(getSize().y));
         fillsprite_.setTextureRect(sf::IntRect(0,0, getSize().x, fillPart_));
     }
 }

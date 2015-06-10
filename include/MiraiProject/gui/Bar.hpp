@@ -48,9 +48,21 @@ namespace mp
 
         void                setOrientation(Bar::Orientation orientation);
 
+        void                setRatio(float ratio);
+
+        void                setMin(float value);
+
+        void                setMax(float value);
+
         void                setValue(float value);
 
         void                setSize(sf::Vector2u size);
+
+        float               getRatio() const;
+
+        float               getMin() const;
+
+        float               getMax() const;
 
         float               getValue() const;
 
@@ -61,7 +73,12 @@ namespace mp
 
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
+        float               ratio_;
+
         float               value_;
+        float               min_;
+        float               max_;
+
         int                 fillPart_;
 
         Orientation         orientation_;
