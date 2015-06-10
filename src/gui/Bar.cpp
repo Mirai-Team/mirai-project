@@ -26,6 +26,15 @@
 #include <cmath>
 #include <limits>
 
+namespace
+{
+    bool floatEqual(const double a, const double b)
+    {
+        return fabs (a - b) <= ((fabs (a) > fabs (b) ? fabs (b) : fabs (a)) *
+            std::numeric_limits<double>::epsilon ());
+    }
+}
+
 mp::Bar::Bar()
     : ratio_ { 1.f }
     , value_ { }
@@ -66,7 +75,7 @@ void mp::Bar::setValue(float value)
 {
     value_ = value;
 
-    if (fabs(value_ - min_) < std::numeric_limits<float>::epsilon())
+    if (floatEqual(min_, value_))
         ratio_ = 0;
     else
         ratio_ = value_ / (max_ - min_);
@@ -78,7 +87,7 @@ void mp::Bar::setMin(float value)
 {
     min_ = value;
 
-    if (fabs(value_ - min_) < std::numeric_limits<float>::epsilon())
+    if (floatEqual(min_, value_))
         ratio_ = 0;
     else
         ratio_ = value_ / (max_ - min_);
@@ -89,7 +98,7 @@ void mp::Bar::setMax(float value)
 {
     max_ = value;
 
-    if (fabs(value_ - min_) < std::numeric_limits<float>::epsilon())
+    if (floatEqual(min_, value_))
         ratio_ = 0;
     else
         ratio_ = value_ / (max_ - min_);
