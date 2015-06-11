@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+#include <MiraiProject/gui/Bar.hpp>
 #include <MiraiProject/gui/Border.hpp>
 #include <MiraiProject/gui/Button.hpp>
 #include <MiraiProject/gui/CheckBox.hpp>
@@ -28,6 +29,14 @@ int main()
     mainWindowManager.setVideomodeHeight(600);
     mainWindowManager.setCursorVisible(true);
     mainWindowManager.create();
+
+    mp::Bar bar;
+    bar.setPosition(0, 400);
+    bar.setTexture(resourcesManager.getTexture("resources/progressBar.png"));
+    bar.setSize(sf::Vector2u(200, 20));
+    bar.setMin(20.f);
+    bar.setMax(200.f);
+    bar.setValue(90.f);
 
     mp::Label* label = new mp::Label();
     label->setText(L"Mirai Project Logo");
@@ -72,7 +81,10 @@ int main()
     button.setDownTexture(resourcesManager.getTexture("resources/logoD.png"));
     button.setHoverTexture(resourcesManager.getTexture("resources/logoH.png"));
     button.setPosition(45.f, 45.f);
-    button.setFunction([&textBox]() { textBox.setText("Mirai Project"); });
+    button.setFunction([&textBox, &bar]() {
+        textBox.setText("Mirai Project");
+        bar.setValue(180.f);
+    });
     button.addFrontChild(labelNode);
     button.addFrontChild(borderNode);
 
@@ -115,6 +127,7 @@ int main()
 
         window.clear(sf::Color(132, 150, 150));
 
+        window.draw(bar);
         window.draw(button);
         window.draw(checkbox);
         window.draw(textBox);

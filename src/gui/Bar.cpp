@@ -127,6 +127,11 @@ float mp::Bar::getMax() const
     return max_;
 }
 
+float mp::Bar::getValue() const
+{
+    return value_;
+}
+
 mp::Bar::Orientation mp::Bar::getOrientation() const
 {
     return orientation_;
