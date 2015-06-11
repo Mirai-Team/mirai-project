@@ -53,8 +53,7 @@ return result; // not return (result).
 **You can use auto to avoid complicated type names and for _local variables only_. Continue using manifest type when it improve readability !**
 See [that](https://google-styleguide.googlecode.com/svn/trunk/cppguide.html#auto) before abusing of it.
 
-**Prefer use of range-based for if possible.**
-
+**Prefer use of [range-based for loop](http://en.cppreference.com/w/cpp/language/range-for) if possible instead container iterators**
 ## Files extensions
 
 + C++ source files have the extension _.cpp_.
