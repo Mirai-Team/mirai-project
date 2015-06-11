@@ -328,6 +328,7 @@ bool mp::AnimatedSprite::getReversed() const
 {
     return reversed_;
 }
+
 /////////////
 // Setters //
 /////////////

@@ -1,33 +1,240 @@
-## Norms to fulfil.
-----------------
+NORMS
+=====
 
-________
-### Naming :
++ [Code Style](#code-style)
+    + [General](#general)
+    + [Files extension](#files-extensions)
+    + [Header files](#header-files)
+    + [Includes](#includes)
+    + [Naming](#naming)
+    + [Variable and Array Initialization](#variable-and-array-initialization)
+    + [Conditionals](#conditionals)
+    + [Spaces](#spaces)
+    + [Type conversion](#type-conversion)
+    + [Namespaces](#namespaces)
++ [Git Workflow](#git-workflow)
 
-- File containing only functions : all lower cases with underscore between words. Ex : my_function.hpp
-- File containing a class : mixed case starting with upper case. Ex : MyClass.hpp
+# Code style
 
-- Variables names must be mixed case starting with lower case. Ex : myVar
+Most of our code style comes from SFML and Google styleguide. Some excellent extracts are taken from them since that's exactly what we do.
+Follow what is necessary in this project, and if it's not in our norms, you may ask us, use common sense to keep a readable code or check the following pages if you need to :
+http://www.sfml-dev.org/style.php
+https://google-styleguide.googlecode.com/svn/trunk/cppguide.html
 
-- Classes names must be mixed case starting with upper case. Ex : MyClass
-- Classes' private attributes should have underscore suffix. Ex : myPrivateAttribute_
+You have to know what you are doing, and resources above explain a lot of intersting stuff in a concise way.
 
-- Methods or functions names must be verbs and written in mixed case starting with lower case. Ex : getBuffValue()
+## General
 
-- Namespaces names should be all lowercase. Ex: mynamespace
+**C++ source code must be C++11-compliant.** Use [ISO/IEC 14882:2011 c++ norm](http://en.wikipedia.org/wiki/C%2B%2B11).
 
-________
-### Documentation:
+**No C in C++. _Only C++_.**
 
-- Use doxygen comment style in order to describe files, functions, classes, methods.
+**Do not use `#define` to create constants.**
+Prefer enum or an anonymous namespace.
 
-________
-### Other :
+**All parameters passed by reference must be labeled const.** Use pointers to modify variable from a function / method.
 
-- Do not use #define
-- No C in C++. Only C++.
-- Use ISO/IEC 14882:2011 c++ norm (http://en.wikipedia.org/wiki/C%2B%2B11)
-- If possible, one line per comment commit (not too much features in one time).
-- Last update at the top of CHANGELOG file.
-- No "using namespace" in header files.
-- No implicit Else.
+**Use smart pointer** (`std::unique_ptr`, `std::shared_ptr`, `std::weak_ptr`, …).
+
+**Prefer pre-increment to post-increment.**
+```C++
+++i; // rather than i++ !
+```
+
+**Surround the return expression with parentheses only if necessary.**
+```C++
+return result; // not return (result).
+```
+
+**Avoid adding trailing whitespace in the code.** They aren't useful for code understanding and might cause useless conflicts while merging. Remove it in a separate clean-up operation if it's too late (if possible when no one else is working on the related files). To avoid that problem, you may use [.editorconfig](.editorconfig) file along with the [EditorConfig plugin](http://editorconfig.org/).
+
+**Tabs aren't used in MiraiProject code. Use a 4 space indentation.**
+
+**You can use auto to avoid complicated type names and for _local variables only_. Continue using manifest type when it improve readability !**
+See [that](https://google-styleguide.googlecode.com/svn/trunk/cppguide.html#auto) before abusing of it.
+
+**Prefer use of range-based for if possible.**
+
+## Files extensions
+
++ C++ source files have the extension _.cpp_.
++ C++ header files have the extension _.hpp_.
++ Templates files have the extension _.tpp_.
+
+## Header files
+
+Like SFML, header files are structured as follow:
++ Licence block
++ Opening include guard.
++ Other headers includes.
++ Opening namespace `mp`.
++ Class definitions or/and global function declarations.
++ Closing namespace `mp`.
++ Closing include guard.
++ Extended comment on the class.
+
+```C++
+////////////////////////////////////////////////////////////
+//
+// License...
+//
+////////////////////////////////////////////////////////////
+
+#ifndef MP_FILENAME_HPP
+#define MP_FILENAME_HPP
+
+#include <...>
+
+namespace mp
+{
+class ForwardDeclaration;
+
+namespace priv
+{
+////////////////////////////////////////////////////////////
+/// \brief Short description...
+///
+////////////////////////////////////////////////////////////
+class PrivateClass
+{
+};
+
+} // namespace priv
+
+////////////////////////////////////////////////////////////
+/// \brief Short description...
+///
+////////////////////////////////////////////////////////////
+class PublicClass
+{
+};
+
+////////////////////////////////////////////////////////////
+/// \brief Short description...
+///
+////////////////////////////////////////////////////////////
+void doSomething();
+
+} // namespace mp
+
+#endif // MP_FILENAME_HPP
+
+////////////////////////////////////////////////////////////
+//
+// Extensive Doxygen documentation...
+//
+////////////////////////////////////////////////////////////
+```
+
+**Don't forget the doxygen documentation !**
+
+## Includes
+
+The inclusion order is as follows:
++ Standard library headers, sorted alphabetically.
++ Dependency headers, sorted alphabetically (like SFML, boost, …).
++ MiraiProject headers, sorted alphabetically.
+
+## Naming
+
+**Files : mixed case starting with upper case.** Ex : `MyClass.hpp`
+
+**Variables names must be mixed case starting with lower case.** Ex : `myVar`
+
+**Classes names must be mixed case starting with upper case.** Ex : `MyClass`
+
+**Classes' member variables have "m_" prefix.** Ex : `m_myMemberVar`
+
+**Methods or functions names must be verbs and written in mixed case starting with lower case.** Ex : `getBuffValue`
+
+**Namespaces names should be all lower case.** Ex : `mynamespace`
+
+## Variable and Array Initialization
+
+Prefer use a braced initialization list since you can avoid some programming errors.
+```C++
+int x{3};
+int x{ 3 };
+```
+
+However, sometimes you may use parentheses... Referring to the Google styleguide :
+> Be careful when using a braced initialization list {...} on a type with an std::initializer_list constructor.
+> A nonempty braced-init-list prefers the std::initializer_list constructor whenever possible.
+> Note that empty braces {} are special, and will call a default constructor if available.
+> To force the non-std::initializer_list constructor, use parentheses instead of braces.
+```C++
+vector<int> v(100, 1);  // A vector of 100 1s.
+vector<int> v{100, 1};  // A vector of 100, 1.
+```
+> Also, the brace form prevents narrowing of integral types.
+> This can prevent some types of programming errors.
+```C++
+int pi(3.14);  // OK -- pi == 3.
+int pi{3.14};  // Compile error: narrowing conversion.
+```
+[Source](https://google-styleguide.googlecode.com/svn/trunk/cppguide.html#Variable_and_Array_Initialization)
+
+## Conditionals
+
+**Curly braces are not required for single-line statements** (you can still use them if you want).
+```C++
+if (condition)
+    Instruction();
+
+// or 
+
+if (condition)
+{
+    Instruction();
+}
+```
+**However, do not do that if the statement use the else clause.** Use curly braces.
+```C++
+if (condition)
+{
+    Instruction();
+}
+else
+{
+    Instruction();
+}
+```
+
+## Spaces
+
++ A space precedes an opening parenthesis.
++ A space follows a closing parenthesis.
++ The two first rules are not used for functions calls or final closing parenthesis in conditions.
++ A space follow a comma. `myFunction(arg1, arg2, ...)`
++ No space between a type and its reference `&` or pointer `*` specifier.
++ A space follows the `operator` keyword (`+`, `-`, etc).
++ No trailing spaces.
++ A space before and after a colon. `for (auto i : myVector)`
++ Usually no space inside parentheses. `if (condition) ...`
+
+## Type conversion
+
+**Use modern cast.** No C-style casts (int)value or function-style casts int(value) are used. **Use `static_cast`, `const_cast`, `reinterpret_cast` and `dynamic_cast`**.
+
+Type conversions between signed integers, unsigned integers and floating point types (as well as between different types of the same category) are performed explicitly using `static_cast`.
+
+## Namespaces
+
+The contents of namespaces are not indented.
+
+The public API is contained in `mp` namespace.
+You can use `mp::priv` for private classes or functions.
+
+**No `using` directive. Use the full name.**
+
+# Git workflow
+
+**If possible, one line per comment commit (not too much features in one time)**
+
+MiraiProject git workflow is based on [SFML Git Workflow](http://www.sfml-dev.org/workflow.php).
++ Create a branch `feature/feature_name`, `bugfix/name` or `enhancement/name` for every new features, bugfix or enhancement.
++ Create a pull request to merge into master or another branch if necessary.
++ Pull requests are reviewed and tested before being merged.
++ Merged branch can be deleted.
++ Releases receive a tag based on the version number.
+
