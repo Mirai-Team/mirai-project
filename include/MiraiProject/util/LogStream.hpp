@@ -41,7 +41,7 @@ namespace mp
 {
     // Forward declaration.
     class Logger;
-    
+
     /** \class Logstream
      * \brief A class to manage input stream of Logger class.
      */

@@ -35,16 +35,16 @@
  * In general for stats which don't need to be variables.
  */
 
-namespace mp 
+namespace mp
 {
     /** \struct ModifyingStat
      * \brief Like Buff, but using ratio.
      */
 
-    struct ModifyingStat 
+    struct ModifyingStat
     {
         /** \brief ratio : the stat on which depends the modified stat. */
-        BaseStat stat; 
+        BaseStat stat;
 
         /** \brief ratio : an augmentation or a diminution, between -1 and 1 */
         float ratio;
@@ -54,7 +54,7 @@ namespace mp
      * \brief Stat supporting ratio modification.
      */
 
-    class ModifiedStat : public BaseStat 
+    class ModifiedStat : public BaseStat
     {
         public:
             /** \brief Constructor */
@@ -64,7 +64,7 @@ namespace mp
             virtual ~ModifiedStat();
 
             /** \brief Add a Modifier to the buff list.
-             * 
+             *
              * \param buff : the buff.
              */
             void addModifier(ModifyingStat modifyingStat);
@@ -73,7 +73,7 @@ namespace mp
             void calculateModValue();
 
             /** \brief Calculate max stat.
-             * 
+             *
              * \return buff value + base value + mod value.
              */
             int adjustedBaseValue() const;

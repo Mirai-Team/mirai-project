@@ -22,45 +22,30 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef UPDATABLE_HPP_INCLUDED
-#define UPDATABLE_HPP_INCLUDED
+#ifndef PLAYER_HPP_INCLUDED
+#define PLAYER_HPP_INCLUDED
 
-#include <iostream>
-#include <memory>
-#include <string>
+#include <MiraiProject/eventManager/EventManager.hpp>
 
-#include <SFML/System/Time.hpp>
+#include "Entity.hpp"
 
-/** @file Updatable.hpp
- *  \brief This file define Updatable class.
- */
-
-namespace mp
+class Player : public Entity
 {
-    /** \class Updatable
-     * \brief Virtual class to create entities to update with an UpdateModule.
-     */
-    class Updatable
-    {
-        // In order to prevent the user to call UpdateModule::AddUpdater.
-        friend class UpdateModule;
+public:
+    Player();
 
-        public:
-            /** \brief Function called by UpdateModule
-             * 
-             * This is a pure virtual function that has to be implemented by derived class to update their content.
-             * 
-             * \param deltaTime : time elapsed since last update.
-             */
-            virtual void update(sf::Time deltaTime) = 0;
+    ~Player();
 
-        protected:  
-            /** \brief Constructor */
-            Updatable(std::string key = "default");
+    void jump();
 
-            /** \brief Destructor */
-            virtual ~Updatable();
-    };
-}
+    void giveXp(int exp);
 
-#endif // UPDATABLE_HPP_INCLUDED
+    int getXp() const;
+
+private:
+    bool onEntityDie(Entity* entityPtr);
+
+    int xp_;
+};
+
+#endif // PLAYER_HPP_INCLUDED

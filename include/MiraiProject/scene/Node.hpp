@@ -30,7 +30,6 @@
 
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/Drawable.hpp>
-#include <SFML/System/NonCopyable.hpp>
 
 /** \file Node.hpp
  * \brief This file contains Node class definition.
@@ -50,7 +49,7 @@ namespace mp
      * automatically performed).
      */
 
-    class Node : public sf::Transformable, public sf::Drawable, private sf::NonCopyable
+    class Node : public sf::Transformable, public sf::Drawable
     {
         public:
             typedef std::shared_ptr<Node> childPtr;
@@ -61,8 +60,14 @@ namespace mp
             /** \brief Class destructor **/
             virtual ~Node();
 
+            /** \brief Make class non-copyable **/
+            Node(const Node&) = delete;
+
+            /** \brief Make class non-copyable **/
+            Node& operator=(const Node&) = delete;
+
             /** \brief Return node's absolute position.
-             * 
+             *
              * \return the absolute position.
              */
             sf::Vector2f getWorldPosition() const;
@@ -114,7 +119,7 @@ namespace mp
              */
             std::vector<childPtr> getChildren() const;
 
-            /** \brief Change node's name. 
+            /** \brief Change node's name.
              *
              * \param newName : the new name.
              */
@@ -156,7 +161,7 @@ namespace mp
         protected:
             /** \brief Draw the node to a render target.
              *
-             * This is a pure virtual function that has to be implemented by the derived 
+             * This is a pure virtual function that has to be implemented by the derived
              * class to define how the node should be drawn.
              *
              * \param target : the render target.

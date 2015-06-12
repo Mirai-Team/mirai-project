@@ -32,12 +32,9 @@ using namespace mp;
 unsigned int Node::sLastId { 0 };
 
 Node::Node(const std::string& name) : parent_{ nullptr },
-
                                       frontChildren_{ },
                                       backChildren_{ },
-                                      
                                       isVisible_{ true },
-
                                       name_{ name },
                                       id_{ sLastId + 1 }
 {

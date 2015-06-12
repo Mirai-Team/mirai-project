@@ -125,8 +125,8 @@ void mp::Animation::update()
 {
     if (numEndingFrame_ < numStartingFrame_)
         numEndingFrame_ = numStartingFrame_;
-    
+
     numFrames_ = numEndingFrame_ - numStartingFrame_ + 1;
-    
+
     duration_ = timePerFrame_ * static_cast<float>(numFrames_);
 }

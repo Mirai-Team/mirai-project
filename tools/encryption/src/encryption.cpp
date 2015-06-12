@@ -182,7 +182,7 @@ void decryptFiles(std::string key, std::string inputFile)
         //read filename
         std::string filename(fileNameLen, ' ');
         input.read(&filename[0], fileNameLen);
-        
+
         //increment the offset with filenamelen.
         offset+=fileNameLen+4+4+4;
 
@@ -198,7 +198,7 @@ void decryptFiles(std::string key, std::string inputFile)
 
         //decrypt file
         file = encryptData(key_, file);
-        
+
         //extract and create directory
         vector<string> temp;
         temp = split(filename);
@@ -233,7 +233,7 @@ void encryptFiles(string key, path directory, string outputFile)
 
 
     fileNames = listFiles(directory, true);
-    
+
     //In order to keep cross-plateform, we replace windowsSeparator by unixSeparator
     char windowsSeparator = '\\' ;
     char unixSeparator = '/' ;

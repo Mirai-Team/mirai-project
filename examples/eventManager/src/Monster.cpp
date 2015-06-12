@@ -22,15 +22,39 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include "MiraiProject/updateSystem/Updatable.hpp"
-#include "MiraiProject/updateSystem/UpdateModule.hpp"
+#include <iostream>
+#include <functional>
+#include <MiraiProject/eventManager/EventManager.hpp>
 
-mp::Updatable::Updatable(std::string key)
+#include "Monster.hpp"
+#include "Player.hpp"
+#include "EventsTypes.hpp"
+
+Monster::Monster()
 {
-    mp::UpdateModule::addUpdater(this, key);
+    mp::EventManager& eventManager = mp::EventManager::getInstance();
+
+    std::function<bool(Player* playerPtr)> funct = [=](Player* playerPtr) {
+        return this->onPlayerJump(playerPtr);
+    };
+
+    eventManager.addListener<Player*>(PLAYER_JUMP, getId(), funct);
 }
 
-mp::Updatable::~Updatable()
+Monster::~Monster()
 {
-    mp::UpdateModule::removeUpdater(this);
+    mp::EventManager& eventManager = mp::EventManager::getInstance();
+    eventManager.deleteListener(PLAYER_JUMP, getId());
+}
+
+bool Monster::onPlayerJump(Player* playerPtr)
+{
+    if (isAlive())
+    {
+        std::cout << "Monster (" << getId()
+                  << ") look at the player jumping. It see that he have "
+                  << playerPtr->getXp() << " XP !" << std::endl;
+    }
+
+    return true;
 }

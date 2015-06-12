@@ -53,7 +53,7 @@ mp::AnimatedSprite::AnimatedSprite() :
 
 }
 
-mp::AnimatedSprite::AnimatedSprite(const sf::Texture& texture) : 
+mp::AnimatedSprite::AnimatedSprite(const sf::Texture& texture) :
     sprite_{ texture },
 
     frameSize_{ 64, 64 },
@@ -85,7 +85,7 @@ void mp::AnimatedSprite::update(sf::Time dt)
 
     elapsedTime_ += dt;
 
-    while (elapsedTime_ >= currentAnimation.timePerFrame_ and 
+    while (elapsedTime_ >= currentAnimation.timePerFrame_ and
           (repeat_ or ((!reversed_ and (currentFrame_ + 1 < currentAnimation.numFrames_)) or (reversed_ and (currentFrame_ > 0 )))))
     {
         elapsedTime_ -= currentAnimation.timePerFrame_;
@@ -121,7 +121,7 @@ void mp::AnimatedSprite::update(sf::Time dt)
 
     if (currentFrame_ == 0)
         textureRect = sf::IntRect(textureRect.left, textureRect.top, frameSize_.x, frameSize_.y);
-    
+
     sprite_.setTextureRect(textureRect);
 }
 

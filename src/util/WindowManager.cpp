@@ -51,12 +51,12 @@ WindowManager::WindowManager(const bool& fullscreen, const bool& verticalSync, c
             videoModeHeight_{ videoModeHeight },
 
             windowName_{ windowName },
-            
+
             borders_{ }
 {
     sf::RectangleShape border{ };
     border.setFillColor(bordersColor);
-    
+
     // Put two borders with wanted colour.
     for (unsigned int i = 0 ; i < 2 ; i++)
         borders_.push_back(border);
@@ -94,7 +94,7 @@ void WindowManager::create()
 }
 
 void WindowManager::setup()
-{   
+{
     // _________ Set up default view _____________
     sf::Vector2u window_size{ window_.getSize() };
 
@@ -125,15 +125,15 @@ void WindowManager::setup()
 
     sf::FloatRect rect{ left, top, width, height };
     defaultView_.reset(rect);
-    
+
     // _________ Set up borders dimensions _____________
     sf::Vector2f bordersSize{ };
-    
+
     if (idiff_width > idiff_height)
     {
         bordersSize.x = (width - static_cast<float>(optimalWinWidth_)) / 2;
         bordersSize.y = height;
-        
+
         borders_[0].setPosition(-bordersSize.x, 0);
         borders_[1].setPosition(static_cast<float>(optimalWinWidth_), 0);
     }
@@ -141,11 +141,11 @@ void WindowManager::setup()
     {
         bordersSize.x = width;
         bordersSize.y = (height - static_cast<float>(optimalWinHeight_)) / 2;
-        
+
         borders_[0].setPosition(0, -bordersSize.y);
         borders_[1].setPosition(0, static_cast<float>(optimalWinHeight_));
     }
-    
+
     for (unsigned int i = 0 ; i < borders_.size() ; i++)
         borders_[i].setSize(bordersSize);
 }
@@ -255,7 +255,7 @@ void WindowManager::drawBorders()
 {
     // Set the default view to draw borders.
     window_.setView(defaultView_);
-    
+
     for (unsigned int i = 0 ; i < borders_.size() ; i++)
         window_.draw(borders_[i]);
 }

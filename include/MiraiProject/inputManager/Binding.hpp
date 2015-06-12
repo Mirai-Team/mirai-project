@@ -42,7 +42,7 @@ namespace mp
     /** \class Binding
      * \brief A class to bind keys and buttons to a given function.
      */
-    
+
     class Binding
     {
         public:
@@ -75,8 +75,8 @@ namespace mp
 
             /** \brief Call the binded function. */
             void callFunction();
-            
-            /** \brief Check whether the function should be called. 
+
+            /** \brief Check whether the function should be called.
              *
              * \return whether the function should be called
              */

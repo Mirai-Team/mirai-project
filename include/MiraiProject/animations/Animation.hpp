@@ -43,8 +43,8 @@ namespace mp
     {
         friend class AnimatedSprite;
 
-        public:             
-            /** \brief Constructor. 
+        public:
+            /** \brief Constructor.
              *
              * \param name : the animation name.
              * \param numStartingFrame : the number of the first animation's frame (on the sprite sheet).
@@ -131,7 +131,7 @@ namespace mp
 
         private:
             void update();
-        
+
             std::string name_;
 
             unsigned int numStartingFrame_;

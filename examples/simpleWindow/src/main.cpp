@@ -43,11 +43,11 @@ int main()
     mainWindowManager.setWindowName("Simple Window example");
     mainWindowManager.setOptimalWinWidth(500);
     mainWindowManager.setOptimalWinHeight(500);
-    
+
     // Deliberately set a video mode different from the optimal window dimensions (to show borders).
     mainWindowManager.setVideomodeWidth(750);
     mainWindowManager.setVideomodeHeight(600);
-    
+
     // Set borders' colour.
     mainWindowManager.setBordersColor(sf::Color::White);
 
@@ -83,7 +83,7 @@ int main()
         mainWindowManager.drawBorders(); // Draw the borders.
         window.display();
     }
-    
+
     // Closing the window if necessary.
     if (window.isOpen())
         window.close();

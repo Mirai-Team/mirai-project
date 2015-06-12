@@ -43,9 +43,9 @@ namespace mp
     /** \class MouseManager
      * \brief A class to handle mouse inputs.
      */
-    
+
     class MouseManager
-    {        
+    {
         public:
             /** \brief Constructor */
             MouseManager();
@@ -77,13 +77,13 @@ namespace mp
              */
             void removeBinding(std::string index);
 
-            /** \brief Clear all actions associated to a button. 
+            /** \brief Clear all actions associated to a button.
              *
              * \param button : the button matching bindings to remove.
              */
             void clearButton(sf::Mouse::Button button);
 
-            /** \brief Clear all actions associated to buttons. 
+            /** \brief Clear all actions associated to buttons.
              *
              * \param buttons : the buttons matching bindings to remove.
              */

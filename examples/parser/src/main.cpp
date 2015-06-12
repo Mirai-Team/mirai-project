@@ -82,7 +82,7 @@ int main()
         myIntVector = mp::Parser::vFileParser<int>(encryptedFileName, "someIntVector", '=', ';', true, encryptionKey);
 
         // From the clear config file.
-        myStringVector = mp::Parser::vFileParser(clearFileName, "someStringVector", '=', ';'); // We use speciality for string
+        myStringVector = mp::Parser::vFileParser<string>(clearFileName, "someStringVector", '=', ';');
         myFloat = mp::Parser::fileParser<float>(clearFileName, "someFloatValue", '=');
         myInt = mp::Parser::fileParser<int>(clearFileName, "someIntValue", '=');
 

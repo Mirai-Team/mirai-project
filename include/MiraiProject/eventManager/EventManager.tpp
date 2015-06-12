@@ -22,46 +22,32 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <algorithm>
-#include <string>
-#include <map>
-#include <utility>
+#ifndef EVENT_MANAGER_TPP_INCLUDED
+#define EVENT_MANAGER_TPP_INCLUDED
 
-#include "MiraiProject/updateSystem/UpdateModule.hpp"
-#include "MiraiProject/updateSystem/Updatable.hpp"
-
-std::map<std::string, std::list<mp::Updatable*>> mp::UpdateModule::updatableList_;
-
-void mp::UpdateModule::update(sf::Time deltaTime, std::string key)
+template<typename... Args>
+void mp::EventManager::addListener(int eventID, int listenerID, std::function<bool(Args...)> funct)
 {
-    for_each(updatableList_[key].begin(), updatableList_[key].end(), [&](mp::Updatable* p)
+    if (events_.find(eventID) != events_.end())
     {
-        p->update(deltaTime);
-    });
-}
-
-void mp::UpdateModule::addUpdater(mp::Updatable* updatable, std::string key)
-{
-    // If key exist we push updatable in list according to key.
-    // Else we create a list and add it in map.
-    if (updatableList_.find(key) != updatableList_.end())
-    {
-        updatableList_[key].push_back(updatable);
+        events_[eventID].push_back(std::make_pair(listenerID, funct));
     }
     else
     {
-        std::list<mp::Updatable*> temp;
-        temp.push_back(updatable);
-        updatableList_[key] = temp;
+        events_[eventID] = {std::make_pair(listenerID, funct)};
     }
 }
 
-void mp::UpdateModule::removeUpdater(Updatable* updatable)
+template<typename... Args>
+bool mp::EventManager::broadcast(int eventID, Args... args)
 {
-    for(auto &updatableClass : updatableList_)
-    {
-        updatableClass.second.remove_if([updatable] (Updatable* p) {
-            return p == updatable;
-        });
-    }
+    bool isNotCancelled = true;
+    std::vector<std::pair<int, boost::any>> functions = events_[eventID];
+
+    for(auto funct : functions)
+        isNotCancelled &= boost::any_cast<std::function<bool(Args...)>>(funct.second)(args...);
+
+    return isNotCancelled;
 }
+
+#endif // EVENT_MANAGER_TPP_INCLUDED

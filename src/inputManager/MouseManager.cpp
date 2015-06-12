@@ -51,7 +51,7 @@ void mp::MouseManager::addBinding(std::string index, sf::Mouse::Button button, s
 {
     std::vector<sf::Mouse::Button> temp;
     temp.push_back(button);
-    
+
     bindings_.emplace(std::make_pair(index, mp::Binding(temp, funct, mode)));
 }
 
@@ -69,7 +69,7 @@ void mp::MouseManager::clearButton(sf::Mouse::Button button)
 {
     std::vector<sf::Mouse::Button> temp;
     temp.push_back(button);
-    
+
     auto binding = bindings_.begin();
     while (binding != bindings_.end())
     {

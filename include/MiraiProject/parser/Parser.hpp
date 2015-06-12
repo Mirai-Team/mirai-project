@@ -51,22 +51,13 @@ namespace mp
              * \param separator : Character which separe the variableName and the value.
              * \param isEncrypted : If inputFile is encrypted.
              * \param key : Key of file.
-             * 
-             * \return T
-             */ 
-            template<typename T> static T fileParser(std::string inputFile, std::string variableName, char separator, bool isEncrypted = false, std::string key = "");
-
-            /** \brief Special case for string.
              *
-             * \param inputFile : File to parse.
-             * \param variableName : Name of the variable in file.
-             * \param separator : Character which separe the variableName and the value.
-             * \param isEncrypted : If inputFile is encrypted.
-             * \param key : Key of file.
-             * 
              * \return T
-             */ 
-            static std::string fileParser(std::string inputFile, std::string variableName, char separator, bool isEncrypted = false, std::string key = "");
+             */
+            template<typename T>
+            static T fileParser(std::string inputFile, std::string variableName,
+                                char separator, bool isEncrypted = false,
+                                std::string key = "");
 
             /** \brief For File parsing.
              *
@@ -75,22 +66,13 @@ namespace mp
              * \param separator : Character which separe the variableName and the value.
              * \param isEncrypted : If inputFile is encrypted.
              * \param key : Key of file.
-             * 
-             * \return a vector<T>
-             */ 
-            template<typename T> static std::vector<T> vFileParser(std::string inputFile, std::string variableName, char separator, char separatorValues, bool isEncrypted = false, std::string key = "");
-
-            /** \brief For File parsing.
              *
-             * \param inputFile : File to parse.
-             * \param variableName : Name of the variable in file.
-             * \param separator : Character which separe the variableName and the value.
-             * \param isEncrypted : If inputFile is encrypted.
-             * \param key : Key of file.
-             * 
              * \return a vector<T>
-             */ 
-            static std::vector<std::string> vFileParser(std::string inputFile, std::string variableName, char separator, char separatorValues, bool isEncrypted = false, std::string key = "");
+             */
+            template<typename T>
+            static std::vector<T> vFileParser(std::string inputFile, std::string variableName,
+                                              char separator, char separatorValues,
+                                              bool isEncrypted = false, std::string key = "");
 
             /** \brief std-like put_time function which isn't in GCC.
              *
@@ -128,6 +110,15 @@ namespace mp
              */
             static std::string put_time(const struct tm* tmb, const std::string &format);
     };
+
+    template<>
+    std::string Parser::fileParser<std::string>(std::string inputFile, std::string variableName,
+                                                char separator, bool isEncrypted,
+                                                std::string key);
+    template<>
+    std::vector<std::string> Parser::vFileParser<std::string>(std::string inputFile, std::string variableName,
+                                                              char separator, char separatorValues,
+                                                              bool isEncrypted, std::string key);
 }
 
 #include "MiraiProject/parser/Parser.tpp"

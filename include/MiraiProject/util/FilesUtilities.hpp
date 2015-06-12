@@ -36,7 +36,7 @@
  */
 
 namespace mp
-{   
+{
     /** \class filesUtilities
      * \brief A static class with various functions to manipulate files, or files related data.
      */
@@ -45,20 +45,20 @@ namespace mp
     {
         public:
             /** \brief List files in a directory.
-             * 
+             *
              * \param directory : path of the directory
-             * \param recursive : true to search in all subdirectories. 
-             * 
+             * \param recursive : true to search in all subdirectories.
+             *
              * \return a std::vector<std::string> who contains files paths.
              */
             static std::vector<std::string> listFiles(boost::filesystem::path directory, bool recursive=false);
 
             /** \brief Convert file path in windows style or unix style (depending on the used OS).
-             * 
+             *
              * You can use it to make sure your file path works under windows and unix.
              *
              * \param filePath : the file path to convert.
-             * 
+             *
              * \return the converted file path.
              */
             static std::string convertFilePath(std::string &filePath);

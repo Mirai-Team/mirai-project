@@ -52,7 +52,7 @@ namespace mp
              * \param fileName : the file name related to the wanted texture.
              * \param inputFile : the encrypted file where is the file to load.
              * \param key : the key of the encrypted file.
-             * 
+             *
              * \return the texture related to the given file name.
              */
             std::shared_ptr<sf::Texture> getTexture(const std::string &fileName, const std::string &inputFile, const std::string &key);
@@ -62,7 +62,7 @@ namespace mp
              * \param fileName : the file name related to the wanted sound buffer.
              * \param inputFile : the encrypted file where is the file to load.
              * \param key : the key of the encrypted file.
-             * 
+             *
              * \return the sound buffer related to the given file name.
              */
             std::shared_ptr<sf::SoundBuffer> getSoundBuffer(const std::string &fileName, const std::string &inputFile, const std::string &key);
@@ -72,7 +72,7 @@ namespace mp
              * \param fileName : the file name related to the wanted font.
              * \param inputFile : the encrypted file where is the file to load.
              * \param key : the key of the encrypted file.
-             * 
+             *
              * \return the font related to the given file name.
              */
             std::shared_ptr<sf::Font> getFont(const std::string &fileName, const std::string &inputFile, const std::string &key);
