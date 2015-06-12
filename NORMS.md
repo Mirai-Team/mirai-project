@@ -18,42 +18,41 @@ NORMS
 
 Most of our code style comes from SFML and Google styleguide. Some excellent extracts are taken from them since that's exactly what we do.
 Follow what is necessary in this project, and if it's not in our norms, you may ask us, use common sense to keep a readable code or check the following pages if you need to :
-http://www.sfml-dev.org/style.php
-https://google-styleguide.googlecode.com/svn/trunk/cppguide.html
++ http://www.sfml-dev.org/style.php
++ https://google-styleguide.googlecode.com/svn/trunk/cppguide.html
 
 You have to know what you are doing, and resources above explain a lot of intersting stuff in a concise way.
 
 ## General
 
-**C++ source code must be C++11-compliant.** Use [ISO/IEC 14882:2011 c++ norm](http://en.wikipedia.org/wiki/C%2B%2B11).
++ C++ source code must be **C++11-compliant.** Use [ISO/IEC 14882:2011 c++ norm](http://en.wikipedia.org/wiki/C%2B%2B11).
++ **No C in C++. _Only C++_.**
++ **Do not use `#define` to create constants.** Prefer enum or an anonymous namespace.
++ **All parameters passed by reference must be labeled const.** Use pointers to modify variable from a function / method.
++ Use **smart pointer** (`std::unique_ptr`, `std::shared_ptr`, `std::weak_ptr`, …).
++ Prefer **pre-increment** to post-increment.
+    ```C++
+    ++i; // rather than i++ !
+    ```
++ **Surround the return expression with parentheses only if necessary.**
+    - yes
+    ```C++
+    return result;
+    ```
+    - no
+    ```C++
+    return (result);
+    ```
++ **Avoid adding trailing whitespace in the code.**
+    - They aren't useful for code understanding and might cause useless conflicts while merging.
+    - Remove it in a separate clean-up operation if it's too late (if possible when no one else is working on the related files). To avoid that problem, you may use [.editorconfig](.editorconfig) file along with the [EditorConfig plugin](http://editorconfig.org/).
++ **Tabs aren't used** in Mirai Project code. Use a **4 space indentation.**
++ **You can use auto to avoid complicated type names and for _local variables only_**. Continue using manifest type when it **improve readability !**
+    - See [that](https://google-styleguide.googlecode.com/svn/trunk/cppguide.html#auto) before abusing of it.
++ **Prefer use of [range-based for loop](http://en.cppreference.com/w/cpp/language/range-for) instead of container iterators.**
++ **Use the nullptr type over the macro `NULL`.**
++ One line of code should have a maximum of **100 characters**.
 
-**No C in C++. _Only C++_.**
-
-**Do not use `#define` to create constants.**
-Prefer enum or an anonymous namespace.
-
-**All parameters passed by reference must be labeled const.** Use pointers to modify variable from a function / method.
-
-**Use smart pointer** (`std::unique_ptr`, `std::shared_ptr`, `std::weak_ptr`, …).
-
-**Prefer pre-increment to post-increment.**
-```C++
-++i; // rather than i++ !
-```
-
-**Surround the return expression with parentheses only if necessary.**
-```C++
-return result; // not return (result).
-```
-
-**Avoid adding trailing whitespace in the code.** They aren't useful for code understanding and might cause useless conflicts while merging. Remove it in a separate clean-up operation if it's too late (if possible when no one else is working on the related files). To avoid that problem, you may use [.editorconfig](.editorconfig) file along with the [EditorConfig plugin](http://editorconfig.org/).
-
-**Tabs aren't used in MiraiProject code. Use a 4 space indentation.**
-
-**You can use auto to avoid complicated type names and for _local variables only_. Continue using manifest type when it improve readability !**
-See [that](https://google-styleguide.googlecode.com/svn/trunk/cppguide.html#auto) before abusing of it.
-
-**Prefer use of [range-based for loop](http://en.cppreference.com/w/cpp/language/range-for) if possible instead container iterators**
 ## Files extensions
 
 + C++ source files have the extension _.cpp_.
@@ -132,21 +131,18 @@ void doSomething();
 The inclusion order is as follows:
 + Standard library headers, sorted alphabetically.
 + Dependency headers, sorted alphabetically (like SFML, boost, …).
-+ MiraiProject headers, sorted alphabetically.
++ Mirai Project headers, sorted alphabetically.
 
 ## Naming
 
-**Files : mixed case starting with upper case.** Ex : `MyClass.hpp`
-
-**Variables names must be mixed case starting with lower case.** Ex : `myVar`
-
-**Classes names must be mixed case starting with upper case.** Ex : `MyClass`
-
-**Classes' member variables have "m_" prefix.** Ex : `m_myMemberVar`
-
-**Methods or functions names must be verbs and written in mixed case starting with lower case.** Ex : `getBuffValue`
-
-**Namespaces names should be all lower case.** Ex : `mynamespace`
++ **Files : mixed case starting with upper case.** Ex : `MyClass.hpp`
++ **Variables names must be mixed case starting with lower case.** Ex : `myVar`
++ **Classes and structs names must be mixed case starting with upper case.** Ex : `MyClass`
++ **Classes' member variables have "m_" prefix.** Ex : `m_myMemberVar`
++ **Global variables have "g_" prefix.** Ex : `g_myGlobalVar`
++ **Static variables have "s_" prefix.** Ex : `s_myStaticVar`
++ **Methods or functions names must be verbs and written in mixed case starting with lower case.** Ex : `getBuffValue`
++ **Namespaces names should be all lower case.** Ex : `mynamespace`
 
 ## Variable and Array Initialization
 
@@ -230,7 +226,7 @@ You can use `mp::priv` for private classes or functions.
 
 **If possible, one line per comment commit (not too much features in one time)**
 
-MiraiProject git workflow is based on [SFML Git Workflow](http://www.sfml-dev.org/workflow.php).
+Mirai Project git workflow is based on [SFML Git Workflow](http://www.sfml-dev.org/workflow.php).
 + Create a branch `feature/feature_name`, `bugfix/name` or `enhancement/name` for every new features, bugfix or enhancement.
 + Create a pull request to merge into master or another branch if necessary.
 + Pull requests are reviewed and tested before being merged.
