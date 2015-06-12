@@ -12,6 +12,8 @@ NORMS
     + [Spaces](#spaces)
     + [Type conversion](#type-conversion)
     + [Namespaces](#namespaces)
+    + [Classes](#classes)
+    + [Loops](#loops)
 + [Git Workflow](#git-workflow)
 
 # Code style
@@ -27,11 +29,13 @@ You have to know what you are doing, and resources above explain a lot of inters
 
 + C++ source code must be **C++11-compliant.** Use [ISO/IEC 14882:2011 c++ norm](http://en.wikipedia.org/wiki/C%2B%2B11).
 + **No C in C++. _Only C++_.**
++ **If your code contains a warning, please try to fix it.**
 + **Do not use `#define` to create constants.** Prefer enum or an anonymous namespace.
 + **All parameters passed by reference must be labeled const.** Use pointers to modify variable from a function / method.
 + Use **smart pointer** (`std::unique_ptr`, `std::shared_ptr`, `std::weak_ptr`, …).
-+ Prefer **pre-increment** to post-increment.
++ Prefer **pre-increment** to post-increment. 
     ```C++
+
     ++i; // rather than i++ !
     ```
 + **Surround the return expression with parentheses only if necessary.**
@@ -221,6 +225,70 @@ The public API is contained in `mp` namespace.
 You can use `mp::priv` for private classes or functions.
 
 **No `using` directive. Use the full name.**
+
+## Classes
+
+If you override a method use override keyword.
+
+Example:
+```C++
+class ParentClass
+{
+    public:
+        void update();
+};
+class DaughterClass : ParentClass
+{
+    public:
+        void update() override;
+
+};
+```
+
+Method or classes that you don't want to be overridden should be marked with final keyword
+
+Example:
+```C++
+class SomeClass final
+{
+    public:
+        void update() final;
+};
+```
+
+## Loops
+
+Don't let running loops if it's not required.
+
+What not to do:
+```C++
+
+bool isInVector(std::vector<int> vect, int element)
+{
+    bool found = false;
+    for (auto&& value : vect)
+    {
+        if (value == element)
+            found = true;
+    }
+    
+    return found;
+}
+```
+
+What to do:
+```C++
+
+bool isInVector(std::vector<int> vect, int element)
+{
+    for (auto&& value : vect)
+    {
+        if (value == element)
+            return true;
+    }
+    return false;
+}
+```
 
 # Git workflow
 
