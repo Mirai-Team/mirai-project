@@ -28,9 +28,6 @@ mp::MultiStream::MultiStream(std::vector<std::streambuf*> bufs)
     : m_bufs(bufs)
     , m_buffer(128)
 {
-    for (auto buf : m_bufs)
-        assert(buf);
-
     setp(m_buffer.data(), m_buffer.data() + m_buffer.size());
 }
 
@@ -64,7 +61,7 @@ int mp::MultiStream::sync()
     setp(m_buffer.data(), m_buffer.data() + m_buffer.size());
 
     answer = m_bufs[0]->pubsync();
-    for (int i = 1; i < m_bufs.size(); ++i)
+    for (unsigned int i = 1; i < m_bufs.size(); ++i)
     {
         answer |= m_bufs[i]->pubsync();
     }
