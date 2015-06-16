@@ -29,12 +29,14 @@
 namespace mp
 {
 
-class MultiStream : public std::streambuf {
+class MultiStream : public std::streambuf
+{
     public:
         explicit MultiStream(std::vector<std::streambuf*> bufs);
 
         ~MultiStream();
 
+    protected:
         void imbue(const std::locale& loc);
 
         int overflow(int c = EOF);
