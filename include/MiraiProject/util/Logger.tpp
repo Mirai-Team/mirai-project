@@ -26,11 +26,12 @@
 #define LOGGER_TPP_INCLUDED
 
 template <typename T>
-mp::Logger& operator<<(mp::Logger& logger, const T& data)
+std::ostream& mp::Logger::operator<<(const T& data_)
 {
-    logger.displayPrefix();
-    static_cast<std::ostream&>(logger) << data;
-    return logger;
+    displayPrefix();
+    static_cast<std::ostream&>(*this) << data_;
+
+    return static_cast<std::ostream&>(*this);
 }
 
 #endif

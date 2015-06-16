@@ -55,12 +55,6 @@ class Logger : public virtual std::ostream
     public:
         explicit Logger(std::streambuf* buf = std::cout.rdbuf());
 
-        void displayPrefix();
-
-        const tm* getLocalTime();
-
-        void endl();
-
         /** \brief  For severe logs. */
         const static Priority prioritySevere;
 
@@ -76,15 +70,18 @@ class Logger : public virtual std::ostream
         /** \brief For config logs. */
         const static Priority priorityConfig;
 
+        template <typename T>
+        std::ostream& operator<<(const T& data_);
+
     private:
-        bool m_displayPrefix;
+        void displayPrefix();
+
+        const tm* getLocalTime();
 
 };
 }
 
 std::ostream& operator<<(std::ostream& stream, const mp::Priority& priority);
-
-mp::Logger& operator<<(mp::Logger& logger, std::ostream& (*pf)(std::ostream&));
 
 #include "MiraiProject/util/Logger.tpp"
 

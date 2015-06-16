@@ -60,15 +60,12 @@ std::string mp::Priority::getPriorityName() const
 }
 mp::Logger::Logger(std::streambuf* buf)
     : std::ostream(buf)
-    , m_displayPrefix(true)
 {
 }
 
 void mp::Logger::displayPrefix()
 {
-    if (m_displayPrefix)
-        static_cast<std::ostream&>(*this) << "[" << getLocalTime() << "] ";
-    m_displayPrefix = false;
+    static_cast<std::ostream&>(*this) << "[" << getLocalTime() << "] ";
 }
 
 const tm* mp::Logger::getLocalTime()
@@ -79,21 +76,9 @@ const tm* mp::Logger::getLocalTime()
     return time;
 }
 
-void mp::Logger::endl()
-{
-    m_displayPrefix = true;
-}
-
 std::ostream& operator<<(std::ostream& stream, const mp::Priority& priority)
 {
     return stream << "["
         << mp::StringUtilities::upper(priority.getPriorityName())
         << "] ";
-}
-
-mp::Logger& operator<<(mp::Logger& logger, std::ostream& (*pf)(std::ostream&))
-{
-    logger.endl();
-    static_cast<std::ostream&>(logger) << pf;
-    return logger;
 }
