@@ -22,6 +22,7 @@
 //
 ////////////////////////////////////////////////////////////
 
+#include "MiraiProject/util/Logger.hpp"
 #include "MiraiProject/parser/Parser.hpp"
 
 using namespace std;
@@ -36,12 +37,12 @@ namespace mp
         string value;
         ifstream file;
 
-        mp::Logger log("mirai_project.log");
+        Logger log;
 
         if(isEncrypted && key != "")
         {
 
-            mp::Encryption EncryptMotor(key);
+            Encryption EncryptMotor(key);
             stringstream filedata(EncryptMotor.encryptFile(inputFile));
 
             while(getline(filedata,line))
@@ -64,10 +65,14 @@ namespace mp
                 }
             }
             else
-                log(Logger::priorityWarning) << "The file doesn't exist";
+            {
+                log << Logger::priorityWarning << "The file doesn't exist";
+            }
         }
         else
-            log(Logger::priorityError) << "File encrypted, and no key provided";
+        {
+            log << Logger::priorityError << "File encrypted, and no key provided";
+        }
 
         return value;
     }
@@ -82,11 +87,11 @@ namespace mp
         vector<string> values;
         ifstream file;
 
-        mp::Logger log("mirai_project.log");
+        Logger log;
 
         if(isEncrypted && key != "")
         {
-            mp::Encryption EncryptMotor(key);
+            Encryption EncryptMotor(key);
             stringstream filedata(EncryptMotor.encryptFile(inputFile));
 
             while(getline(filedata,line))
@@ -122,11 +127,11 @@ namespace mp
             }
             else
             {
-                log(Logger::priorityWarning) << "The file doesn't exist";
+                log << Logger::priorityWarning << "The file doesn't exist";
             }
         }
         else
-            log(Logger::priorityError) << "File encrypted, and no key provided";
+            log << Logger::priorityError << "File encrypted, and no key provided";
 
         return values;
 
