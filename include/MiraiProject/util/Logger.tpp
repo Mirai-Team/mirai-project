@@ -28,7 +28,7 @@
 template <typename T>
 mp::Logger& operator<<(mp::Logger& logger, const T& data)
 {
-    logger.displayHeader();
+    logger.displayPrefix();
     static_cast<std::ostream&>(logger) << data;
     return logger;
 }

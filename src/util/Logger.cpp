@@ -60,15 +60,15 @@ std::string mp::Priority::getPriorityName() const
 }
 mp::Logger::Logger(std::streambuf* buf)
     : std::ostream(buf)
-    , m_displayHeader(true)
+    , m_displayPrefix(true)
 {
 }
 
-void mp::Logger::displayHeader()
+void mp::Logger::displayPrefix()
 {
-    if (m_displayHeader)
+    if (m_displayPrefix)
         static_cast<std::ostream&>(*this) << "[" << getLocalTime() << "] ";
-    m_displayHeader = false;
+    m_displayPrefix = false;
 }
 
 const tm* mp::Logger::getLocalTime()
@@ -81,7 +81,7 @@ const tm* mp::Logger::getLocalTime()
 
 void mp::Logger::endl()
 {
-    m_displayHeader = true;
+    m_displayPrefix = true;
 }
 
 std::ostream& operator<<(std::ostream& stream, const mp::Priority& priority)

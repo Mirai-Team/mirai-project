@@ -55,7 +55,7 @@ class Logger : public virtual std::ostream
     public:
         explicit Logger(std::streambuf* buf = std::cout.rdbuf());
 
-        void displayHeader();
+        void displayPrefix();
 
         const tm* getLocalTime();
 
@@ -77,7 +77,7 @@ class Logger : public virtual std::ostream
         const static Priority priorityConfig;
 
     private:
-        bool m_displayHeader;
+        bool m_displayPrefix;
 
 };
 }
