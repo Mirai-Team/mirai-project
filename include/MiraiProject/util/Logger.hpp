@@ -53,6 +53,11 @@ class Priority
 class Logger : public virtual std::ostream
 {
     public:
+        /**
+         * \brief Constructor
+         *
+         * \param buf : a streambuf where the Logger writes the data.
+         */
         explicit Logger(std::streambuf* buf = std::cout.rdbuf());
 
         /** \brief  For severe logs. */
@@ -70,8 +75,13 @@ class Logger : public virtual std::ostream
         /** \brief For config logs. */
         const static Priority priorityConfig;
 
+        /**
+         * \brief Add time to each line.
+         *
+         * \param data [description]
+         */
         template <typename T>
-        std::ostream& operator<<(const T& data_);
+        std::ostream& operator<<(const T& data);
 
     private:
         void displayPrefix();
