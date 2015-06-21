@@ -19,6 +19,7 @@ set(LIB_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/stat/VitalStat.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/util/FilesUtilities.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/util/Logger.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/util/MultiStream.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/util/StringUtilities.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/util/TransformableUtilities.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/util/WindowManager.cpp
