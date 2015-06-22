@@ -77,8 +77,6 @@ class Logger : public virtual std::ostream
 
         /**
          * \brief Add time to each line.
-         *
-         * \param data [description]
          */
         template <typename T>
         std::ostream& operator<<(const T& data);

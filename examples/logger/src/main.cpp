@@ -26,14 +26,19 @@
 #include <iostream>
 
 #include <MiraiProject/util/Logger.hpp>
+#include <MiraiProject/util/MultiStream.hpp>
 
 int main()
 {
     std::ofstream myfile("example.txt", std::ios::out);
 
-    mp::Logger logger(std::cout.rdbuf());
-    mp::Logger logger2(myfile.rdbuf());
+    mp::MultiStream streams({ myfile.rdbuf(), std::cout.rdbuf() });
+
+    mp::Logger logger(&streams);
 
     logger << mp::Logger::priorityInfo << "Hello world" << std::endl;
-    logger2 << mp::Priority("My prio") << "This is write in a file" << std::endl;
+    logger << mp::Priority("My prio") << "This is written in a file and printed in a terminal" << std::endl;
+
+    logger << mp::Logger::priorityInfo << "This message" << std::endl
+           << "\t is written on two lines." << std::endl;
 }

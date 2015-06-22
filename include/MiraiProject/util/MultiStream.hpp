@@ -24,7 +24,6 @@
 
 #include <streambuf>
 #include <vector>
-#include <cassert>
 
 namespace mp
 {
@@ -36,12 +35,12 @@ class MultiStream : public std::streambuf
 
         ~MultiStream();
 
+        void imbue(const std::locale& loc) override;
+
     protected:
-        void imbue(const std::locale& loc);
+        int overflow(int c = EOF) override;
 
-        int overflow(int c = EOF);
-
-        int sync();
+        int sync() override;
 
     private:
         std::vector<std::streambuf*>    m_bufs;
