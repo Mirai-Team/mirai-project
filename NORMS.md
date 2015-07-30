@@ -33,7 +33,7 @@ You have to know what you are doing, and resources above explain a lot of inters
 + **Do not use `#define` to create constants.** Prefer enum or an anonymous namespace.
 + **All parameters passed by reference must be labeled const.** Use pointers to modify variable from a function / method.
 + Use **smart pointer** (`std::unique_ptr`, `std::shared_ptr`, `std::weak_ptr`, …).
-+ Prefer **pre-increment** to post-increment. 
++ Prefer **pre-increment** to post-increment.
     ```C++
 
     ++i; // rather than i++ !
@@ -180,7 +180,7 @@ int pi{3.14};  // Compile error: narrowing conversion.
 if (condition)
     Instruction();
 
-// or 
+// or
 
 if (condition)
 {
@@ -256,11 +256,34 @@ class SomeClass final
 };
 ```
 
+Use the C++ keyword `explicit` for __constructors callable with one argument or constructors where every parameter after the first has a default value__.
+It avoid undesirable conversions.
+This should not be applied to copy or move constructors.
+Mark these exceptions with clear comments.
+See details [here](https://google-styleguide.googlecode.com/svn/trunk/cppguide.html#Explicit_Constructors) and [here](http://en.cppreference.com/w/cpp/language/explicit).
+
+Example:
+
+```C++
+class SomeClass
+{
+    public:
+        explicit SomeClass(int);
+};
+```
+
+Moreover, constructors that take only a `std::initializer_list` may not be explicit to permits its construction from a braced initializer list:
+```C++
+MyClass m = {1, 2};
+MyClass FuncThatReturnMyClass() { return {1, 2}; }
+FuncThatTakeMyClassAsParameter({1, 2});
+```
+
 ## Loops
 
 Don't let running loops if it's not required.
 
-What not to do:
+What **not** to do:
 ```C++
 
 bool isInVector(std::vector<int> vect, int element)
@@ -271,7 +294,7 @@ bool isInVector(std::vector<int> vect, int element)
         if (value == element)
             found = true;
     }
-    
+
     return found;
 }
 ```
