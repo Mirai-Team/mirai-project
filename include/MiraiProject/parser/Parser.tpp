@@ -45,7 +45,7 @@ namespace mp
         T value { };
         ifstream file;
 
-        mp::Logger log("mirai_project.log");
+        Logger log;
 
         if(isEncrypted && key != "")
         {
@@ -71,10 +71,14 @@ namespace mp
                 }
             }
             else
-                log(Logger::priorityWarning) << "The file doesn't exist";
+            {
+                log << Logger::priorityWarning << "The file doesn't exist";
+            }
         }
         else
-            log(Logger::priorityError) << "File encrypted, and no key provided";
+        {
+            log << Logger::priorityError << "File encrypted, and no key provided";
+        }
 
         return value;
     }
@@ -89,7 +93,7 @@ namespace mp
         vector<T> values;
         ifstream file;
 
-        mp::Logger log("mirai_project.log");
+        Logger log;
 
         if(isEncrypted && key != "")
         {
@@ -129,10 +133,14 @@ namespace mp
                 }
             }
             else
-                log(Logger::priorityWarning) << "The file doesn't exist";
+            {
+                log << Logger::priorityWarning << "The file doesn't exist";
+            }
         }
         else
-            log(Logger::priorityError) << "File encrypted, and no key provided";
+        {
+            log << Logger::priorityError << "File encrypted, and no key provided";
+        }
 
         return values;
 

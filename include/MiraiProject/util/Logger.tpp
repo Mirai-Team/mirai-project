@@ -22,51 +22,16 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef LOGSTREAM_HPP_INCLUDED
-#define LOGSTREAM_HPP_INCLUDED
+#ifndef LOGGER_TPP_INCLUDED
+#define LOGGER_TPP_INCLUDED
 
-#include <fstream>
-#include <memory>
-#include <mutex>
-#include <sstream>
-#include <string>
-
-#include "MiraiProject/util/Logger.hpp"
-
-/** @file LogStream.hpp
- * \brief This file define LogStream class.
- */
-
-namespace mp
+template <typename T>
+std::ostream& mp::Logger::operator<<(const T& data)
 {
-    class Logger;
+    displayPrefix();
+    static_cast<std::ostream&>(*this) << data;
 
-    /** \class Logstream
-     * \brief A class to manage input stream of Logger class.
-     */
-    class Logstream : public std::ostringstream
-    {
-        public:
-            /** \brief Constructor.
-             *
-             * \param logger : a Logger object.
-             * \param priority : a string which contains Priority name.
-             */
-            Logstream(Logger& logger, std::string priority);
-
-            /** \brief Constructor.
-             *
-             * \param ls : a Logstream object.
-             */
-
-            Logstream(const Logstream& ls);
-
-            /** \brief Destructor */
-            ~Logstream();
-
-        private:
-            Logger&         logger_;
-            std::string     priority_;
-    };
+    return static_cast<std::ostream&>(*this);
 }
-#endif // LOGSTREAM_HPP_INCLUDED
+
+#endif

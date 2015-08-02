@@ -25,14 +25,13 @@
 #ifndef LOGGER_HPP_INCLUDED
 #define LOGGER_HPP_INCLUDED
 
+#include <iostream>
 #include <fstream>
-#include <memory>
-#include <sstream>
-#include <string>
+#include <streambuf>
+#include <chrono>
+#include <iomanip>
 
-#include <boost/thread/mutex.hpp>
-
-#include "MiraiProject/util/LogStream.hpp"
+#include "MiraiProject/util/StringUtilities.hpp"
 
 /** @file Logger.hpp
  * \brief This file define Logger class and variables for logging.
@@ -40,70 +39,58 @@
 
 namespace mp
 {
-    class Logstream; // Because Logger use Logstream and Logstream use Logger..
 
-    /** \class Logger
-     * \brief Class for logging.
-     */
+class Priority
+{
+    public:
+        explicit Priority(std::string priority);
 
-    class Logger
-    {
-        public:
-            /** \brief Constructor
-             *
-             * \param filename : Path to file.
-             */
-            Logger(std::string filename);
+        std::string getPriorityName() const;
+    private:
+        std::string m_priority;
+};
 
-            /** \brief Deconstructor */
-            virtual ~Logger();
+class Logger : public virtual std::ostream
+{
+    public:
+        /**
+         * \brief Constructor
+         *
+         * \param buf : a streambuf where the Logger writes the data.
+         */
+        explicit Logger(std::streambuf* buf = std::cout.rdbuf());
 
-            /** \brief Write msg in log file.
-             *
-             * \param priority : a string which contains Priority name.
-             * \param msg : message to write.
-             */
-            void log(std::string priority, std::string msg);
+        /** \brief  For severe logs. */
+        const static Priority prioritySevere;
 
-            /** \brief Operator() with Info Priority.
-             *
-             * \return a Logstream using Info priority.
-             */
-            Logstream operator()();
+        /** \brief For error logs. */
+        const static Priority priorityError;
 
-            /** \brief Operator() with string parameter.
-             *
-             * \param priority : the priority name.
-             *
-             * \return a Logstream using the given priority name.
-             */
-            Logstream operator()(std::string priority);
+        /** \brief For warning logs. */
+        const static Priority priorityWarning;
 
-            /** \brief True to enable logging, false to disable logging. */
-            static bool debugMode;
+        /** \brief For info logs. */
+        const static Priority priorityInfo;
 
-            /** \brief  For severe logs. */
-            static const std::string prioritySevere;
+        /** \brief For config logs. */
+        const static Priority priorityConfig;
 
-            /** \brief For error logs. */
-            static const std::string priorityError;
+        /**
+         * \brief Add time to each line.
+         */
+        template <typename T>
+        std::ostream& operator<<(const T& data);
 
-            /** \brief For warning logs. */
-            static const std::string priorityWarning;
+    private:
+        void displayPrefix();
 
-            /** \brief For info logs. */
-            static const std::string priorityInfo;
+        const tm* getLocalTime();
 
-            /** \brief For config logs. */
-            static const std::string priorityConfig;
-
-        private:
-            const tm* getLocalTime();
-
-            boost::mutex    mutex_;
-            std::ofstream   file_;
-            tm              time_;
-    };
+};
 }
+
+std::ostream& operator<<(std::ostream& stream, const mp::Priority& priority);
+
+#include "MiraiProject/util/Logger.tpp"
 
 #endif // LOGGER_HPP_INCLUDED

@@ -27,77 +27,58 @@
 #include <iomanip>
 
 #include "MiraiProject/util/Logger.hpp"
-#include "MiraiProject/util/LogStream.hpp"
-#include "MiraiProject/util/StringUtilities.hpp"
 
-using namespace std;
-
-bool mp::Logger::debugMode = false;
-
-const string mp::Logger::prioritySevere = "SEVERE";
-const string mp::Logger::priorityError = "ERROR";
-const string mp::Logger::priorityWarning = "WARNING";
-const string mp::Logger::priorityInfo = "INFO";
-const string mp::Logger::priorityConfig = "CONFIG";
-
-// 0 in time_ are for -Wmissing-field-initializers
-mp::Logger::Logger(string filename) : mutex_ { },
-                                      file_ { },
-                                      time_ { 0, 0, 0, 0, 0, 0, 0, 0, 0 } // warning under linux, cause it seems to have one more field.
+namespace
 {
-    if(debugMode)
-        file_.open(filename, fstream::app);
-}
-
-mp::Logger::~Logger()
-{
-    if(debugMode)
-    {
-        file_.flush();
-        file_.close();
-    }
-}
-
-ostream& operator<< (ostream& stream, const tm* time)
+std::ostream& operator<< (std::ostream& stream, const tm* time)
 {
     // We write values on two digits.
     return stream << 1900 + time->tm_year << '-'
-        << setfill('0') << setw(2) << time->tm_mon + 1 << '-'
-        << setfill('0') << setw(2) << time->tm_mday << ' '
-        << setfill('0') << setw(2) << time->tm_hour << ':'
-        << setfill('0') << setw(2) << time->tm_min << ':'
-        << setfill('0') << setw(2) << time->tm_sec;
+        << std::setfill('0') << std::setw(2) << time->tm_mon + 1 << '-'
+        << std::setfill('0') << std::setw(2) << time->tm_mday << ' '
+        << std::setfill('0') << std::setw(2) << time->tm_hour << ':'
+        << std::setfill('0') << std::setw(2) << time->tm_min << ':'
+        << std::setfill('0') << std::setw(2) << time->tm_sec;
+}
 }
 
-mp::Logstream mp::Logger::operator()()
+
+const mp::Priority mp::Logger::prioritySevere = mp::Priority("SEVERE");
+const mp::Priority mp::Logger::priorityError = mp::Priority("ERROR");
+const mp::Priority mp::Logger::priorityWarning = mp::Priority("WARNING");
+const mp::Priority mp::Logger::priorityInfo = mp::Priority("INFO");
+const mp::Priority mp::Logger::priorityConfig = mp::Priority("CONFIG");
+
+mp::Priority::Priority(std::string priority)
+    : m_priority(priority)
 {
-    return mp::Logstream(*this, "INFO");
 }
 
-mp::Logstream mp::Logger::operator()(string priority)
+std::string mp::Priority::getPriorityName() const
 {
-    return mp::Logstream(*this, priority);
+    return m_priority;
+}
+mp::Logger::Logger(std::streambuf* buf)
+    : std::ostream(buf)
+{
+}
+
+void mp::Logger::displayPrefix()
+{
+    static_cast<std::ostream&>(*this) << "[" << getLocalTime() << "] ";
 }
 
 const tm* mp::Logger::getLocalTime()
 {
-    time_t tt = chrono::system_clock::to_time_t(chrono::system_clock::now());
+    time_t tt = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     tm *time;
-    time = localtime(&tt);
+    time = std::localtime(&tt);
     return time;
 }
 
-void mp::Logger::log(string priority, string msg)
+std::ostream& operator<<(std::ostream& stream, const mp::Priority& priority)
 {
-    if(debugMode)
-    {
-        mutex_.lock();
-        file_   << '[' << getLocalTime() << ']'
-                << '[' << mp::StringUtilities::upper(priority) << "]\t"
-                << msg << endl;
-        cout << '[' << getLocalTime() << ']'
-                << '[' << mp::StringUtilities::upper(priority) << "]\t"
-                << msg << endl;
-        mutex_.unlock();
-    }
+    return stream << "["
+        << mp::StringUtilities::upper(priority.getPriorityName())
+        << "] ";
 }
