@@ -31,6 +31,9 @@ You have to know what you are doing, and resources above explain a lot of inters
 + **No C in C++. _Only C++_.**
 + **If your code contains a warning, please try to fix it.**
 + **Do not use `#define` to create constants.** Prefer enum or an anonymous namespace.
++ For better memory usage :
+    + Pass any parameter which **don't need to be modified by the function as _const reference_.**
+    + **Use `std::move` to move objects that you no longer need.** [See details about Move constructor and Move Assignement operator here](http://blog.smartbear.com/c-plus-plus/c11-tutorial-introducing-the-move-constructor-and-the-move-assignment-operator/).
 + **All parameters passed by reference must be labeled const.** Use pointers to modify variable from a function / method.
 + Use **smart pointer** (`std::unique_ptr`, `std::shared_ptr`, `std::weak_ptr`, …).
 + Prefer **pre-increment** to post-increment.
