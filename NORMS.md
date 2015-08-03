@@ -364,14 +364,14 @@ Example:
 ```C++
 class ParentClass
 {
-    public:
-        void update();
+public:
+    void update();
 };
-class DaughterClass : ParentClass
-{
-    public:
-        void update() override;
 
+class ChildClass : ParentClass
+{
+public:
+    void update() override;
 };
 ```
 
@@ -381,8 +381,8 @@ Example:
 ```C++
 class SomeClass final
 {
-    public:
-        void update() final;
+public:
+    void update() final;
 };
 ```
 
@@ -397,8 +397,8 @@ Example:
 ```C++
 class SomeClass
 {
-    public:
-        explicit SomeClass(int);
+public:
+    explicit SomeClass(int);
 };
 ```
 
@@ -419,8 +419,7 @@ What **not** to do:
 bool isInVector(std::vector<int> vect, int element)
 {
     bool found = false;
-    for (auto&& value : vect)
-    {
+    for (auto&& value : vect) {
         if (value == element)
             found = true;
     }
@@ -434,8 +433,7 @@ What to do:
 
 bool isInVector(std::vector<int> vect, int element)
 {
-    for (auto&& value : vect)
-    {
+    for (auto&& value : vect) {
         if (value == element)
             return true;
     }
