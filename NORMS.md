@@ -3,6 +3,7 @@ NORMS
 
 + [Code Style](#code-style)
     + [General](#general)
+    + [Integral types](#integral-types)
     + [Indentation](#indentation)
     + [Files extension](#files-extensions)
     + [Header files](#header-files)
@@ -16,7 +17,6 @@ NORMS
     + [Namespaces](#namespaces)
     + [Classes](#classes)
     + [Loops](#loops)
-    + [Integral types](#integral-types)
 + [Git Workflow](#git-workflow)
 
 # Code style
