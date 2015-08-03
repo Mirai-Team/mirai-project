@@ -354,7 +354,71 @@ Type conversions between signed integers, unsigned integers and floating point t
 The public API is contained in `mp` namespace.
 You can use `mp::priv` for private classes or functions.
 
-**No `using` directive. Use the full name.**
+**The `using` directive is prohibited in headers files** and tolerated for repetitive use of names **in implementation files if you specify what you are using explicitly**.
++ Yes
+```C++
+// Header file
+#include <string>
+
+std::string myFunction();
+```
+```C++
+// Implementation file.
+#include <string>
+
+int main()
+{
+    std::string myString;
+    return 0;
+}
+
+// OR //
+
+using std::string;
+
+int main()
+{
+    string myString;
+    return 0;
+}
+
+// OR //
+
+int main()
+{
+    using std::string;
+
+    string myString;
+    return 0;
+}
+```
++ No
+```C++
+// Header file
+#include <string>
+
+using namespace std;
+
+string myFunction();
+
+// NOR //
+
+using std::string;
+
+string myFunction();
+```
+```C++
+// Implementation file
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    std::string myString;
+    return 0;
+}
+```
 
 ## Classes
 
