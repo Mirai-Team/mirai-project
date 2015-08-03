@@ -16,6 +16,7 @@ NORMS
     + [Namespaces](#namespaces)
     + [Classes](#classes)
     + [Loops](#loops)
+    + [Integral types](#integral-types)
 + [Git Workflow](#git-workflow)
 
 # Code style
