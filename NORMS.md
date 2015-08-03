@@ -494,6 +494,13 @@ bool isInVector(std::vector<int> vect, int element)
 }
 ```
 
+## Integral types
+
+Instead of using `int`, `unsigned int`, `char`, `long long int`, etc. Use type aliases from [Config.hpp](include/Config.hpp) file :
++ `int8`, `int16`, `int32` and `int64` for signed integers.
++ `uint8`, `uint16`, `uint32` and `uint64` for unsigned ones.
+These are standard types that provide fixed, well-defined sizes regardless the architecture.
+
 # Git workflow
 
 **If possible, one line per comment commit (not too much features in one time)**
