@@ -3,11 +3,13 @@ NORMS
 
 + [Code Style](#code-style)
     + [General](#general)
+    + [Indentation](#indentation)
     + [Files extension](#files-extensions)
     + [Header files](#header-files)
     + [Includes](#includes)
     + [Naming](#naming)
     + [Variable and Array Initialization](#variable-and-array-initialization)
+    + [Braces](#braces)
     + [Conditionals](#conditionals)
     + [Spaces](#spaces)
     + [Type conversion](#type-conversion)
@@ -53,12 +55,67 @@ You have to know what you are doing, and resources above explain a lot of inters
 + **Avoid adding trailing whitespace in the code.**
     - They aren't useful for code understanding and might cause useless conflicts while merging.
     - Remove it in a separate clean-up operation if it's too late (if possible when no one else is working on the related files). To avoid that problem, you may use [.editorconfig](.editorconfig) file along with the [EditorConfig plugin](http://editorconfig.org/).
-+ **Tabs aren't used** in Mirai Project code. Use a **4 space indentation.**
 + **You can use auto to avoid complicated type names and for _local variables only_**. Continue using manifest type when it **improve readability !**
     - See [that](https://google-styleguide.googlecode.com/svn/trunk/cppguide.html#auto) before abusing of it.
 + **Prefer use of [range-based for loop](http://en.cppreference.com/w/cpp/language/range-for) instead of container iterators.**
 + **Use the nullptr type over the macro `NULL`.**
 + One line of code should have a maximum of **100 characters**.
+
+## Indentation
+
++ **Do not use tabs** except for files that require them for semantic meaning. 
++ Tab indent size is **4 space**.
++ The contents of namespaces are not indented.
++ A case label is indended and the case statement as well.
+    + Yes
+    ```C++
+    switch (myVar) {
+        case value1:
+            // code
+        case value2:
+            // code
+            break;
+        default:
+            // code
+            break;
+    }
+    ```
+    + No
+    ```C++
+    switch (myVar) {
+    case value1:
+        // code
+    case value2:
+        // code
+        break;
+    default:
+        // code
+        break;
+    }
+    ```
++ Do not indent `public`, `protected` and `private` labels in classes.
+    + Yes
+    ```C++
+    class myClass { 
+    public:
+        myClass();
+        void aPublicMethod();
+        
+    private:
+        int m_aMemberVar;
+    };
+    ```
+    + No
+    ```C++
+    class myClass { 
+        public:
+            myClass();
+            void aPublicMethod();
+            
+        private:
+            int m_aMemberVar;
+    };
+    ```
 
 ## Files extensions
 
@@ -176,30 +233,101 @@ int pi{3.14};  // Compile error: narrowing conversion.
 ```
 [Source](https://google-styleguide.googlecode.com/svn/trunk/cppguide.html#Variable_and_Array_Initialization)
 
+## Braces
+
++ **Curly braces are placed on _its own line_ for function definitions.**
+    + Yes
+    ```C++
+    void myFunction()
+    {
+        // code
+    }
+    ```
+    + No
+    ```C++
+    void myFunction() {
+        // code
+    }
+    ```
+    
++ **Other opening braces are placed on the line preceding the code block. Closing brace is placed on its own line.** 
+    + Yes
+    ```C++
+    class MyClass {
+        // code
+    };
+    
+    namespace mp {
+        // code
+    }
+    
+    for (int i = 0; i < 10; ++i) {
+        // code
+    }
+    ```
+    + No
+    ```C++
+    for (int i = 0; i < 10; ++i)
+    {
+        // code
+    }
+    ```
+
++ Control clauses without a body should use empty braces.
+    + Yes
+    ```C++
+    for (i = 0; i < 20; i++) {}
+    ```
+    + No
+    ```C++
+    for (i = 0; i < 20; i++);
+    ```
+
 ## Conditionals
 
-**Curly braces are not required for single-line statements** (you can still use them if you want).
+**Curly braces** are **not required for single-line statements unless it spans multiple lines, use the else clause or comments are included**.
++ Yes
 ```C++
 if (condition)
     Instruction();
 
-// or
+if (condition) {
+    Instruction();
+}
 
-if (condition)
-{
+if (condition) {
+    // A comment
+    Instruction();
+}
+
+if (condition) {
+    Instruction(arg1,
+                arg2,
+                arg3);
+}
+
+if (condition) {
+    Instruction();
+}
+else {
     Instruction();
 }
 ```
-**However, do not do that if the statement use the else clause.** Use curly braces.
++ No
 ```C++
 if (condition)
-{
+    // A comment
     Instruction();
-}
+
+if (condition)
+    Instruction(arg1,
+                arg2,
+                arg3);
+
+if (condition)
+    Instruction();
 else
-{
     Instruction();
-}
 ```
 
 ## Spaces
@@ -213,6 +341,7 @@ else
 + No trailing spaces.
 + A space before and after a colon. `for (auto i : myVector)`
 + Usually no space inside parentheses. `if (condition) ...`
++ No space precedes a semi-colon.
 
 ## Type conversion
 
@@ -221,8 +350,6 @@ else
 Type conversions between signed integers, unsigned integers and floating point types (as well as between different types of the same category) are performed explicitly using `static_cast`.
 
 ## Namespaces
-
-The contents of namespaces are not indented.
 
 The public API is contained in `mp` namespace.
 You can use `mp::priv` for private classes or functions.
