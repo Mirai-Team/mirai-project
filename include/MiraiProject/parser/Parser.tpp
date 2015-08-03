@@ -28,7 +28,7 @@
 
 #include "MiraiProject/parser/Parser.hpp"
 #include "MiraiProject/util/StringUtilities.hpp"
-#include "MiraiProject/util/Logger.hpp"
+#include "MiraiProject/util/MPLogger.hpp"
 #include "MiraiProject/encryption/Encryption.hpp"
 
 using namespace std;
@@ -45,7 +45,7 @@ namespace mp
         T value { };
         ifstream file;
 
-        Logger log;
+        priv::MPLogger& log = mp::priv::MPLogger::instance();
 
         if(isEncrypted && key != "")
         {
@@ -93,7 +93,7 @@ namespace mp
         vector<T> values;
         ifstream file;
 
-        Logger log;
+        priv::MPLogger& log = mp::priv::MPLogger::instance();
 
         if(isEncrypted && key != "")
         {

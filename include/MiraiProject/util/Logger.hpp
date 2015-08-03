@@ -50,7 +50,7 @@ class Priority
         std::string m_priority;
 };
 
-class Logger : public virtual std::ostream
+class Logger : public std::ostream
 {
     public:
         /**

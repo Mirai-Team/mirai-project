@@ -22,43 +22,42 @@
 //
 ////////////////////////////////////////////////////////////
 
+#include "MiraiProject/util/MPLogger.hpp"
 
-#include <iostream>
-#include "MiraiProject/eventManager/EventManager.hpp"
-
-using namespace std;
-
-mp::EventManager& mp::EventManager::getInstance()
+void mp::changeMPLoggerOutput(std::streambuf* buf)
 {
-    static EventManager instance;
+    priv::MPLogger::instance().changeOutput(buf);
+}
+
+void mp::enableMPLogger(bool state)
+{
+    priv::MPLogger::instance().enableLogger(state);
+}
+
+mp::priv::MPLogger::MPLogger()
+    : isEnabled {true}
+    , backup {this->rdbuf()}
+{}
+
+mp::priv::MPLogger& mp::priv::MPLogger::instance()
+{
+    static MPLogger instance;
     return instance;
 }
 
-mp::EventManager::EventManager() : events_ { }
+void mp::priv::MPLogger::enableLogger(bool state)
 {
-
-}
-
-void mp::EventManager::deleteListener(int eventID, int IDListener)
-{
-    auto temp = events_[eventID].begin();
-
-    while (temp != events_[eventID].end())
+    if (!(isEnabled = state))
     {
-        if (temp->first == IDListener)
-        {
-            events_[eventID].erase(temp);
-        }
-        else
-        {
-            ++temp;
-        }
-
+        backup = this->rdbuf(nullptr);
+    }
+    else
+    {
+        this->rdbuf(backup);
     }
 }
 
-void mp::EventManager::clearListeners()
+void mp::priv::MPLogger::changeOutput(std::streambuf* buf)
 {
-    while(events_.size() > 0)
-        events_.erase(events_.begin());
+    this->rdbuf(buf);
 }

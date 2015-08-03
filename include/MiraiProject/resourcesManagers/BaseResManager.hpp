@@ -30,7 +30,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "MiraiProject/util/Logger.hpp"
+#include "MiraiProject/util/MPLogger.hpp"
 
 /** \file BaseResManager.hpp
  * \brief This file contains BaseResManager class definition.
@@ -175,7 +175,7 @@ namespace mp
             std::map<std::string, std::shared_ptr<sf::Texture>> texturesCache;
             std::map<std::string, std::shared_ptr<sf::SoundBuffer>> soundBufferCache;
             std::map<std::string, std::shared_ptr<sf::Font>> fontCache;
-            Logger log_;
+            priv::MPLogger& log_;
     };
 }
 

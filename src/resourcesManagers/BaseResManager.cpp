@@ -28,14 +28,14 @@
 #include <SFML/Graphics.hpp>
 
 #include "MiraiProject/resourcesManagers/BaseResManager.hpp"
-#include "MiraiProject/util/Logger.hpp"
+#include "MiraiProject/util/MPLogger.hpp"
 
 using namespace std;
 
 mp::BaseResManager::BaseResManager() : texturesCache{ },
                                        soundBufferCache{ },
                                        fontCache{ },
-                                       log_ { }
+                                       log_ { mp::priv::MPLogger::instance() }
 {
     // constructor
 }
@@ -231,9 +231,9 @@ void mp::BaseResManager::clean()
 
     vector<string> keysToErase;
 
-    for (map<string, shared_ptr<sf::Texture>>::const_iterator it = texturesCache.begin() ;
-         it != texturesCache.end() ;
-         it++)
+    for (map<string, shared_ptr<sf::Texture>>::const_iterator it = texturesCache.begin();
+        it != texturesCache.end();
+        ++it)
     {
         if (it->second.unique()) // If the last reference is keep by the resource manager.
             keysToErase.push_back(it->first);
@@ -247,9 +247,9 @@ void mp::BaseResManager::clean()
 
     keysToErase.clear(); // Clear keys_to_erase vector.
 
-    for (map<string, shared_ptr<sf::SoundBuffer>>::const_iterator it = soundBufferCache.begin() ;
-         it != soundBufferCache.end() ;
-         it++)
+    for (map<string, shared_ptr<sf::SoundBuffer>>::const_iterator it = soundBufferCache.begin();
+        it != soundBufferCache.end();
+        ++it)
     {
         if (it->second.unique()) // If the last reference is keep by the resource manager.
             keysToErase.push_back(it->first);
@@ -263,9 +263,9 @@ void mp::BaseResManager::clean()
 
     keysToErase.clear(); // Clear keys_to_erase vector.
 
-    for (map<string, shared_ptr<sf::Font>>::const_iterator it = fontCache.begin() ;
-         it != fontCache.end() ;
-         it++)
+    for (map<string, shared_ptr<sf::Font>>::const_iterator it = fontCache.begin();
+        it != fontCache.end();
+        ++it)
     {
         if (it->second.unique()) // If the last reference is keep by the resource manager.
             keysToErase.push_back(it->first);

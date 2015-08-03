@@ -32,7 +32,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "MiraiProject/util/Logger.hpp"
+#include "MiraiProject/util/MPLogger.hpp"
 
 /** \file Encryption.hpp
  * \brief This file contains Encryption class definition.
@@ -122,7 +122,7 @@ namespace mp {
             std::vector<long int>offset_;
             std::vector<std::string>fileNames_;
 
-            Logger log_;
+            priv::MPLogger& log_;
 
     };
 }

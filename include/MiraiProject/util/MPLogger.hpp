@@ -22,43 +22,58 @@
 //
 ////////////////////////////////////////////////////////////
 
+#ifndef MP_MPLOGGER_HPP
+#define MP_MPLOGGER_HPP
 
 #include <iostream>
-#include "MiraiProject/eventManager/EventManager.hpp"
+#include <streambuf>
+#include "MiraiProject/util/Logger.hpp"
 
-using namespace std;
-
-mp::EventManager& mp::EventManager::getInstance()
-{
-    static EventManager instance;
-    return instance;
-}
-
-mp::EventManager::EventManager() : events_ { }
+namespace mp
 {
 
-}
+/**
+ * @brief Change Mirai Logger output.
+ *
+ * @param buf : the new output for MP Logger.
+ */
+void changeMPLoggerOutput(std::streambuf* buf = std::cout.rdbuf());
 
-void mp::EventManager::deleteListener(int eventID, int IDListener)
+/**
+ * @brief Disable or enable Mirai Project Logger output. (true by default)
+ *
+ * @param state : false to disable and true to enable.
+ */
+void enableMPLogger(bool state);
+
+namespace priv
 {
-    auto temp = events_[eventID].begin();
 
-    while (temp != events_[eventID].end())
-    {
-        if (temp->first == IDListener)
-        {
-            events_[eventID].erase(temp);
-        }
-        else
-        {
-            ++temp;
-        }
-
-    }
-}
-
-void mp::EventManager::clearListeners()
+class MPLogger : public Logger
 {
-    while(events_.size() > 0)
-        events_.erase(events_.begin());
-}
+public:
+    static MPLogger& instance();
+
+    // namespace precision is a compulsory here
+    friend void mp::changeMPLoggerOutput(std::streambuf*);
+    friend void mp::enableMPLogger(bool);
+
+private:
+    void enableLogger(bool state);
+    void changeOutput(std::streambuf* buf);
+
+    MPLogger();
+    MPLogger( const MPLogger& other ) = delete;
+    MPLogger& operator=( const MPLogger& ) = delete;
+
+    bool isEnabled;
+    std::streambuf* backup;
+
+
+};
+
+} // priv
+
+} // mp
+
+#endif // MP_MPLOGGER_HPP

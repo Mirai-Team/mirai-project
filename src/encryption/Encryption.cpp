@@ -28,7 +28,7 @@
 #include <sstream>
 
 #include "MiraiProject/util/FilesUtilities.hpp"
-#include "MiraiProject/util/Logger.hpp"
+#include "MiraiProject/util/MPLogger.hpp"
 #include "MiraiProject/util/StringUtilities.hpp"
 #include "MiraiProject/encryption/Encryption.hpp"
 
@@ -41,7 +41,7 @@ mp::Encryption::Encryption(string key) : key_{ encryptKey(key) },
                                          outputFile_{ },
                                          offset_{ },
                                          fileNames_{ },
-                                         log_ { }
+                                         log_ { mp::priv::MPLogger::instance() }
 {
     // constructor
 }
@@ -189,10 +189,9 @@ bool mp::Encryption::writeData()
 string mp::Encryption::encryptFile(string file)
 {
     ifstream input(file, ios::binary);
+
     if(!input)
-    {
         log_ << mp::Logger::priorityError << "Unable to open " << file << " to encrypt it. (encryption)";
-    }
 
     stringstream buffer;
     string encryptedFile;
