@@ -40,7 +40,6 @@ You have to know what you are doing, and resources above explain a lot of inters
 + Use **smart pointer** (`std::unique_ptr`, `std::shared_ptr`, `std::weak_ptr`, …).
 + Prefer **pre-increment** to post-increment.
     ```C++
-
     ++i; // rather than i++ !
     ```
 + **Surround the return expression with parentheses only if necessary.**
@@ -48,7 +47,7 @@ You have to know what you are doing, and resources above explain a lot of inters
     ```C++
     return result;
     ```
-    - no
+    - _no_
     ```C++
     return (result);
     ```
@@ -67,7 +66,7 @@ You have to know what you are doing, and resources above explain a lot of inters
 + Tab indent size is **4 space**.
 + The contents of namespaces are not indented.
 + A case label is indended and the case statement as well.
-    + Yes
+    - yes
     ```C++
     switch (myVar) {
         case value1:
@@ -80,7 +79,7 @@ You have to know what you are doing, and resources above explain a lot of inters
             break;
     }
     ```
-    + No
+    - _no_
     ```C++
     switch (myVar) {
     case value1:
@@ -94,7 +93,7 @@ You have to know what you are doing, and resources above explain a lot of inters
     }
     ```
 + Do not indent `public`, `protected` and `private` labels in classes.
-    + Yes
+    - yes
     ```C++
     class myClass { 
     public:
@@ -105,7 +104,7 @@ You have to know what you are doing, and resources above explain a lot of inters
         int m_aMemberVar;
     };
     ```
-    + No
+    - _no_
     ```C++
     class myClass { 
         public:
@@ -236,14 +235,14 @@ int pi{3.14};  // Compile error: narrowing conversion.
 ## Braces
 
 + **Curly braces are placed on _its own line_ for function definitions.**
-    + Yes
+    - yes
     ```C++
     void myFunction()
     {
         // code
     }
     ```
-    + No
+    - _no_
     ```C++
     void myFunction() {
         // code
@@ -251,7 +250,7 @@ int pi{3.14};  // Compile error: narrowing conversion.
     ```
     
 + **Other opening braces are placed on the line preceding the code block. Closing brace is placed on its own line.** 
-    + Yes
+    - yes
     ```C++
     class MyClass {
         // code
@@ -265,7 +264,7 @@ int pi{3.14};  // Compile error: narrowing conversion.
         // code
     }
     ```
-    + No
+    - _no_
     ```C++
     for (int i = 0; i < 10; ++i)
     {
@@ -274,11 +273,11 @@ int pi{3.14};  // Compile error: narrowing conversion.
     ```
 
 + Control clauses without a body should use empty braces.
-    + Yes
+    - yes
     ```C++
     for (i = 0; i < 20; i++) {}
     ```
-    + No
+    - _no_
     ```C++
     for (i = 0; i < 20; i++);
     ```
@@ -286,7 +285,7 @@ int pi{3.14};  // Compile error: narrowing conversion.
 ## Conditionals
 
 **Curly braces** are **not required for single-line statements unless it spans multiple lines, use the else clause or comments are included**.
-+ Yes
++ yes
 ```C++
 if (condition)
     Instruction();
@@ -313,7 +312,7 @@ else {
     Instruction();
 }
 ```
-+ No
++ _no_
 ```C++
 if (condition)
     // A comment
@@ -354,8 +353,8 @@ Type conversions between signed integers, unsigned integers and floating point t
 The public API is contained in `mp` namespace.
 You can use `mp::priv` for private classes or functions.
 
-**The `using` directive is prohibited in headers files** and tolerated for repetitive use of names **in implementation files if you specify what you are using explicitly**.
-+ Yes
+**The `using` directive is prohibited in headers files** and tolerated for repetitive use of names **in implementation files if you specify what you are using _explicitly_**.
++ yes
 ```C++
 // Header file
 #include <string>
@@ -392,7 +391,7 @@ int main()
     return 0;
 }
 ```
-+ No
++ _no_
 ```C++
 // Header file
 #include <string>
@@ -423,8 +422,6 @@ int main()
 ## Classes
 
 If you override a method use override keyword.
-
-Example:
 ```C++
 class ParentClass
 {
@@ -440,8 +437,6 @@ public:
 ```
 
 Method or classes that you don't want to be overridden should be marked with final keyword
-
-Example:
 ```C++
 class SomeClass final
 {
@@ -455,9 +450,6 @@ It avoid undesirable conversions.
 This should not be applied to copy or move constructors.
 Mark these exceptions with clear comments.
 See details [here](https://google-styleguide.googlecode.com/svn/trunk/cppguide.html#Explicit_Constructors) and [here](http://en.cppreference.com/w/cpp/language/explicit).
-
-Example:
-
 ```C++
 class SomeClass
 {
@@ -477,9 +469,19 @@ FuncThatTakeMyClassAsParameter({1, 2});
 
 Don't let running loops if it's not required.
 
-What **not** to do:
++ yes
 ```C++
-
+bool isInVector(std::vector<int> vect, int element)
+{
+    for (auto&& value : vect) {
+        if (value == element)
+            return true;
+    }
+    return false;
+}
+```
++ _no_
+```C++
 bool isInVector(std::vector<int> vect, int element)
 {
     bool found = false;
@@ -489,19 +491,6 @@ bool isInVector(std::vector<int> vect, int element)
     }
 
     return found;
-}
-```
-
-What to do:
-```C++
-
-bool isInVector(std::vector<int> vect, int element)
-{
-    for (auto&& value : vect) {
-        if (value == element)
-            return true;
-    }
-    return false;
 }
 ```
 
