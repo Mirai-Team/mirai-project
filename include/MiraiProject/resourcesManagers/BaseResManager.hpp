@@ -175,7 +175,7 @@ namespace mp
             std::map<std::string, std::shared_ptr<sf::Texture>> texturesCache;
             std::map<std::string, std::shared_ptr<sf::SoundBuffer>> soundBufferCache;
             std::map<std::string, std::shared_ptr<sf::Font>> fontCache;
-            priv::MPLogger* log_;
+            priv::MPLogger& log_;
     };
 }
 

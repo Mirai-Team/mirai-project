@@ -26,12 +26,12 @@
 
 void mp::changeMPLoggerOutput(std::streambuf* buf)
 {
-    priv::MPLogger::instance()->changeOutput(buf);
+    priv::MPLogger::instance().changeOutput(buf);
 }
 
 void mp::enableMPLogger(bool state)
 {
-    priv::MPLogger::instance()->enableLogger(state);
+    priv::MPLogger::instance().enableLogger(state);
 }
 
 mp::priv::MPLogger::MPLogger()
@@ -39,9 +39,9 @@ mp::priv::MPLogger::MPLogger()
     , backup {this->rdbuf()}
 {}
 
-mp::priv::MPLogger* mp::priv::MPLogger::instance()
+mp::priv::MPLogger& mp::priv::MPLogger::instance()
 {
-    static MPLogger* instance = new MPLogger;
+    static MPLogger instance;
     return instance;
 }
 

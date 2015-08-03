@@ -52,7 +52,7 @@ namespace priv
 class MPLogger : public Logger
 {
 public:
-    static MPLogger* instance();
+    static MPLogger& instance();
 
     // namespace precision is a compulsory here
     friend void mp::changeMPLoggerOutput(std::streambuf*);

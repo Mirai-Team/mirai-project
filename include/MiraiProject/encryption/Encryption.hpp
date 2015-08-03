@@ -122,7 +122,7 @@ namespace mp {
             std::vector<long int>offset_;
             std::vector<std::string>fileNames_;
 
-            priv::MPLogger* log_;
+            priv::MPLogger& log_;
 
     };
 }

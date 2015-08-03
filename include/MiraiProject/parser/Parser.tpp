@@ -45,7 +45,7 @@ namespace mp
         T value { };
         ifstream file;
 
-        priv::MPLogger* log = mp::priv::MPLogger::instance();
+        priv::MPLogger& log = mp::priv::MPLogger::instance();
 
         if(isEncrypted && key != "")
         {
@@ -72,12 +72,12 @@ namespace mp
             }
             else
             {
-                *log << Logger::priorityWarning << "The file doesn't exist";
+                log << Logger::priorityWarning << "The file doesn't exist";
             }
         }
         else
         {
-            *log << Logger::priorityError << "File encrypted, and no key provided";
+            log << Logger::priorityError << "File encrypted, and no key provided";
         }
 
         return value;
@@ -93,7 +93,7 @@ namespace mp
         vector<T> values;
         ifstream file;
 
-        priv::MPLogger* log = mp::priv::MPLogger::instance();
+        priv::MPLogger& log = mp::priv::MPLogger::instance();
 
         if(isEncrypted && key != "")
         {
@@ -134,12 +134,12 @@ namespace mp
             }
             else
             {
-                *log << Logger::priorityWarning << "The file doesn't exist";
+                log << Logger::priorityWarning << "The file doesn't exist";
             }
         }
         else
         {
-            *log << Logger::priorityError << "File encrypted, and no key provided";
+            log << Logger::priorityError << "File encrypted, and no key provided";
         }
 
         return values;

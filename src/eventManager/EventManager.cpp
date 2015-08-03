@@ -30,7 +30,7 @@ using namespace std;
 
 mp::EventManager& mp::EventManager::getInstance()
 {
-    static mp::EventManager instance;
+    static EventManager instance;
     return instance;
 }
 

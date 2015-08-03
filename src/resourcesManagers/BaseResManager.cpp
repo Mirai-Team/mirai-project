@@ -69,7 +69,7 @@ bool mp::BaseResManager::loadTextureFromFile(const string &fileName)
     if (!ptr_texture->loadFromFile(fileName))
     {
         // File not found...
-        *log_ << mp::Logger::priorityError << "File " << fileName << " was not found... (for texture)";
+        log_ << mp::Logger::priorityError << "File " << fileName << " was not found... (for texture)";
         success = false;
     }
 
@@ -88,7 +88,7 @@ bool mp::BaseResManager::loadTextureFromMemory(const string &fileName, const voi
     if (!ptr_texture->loadFromMemory(fileData, fileSize))
     {
         // File not found...
-        *log_ << mp::Logger::priorityError << "File " << fileName << " was not found... (for texture)";
+        log_ << mp::Logger::priorityError << "File " << fileName << " was not found... (for texture)";
         success = false;
     }
 
@@ -129,7 +129,7 @@ bool mp::BaseResManager::loadSoundBufferFromFile(const string &fileName)
     if (!ptr_sound_buffer->loadFromFile(fileName))
     {
         // Sound not found...
-        *log_ << mp::Logger::priorityError << "File " << fileName << " was not found... (for sound)";
+        log_ << mp::Logger::priorityError << "File " << fileName << " was not found... (for sound)";
         success = false;
     }
 
@@ -147,7 +147,7 @@ bool mp::BaseResManager::loadSoundBufferFromMemory(const string &fileName, const
     if (!ptr_sound_buffer->loadFromMemory(fileData, fileSize))
     {
         // Sound not found...
-        *log_ << mp::Logger::priorityError << "File " << fileName << " was not found... (for sound)";
+        log_ << mp::Logger::priorityError << "File " << fileName << " was not found... (for sound)";
         success = false;
     }
 
@@ -188,7 +188,7 @@ bool mp::BaseResManager::loadFontFromFile(const string &fileName)
     if (!ptrFont->loadFromFile(fileName))
     {
         // Font not found...
-        *log_ << mp::Logger::priorityError << "File " << fileName << " was not found... (for font)";
+        log_ << mp::Logger::priorityError << "File " << fileName << " was not found... (for font)";
         success = false;
     }
 
@@ -206,7 +206,7 @@ bool mp::BaseResManager::loadFontFromMemory(const string &fileName, const void *
     if (!ptrFont->loadFromMemory(fileData, fileSize))
     {
         // Font not found...
-        *log_ << mp::Logger::priorityError << "File " << fileName << " was not found... (for font)";
+        log_ << mp::Logger::priorityError << "File " << fileName << " was not found... (for font)";
         success = false;
     }
 
@@ -227,13 +227,13 @@ bool mp::BaseResManager::fontIsAvailable(const string &fileName)
 void mp::BaseResManager::clean()
 {
     // ___________________ Clean textures cache... ___________________
-    *log_ << mp::Logger::priorityInfo << "Cleaning textures cache.";
+    log_ << mp::Logger::priorityInfo << "Cleaning textures cache.";
 
     vector<string> keysToErase;
 
-    for (map<string, shared_ptr<sf::Texture>>::const_iterator it = texturesCache.begin() ;
-         it != texturesCache.end() ;
-         it++)
+    for (map<string, shared_ptr<sf::Texture>>::const_iterator it = texturesCache.begin();
+        it != texturesCache.end();
+        ++it)
     {
         if (it->second.unique()) // If the last reference is keep by the resource manager.
             keysToErase.push_back(it->first);
@@ -243,13 +243,13 @@ void mp::BaseResManager::clean()
         texturesCache.erase(key);
 
     // ___________________ Clean sound buffers cache... ___________________
-    *log_ << mp::Logger::priorityInfo << "Cleaning sound buffers cache.";
+    log_ << mp::Logger::priorityInfo << "Cleaning sound buffers cache.";
 
     keysToErase.clear(); // Clear keys_to_erase vector.
 
-    for (map<string, shared_ptr<sf::SoundBuffer>>::const_iterator it = soundBufferCache.begin() ;
-         it != soundBufferCache.end() ;
-         it++)
+    for (map<string, shared_ptr<sf::SoundBuffer>>::const_iterator it = soundBufferCache.begin();
+        it != soundBufferCache.end();
+        ++it)
     {
         if (it->second.unique()) // If the last reference is keep by the resource manager.
             keysToErase.push_back(it->first);
@@ -259,13 +259,13 @@ void mp::BaseResManager::clean()
         soundBufferCache.erase(key);
 
     // ___________________ Clean font cache... ___________________
-    *log_ << mp::Logger::priorityInfo << "Cleaning fonts cache.";
+    log_ << mp::Logger::priorityInfo << "Cleaning fonts cache.";
 
     keysToErase.clear(); // Clear keys_to_erase vector.
 
-    for (map<string, shared_ptr<sf::Font>>::const_iterator it = fontCache.begin() ;
-         it != fontCache.end() ;
-         it++)
+    for (map<string, shared_ptr<sf::Font>>::const_iterator it = fontCache.begin();
+        it != fontCache.end();
+        ++it)
     {
         if (it->second.unique()) // If the last reference is keep by the resource manager.
             keysToErase.push_back(it->first);
