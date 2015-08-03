@@ -61,6 +61,14 @@ You have to know what you are doing, and resources above explain a lot of inters
 + **Use the nullptr type over the macro `NULL`.**
 + One line of code should have a maximum of **100 characters**.
 
+## Integral types
+
+Instead of using `int`, `unsigned int`, `char`, `long long int`, etc. Use type aliases from [Config.hpp](include/Config.hpp) file :
++ `int8`, `int16`, `int32` and `int64` for signed integers.
++ `uint8`, `uint16`, `uint32` and `uint64` for unsigned ones.
+
+These are standard types that provide fixed, well-defined sizes regardless the architecture.
+
 ## Indentation
 
 + **Do not use tabs** except for files that require them for semantic meaning. 
@@ -276,11 +284,11 @@ int pi{3.14};  // Compile error: narrowing conversion.
 + Control clauses without a body should use empty braces.
     - yes
     ```C++
-    for (i = 0; i < 20; i++) {}
+    for (int i = 0; i < 20; i++) {}
     ```
     - _no_
     ```C++
-    for (i = 0; i < 20; i++);
+    for (int i = 0; i < 20; i++);
     ```
 
 ## Conditionals
@@ -494,13 +502,6 @@ bool isInVector(std::vector<int> vect, int element)
     return found;
 }
 ```
-
-## Integral types
-
-Instead of using `int`, `unsigned int`, `char`, `long long int`, etc. Use type aliases from [Config.hpp](include/Config.hpp) file :
-+ `int8`, `int16`, `int32` and `int64` for signed integers.
-+ `uint8`, `uint16`, `uint32` and `uint64` for unsigned ones.
-These are standard types that provide fixed, well-defined sizes regardless the architecture.
 
 # Git workflow
 
