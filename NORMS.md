@@ -63,7 +63,7 @@ You have to know what you are doing, and resources above explain a lot of inters
 
 ## Integral types
 
-Instead of using `int`, `unsigned int`, `char`, `long long int`, etc. Use type aliases from [Config.hpp](include/Config.hpp) file :
+Instead of using `int`, `unsigned int`, `char`, `long long int`, etc. Use type aliases from [Config.hpp](include/MiraiProject/Config.hpp) file :
 + `int8`, `int16`, `int32` and `int64` for signed integers.
 + `uint8`, `uint16`, `uint32` and `uint64` for unsigned ones.
 
