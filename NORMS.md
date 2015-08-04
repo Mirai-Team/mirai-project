@@ -155,18 +155,20 @@ Like SFML, header files are structured as follow:
 
 #include <...>
 
-namespace mp
-{
+namespace {
+
+}
+
+namespace mp {
 class ForwardDeclaration;
 
-namespace priv
-{
+namespace priv {
 ////////////////////////////////////////////////////////////
 /// \brief Short description...
 ///
 ////////////////////////////////////////////////////////////
-class PrivateClass
-{
+class PrivateClass {
+    // code
 };
 
 } // namespace priv
@@ -175,8 +177,8 @@ class PrivateClass
 /// \brief Short description...
 ///
 ////////////////////////////////////////////////////////////
-class PublicClass
-{
+class PublicClass {
+    // code
 };
 
 ////////////////////////////////////////////////////////////
@@ -432,14 +434,12 @@ int main()
 
 If you override a method use override keyword.
 ```C++
-class ParentClass
-{
+class ParentClass {
 public:
     void update();
 };
 
-class ChildClass : ParentClass
-{
+class ChildClass : ParentClass {
 public:
     void update() override;
 };
@@ -447,8 +447,7 @@ public:
 
 Method or classes that you don't want to be overridden should be marked with final keyword
 ```C++
-class SomeClass final
-{
+class SomeClass final {
 public:
     void update() final;
 };
@@ -460,8 +459,7 @@ This should not be applied to copy or move constructors.
 Mark these exceptions with clear comments.
 See details [here](https://google-styleguide.googlecode.com/svn/trunk/cppguide.html#Explicit_Constructors) and [here](http://en.cppreference.com/w/cpp/language/explicit).
 ```C++
-class SomeClass
-{
+class SomeClass {
 public:
     explicit SomeClass(int);
 };
