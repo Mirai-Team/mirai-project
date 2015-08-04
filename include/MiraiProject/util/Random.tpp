@@ -1,14 +1,16 @@
 ////////////////////////////////////////////////////////////
 //
 // MiraiProject
-// Copyright (C) 2014-2015 CORTIER Benoît (benoit.cortier@gmail.com), BOULMIER Jérôme (jerome.boulmier@outlook.fr)
+// Copyright (C) 2014-2015 CORTIER Benoît (benoit.cortier@gmail.com),
+//                         BOULMIER Jérôme (jerome.boulmier@outlook.fr)
 //
 // This software is provided 'as-is', without any express or implied warranty.
-// In no event will the authors be held liable for any damages arising from the use of this software.
+// In no event will the authors be held liable for any damages arising from the
+// use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it freely,
-// subject to the following restrictions:
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
 //
 // 1. The origin of this software must not be misrepresented;
 // you must not claim that you wrote the original software.
@@ -22,45 +24,50 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef RANDOM_TPP_INCLUDED
-#define RANDOM_TPP_INCLUDED
+#ifndef MP_RANDOM_TPP_INCLUDED
+#define MP_RANDOM_TPP_INCLUDED
 
-#include <iostream>
 #include <chrono>
+#include <iostream>
 #include <random>
 #include <vector>
 
-#include "MiraiProject/util/random.tpp"
-
-using namespace std;
-
-namespace mp
+namespace mp {
+template <typename T,
+    typename std::enable_if<std::is_integral<T>::value, int>::type = 0>
+T getRand(T min, T max)
 {
-    template<typename T> T Random::vrand(vector<T> vec)
-    {
-        long unsigned int maxN = vec.size();
-        unsigned seed = static_cast<unsigned>(chrono::system_clock::now().time_since_epoch().count());
-        mt19937 generator (seed);
+    assert(min <= max);
 
-        return vec[ static_cast<long unsigned int>( generator()%maxN ) ];
-    }
+    std::mt19937 generator(
+        std::chrono::system_clock::now().time_since_epoch().count());
+    std::uniform_int_distribution<T> distribution(min, max);
 
-    template<typename T> T Random::irand(T minN, T maxN)
-    {
-        unsigned seed = static_cast<unsigned>(chrono::system_clock::now().time_since_epoch().count());
-        mt19937 generator (seed);
-
-        return static_cast<T>(generator()%(maxN - minN) + minN);
-    }
-
-    template<typename T> T Random::drand(T minN, T maxN)
-    {
-        unsigned seed = static_cast<unsigned>(chrono::system_clock::now().time_since_epoch().count());
-        mt19937 generator (seed);
-
-        T temp = static_cast<T>(generator())/static_cast<T>(generator.max());
-        return (temp * (maxN-minN) + minN);
-    }
+    return distribution(generator);
 }
 
-#endif // RANDOM_TPP_INCLUDED
+template <typename T,
+    typename std::enable_if<std::is_floating_point<T>::value, int>::type = 0>
+T getRand(T min, T max)
+{
+    assert(min <= max);
+
+    std::mt19937 generator(
+        std::chrono::system_clock::now().time_since_epoch().count());
+    std::uniform_real_distribution<T> distribution(min, max);
+
+    return distribution(generator);
+}
+
+template <typename U, typename T>
+T getVRand(U<T> vec)
+{
+    std::mt19937 generator(
+        std::chrono::system_clock::now().time_since_epoch().count());
+    std::uniform_int_distribution<T> distribution(0, vec.size());
+
+    return vec[distribution(generator)];
+}
+}
+
+#endif // MP_RANDOM_TPP_INCLUDED
