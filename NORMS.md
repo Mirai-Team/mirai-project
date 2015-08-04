@@ -71,7 +71,7 @@ These are standard types that provide fixed, well-defined sizes regardless the a
 
 ## Indentation
 
-+ **Do not use tabs** except for files that require them for semantic meaning. 
++ **Do not use tabs** except for files that require them for semantic meaning.
 + Tab indent size is **4 space**.
 + The contents of namespaces are not indented.
 + A case label is indended and the case statement as well.
@@ -104,22 +104,22 @@ These are standard types that provide fixed, well-defined sizes regardless the a
 + Do not indent `public`, `protected` and `private` labels in classes.
     - yes
     ```C++
-    class myClass { 
+    class myClass {
     public:
         myClass();
         void aPublicMethod();
-        
+
     private:
         int m_aMemberVar;
     };
     ```
     - _no_
     ```C++
-    class myClass { 
+    class myClass {
         public:
             myClass();
             void aPublicMethod();
-            
+
         private:
             int m_aMemberVar;
     };
@@ -257,18 +257,18 @@ int pi{3.14};  // Compile error: narrowing conversion.
         // code
     }
     ```
-    
-+ **Other opening braces are placed on the line preceding the code block. Closing brace is placed on its own line.** 
+
++ **Other opening braces are placed on the line preceding the code block. Closing brace is placed on its own line.**
     - yes
     ```C++
     class MyClass {
         // code
     };
-    
+
     namespace mp {
         // code
     }
-    
+
     for (int i = 0; i < 10; ++i) {
         // code
     }
