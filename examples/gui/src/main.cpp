@@ -39,7 +39,7 @@ int main()
     bar.setValue(90.f);
 
     mp::Label* label = new mp::Label();
-    label->setText(L"Mirai Project Logo");
+    label->setString(L"Mirai Project Logo");
     label->setPosition(10, 10);
     label->setFont(*resourcesManager.getFontBuffer("resources/UbuntuMono-R.ttf"));
     label->setCharacterSize(20);

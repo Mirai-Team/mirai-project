@@ -106,16 +106,19 @@ void mp::TextBox::setCharacterSize(const unsigned int size)
 {
     text_.setCharacterSize(size);
     updateCursorSize();
+    updateCursorPos();
 }
 
 void mp::TextBox::setTextPos(const float& x, const float& y)
 {
     text_.setPosition(x, y);
+    updateCursorPos();
 }
 
 void mp::TextBox::setTextPos(const sf::Vector2f& position)
 {
     text_.setPosition(position);
+    updateCursorPos();
 }
 
 void mp::TextBox::setCursorPos(const size_t& pos)
@@ -143,11 +146,6 @@ void mp::TextBox::toggleCursor()
     {
         cursor_.setVisible(true);
     }
-}
-
-void mp::TextBox::setCursorSize(const sf::Vector2f& size)
-{
-    cursor_.setSize(size);
 }
 
 void mp::TextBox::setCursorColor(const sf::Color& color)
@@ -276,11 +274,6 @@ const size_t& mp::TextBox::getCursorPos() const
 const bool& mp::TextBox::cursorIsVisible() const
 {
     return cursor_.getVisible();
-}
-
-const sf::Vector2f& mp::TextBox::getCursorSize() const
-{
-    return cursor_.getSize();
 }
 
 const sf::Color& mp::TextBox::getCursorColor() const

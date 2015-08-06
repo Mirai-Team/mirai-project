@@ -32,16 +32,14 @@ mp::Label::Label() : text_ { }
 void mp::Label::setFont(const sf::Font& font)
 {
     text_.setFont(font);
-
-    text_.setString(getText());
 }
 
-void mp::Label::setText(std::string string)
+void mp::Label::setString(std::string string)
 {
     text_.setString(string);
 }
 
-void mp::Label::setText(sf::String string)
+void mp::Label::setString(sf::String string)
 {
     text_.setString(string);
 }
@@ -82,7 +80,7 @@ const sf::Font* mp::Label::getFont() const
     return text_.getFont();
 }
 
-const sf::String& mp::Label::getText() const
+const sf::String& mp::Label::getString() const
 {
     return text_.getString();
 }

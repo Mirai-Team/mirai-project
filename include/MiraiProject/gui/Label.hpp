@@ -47,9 +47,9 @@ namespace mp
 
             void setFont(const sf::Font& font);
 
-            void setText(std::string string);
+            void setString(std::string string);
 
-            void setText(sf::String string);
+            void setString(sf::String string);
 
             virtual void setPosition(sf::Vector2f position);
 
@@ -67,7 +67,7 @@ namespace mp
 
             const sf::Font* getFont() const;
 
-            const sf::String& getText() const;
+            const sf::String& getString() const;
 
             sf::Uint32 getStyle() const;
 
