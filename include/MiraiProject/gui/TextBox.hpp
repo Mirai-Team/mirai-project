@@ -29,10 +29,12 @@
 
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Text.hpp>
 #include <SFML/System/Vector2.hpp>
 
 #include "MiraiProject/gui/ClickableWidget.hpp"
-#include "MiraiProject/gui/Label.hpp"
+#include "MiraiProject/gui/priv/Cursor.hpp"
 
 namespace
 {
@@ -62,9 +64,11 @@ namespace mp
 
             void setFont(const sf::Font& font);
 
-            void setLabelPos(const float& x, const float& y);
+            void setCharacterSize(const unsigned int size);
 
-            void setLabelPos(const sf::Vector2f& position);
+            void setTextPos(const float& x, const float& y);
+
+            void setTextPos(const sf::Vector2f& position);
 
             void setCursorPos(const size_t& pos);
 
@@ -73,6 +77,8 @@ namespace mp
             void showCursor();
 
             void toggleCursor();
+
+            void setCursorColor(const sf::Color& color);
 
             void enableMultiline();
 
@@ -87,10 +93,10 @@ namespace mp
 
             void handleInput(const Uint32 &unicode);
 
-            void setText(const sf::String& text);
+            void setString(const sf::String& text);
 
             /* Add text at cursor position */
-            void addText(const sf::String& text);
+            void addString(const sf::String& text);
 
             void insertText(const size_t& position, const sf::String& text);
 
@@ -104,28 +110,35 @@ namespace mp
             // Getters //
             /////////////
 
-            mp::Label& getLabel() const;
+            unsigned int getCharacterSize() const;
 
-            size_t getCursorPos() const;
+            const size_t& getCursorPos() const;
 
-            bool cursorIsVisible() const;
+            const bool& cursorIsVisible() const;
 
-            bool multilineIsEnabled() const;
+            const sf::Color& getCursorColor() const;
 
-            bool isFocused() const;
+            const bool& multilineIsEnabled() const;
 
-            size_t getMaxSize() const;
+            const bool& isFocused() const;
 
-            sf::String getText() const;
+            const size_t& getMaxSize() const;
+
+            const sf::String& getString() const;
 
         private:
             virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+
+            void updateCursorSize();
+
+            void updateCursorPos();
 
             std::shared_ptr<sf::Texture> textureNormal_;
             std::shared_ptr<sf::Texture> textureHover_;
             std::shared_ptr<sf::Texture> textureFocus_;
 
-            mp::Label label_;
+            sf::Text text_;
+            mp::Cursor cursor_;
 
             size_t nFirstVisible_; // First visible character index.
             size_t cursorPos_;

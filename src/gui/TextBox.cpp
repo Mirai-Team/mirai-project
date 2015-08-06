@@ -31,7 +31,7 @@ mp::TextBox::TextBox() : textureNormal_ { },
                          textureHover_ { },
                          textureFocus_ { },
 
-                         label_ { },
+                         text_ { },
 
                          nFirstVisible_ { 0 },
                          cursorPos_ { 0 },
@@ -43,7 +43,7 @@ mp::TextBox::TextBox() : textureNormal_ { },
                          hScroll_ { false },
                          vScroll_ { false }
 {
-
+    updateCursorSize();
 }
 
 void mp::TextBox::update(sf::Vector2i mousePosition)
@@ -99,17 +99,23 @@ void mp::TextBox::setFocusTexture(const std::shared_ptr<sf::Texture> &texture)
 
 void mp::TextBox::setFont(const sf::Font& font)
 {
-    label_.setFont(font);
+    text_.setFont(font);
 }
 
-void mp::TextBox::setLabelPos(const float& x, const float& y)
+void mp::TextBox::setCharacterSize(const unsigned int size)
 {
-    label_.setPosition(x, y);
+    text_.setCharacterSize(size);
+    updateCursorSize();
 }
 
-void mp::TextBox::setLabelPos(const sf::Vector2f& position)
+void mp::TextBox::setTextPos(const float& x, const float& y)
 {
-    label_.setPosition(position);
+    text_.setPosition(x, y);
+}
+
+void mp::TextBox::setTextPos(const sf::Vector2f& position)
+{
+    text_.setPosition(position);
 }
 
 void mp::TextBox::setCursorPos(const size_t& pos)
@@ -119,24 +125,34 @@ void mp::TextBox::setCursorPos(const size_t& pos)
 
 void mp::TextBox::hideCursor()
 {
-    cursorVisible_ = false;
+    cursor_.setVisible(false);
 }
 
 void mp::TextBox::showCursor()
 {
-    cursorVisible_ = true;
+    cursor_.setVisible(true);
 }
 
 void mp::TextBox::toggleCursor()
 {
-    if (cursorVisible_)
+    if (cursor_.getVisible())
     {
-        cursorVisible_ = false;
+        cursor_.setVisible(false);
     }
     else
     {
-        cursorVisible_ = true;
+        cursor_.setVisible(true);
     }
+}
+
+void mp::TextBox::setCursorSize(const sf::Vector2f& size)
+{
+    cursor_.setSize(size);
+}
+
+void mp::TextBox::setCursorColor(const sf::Color& color)
+{
+    cursor_.setColor(color);
 }
 
 void mp::TextBox::enableMultiline()
@@ -172,7 +188,7 @@ void mp::TextBox::handleInput(const Uint32 &unicode)
         {
             case 13: // Enter
                 if (multilineEnabled_)
-                    addText(sf::String('\n'));
+                    addString(sf::String('\n'));
                 break;
             case 8: // Backspace
                 if (cursorPos_ > 0)
@@ -185,92 +201,127 @@ void mp::TextBox::handleInput(const Uint32 &unicode)
                 focused_ = false;
                 break;
             default:
-                if (!maxSize_ || label_.getText().getSize() < maxSize_)
-                    addText(sf::String(unicode));
+                if (!maxSize_ || text_.getString().getSize() < maxSize_)
+                    addString(sf::String(unicode));
                 break;
         }
     }
 }
 
-void mp::TextBox::setText(const sf::String& text)
+void mp::TextBox::setString(const sf::String& text)
 {
-    label_.setText(text);
+    text_.setString(text);
     cursorPos_ = text.getSize();
+
+    updateCursorPos();
 }
 
-void mp::TextBox::addText(const sf::String& text)
+void mp::TextBox::addString(const sf::String& text)
 {
     insertText(cursorPos_, text);
 }
 
 void mp::TextBox::insertText(const size_t& position, const sf::String& text)
 {
-    sf::String newText { label_.getText() };
+    sf::String newText { text_.getString() };
     newText.insert(position, text);
-    label_.setText(newText);
+    text_.setString(newText);
 
     cursorPos_ = position + text.getSize();
+
+    updateCursorPos();
 }
 
 void mp::TextBox::appendText(const sf::String& text)
 {
-    sf::String newText { label_.getText() };
+    sf::String newText { text_.getString() };
     newText.insert(newText.getSize(), text);
-    label_.setText(newText);
+    text_.setString(newText);
 
     cursorPos_ = newText.getSize();
 }
 
 void mp::TextBox::prependText(const sf::String& text)
 {
-    sf::String newText { label_.getText() };
+    sf::String newText { text_.getString() };
     newText.insert(0, text);
-    label_.setText(newText);
+    text_.setString(newText);
 
     cursorPos_ = text.getSize();
+
+    updateCursorPos();
 }
 
 void mp::TextBox::deleteText(const size_t& pos, const size_t& n)
 {
-    sf::String newText { label_.getText() };
+    sf::String newText { text_.getString() };
     newText.replace(pos, n, "");
-    label_.setText(newText);
+    text_.setString(newText);
 
     cursorPos_ = pos;
+
+    updateCursorPos();
 }
 
-sf::String mp::TextBox::getText() const
+unsigned int mp::TextBox::getCharacterSize() const
 {
-    return label_.getText();
+    return text_.getCharacterSize();
 }
 
-size_t mp::TextBox::getCursorPos() const
+const size_t& mp::TextBox::getCursorPos() const
 {
     return cursorPos_;
 }
 
-bool mp::TextBox::cursorIsVisible() const
+const bool& mp::TextBox::cursorIsVisible() const
 {
-    return cursorVisible_;
+    return cursor_.getVisible();
 }
 
-bool mp::TextBox::multilineIsEnabled() const
+const sf::Vector2f& mp::TextBox::getCursorSize() const
+{
+    return cursor_.getSize();
+}
+
+const sf::Color& mp::TextBox::getCursorColor() const
+{
+    return cursor_.getColor();
+}
+
+const bool& mp::TextBox::multilineIsEnabled() const
 {
     return multilineEnabled_;
 }
 
-bool mp::TextBox::isFocused() const
+const bool& mp::TextBox::isFocused() const
 {
     return focused_;
 }
 
-size_t mp::TextBox::getMaxSize() const
+const size_t& mp::TextBox::getMaxSize() const
 {
     return maxSize_;
+}
+
+const sf::String& mp::TextBox::getString() const
+{
+    return text_.getString();
 }
 
 void mp::TextBox::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.draw(sprite_, states);
-    target.draw(label_, states);
+    target.draw(text_, states);
+    target.draw(cursor_, states);
 }
+
+void mp::TextBox::updateCursorPos()
+{
+    cursor_.setPosition(text_.findCharacterPos(cursorPos_));
+}
+
+void mp::TextBox::updateCursorSize()
+{
+    cursor_.setSize({ 1, static_cast<float>(text_.getCharacterSize() + 2) });
+}
+

@@ -15,6 +15,7 @@ set(LIB_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/gui/Label.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/gui/TextBox.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/gui/Widget.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/gui/priv/Cursor.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inputManager/Binding.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inputManager/KeyboardManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inputManager/MouseManager.cpp

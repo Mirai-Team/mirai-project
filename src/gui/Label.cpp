@@ -106,3 +106,4 @@ void mp::Label::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) c
 {
     target.draw(text_, states);
 }
+

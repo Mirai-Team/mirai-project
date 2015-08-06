@@ -48,9 +48,11 @@ namespace mp
             void setFont(const sf::Font& font);
 
             void setText(std::string string);
+
             void setText(sf::String string);
 
             virtual void setPosition(sf::Vector2f position);
+
             virtual void setPosition(float x, float y);
 
             void setStyle(sf::Text::Style style);

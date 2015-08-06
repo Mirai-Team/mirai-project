@@ -61,9 +61,10 @@ int main()
     textBox.setHoverTexture(resourcesManager.getTexture("resources/textBoxHover.png"));
     textBox.setPosition(280.f, 5.f);
     textBox.setFont(*resourcesManager.getFontBuffer("resources/UbuntuMono-R.ttf"));
-    textBox.setText(L"Some text.");
-    textBox.setLabelPos(5, 5);
+    textBox.setString(L"Some text.");
+    textBox.setTextPos(5, 5);
     textBox.setMaxSize(32);
+    textBox.setCharacterSize(30);
 
     // Creating a bigger text box.
     mp::TextBox bigTextBox;
@@ -72,9 +73,10 @@ int main()
     bigTextBox.setHoverTexture(resourcesManager.getTexture("resources/bigTextBoxHover.png"));
     bigTextBox.setPosition(280.f, 60.f);
     bigTextBox.setFont(*resourcesManager.getFontBuffer("resources/UbuntuMono-R.ttf"));
-    bigTextBox.setText(L"Some text\non several lines. tête");
+    bigTextBox.setString(L"Some text\non several lines.");
     bigTextBox.enableMultiline();
-    bigTextBox.setLabelPos(5, 5);
+    bigTextBox.setTextPos(5, 5);
+    bigTextBox.setCharacterSize(18);
 
     mp::Button button;
     button.setNormalTexture(resourcesManager.getTexture("resources/logo.png"));
@@ -82,7 +84,7 @@ int main()
     button.setHoverTexture(resourcesManager.getTexture("resources/logoH.png"));
     button.setPosition(45.f, 45.f);
     button.setFunction([&textBox, &bar]() {
-        textBox.setText("Mirai Project");
+        textBox.setString("Mirai Project");
         bar.setValue(180.f);
     });
     button.addFrontChild(labelNode);
@@ -135,7 +137,7 @@ int main()
 
         window.display();
     }
-    
+
     // Closing the window if necessary.
     if (window.isOpen())
         window.close();
