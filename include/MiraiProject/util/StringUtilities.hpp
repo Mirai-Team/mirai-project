@@ -78,6 +78,18 @@ namespace mp
             template<typename T>
             static void replace(std::basic_string<T>* text, const std::basic_string<T>& toReplace, const std::basic_string<T>& replaceWith);
 
+                        /** \brief Segment a string into tokens with delimiters.
+             * \param str : the string to tokenize
+             * \param tokens : a container where are put tokens.
+             * \param delimiters : characters which delimit a tokens.
+             * \param limit : number of tokens to obtain.
+             */
+            template<typename T>
+            static void tokenize(const std::basic_string<T>& str,
+                std::vector<std::basic_string<T>>* tokens,
+                const std::basic_string<T>& delimiters = " ",
+                unsigned int limit = 0);
+
             /** \brief Convert the given object into string if possible by using an ostringstream object.
              *
              * \param object : the object to convert.

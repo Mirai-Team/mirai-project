@@ -25,6 +25,8 @@
 #ifndef STRING_FUNCTIONS_TPP_INCLUDED
 #define STRING_FUNCTIONS_TPP_INCLUDED
 
+#include <iostream>
+#include <string>
 #include <sstream>
 
 #include "MiraiProject/util/StringUtilities.hpp"
@@ -42,7 +44,8 @@ namespace mp
     }
 
     template <typename T>
-    T StringUtilities::fromString(const string& str){
+    T StringUtilities::fromString(const string& str)
+    {
         stringstream ss(str);
         T t;
         ss >> t;
@@ -57,6 +60,26 @@ namespace mp
             text->replace(pos, toReplace.length(), replaceWith);
             pos += replaceWith.length();
         }
+    }
+
+    template <typename T>
+    void mp::StringUtilities::tokenize(const std::basic_string<T>& str,
+        std::vector<std::basic_string<T>>* tokens,
+        const std::basic_string<T>& delimiters,
+        unsigned int limit)
+    {
+        size_t lastPos = str.find_first_not_of(delimiters, 0),
+            pos = str.find_first_of(delimiters, lastPos);
+
+        do {
+            tokens->push_back(str.substr(lastPos, pos - lastPos));
+
+            lastPos = str.find_first_not_of(delimiters, pos);
+            pos = str.find_first_of(delimiters, lastPos);
+
+        } while ((std::basic_string<T>::npos != pos
+            || std::basic_string<T>::npos != lastPos)
+            && (!limit || --limit));
     }
 
 }
