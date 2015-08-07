@@ -68,15 +68,15 @@ namespace mp
              */
             static std::vector<std::string> split(const std::string &text, const char &separator, unsigned int limit=0);
 
-            /** \brief Replace all chosen occurrences by a given string in the given text.
+            /** \brief Replace all occurrences of the given string in the text.
              *
              * \param text : the text where replace operation should be operated.
              * \param toReplace : occurrence to replace.
              * \param replaceWith : string which will replace the occurrences.
              *
-             * \return the string with all occurrences replaced.
              */
-            static std::string replace(std::string &text, std::string toReplace, std::string replaceWith);
+            template<typename T>
+            static void replace(std::basic_string<T>* text, const std::basic_string<T>& toReplace, const std::basic_string<T>& replaceWith);
 
             /** \brief Convert the given object into string if possible by using an ostringstream object.
              *

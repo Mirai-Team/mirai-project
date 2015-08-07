@@ -62,8 +62,3 @@ vector<string> mp::StringUtilities::split(const string &text, const char &separa
 
     return words;
 }
-
-string mp::StringUtilities::replace(string &text, string toReplace, string replaceWith)
-{
-    return(text.replace(text.find(toReplace), toReplace.length(), replaceWith));
-}
