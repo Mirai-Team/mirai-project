@@ -22,10 +22,20 @@
 //
 ////////////////////////////////////////////////////////////
 
+#include <cmath>
+
 #include <SFML/Graphics/Font.hpp>
 
 #include "MiraiProject/gui/TextBox.hpp"
 #include "MiraiProject/gui/ClickableWidget.hpp"
+
+namespace
+{
+    float manathan(sf::Vector2f a, sf::Vector2f b)
+    {
+        return static_cast<float>(fabs(a.x - b.x) + fabs(a.y - b.y));
+    }
+}
 
 mp::TextBox::TextBox() : textureNormal_ { },
                          textureHover_ { },
@@ -75,6 +85,30 @@ void mp::TextBox::click()
     if (mouseOnWidget())
     {
         focused_ = true;
+
+        // Move cursor at mouse's position.
+        if (text_.getString().getSize())
+        {
+            size_t nearestChar = 0;
+            sf::Vector2f globalPos = getWorldPosition();
+            globalPos.y += static_cast<float>(text_.getCharacterSize() / 2);
+            float bestDistance = manathan(text_.findCharacterPos(nearestChar) + globalPos, getMousePosition());
+            for (size_t i = text_.getString().getSize(); --i; )
+            {
+                float distance = manathan(text_.findCharacterPos(i) + globalPos, getMousePosition());
+                if (distance < bestDistance)
+                {
+                    bestDistance = distance;
+                    nearestChar = i;
+                }
+            }
+
+            if (bestDistance > text_.getCharacterSize())
+                nearestChar = text_.getString().getSize();
+
+            cursorPos_ = nearestChar;
+            updateCursorPos();
+        }
     }
     else
     {
@@ -124,6 +158,7 @@ void mp::TextBox::setTextPos(const sf::Vector2f& position)
 void mp::TextBox::setCursorPos(const size_t& pos)
 {
     cursorPos_ = pos;
+    updateCursorPos();
 }
 
 void mp::TextBox::hideCursor()
