@@ -49,6 +49,16 @@ namespace mp
         return t;
     }
 
+    template <typename T>
+    void StringUtilities::replace(std::basic_string<T>* text, const std::basic_string<T>& toReplace, const std::basic_string<T>& replaceWith)
+    {
+        size_t pos = 0;
+        while ((pos = text->find(toReplace, pos)) != std::string::npos) {
+            text->replace(pos, toReplace.length(), replaceWith);
+            pos += replaceWith.length();
+        }
+    }
+
 }
 
 #endif // STRING_FUNCTIONS_TPP_INCLUDED
