@@ -68,7 +68,7 @@ namespace mp
              */
             static std::vector<std::string> split(const std::string &text, const char &separator, unsigned int limit=0);
 
-            /** \brief Replace all chosen occurrences by a given substring in the given text.
+            /** \brief Replace all occurrences of the given string in the text.
              *
              * \param text : the text where replace operation should be operated.
              * \param toReplace : occurrence to replace.
