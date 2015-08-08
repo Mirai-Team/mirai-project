@@ -78,7 +78,7 @@ namespace mp
             template<typename T>
             static void replace(std::basic_string<T>* text, const std::basic_string<T>& toReplace, const std::basic_string<T>& replaceWith);
 
-                        /** \brief Segment a string into tokens with delimiters.
+            /** \brief Segment a string into tokens with delimiters.
              * \param str : the string to tokenize
              * \param tokens : a container where are put tokens.
              * \param delimiters : characters which delimit a tokens.
