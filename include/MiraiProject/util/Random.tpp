@@ -34,7 +34,7 @@
 
 namespace mp {
 template <typename T,
-    typename std::enable_if<std::is_integral<T>::value, int>::type = 0>
+    typename std::enable_if<std::is_integral<T>::value>::type = 0>
 T getRand(T min, T max)
 {
     assert(min <= max);
@@ -47,7 +47,7 @@ T getRand(T min, T max)
 }
 
 template <typename T,
-    typename std::enable_if<std::is_floating_point<T>::value, int>::type = 0>
+    typename std::enable_if<std::is_floating_point<T>::value>::type = 0>
 T getRand(T min, T max)
 {
     assert(min <= max);
