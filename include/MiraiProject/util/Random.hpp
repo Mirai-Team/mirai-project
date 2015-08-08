@@ -1,14 +1,16 @@
 ////////////////////////////////////////////////////////////
 //
 // MiraiProject
-// Copyright (C) 2014-2015 CORTIER Benoît (benoit.cortier@gmail.com), BOULMIER Jérôme (jerome.boulmier@outlook.fr)
+// Copyright (C) 2014-2015 CORTIER Benoît (benoit.cortier@gmail.com),
+//                         BOULMIER Jérôme (jerome.boulmier@outlook.fr)
 //
 // This software is provided 'as-is', without any express or implied warranty.
-// In no event will the authors be held liable for any damages arising from the use of this software.
+// In no event will the authors be held liable for any damages arising from the
+// use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it freely,
-// subject to the following restrictions:
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
 //
 // 1. The origin of this software must not be misrepresented;
 // you must not claim that you wrote the original software.
@@ -22,11 +24,11 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef RANDOM_HPP_INCLUDED
-#define RANDOM_HPP_INCLUDED
+#ifndef MP_RANDOM_HPP_INCLUDED
+#define MP_RANDOM_HPP_INCLUDED
 
-#include <iostream>
 #include <chrono>
+#include <iostream>
 #include <random>
 #include <vector>
 
@@ -34,41 +36,39 @@
  * \brief This file define some templates about randomness.
  */
 
-namespace mp
-{
-    /** \class Random
-     * \brief A static class with various functions and templates about randomness.
-     */
+namespace mp {
+/** \brief Return a random int value.
+ *
+ * \param min : the minimum value.
+ * \param max : the maximum value.
+ *
+ * \return a value between [min;max]
+ */
+template <typename T,
+    typename std::enable_if<std::is_integral<T>::value>::type = 0>
+T getRand(T min, T max);
 
-    class Random
-    {
-        public:
-            /** \brief Use this template for integer values (int or long int).
-             *
-             * \param minN : the minimum value.
-             * \param maxN : the maximum value.
-             *
-             * \return a value between [minN;maxN[
-             */
-            template<typename T> static T irand(T minN, T maxN);
+/** \brief Return a random floating value.
+ *
+ * \param min : the minimum value.
+ * \param max : the maximum value.
+ *
+ * \return a value between [min;max]
+ */
+template <typename T,
+    typename std::enable_if<std::is_floating_point<T>::value>::type = 0>
+T getRand(T min, T max);
 
-            /** \brief Use this template for decimal values (float or double).
-             *
-             * \param minN : the minimum value.
-             * \param maxN : the maximum value.
-             *
-             * \return a decimal value between [minN;maxN[
-             */
-            template<typename T> static T drand(T minN, T maxN);
-
-            /** \brief Use this template to pick a random element from a vector.
-             *
-             * \param vec : a vector
-             *
-             * \return a random element from the given vector.
-             */
-            template<typename T> static T vrand(std::vector<T> vec);
-    };
+/** \brief Use this template to pick a random element from a vector.
+ *
+ * \param vec : a vector
+ *
+ * \return a random element from the given vector.
+ */
+template <typename U, typename T>
+T getVRand(U<T> vec);
 }
 
-#endif // RANDOM_HPP_INCLUDED
+#include <MiraiProject/util/Random.tpp>
+
+#endif // MP_RANDOM_HPP_INCLUDED
