@@ -113,13 +113,12 @@ int main()
                 case sf::Event::Closed:
                     running = false;
                     break;
-                case sf::Event::TextEntered:
-                    textBox.handleInput(event.text.unicode);
-                    bigTextBox.handleInput(event.text.unicode);
-                    break;
                 default:
                     break;
             }
+
+            textBox.handleInput(event);
+            bigTextBox.handleInput(event);
         }
 
         button.update(sf::Mouse::getPosition(window));

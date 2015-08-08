@@ -24,6 +24,7 @@
 
 #include <cmath>
 
+#include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Font.hpp>
 
 #include "MiraiProject/gui/TextBox.hpp"
@@ -188,6 +189,108 @@ void mp::TextBox::setCursorColor(const sf::Color& color)
     cursor_.setColor(color);
 }
 
+void mp::TextBox::moveCursor(Direction direction)
+{
+    switch (direction)
+    {
+        case LEFT:
+            if (cursorPos_)
+            {
+                --cursorPos_;
+                updateCursorPos();
+            }
+            break;
+        case RIGHT:
+            if (cursorPos_ < text_.getString().getSize())
+            {
+                ++cursorPos_;
+                updateCursorPos();
+            }
+            break;
+        case UP:
+        {
+            size_t i{ 0 }, j{ 0 };
+
+            while (cursorPos_ and text_.getString()[cursorPos_ - 1] != '\n')
+            {
+                ++i;
+                --cursorPos_;
+            }
+
+            if (cursorPos_)
+            {
+                --cursorPos_;
+                while (cursorPos_ and text_.getString()[cursorPos_ - 1] != '\n')
+                {
+                    ++j;
+                    --cursorPos_;
+                }
+
+                if (j < i)
+                {
+                    cursorPos_ += j;
+                }
+                else
+                {
+                    cursorPos_ += i;
+                }
+            }
+
+            updateCursorPos();
+            break;
+        }
+        case DOWN:
+        {
+            size_t i{ 0 }, j{ 0 }, strSize{ text_.getString().getSize() };
+
+            while (cursorPos_ and text_.getString()[cursorPos_ - 1] != '\n')
+            {
+                ++i;
+                --cursorPos_;
+            }
+
+            while (cursorPos_ != strSize and text_.getString()[cursorPos_] != '\n')
+                ++cursorPos_;
+
+            if (cursorPos_ != strSize)
+            {
+                ++cursorPos_;
+                while (cursorPos_ != strSize and j != i and text_.getString()[cursorPos_] != '\n')
+                {
+                    ++j;
+                    ++cursorPos_;
+                }
+            }
+
+            updateCursorPos();
+            break;
+        }
+        case START:
+            cursorPos_ = 0;
+            updateCursorPos();
+            break;
+        case END:
+            cursorPos_ = text_.getString().getSize();
+            updateCursorPos();
+            break;
+        case STARTL: // Move to the beggining of the line.
+            while (cursorPos_ and text_.getString()[cursorPos_-1] != '\n')
+                --cursorPos_;
+            updateCursorPos();
+            break;
+        case ENDL: // Move to the end of the line.
+        {
+            size_t strSize{ text_.getString().getSize() };
+            while (cursorPos_ != strSize and text_.getString()[cursorPos_] != '\n')
+                ++cursorPos_;
+            updateCursorPos();
+            break;
+        }
+        default:
+            break;
+    }
+}
+
 void mp::TextBox::enableMultiline()
 {
     multilineEnabled_ = true;
@@ -213,29 +316,67 @@ void mp::TextBox::setMaxSize(const size_t& size)
     maxSize_ = size;
 }
 
-void mp::TextBox::handleInput(const Uint32 &unicode)
+void mp::TextBox::handleInput(const sf::Event &event)
 {
     if (focused_)
     {
-        switch (unicode)
+        switch (event.type)
         {
-            case 13: // Enter
-                if (multilineEnabled_)
-                    addString(sf::String('\n'));
+            case sf::Event::TextEntered:
+                switch (event.text.unicode)
+                {
+                    case 13: // Enter
+                        if (multilineEnabled_)
+                            addString(sf::String('\n'));
+                        break;
+                    case 8: // Backspace
+                        if (cursorPos_ > 0)
+                            deleteText(cursorPos_ - 1, 1);
+                        break;
+                    case 127: // Delete
+                        deleteText(cursorPos_, 1);
+                        break;
+                    case 27: // Escape
+                        focused_ = false;
+                        break;
+                    default:
+                        if (!maxSize_ || text_.getString().getSize() < maxSize_)
+                            addString(sf::String(event.text.unicode));
+                        break;
+                }
                 break;
-            case 8: // Backspace
-                if (cursorPos_ > 0)
-                    deleteText(cursorPos_ - 1, 1);
-                break;
-            case 127: // Delete
-                deleteText(cursorPos_, 1);
-                break;
-            case 27: // Escape
-                focused_ = false;
+            case sf::Event::KeyPressed:
+                switch (event.key.code)
+                {
+                    case sf::Keyboard::Key::Left:
+                        moveCursor(LEFT);
+                        break;
+                    case sf::Keyboard::Key::Right:
+                        moveCursor(RIGHT);
+                        break;
+                    case sf::Keyboard::Key::Up:
+                        moveCursor(UP);
+                        break;
+                    case sf::Keyboard::Key::Down:
+                        moveCursor(DOWN);
+                        break;
+                    case sf::Keyboard::Key::End:
+                        moveCursor(ENDL);
+                        break;
+                    case sf::Keyboard::Key::Home:
+                        moveCursor(STARTL);
+                        break;
+                    case sf::Keyboard::Key::PageDown:
+                        moveCursor(END);
+                        break;
+                    case sf::Keyboard::Key::PageUp:
+                        moveCursor(START);
+                        break;
+                    default:
+                        break;
+                }
                 break;
             default:
-                if (!maxSize_ || text_.getString().getSize() < maxSize_)
-                    addString(sf::String(unicode));
                 break;
         }
     }

@@ -32,17 +32,28 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Event.hpp>
 
 #include "MiraiProject/gui/ClickableWidget.hpp"
 #include "MiraiProject/gui/priv/Cursor.hpp"
 
-namespace
-{
-    typedef unsigned int Uint32;
-}
-
 namespace mp
 {
+    namespace
+    {
+        enum Direction
+        {
+            LEFT,
+            RIGHT,
+            UP,
+            DOWN,
+            START,
+            END,
+            STARTL,
+            ENDL
+        };
+    }
+
     class TextBox : public ClickableWidget
     {
         public:
@@ -80,6 +91,8 @@ namespace mp
 
             void setCursorColor(const sf::Color& color);
 
+            void moveCursor(Direction direction);
+
             void enableMultiline();
 
             void disableMultiline();
@@ -91,7 +104,7 @@ namespace mp
             /* Set maximun text lengh. 0 = no limit. */
             void setMaxSize(const size_t& size);
 
-            void handleInput(const Uint32 &unicode);
+            void handleInput(const sf::Event& event);
 
             void setString(const sf::String& text);
 
