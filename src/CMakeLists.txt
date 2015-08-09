@@ -4,7 +4,6 @@ message(STATUS "SOURCES PREPARATION")
 set(LIB_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/animations/AnimatedSprite.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/animations/Animation.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/encryption/Encryption.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/eventManager/EventManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inputManager/Binding.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inputManager/KeyboardManager.cpp
@@ -17,6 +16,7 @@ set(LIB_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/stat/BaseStat.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/stat/ModifiedStat.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/stat/VitalStat.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/util/Archiver.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/util/FilesUtilities.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/util/Logger.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/util/MPLogger.cpp
