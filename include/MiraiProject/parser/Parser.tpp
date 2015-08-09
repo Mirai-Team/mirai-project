@@ -29,7 +29,6 @@
 #include "MiraiProject/parser/Parser.hpp"
 #include "MiraiProject/util/StringUtilities.hpp"
 #include "MiraiProject/util/MPLogger.hpp"
-#include "MiraiProject/encryption/Encryption.hpp"
 
 using namespace std;
 
@@ -37,8 +36,7 @@ namespace mp
 {
     template<typename T>
     T mp::Parser::fileParser(string inputFile, string variableName,
-                             char separator, bool isEncrypted,
-                             string key)
+                             char separator)
     {
         string line;
         vector<string> words;
@@ -47,37 +45,19 @@ namespace mp
 
         priv::MPLogger& log = mp::priv::MPLogger::instance();
 
-        if(isEncrypted && key != "")
+        file.open(inputFile, ios::in);
+        if(file)
         {
-            mp::Encryption EncryptMotor(key);
-            stringstream filedata(EncryptMotor.encryptFile(inputFile));
-            while(getline(filedata,line))
+            while(getline(file,line))
             {
                 words = mp::StringUtilities::split(line, separator);
                 if(words[0] == variableName)
                     value = mp::StringUtilities::fromString<T>(words[1]);
             }
         }
-        else if(!isEncrypted)
-        {
-            file.open(inputFile, ios::in);
-            if(file)
-            {
-                while(getline(file,line))
-                {
-                    words = mp::StringUtilities::split(line, separator);
-                    if(words[0] == variableName)
-                        value = mp::StringUtilities::fromString<T>(words[1]);
-                }
-            }
-            else
-            {
-                log << Logger::priorityWarning << "The file doesn't exist";
-            }
-        }
         else
         {
-            log << Logger::priorityError << "File encrypted, and no key provided";
+            log << Logger::priorityWarning << "The file doesn't exist";
         }
 
         return value;
@@ -85,8 +65,7 @@ namespace mp
 
     template<typename T>
     vector<T> mp::Parser::vFileParser(string inputFile, string variableName,
-                                      char separator, char separatorValues,
-                                      bool isEncrypted, string key)
+                                      char separator, char separatorValues)
     {
         string line;
         vector<string> words;
@@ -95,12 +74,10 @@ namespace mp
 
         priv::MPLogger& log = mp::priv::MPLogger::instance();
 
-        if(isEncrypted && key != "")
+        file.open(inputFile, ios::in);
+        if(file)
         {
-            mp::Encryption EncryptMotor(key);
-            stringstream filedata(EncryptMotor.encryptFile(inputFile));
-
-            while(getline(filedata,line))
+            while(getline(file,line))
             {
                 words = mp::StringUtilities::split(line, separator);
                 if(words[0] == variableName)
@@ -112,34 +89,10 @@ namespace mp
                     }
                 }
             }
-
-        }
-        else if(!isEncrypted)
-        {
-            file.open(inputFile, ios::in);
-            if(file)
-            {
-                while(getline(file,line))
-                {
-                    words = mp::StringUtilities::split(line, separator);
-                    if(words[0] == variableName)
-                    {
-                        vector<string> temp = mp::StringUtilities::split(words[1], separatorValues);
-                        for(unsigned int i = 0; i < temp.size(); i++)
-                        {
-                            values.push_back(mp::StringUtilities::fromString<T>(temp[i]));
-                        }
-                    }
-                }
-            }
-            else
-            {
-                log << Logger::priorityWarning << "The file doesn't exist";
-            }
         }
         else
         {
-            log << Logger::priorityError << "File encrypted, and no key provided";
+            log << Logger::priorityWarning << "The file doesn't exist";
         }
 
         return values;

@@ -56,8 +56,7 @@ namespace mp
              */
             template<typename T>
             static T fileParser(std::string inputFile, std::string variableName,
-                                char separator, bool isEncrypted = false,
-                                std::string key = "");
+                                char separator);
 
             /** \brief For File parsing.
              *
@@ -71,8 +70,7 @@ namespace mp
              */
             template<typename T>
             static std::vector<T> vFileParser(std::string inputFile, std::string variableName,
-                                              char separator, char separatorValues,
-                                              bool isEncrypted = false, std::string key = "");
+                                              char separator, char separatorValues);
 
             /** \brief std-like put_time function which isn't in GCC.
              *
@@ -113,12 +111,10 @@ namespace mp
 
     template<>
     std::string Parser::fileParser<std::string>(std::string inputFile, std::string variableName,
-                                                char separator, bool isEncrypted,
-                                                std::string key);
+                                                char separator);
     template<>
     std::vector<std::string> Parser::vFileParser<std::string>(std::string inputFile, std::string variableName,
-                                                              char separator, char separatorValues,
-                                                              bool isEncrypted, std::string key);
+                                                              char separator, char separatorValues);
 }
 
 #include "MiraiProject/parser/Parser.tpp"

@@ -30,7 +30,7 @@ using namespace std;
 namespace mp
 {
     template<>
-    string Parser::fileParser<string>(string inputFile, string variableName, char separator, bool isEncrypted, string key)
+    string Parser::fileParser<string>(string inputFile, string variableName, char separator)
     {
         string line;
         vector<string> words;
@@ -39,39 +39,19 @@ namespace mp
 
         Logger log;
 
-        if(isEncrypted && key != "")
+        file.open(inputFile, ios::in);
+        if(file)
         {
-
-            Encryption EncryptMotor(key);
-            stringstream filedata(EncryptMotor.encryptFile(inputFile));
-
-            while(getline(filedata,line))
+            while(getline(file,line))
             {
                 words = mp::StringUtilities::split(line, separator);
                 if(words[0] == variableName)
                     value = words[1];
             }
         }
-        else if(!isEncrypted)
-        {
-            file.open(inputFile, ios::in);
-            if(file)
-            {
-                while(getline(file,line))
-                {
-                    words = mp::StringUtilities::split(line, separator);
-                    if(words[0] == variableName)
-                        value = words[1];
-                }
-            }
-            else
-            {
-                log << Logger::priorityWarning << "The file doesn't exist";
-            }
-        }
         else
         {
-            log << Logger::priorityError << "File encrypted, and no key provided";
+            log << Logger::priorityWarning << "The file doesn't exist";
         }
 
         return value;
@@ -79,8 +59,7 @@ namespace mp
 
     template<>
     vector<string> mp::Parser::vFileParser<string>(string inputFile, string variableName,
-                                                   char separator, char separatorValues,
-                                                   bool isEncrypted, string key)
+                                                   char separator, char separatorValues)
     {
         string line;
         vector<string> words;
@@ -89,12 +68,10 @@ namespace mp
 
         Logger log;
 
-        if(isEncrypted && key != "")
+        file.open(inputFile, ios::in);
+        if(file)
         {
-            Encryption EncryptMotor(key);
-            stringstream filedata(EncryptMotor.encryptFile(inputFile));
-
-            while(getline(filedata,line))
+            while(getline(file,line))
             {
                 words = mp::StringUtilities::split(line, separator);
                 if(words[0] == variableName)
@@ -107,31 +84,10 @@ namespace mp
                 }
             }
         }
-        else if(!isEncrypted)
-        {
-            file.open(inputFile, ios::in);
-            if(file)
-            {
-                while(getline(file,line))
-                {
-                    words = mp::StringUtilities::split(line, separator);
-                    if(words[0] == variableName)
-                    {
-                        vector<string> temp = mp::StringUtilities::split(words[1], separatorValues);
-                        for(unsigned int i = 0; i < temp.size(); i++)
-                        {
-                            values.push_back(temp[i]);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                log << Logger::priorityWarning << "The file doesn't exist";
-            }
-        }
         else
-            log << Logger::priorityError << "File encrypted, and no key provided";
+        {
+            log << Logger::priorityWarning << "The file doesn't exist";
+        }
 
         return values;
 
