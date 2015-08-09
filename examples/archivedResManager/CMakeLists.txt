@@ -1,4 +1,4 @@
-set(APP_NAME EncryptionExample)
+set(APP_NAME ArchivedResManagerExample)
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin/examples/${APP_NAME}/${CMAKE_BUILD_TYPE})
 
@@ -27,7 +27,6 @@ add_executable(
         ${source_files}
 )
 
-
 # Link SFML and Boost.
 target_link_libraries(
     ${APP_NAME}
@@ -49,3 +48,5 @@ else()
         MiraiProject
     )
 endif()
+
+file(COPY resources/ DESTINATION ${CMAKE_BINARY_DIR}/bin/examples/${APP_NAME}/${CMAKE_BUILD_TYPE}/resources/)

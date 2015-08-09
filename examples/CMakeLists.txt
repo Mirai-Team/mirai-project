@@ -1,6 +1,6 @@
 add_subdirectory(animatedSprite)
-add_subdirectory(encryptedResManager)
-add_subdirectory(encryption)
+add_subdirectory(archivedResManager)
+add_subdirectory(archiver)
 add_subdirectory(eventManager)
 add_subdirectory(logger)
 add_subdirectory(nodes)

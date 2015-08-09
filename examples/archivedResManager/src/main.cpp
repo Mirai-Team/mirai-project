@@ -22,14 +22,13 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <memory>
 #include <fstream>
+#include <memory>
+#include <string>
 
-#include <MiraiProject/encryption/Encryption.hpp>
-#include <MiraiProject/resourcesManagers/EncryptedResManager.hpp>
+#include <MiraiProject/util/Archiver.hpp>
+#include <MiraiProject/resourcesManagers/ArchivedResManager.hpp>
 #include <MiraiProject/util/WindowManager.hpp>
-
-#include <boost/filesystem.hpp>
 
 #include <SFML/Graphics.hpp>
 
@@ -38,20 +37,19 @@ using namespace std;
 int main()
 {
     bool running = true;
-    mp::EncryptedResManager ResManager;
-
-    boost::filesystem::path directory("resources/images/");
-    mp::Encryption EncryptMotor("MiraiProject");
-    EncryptMotor.createFile("resources/data.bin", directory);
+    mp::ArchivedResManager ResManager;
+    std::string directory("resources/images/");
+    mp::Archiver archive;
+    archive.createFile("resources/data.bin", directory);
 
     std::shared_ptr<sf::Texture> myTexture{ };
-    myTexture = ResManager.getTexture("resources/images/img.jpg", "resources/data.bin", "MiraiProject");
+    myTexture = ResManager.getTexture("img.jpg", "resources/data.bin");
 
     mp::WindowManager mainWindowManager { };
 
     sf::RenderWindow &window = mainWindowManager.getWindow();
 
-    mainWindowManager.setWindowName("EncryptedResManager Example");
+    mainWindowManager.setWindowName("ArchivedResManager Example");
     mainWindowManager.setOptimalWinWidth(500);
     mainWindowManager.setOptimalWinHeight(500);
     mainWindowManager.setVideomodeWidth(500);
