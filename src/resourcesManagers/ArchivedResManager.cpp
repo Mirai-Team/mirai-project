@@ -22,20 +22,27 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <memory>
 #include <map>
+#include <memory>
+#include <string>
+#include <vector>
 
-#include "MiraiProject/resourcesManagers/EncryptedResManager.hpp"
-#include "MiraiProject/encryption/Encryption.hpp"
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
-using namespace std;
+#include "MiraiProject/resourcesManagers/ArchivedResManager.hpp"
+#include "MiraiProject/resourcesManagers/BaseResManager.hpp"
+#include "MiraiProject/util/Archiver.hpp"
 
 // ______________________________ Textures ______________________________
-shared_ptr<sf::Texture> mp::EncryptedResManager::getTexture(const string &fileName, const string &inputFile, const string &key)
+std::shared_ptr<sf::Texture> mp::ArchivedResManager::getTexture(const std::string &fileName,
+    const std::string &inputFile,
+    std::function<void(void*, size_t)> decryption,
+    std::function<void(void*, size_t)> decompression)
 {
     // Load file in fileData.
-    mp::Encryption encryptMotor(key);
-    string fileData = encryptMotor.loadFile(inputFile, fileName);
+    mp::Archiver archiver;
+    std::vector<char> fileData = archiver.loadFile(inputFile, fileName, decryption, decompression);
 
     size_t fileSize = fileData.size();
     // Automatically load the texture if needed.
@@ -46,11 +53,14 @@ shared_ptr<sf::Texture> mp::EncryptedResManager::getTexture(const string &fileNa
 }
 
 // ______________________________ Sound Buffers ______________________________
-shared_ptr<sf::SoundBuffer> mp::EncryptedResManager::getSoundBuffer(const string &fileName, const string &inputFile, const string &key)
+std::shared_ptr<sf::SoundBuffer> mp::ArchivedResManager::getSoundBuffer(const std::string &fileName,
+    const std::string &inputFile,
+    std::function<void(void*, size_t)> decryption,
+    std::function<void(void*, size_t)> decompression)
 {
     // Load file in fileData.
-    mp::Encryption encryptMotor(key);
-    string fileData = encryptMotor.loadFile(inputFile, fileName);
+    mp::Archiver archiver;
+    std::vector<char> fileData = archiver.loadFile(inputFile, fileName, decryption, decompression);
 
     size_t fileSize = fileData.size();
     // Automatically load the texture if needed.
@@ -61,11 +71,14 @@ shared_ptr<sf::SoundBuffer> mp::EncryptedResManager::getSoundBuffer(const string
 }
 
 // ______________________________ Font ______________________________
-shared_ptr<sf::Font> mp::EncryptedResManager::getFont(const string &fileName, const string &inputFile, const string &key)
+std::shared_ptr<sf::Font> mp::ArchivedResManager::getFont(const std::string &fileName,
+    const std::string &inputFile,
+    std::function<void(void*, size_t)> decryption,
+    std::function<void(void*, size_t)> decompression)
 {
     // Load file in fileData.
-    mp::Encryption encryptMotor(key);
-    string fileData = encryptMotor.loadFile(inputFile, fileName);
+    mp::Archiver archiver;
+    std::vector<char> fileData = archiver.loadFile(inputFile, fileName, decryption, decompression);
 
     size_t fileSize = fileData.size();
     // Automatically load the font if needed.

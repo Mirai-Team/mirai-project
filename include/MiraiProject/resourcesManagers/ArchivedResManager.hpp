@@ -22,11 +22,12 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef ENCRYPTEDRESMANAGER_HPP_INCLUDED
-#define ENCRYPTEDRESMANAGER_HPP_INCLUDED
+#ifndef MP_ARCHIVED_RESOURCES_MANAGER_HPP
+#define MP_ARCHIVED_RESOURCES_MANAGER_HPP
 
-#include <memory>
 #include <map>
+#include <memory>
+#include <string>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -44,7 +45,7 @@ namespace mp
      * Though, you still have to clean resources using clean method.
      */
 
-    class EncryptedResManager : public BaseResManager
+    class ArchivedResManager : public BaseResManager
     {
         public:
             /** \brief Automatically load the texture if necessary and return it.
@@ -55,8 +56,10 @@ namespace mp
              *
              * \return the texture related to the given file name.
              */
-            std::shared_ptr<sf::Texture> getTexture(const std::string &fileName, const std::string &inputFile, const std::string &key);
-
+            std::shared_ptr<sf::Texture> getTexture(const std::string &fileName,
+                const std::string &inputFile,
+                std::function<void(void*, size_t)> decryption = nullptr,
+                std::function<void(void*, size_t)> decompression = nullptr);
             /** \brief Automatically load the sound buffer if necessary and return it.
              *
              * \param fileName : the file name related to the wanted sound buffer.
@@ -65,7 +68,10 @@ namespace mp
              *
              * \return the sound buffer related to the given file name.
              */
-            std::shared_ptr<sf::SoundBuffer> getSoundBuffer(const std::string &fileName, const std::string &inputFile, const std::string &key);
+            std::shared_ptr<sf::SoundBuffer> getSoundBuffer(const std::string &fileName,
+                const std::string &inputFile,
+                std::function<void(void*, size_t)> decryption = nullptr,
+                std::function<void(void*, size_t)> decompression = nullptr);
 
             /** \brief Automatically load the font if necessary and return it.
              *
@@ -75,8 +81,12 @@ namespace mp
              *
              * \return the font related to the given file name.
              */
-            std::shared_ptr<sf::Font> getFont(const std::string &fileName, const std::string &inputFile, const std::string &key);
+            std::shared_ptr<sf::Font> getFont(const std::string &fileName,
+                const std::string &inputFile,
+                std::function<void(void*, size_t)> decryption = nullptr,
+                std::function<void(void*, size_t)> decompression = nullptr);
     };
 }
 
-#endif // ENCRYPTEDRESMANAGER_HPP_INCLUDED
+
+#endif // MP_ARCHIVED_RESOURCES_MANAGER_HPP

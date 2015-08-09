@@ -9,9 +9,9 @@ set(LIB_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/inputManager/KeyboardManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inputManager/MouseManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/parser/Parser.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/resourcesManagers/ArchivedResManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/resourcesManagers/AutoResManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/resourcesManagers/BaseResManager.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/resourcesManagers/EncryptedResManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/scene/Node.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/stat/BaseStat.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/stat/ModifiedStat.cpp
