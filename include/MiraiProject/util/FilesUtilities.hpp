@@ -53,7 +53,7 @@ namespace mp
              */
             static std::vector<std::string> listFiles(boost::filesystem::path directory, bool recursive=false);
 
-            /** \brief Convert file path in windows style or unix style (depending on the used OS).
+            /** \brief Convert file path to unix-style file path.
              *
              * You can use it to make sure your file path works under windows and unix.
              *
@@ -61,7 +61,7 @@ namespace mp
              *
              * \return the converted file path.
              */
-            static std::string convertFilePath(std::string &filePath);
+            static void convertToUnixFilePath(std::string* filePath);
     };
 }
 

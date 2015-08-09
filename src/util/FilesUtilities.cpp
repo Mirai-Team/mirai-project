@@ -59,12 +59,7 @@ vector<string> mp::filesUtilities::listFiles(path directory, bool recursive)
     return filesPaths;
 }
 
-string mp::filesUtilities::convertFilePath(string &filePath)
+void mp::filesUtilities::convertToUnixFilePath(std::string* filePath)
 {
-    #if defined(WIN32)
-        filePath.replace(filePath.find("/"), 1, "\\");
-    #elif defined(__unix__)
-        filePath.replace(filePath.find("\\"), 1, "/");
-    #endif
-    return filePath;
+    std::replace(filePath->begin(), filePath->end(), '\\', '/');
 }
