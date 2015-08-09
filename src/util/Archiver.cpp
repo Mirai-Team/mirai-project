@@ -27,6 +27,7 @@
 #include <fstream>
 #include <functional>
 #include <string>
+#include <system_error>
 
 #include "MiraiProject/util/Archiver.hpp"
 #include "MiraiProject/util/FilesUtilities.hpp"
