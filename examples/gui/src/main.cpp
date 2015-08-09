@@ -75,8 +75,10 @@ int main()
     bigTextBox.setFont(*resourcesManager.getFontBuffer("resources/UbuntuMono-R.ttf"));
     bigTextBox.setString(L"Some text\non several lines.");
     bigTextBox.enableMultiline();
-    bigTextBox.setTextPos(5, 5);
+    bigTextBox.setTextPos(5, 3);
     bigTextBox.setCharacterSize(18);
+    bigTextBox.setMaxWidth(499.f);
+    bigTextBox.setMaxHeight(293.f);
 
     mp::Button button;
     button.setNormalTexture(resourcesManager.getTexture("resources/logo.png"));

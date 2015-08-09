@@ -38,21 +38,26 @@ namespace
     }
 }
 
-mp::TextBox::TextBox() : textureNormal_ { },
-                         textureHover_ { },
-                         textureFocus_ { },
+mp::TextBox::TextBox(float maxWidth, float maxHeight)
+    : cursorVisible_{ true }
+    , multilineEnabled_{ false }
+    , focused_{ false }
+    , hScroll_{ false }
+    , vScroll_{ false }
 
-                         text_ { },
+    , nFirstVisible_{ 0 }
+    , cursorPos_{ 0 }
+    , maxSize_{ 0 }
 
-                         nFirstVisible_ { 0 },
-                         cursorPos_ { 0 },
-                         maxSize_ { 0 },
+    , textureNormal_{ }
+    , textureHover_{ }
+    , textureFocus_{ }
 
-                         cursorVisible_ { true },
-                         multilineEnabled_ { false },
-                         focused_ { false },
-                         hScroll_ { false },
-                         vScroll_ { false }
+    , m_maxWidth{ maxWidth }
+    , m_maxHeight{ maxHeight }
+
+    , text_{ }
+    , cursor_{ }
 {
     updateCursorSize();
 }
@@ -327,7 +332,19 @@ void mp::TextBox::handleInput(const sf::Event &event)
                 {
                     case 13: // Enter
                         if (multilineEnabled_)
-                            addString(sf::String('\n'));
+                        {
+                            if (m_maxHeight > 1)
+                            {
+                                size_t strSize{ text_.getString().getSize() };
+                                float yMax{ m_maxHeight - static_cast<float>(text_.getCharacterSize() * 2) };
+                                if (text_.findCharacterPos(strSize).y < yMax)
+                                    addString(sf::String('\n'));
+                            }
+                            else
+                            {
+                                addString(sf::String('\n'));
+                            }
+                        }
                         break;
                     case 8: // Backspace
                         if (cursorPos_ > 0)
@@ -341,7 +358,23 @@ void mp::TextBox::handleInput(const sf::Event &event)
                         break;
                     default:
                         if (!maxSize_ || text_.getString().getSize() < maxSize_)
-                            addString(sf::String(event.text.unicode));
+                        {
+                            if (m_maxWidth > 1)
+                            {
+                                size_t i{ cursorPos_ }, strSize{ text_.getString().getSize() };
+                                float xMax{ m_maxWidth - static_cast<float>(text_.getCharacterSize()) };
+
+                                while (i != strSize and text_.getString()[i] != '\n')
+                                    ++i;
+
+                                if (text_.findCharacterPos(i).x < xMax)
+                                    addString(sf::String(event.text.unicode));
+                            }
+                            else
+                            {
+                                addString(sf::String(event.text.unicode));
+                            }
+                        }
                         break;
                 }
                 break;
@@ -437,6 +470,16 @@ void mp::TextBox::deleteText(const size_t& pos, const size_t& n)
     updateCursorPos();
 }
 
+void mp::TextBox::setMaxWidth(const float& width)
+{
+    m_maxWidth = width;
+}
+
+void mp::TextBox::setMaxHeight(const float& height)
+{
+    m_maxHeight = height;
+}
+
 unsigned int mp::TextBox::getCharacterSize() const
 {
     return text_.getCharacterSize();
@@ -475,6 +518,16 @@ const size_t& mp::TextBox::getMaxSize() const
 const sf::String& mp::TextBox::getString() const
 {
     return text_.getString();
+}
+
+const float& mp::TextBox::getMaxWidth() const
+{
+    return m_maxWidth;
+}
+
+const float& mp::TextBox::getMaxHeight() const
+{
+    return m_maxHeight;
 }
 
 void mp::TextBox::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const

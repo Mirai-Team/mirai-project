@@ -57,7 +57,7 @@ namespace mp
     class TextBox : public ClickableWidget
     {
         public:
-            TextBox();
+            TextBox(float maxWidth=0, float maxHeight=0);
 
             void update(const sf::Vector2i mousePosition);
 
@@ -119,6 +119,10 @@ namespace mp
 
             void deleteText(const size_t& pos, const size_t& n);
 
+            void setMaxWidth(const float& width);
+
+            void setMaxHeight(const float& height);
+
             /////////////
             // Getters //
             /////////////
@@ -139,6 +143,10 @@ namespace mp
 
             const sf::String& getString() const;
 
+            const float& getMaxWidth() const;
+
+            const float& getMaxHeight() const;
+
         private:
             virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -146,22 +154,25 @@ namespace mp
 
             void updateCursorPos();
 
-            std::shared_ptr<sf::Texture> textureNormal_;
-            std::shared_ptr<sf::Texture> textureHover_;
-            std::shared_ptr<sf::Texture> textureFocus_;
-
-            sf::Text text_;
-            mp::Cursor cursor_;
-
-            size_t nFirstVisible_; // First visible character index.
-            size_t cursorPos_;
-            size_t maxSize_;
-
             bool cursorVisible_;
             bool multilineEnabled_;
             bool focused_;
             bool hScroll_;
             bool vScroll_;
+
+            size_t nFirstVisible_; // First visible character index.
+            size_t cursorPos_;
+            size_t maxSize_;
+
+            std::shared_ptr<sf::Texture> textureNormal_;
+            std::shared_ptr<sf::Texture> textureHover_;
+            std::shared_ptr<sf::Texture> textureFocus_;
+
+            float m_maxWidth;
+            float m_maxHeight;
+
+            sf::Text text_;
+            mp::Cursor cursor_;
     };
 }
 
