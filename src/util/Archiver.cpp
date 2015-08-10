@@ -199,7 +199,7 @@ std::vector<char> mp::Archiver::loadFile(const std::string& inputFile,
     if (!input)
         throw std::system_error(errno, std::system_category());
 
-    unsigned int headerLen, fileCount, fileNameLen, fileSize, fileOffset, i=0, offset=8;
+    unsigned int headerLen, fileCount, fileNameLen, offset=8;
     std::string filename;
 
     // Read header length & file count
@@ -215,7 +215,9 @@ std::vector<char> mp::Archiver::loadFile(const std::string& inputFile,
         input.read(&filename[0], fileNameLen);
 
         if (filename == targetFile) {
+            unsigned int fileSize, fileOffset;
             std::vector<char> data;
+
             // Read the file size.
             input.read(reinterpret_cast<char*>(&fileSize), sizeof(unsigned int));
             // Read the file offset.
@@ -225,6 +227,8 @@ std::vector<char> mp::Archiver::loadFile(const std::string& inputFile,
             // Read the whole file.
             input.seekg(headerLen + fileOffset, std::ios::beg);
             input.read(&data.front(), fileSize);
+
+            input.close();
 
             // Decrypt data.
             if (decryption)
@@ -243,7 +247,7 @@ std::vector<char> mp::Archiver::loadFile(const std::string& inputFile,
 
         input.seekg(offset, std::ios::beg);
 
-    } while (++i < fileCount);
+    } while (fileCount--);
 
     input.close();
 
