@@ -4,6 +4,7 @@ message(STATUS "SOURCES PREPARATION")
 set(LIB_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/animations/AnimatedSprite.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/animations/Animation.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/encryption/basic.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/eventManager/EventManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inputManager/Binding.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inputManager/KeyboardManager.cpp
