@@ -25,6 +25,20 @@
 ////////////////////////////////////////////////////////////
 
 namespace mp {
+/**
+ * @brief Apply a logical not on data
+ *
+ * @param data : Data on which is applied the not door
+ * @param size : Data size.
+ */
 void logicalNot(void* data, unsigned int size);
-void logicalXor(void* data, void* data2, unsigned int dataSize, unsigned int data2Size);
+/**
+ * @brief Apply a logical xor on data1
+ * @details [long description]
+ *
+ * @param data1 : Data on which is applied the xor door.
+ * @param dataSize : data1 size.
+ * @param data2Size : data2 size.
+ */
+void logicalXor(void* data1, void* data2, unsigned int dataSize, unsigned int data2Size);
 } // mp
