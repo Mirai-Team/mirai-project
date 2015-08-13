@@ -29,7 +29,7 @@
 void mp::logicalNot(void* data, unsigned int size)
 {
     for (unsigned int i = size; i--; )
-        static_cast<char*>(data)[i] = ~static_cast<char*>(data)[i];
+        static_cast<char*>(data)[i] = static_cast<char>(~static_cast<char*>(data)[i]);
 }
 
 void mp::logicalXor(void* data, void* data2, unsigned int dataSize, unsigned int data2Size)
