@@ -22,12 +22,12 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <iostream>
-#include <fstream>
-#include <vector>
+#include <fstream> // std::fstream
+#include <vector> // std::vector
 #include <sstream>
 
-#include <boost/filesystem.hpp>
+#include <boost/filesystem.hpp> // boost::filesystem::directory_iterator,
+                                // boost::filesystem::path
 
 #include "MiraiProject/util/FilesUtilities.hpp"
 
@@ -62,4 +62,49 @@ vector<string> mp::filesUtilities::listFiles(path directory, bool recursive)
 void mp::filesUtilities::convertToUnixFilePath(std::string* filePath)
 {
     std::replace(filePath->begin(), filePath->end(), '\\', '/');
+}
+
+void mp::insertData(std::fstream* output,
+    off_t offset,
+    const void* data,
+    size_t dataSize)
+{
+    // 4 Mo buffer
+    const size_t bufferSize = 2097152;
+    char* buffer = new char[bufferSize];
+
+    output->seekg(0, std::ios::end);
+
+    size_t fileSize = output->tellg();
+
+    if (offset > static_cast<off_t>(fileSize)) {
+        delete[] buffer;
+        throw std::out_of_range("Error during insertion of data: offset is bigger than file.");
+    }
+
+    size_t bytesToMove = fileSize - offset;
+    off_t readEndOffset = fileSize;
+    size_t bytesThisTime, rdOff, wrOff;
+
+    while (bytesToMove) {
+        // It avoids filling the ram
+        bytesThisTime = std::min(bufferSize, bytesToMove);
+
+        rdOff = readEndOffset - bytesThisTime;
+        wrOff = rdOff + dataSize;
+
+        output->seekg(rdOff, std::ios::beg);
+        output->read(buffer, bytesThisTime);
+
+        output->seekg(wrOff, std::ios::beg);
+        output->write(buffer, bytesThisTime);
+
+        bytesToMove -= bytesThisTime;
+        readEndOffset -= bytesThisTime;
+
+    }
+
+    delete[] buffer;
+    output->seekg(offset, std::ios::beg);
+    output->write(static_cast<const char*>(data), dataSize);
 }

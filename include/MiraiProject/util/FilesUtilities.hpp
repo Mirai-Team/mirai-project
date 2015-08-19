@@ -25,10 +25,10 @@
 #ifndef FILE_FUNCTIONS_HPP_INCLUDED
 #define FILE_FUNCTIONS_HPP_INCLUDED
 
-#include <vector>
-#include <string>
+#include <vector> // std::vector
+#include <string> // std::string
 
-#include <boost/filesystem.hpp>
+#include <boost/filesystem.hpp> // boost::filesystem::path
 
 /** @file files_functions.hpp
  * \brief This file define various functions to manipulate files or files related data to keep a
@@ -63,6 +63,19 @@ namespace mp
              */
             static void convertToUnixFilePath(std::string* filePath);
     };
+
+    /**
+     * @brief Insert data in a file.
+     *
+     * @param output : File in which the data are written.
+     * @param offset : Where the data should be written.
+     * @param data : Data which should be written.
+     * @param dataSize : Data size.
+     */
+    void insertData(std::fstream* output,
+        off_t offset,
+        const void* data,
+        size_t dataSize);
 }
 
 #endif // FILE_FUNCTIONS_HPP_INCLUDED
