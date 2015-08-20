@@ -67,15 +67,19 @@ namespace mp
     /**
      * @brief Insert data in a file.
      *
-     * @param output : File in which the data are written.
+     * @param outputPath : File in which the data are written.
      * @param offset : Where the data should be written.
      * @param data : Data which should be written.
      * @param dataSize : Data size.
      */
-    void insertData(std::fstream* output,
-        off_t offset,
+    void insertData(const std::string& outputPath,
+        size_t offset,
         const void* data,
         size_t dataSize);
+
+    void shiftData(const std::string& filePath,
+        size_t offset,
+        int shiftOffset);
 }
 
 #endif // FILE_FUNCTIONS_HPP_INCLUDED

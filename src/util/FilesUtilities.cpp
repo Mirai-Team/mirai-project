@@ -22,9 +22,16 @@
 //
 ////////////////////////////////////////////////////////////
 
+#include <cstdio> // fread, fseek, fwrite, ftell
 #include <fstream> // std::fstream
 #include <vector> // std::vector
-#include <sstream>
+
+#if __unix__
+#include <unistd.h>
+#include <sys/types.h>
+#else
+#include <io.h>
+#endif
 
 #include <boost/filesystem.hpp> // boost::filesystem::directory_iterator,
                                 // boost::filesystem::path
@@ -64,47 +71,91 @@ void mp::filesUtilities::convertToUnixFilePath(std::string* filePath)
     std::replace(filePath->begin(), filePath->end(), '\\', '/');
 }
 
-void mp::insertData(std::fstream* output,
-    off_t offset,
+void mp::insertData(const std::string& outputPath,
+    size_t offset,
     const void* data,
     size_t dataSize)
 {
+    std::fstream output(outputPath, std::ios::in | std::ios::out | std::ios::binary | std::ios::ate);
+    size_t fileSize = output.tellg();
+
+    if (offset > fileSize)
+        throw std::out_of_range("Error during insertion of data: offset is bigger than file.");
+
+    shiftData(outputPath, offset, static_cast<int>(dataSize));
+    output.seekg(offset, std::ios::beg);
+    output.write(static_cast<const char*>(data), dataSize);
+
+    output.close();
+}
+
+void mp::shiftData(const std::string& filePath,
+    size_t offset,
+    int shiftOffset)
+{
+    // Use of C for truncate and _chsize_s functions.
+    FILE *file;
+    file = fopen(filePath.c_str(), "rb+");
+
     // 4 Mo buffer
     const size_t bufferSize = 2097152;
     char* buffer = new char[bufferSize];
 
-    output->seekg(0, std::ios::end);
+    fseek(file, 0, SEEK_END);
 
-    size_t fileSize = output->tellg();
+    size_t fileSize = ftell(file);
 
-    if (offset > static_cast<off_t>(fileSize)) {
-        delete[] buffer;
-        throw std::out_of_range("Error during insertion of data: offset is bigger than file.");
+    if (shiftOffset > 0) {
+        size_t bytesToMove = fileSize - offset,
+            readOffset,
+            readEndOffset = fileSize,
+            writeOffset,
+            bytesThisTime;
+
+        while (bytesToMove) {
+            bytesThisTime = std::min(bufferSize, bytesToMove);
+            readOffset = readEndOffset - bytesThisTime;
+            writeOffset = readOffset + shiftOffset;
+
+            fseek(file, readOffset, SEEK_SET);
+            fread(buffer, sizeof(char), bytesThisTime, file);
+
+            fseek(file, writeOffset, SEEK_SET);
+            fwrite(buffer, sizeof(char), bytesThisTime, file);
+
+            bytesToMove -= bytesThisTime;
+            readEndOffset -= bytesThisTime;
+
+        }
     }
+    else {
+        size_t bytesToMove = fileSize - offset,
+            readOffset = offset,
+            writeOffset,
+            bytesThisTime;
 
-    size_t bytesToMove = fileSize - offset;
-    off_t readEndOffset = fileSize;
-    size_t bytesThisTime, rdOff, wrOff;
+        while (bytesToMove) {
+            bytesThisTime = std::min(bufferSize, bytesToMove);
+            writeOffset = readOffset + shiftOffset;
 
-    while (bytesToMove) {
-        // It avoids filling the ram
-        bytesThisTime = std::min(bufferSize, bytesToMove);
+            fseek(file, readOffset, SEEK_SET);
+            fread(buffer, sizeof(char), bytesThisTime, file);
 
-        rdOff = readEndOffset - bytesThisTime;
-        wrOff = rdOff + dataSize;
+            fseek(file, writeOffset, SEEK_SET);
+            fwrite(buffer, sizeof(char), bytesThisTime, file);
 
-        output->seekg(rdOff, std::ios::beg);
-        output->read(buffer, bytesThisTime);
+            bytesToMove -= bytesThisTime;
+            readOffset += bytesThisTime;
 
-        output->seekg(wrOff, std::ios::beg);
-        output->write(buffer, bytesThisTime);
-
-        bytesToMove -= bytesThisTime;
-        readEndOffset -= bytesThisTime;
-
+        }
+        #if __unix__
+            truncate(filePath.c_str(), fileSize - shiftOffset);
+        #else
+            int filedes = _fileno(file);
+            _chsize_s(filedes, fileSize - shiftOffset);
+        #endif
     }
 
     delete[] buffer;
-    output->seekg(offset, std::ios::beg);
-    output->write(static_cast<const char*>(data), dataSize);
+    fclose(file);
 }
