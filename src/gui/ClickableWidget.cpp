@@ -22,7 +22,6 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <iostream>
 #include <stdexcept>
 
 #include "MiraiProject/gui/ClickableWidget.hpp"
@@ -54,49 +53,13 @@ bool mp::ClickableWidget::mouseOnWidget()
     sf::FloatRect rect(0, 0, static_cast<float>(getSize().x), static_cast<float>(getSize().y));
 
     // Order have an importance.
-    if (getTransform().transformRect(rect).contains(mousePosition_) && onNonTransparent(false))
+    if (getTransform().transformRect(rect).contains(mousePosition_) && onNonTransparent())
     {
         return true;
     }
     else
     {
         return false;
-    }
-}
-
-bool mp::ClickableWidget::onNonTransparent(bool safeMode)
-{
-    if (autoHitBox_)
-    {
-        unsigned int x = static_cast<int>(mousePosition_.x);
-        x -= static_cast<int>(Transformable::getPosition().x);
-
-        unsigned int y = static_cast<int>(mousePosition_.y);
-        y -= static_cast<int>(Transformable::getPosition().y);
-
-        if(safeMode)
-        {
-            if(x > getTexture()->getSize().x)
-                x = 0;
-
-            if(y > getTexture()->getSize().y)
-                y = 0;
-        }
-
-        sf::Color pixel_color = getTexture()->copyToImage().getPixel(x, y);
-
-        if(pixel_color != sf::Color::Transparent)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    else
-    {
-        return true;
     }
 }
 
@@ -133,3 +96,33 @@ bool mp::ClickableWidget::isReleased()
         return false;
     }
 }
+
+bool mp::ClickableWidget::onNonTransparent()
+{
+    if (autoHitBox_)
+    {
+        unsigned int x = static_cast<int>(mousePosition_.x);
+        x += static_cast<int>(getOrigin().x);
+        x -= static_cast<int>(Transformable::getPosition().x);
+
+        unsigned int y = static_cast<int>(mousePosition_.y);
+        y += static_cast<int>(getOrigin().y);
+        y -= static_cast<int>(Transformable::getPosition().y);
+
+        sf::Color pixel_color = getTexture()->copyToImage().getPixel(x, y);
+
+        if(pixel_color != sf::Color::Transparent)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return true;
+    }
+}
+

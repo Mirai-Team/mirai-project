@@ -75,3 +75,4 @@ void mp::Button::setDownTexture(const std::shared_ptr<sf::Texture> &texture)
 {
     down_ = texture;
 }
+

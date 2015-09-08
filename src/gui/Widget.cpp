@@ -71,3 +71,4 @@ void mp::Widget::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) 
 {
     target.draw(sprite_, states);
 }
+
