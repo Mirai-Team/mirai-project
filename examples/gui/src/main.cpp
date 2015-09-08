@@ -90,7 +90,6 @@ int main()
     button.setPosition(45.f, 45.f);
     button.setFunction([&textBox, &bar]() {
         textBox.setString("Mirai Project");
-        bar.setValue(180.f);
     });
     button.addFrontChild(labelNode);
     button.addFrontChild(borderNode);
@@ -185,6 +184,7 @@ int main()
 
         trackbar2.update(sf::Mouse::getPosition(window));
         trackbarLabel2->setString(mp::StringUtilities::toString(trackbar2.getValue()));
+        bar.setValue(trackbar2.getValue() * 20);
 
         window.clear(sf::Color(132, 150, 150));
 
