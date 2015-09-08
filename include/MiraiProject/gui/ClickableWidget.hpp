@@ -54,15 +54,16 @@ namespace mp
 
             virtual bool mouseOnWidget();
 
-            bool onNonTransparent(bool safeMode = true);
-
             virtual bool isPressed();
 
             virtual bool isReleased();
 
-        private:
+        protected:
+            bool onNonTransparent();
+
             bool isPressed_;
 
+        private:
             bool autoHitBox_;
 
             sf::Vector2f mousePosition_;
