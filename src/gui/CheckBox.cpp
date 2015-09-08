@@ -108,54 +108,44 @@ void mp::CheckBox::update(sf::Vector2i mousePosition)
     if(!isEnabled())
         return;
 
-    setMousePosition(sf::Vector2f(mousePosition));
+    mp::ClickableWidget::update(mousePosition);
 
-    if(isPressed() && activeDownTexture_ != nullptr)
+    if(!isPressed())
     {
-        setCurrentTexture(std::const_pointer_cast<const sf::Texture>(activeDownTexture_));
-    }
-    else if(mouseOnWidget() && activeHoverTexture_ != nullptr)
-    {
-        setCurrentTexture(std::const_pointer_cast<const sf::Texture>(activeHoverTexture_));
-    }
-    else
-    {
-        setCurrentTexture(std::const_pointer_cast<const sf::Texture>(activeTexture_));
-    }
-
-    if(isReleased())
-    {
-        onClick();
-
-        if (funct_)
-            funct_();
+        if(mouseOnWidget() && activeHoverTexture_ != nullptr)
+        {
+            setCurrentTexture(std::const_pointer_cast<const sf::Texture>(activeHoverTexture_));
+        }
+        else if (activeTexture_ != nullptr)
+        {
+            setCurrentTexture(std::const_pointer_cast<const sf::Texture>(activeTexture_));
+        }
     }
 }
 
 void mp::CheckBox::onClick()
 {
+    if (activeDownTexture_ != nullptr)
+        setCurrentTexture(std::const_pointer_cast<const sf::Texture>(activeDownTexture_));
+
     if (isChecked_)
     {
-        activeTexture_ = normalTexture_;
-
-        if (downTexture_ != nullptr)
-            activeDownTexture_ = downTexture_;
-
-        if (hoverTexture_ != nullptr)
-            activeHoverTexture_ = hoverTexture_;
-
         isChecked_ = false;
+
+        activeTexture_ = normalTexture_;
+        activeDownTexture_ = downTexture_;
+        activeHoverTexture_ = hoverTexture_;
     }
     else
     {
-        activeTexture_ = checkedTexture_;
-
-        if (downCheckedTexture_ != nullptr)
-            activeDownTexture_ = downCheckedTexture_;
-
-        if (hoverCheckedTexture_ != nullptr)
-            activeHoverTexture_ = hoverCheckedTexture_;
-
         isChecked_ = true;
+
+        activeTexture_ = checkedTexture_;
+        activeDownTexture_ = downCheckedTexture_;
+        activeHoverTexture_ = hoverCheckedTexture_;
     }
+
+    if (funct_)
+        funct_();
 }
+

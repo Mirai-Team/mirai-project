@@ -26,6 +26,7 @@
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Font.hpp>
+#include <SFML/System/Vector2.hpp>
 
 #include "MiraiProject/gui/TextBox.hpp"
 #include "MiraiProject/gui/ClickableWidget.hpp"
@@ -67,10 +68,13 @@ void mp::TextBox::update(sf::Vector2i mousePosition)
     if (!isEnabled())
         return;
 
-    setMousePosition(sf::Vector2f(mousePosition));
+    mp::ClickableWidget::update(mousePosition);
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-        click();
+    {
+        if (!isPressed())
+            focused_ = false;
+    }
 
     if (focused_)
     {
@@ -83,42 +87,6 @@ void mp::TextBox::update(sf::Vector2i mousePosition)
     else
     {
         setCurrentTexture(std::const_pointer_cast<const sf::Texture>(textureNormal_)); // Segmentation error, paske pas de texture chargée ?
-    }
-}
-
-void mp::TextBox::click()
-{
-    if (mouseOnWidget())
-    {
-        focused_ = true;
-
-        // Move cursor at mouse's position.
-        if (text_.getString().getSize())
-        {
-            size_t nearestChar = 0;
-            sf::Vector2f globalPos = getWorldPosition();
-            globalPos.y += static_cast<float>(text_.getCharacterSize() / 2);
-            float bestDistance = manathan(text_.findCharacterPos(nearestChar) + globalPos, getMousePosition());
-            for (size_t i = text_.getString().getSize(); --i; )
-            {
-                float distance = manathan(text_.findCharacterPos(i) + globalPos, getMousePosition());
-                if (distance < bestDistance)
-                {
-                    bestDistance = distance;
-                    nearestChar = i;
-                }
-            }
-
-            if (bestDistance > text_.getCharacterSize())
-                nearestChar = text_.getString().getSize();
-
-            cursorPos_ = nearestChar;
-            updateCursorPos();
-        }
-    }
-    else
-    {
-        focused_ = false;
     }
 }
 
@@ -528,6 +496,35 @@ const float& mp::TextBox::getMaxWidth() const
 const float& mp::TextBox::getMaxHeight() const
 {
     return m_maxHeight;
+}
+
+void mp::TextBox::onClick()
+{
+    focused_ = true;
+
+    // Move cursor at mouse's position.
+    if (text_.getString().getSize())
+    {
+        size_t nearestChar = 0;
+        sf::Vector2f globalPos = getWorldPosition();
+        globalPos.y += static_cast<float>(text_.getCharacterSize() / 2);
+        float bestDistance = manathan(text_.findCharacterPos(nearestChar) + globalPos, sf::Vector2f(getMousePosition()));
+        for (size_t i = text_.getString().getSize(); --i; )
+        {
+            float distance = manathan(text_.findCharacterPos(i) + globalPos, sf::Vector2f(getMousePosition()));
+            if (distance < bestDistance)
+            {
+                bestDistance = distance;
+                nearestChar = i;
+            }
+        }
+
+        if (bestDistance > text_.getCharacterSize())
+            nearestChar = text_.getString().getSize();
+
+        cursorPos_ = nearestChar;
+        updateCursorPos();
+    }
 }
 
 void mp::TextBox::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const

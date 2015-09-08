@@ -38,11 +38,11 @@ namespace mp
         public:
             ClickableWidget();
 
+            void update(sf::Vector2i mousePosition);
+
             /////////////
             // Setters //
             /////////////
-
-            void setMousePosition(sf::Vector2f position);
 
             void setAutoHitBox(bool autoMode);
 
@@ -50,23 +50,27 @@ namespace mp
             // Getters //
             /////////////
 
-            sf::Vector2f getMousePosition();
+            sf::Vector2i getMousePosition() const;
 
-            virtual bool mouseOnWidget();
+            bool isPressed() const;
 
-            virtual bool isPressed();
-
-            virtual bool isReleased();
+            virtual bool mouseOnWidget() const;
 
         protected:
-            bool onNonTransparent();
+            bool onNonTransparent() const;
 
-            bool isPressed_;
+            virtual void onClick();
+
+            virtual void onRelease();
 
         private:
+            bool isPressed_;
+
+            bool isMousePressed_;
+
             bool autoHitBox_;
 
-            sf::Vector2f mousePosition_;
+            sf::Vector2i mousePosition_;
     };
 }
 

@@ -113,7 +113,7 @@ int main()
     trackbar.setExtremPos1({ 50.f, 500.f });
     trackbar.setExtremPos2({ 300.f, 500.f });
     trackbar.setMin(10);
-    trackbar.setMax(25);
+    trackbar.setMax(20);
     trackbar.setValue(5.f);
     trackbar.setAcceptFloat(false);
 

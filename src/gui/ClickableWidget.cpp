@@ -26,16 +26,39 @@
 
 #include "MiraiProject/gui/ClickableWidget.hpp"
 
-mp::ClickableWidget::ClickableWidget() :    isPressed_ { },
-                                            autoHitBox_ { true },
-                                            mousePosition_ { }
+mp::ClickableWidget::ClickableWidget()
+    : isPressed_ { false }
+    , isMousePressed_ { false }
+    , autoHitBox_ { true }
+    , mousePosition_ { }
 {
 
 }
 
-void mp::ClickableWidget::setMousePosition(sf::Vector2f position)
+void mp::ClickableWidget::update(sf::Vector2i position)
 {
     mousePosition_ = position;
+
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+    {
+        if (mouseOnWidget() and !isMousePressed_ and !isPressed_)
+        {
+            onClick();
+            isPressed_ = true;
+        }
+
+        isMousePressed_ = true;
+    }
+    else
+    {
+        if (isPressed_)
+        {
+            onRelease();
+            isPressed_ = false;
+        }
+
+        isMousePressed_ = false;
+    }
 }
 
 void mp::ClickableWidget::setAutoHitBox(bool autoMode)
@@ -43,17 +66,22 @@ void mp::ClickableWidget::setAutoHitBox(bool autoMode)
     autoHitBox_ = autoMode;
 }
 
-sf::Vector2f mp::ClickableWidget::getMousePosition()
+sf::Vector2i mp::ClickableWidget::getMousePosition() const
 {
     return mousePosition_;
 }
 
-bool mp::ClickableWidget::mouseOnWidget()
+bool mp::ClickableWidget::isPressed() const
+{
+    return isPressed_;
+}
+
+bool mp::ClickableWidget::mouseOnWidget() const
 {
     sf::FloatRect rect(0, 0, static_cast<float>(getSize().x), static_cast<float>(getSize().y));
 
     // Order have an importance.
-    if (getTransform().transformRect(rect).contains(mousePosition_) && onNonTransparent())
+    if (getTransform().transformRect(rect).contains(sf::Vector2f(mousePosition_)) && onNonTransparent())
     {
         return true;
     }
@@ -63,41 +91,7 @@ bool mp::ClickableWidget::mouseOnWidget()
     }
 }
 
-bool mp::ClickableWidget::isPressed()
-{
-    if (mouseOnWidget() && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-    {
-        isPressed_ = true;
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-bool mp::ClickableWidget::isReleased()
-{
-    if (isPressed_ && !isPressed())
-    {
-        isPressed_ = false;
-
-        if(mouseOnWidget())
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    else
-    {
-        return false;
-    }
-}
-
-bool mp::ClickableWidget::onNonTransparent()
+bool mp::ClickableWidget::onNonTransparent() const
 {
     if (autoHitBox_)
     {
@@ -124,5 +118,13 @@ bool mp::ClickableWidget::onNonTransparent()
     {
         return true;
     }
+}
+
+void mp::ClickableWidget::onClick()
+{
+}
+
+void mp::ClickableWidget::onRelease()
+{
 }
 

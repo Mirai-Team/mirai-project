@@ -61,8 +61,6 @@ namespace mp
 
             void update(const sf::Vector2i mousePosition);
 
-            void click();
-
             /////////////
             // Setters //
             /////////////
@@ -148,6 +146,8 @@ namespace mp
             const float& getMaxHeight() const;
 
         private:
+            virtual void onClick();
+
             virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
             void updateCursorSize();

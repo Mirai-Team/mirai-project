@@ -46,7 +46,7 @@ void mp::TrackBar::update(const sf::Vector2i& mousePosition)
     if (!isEnabled())
         return;
 
-    setMousePosition(sf::Vector2f(mousePosition));
+    mp::ClickableWidget::update(mousePosition);
 
     if (isPressed()) {
         setCurrentTexture(std::const_pointer_cast<const sf::Texture>(m_down));

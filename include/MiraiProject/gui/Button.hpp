@@ -50,6 +50,9 @@ namespace mp
 
             virtual void setDownTexture(const std::shared_ptr<sf::Texture> &texture);
         private:
+            virtual void onClick();
+
+            virtual void onRelease();
 
             std::function<void()> funct_;
 

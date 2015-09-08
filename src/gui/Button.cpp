@@ -24,36 +24,33 @@
 
 #include "MiraiProject/gui/Button.hpp"
 
-mp::Button::Button() :  funct_ { },
-                        normal_ { },
-                        hover_ { },
-                        down_ { }
+mp::Button::Button()
+    : funct_ { nullptr }
+    , normal_ { }
+    , hover_ { }
+    , down_ { }
 {
 
 }
 
 void mp::Button::update(sf::Vector2i mousePosition)
 {
-    if(!isEnabled())
+    if (!isEnabled())
         return;
 
-    setMousePosition(sf::Vector2f(mousePosition));
+    mp::ClickableWidget::update(mousePosition);
 
-    if(isPressed())
+    if (!isPressed())
     {
-        setCurrentTexture(std::const_pointer_cast<const sf::Texture>(down_));
+        if(mouseOnWidget())
+        {
+            setCurrentTexture(std::const_pointer_cast<const sf::Texture>(hover_));
+        }
+        else
+        {
+            setCurrentTexture(std::const_pointer_cast<const sf::Texture>(normal_));
+        }
     }
-    else if(mouseOnWidget())
-    {
-        setCurrentTexture(std::const_pointer_cast<const sf::Texture>(hover_));
-    }
-    else
-    {
-        setCurrentTexture(std::const_pointer_cast<const sf::Texture>(normal_));
-    }
-
-    if(isReleased())
-        funct_();
 }
 
 void mp::Button::setFunction(std::function<void()> funct)
@@ -74,5 +71,15 @@ void mp::Button::setHoverTexture(const std::shared_ptr<sf::Texture> &texture)
 void mp::Button::setDownTexture(const std::shared_ptr<sf::Texture> &texture)
 {
     down_ = texture;
+}
+
+void mp::Button::onClick()
+{
+    setCurrentTexture(std::const_pointer_cast<const sf::Texture>(down_));
+}
+
+void mp::Button::onRelease()
+{
+    funct_();
 }
 

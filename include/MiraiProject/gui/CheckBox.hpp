@@ -57,10 +57,8 @@ namespace mp
 
             void update(sf::Vector2i mousePosition);
 
-        protected:
-            virtual void onClick();
-
         private:
+            virtual void onClick();
 
             bool isChecked_;
 
