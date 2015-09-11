@@ -71,6 +71,8 @@ namespace mp
     private:
         void                update();
 
+        void                updateRatio();
+
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
         float               ratio_;

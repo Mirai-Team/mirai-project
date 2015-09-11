@@ -52,7 +52,6 @@ void mp::Bar::setTexture(const std::shared_ptr<sf::Texture>& texture)
     update();
 }
 
-
 void mp::Bar::setOrientation(Bar::Orientation orientation)
 {
     orientation_ = orientation;
@@ -64,9 +63,15 @@ void mp::Bar::setRatio(float ratio)
     ratio_ = ratio;
 
     if (ratio > 1.f)
-        ratio_ = 1;
-    else if (ratio <= 0.f)
+    {
+        ratio_ = 1.f;
+    }
+    else if (ratio < 0.f)
+    {
         ratio_ = 0.f;
+    }
+
+    value_ = ratio_ * (max_ - min_);
 
     update();
 }
@@ -75,40 +80,45 @@ void mp::Bar::setValue(float value)
 {
     value_ = value;
 
-    if (floatEqual(min_, value_))
-        ratio_ = 0;
-    else
-        ratio_ = value_ / (max_ - min_);
+    if (value_ > max_)
+    {
+        value_ = max_;
+    }
+    else if (value_ < min_)
+    {
+        value_ = min_;
+    }
 
+    updateRatio();
     update();
 }
 
 void mp::Bar::setMin(float value)
 {
+    // Seg fault possible si max_ = min_.
     min_ = value;
 
-    if (floatEqual(min_, value_))
-        ratio_ = 0;
-    else
-        ratio_ = value_ / (max_ - min_);
+    if (value_ < min_)
+        setValue(min_);
 
+    updateRatio();
     update();
 }
 void mp::Bar::setMax(float value)
 {
     max_ = value;
 
-    if (floatEqual(min_, value_))
-        ratio_ = 0;
-    else
-        ratio_ = value_ / (max_ - min_);
+    if (value_ > max_)
+        setValue(max_);
 
+    updateRatio();
     update();
 }
 
 void mp::Bar::setSize(sf::Vector2u size)
 {
     Widget::setSize(size);
+    updateRatio();
     update();
 }
 
@@ -150,7 +160,14 @@ void mp::Bar::update()
         fillsprite_.setTextureRect(sf::IntRect(0,0, getSize().x, fillPart_));
     }
 }
+
+void mp::Bar::updateRatio()
+{
+    ratio_ = value_ / (max_ - min_);
+}
+
 void mp::Bar::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.draw(fillsprite_, states);
 }
+
